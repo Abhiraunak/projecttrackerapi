@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
 }
 
 datasource db {
@@ -12,6 +13,12 @@ enum Role {
   ADMIN
 }
 
+enum ProjectStatus {
+  ONGOING
+  COMPLETED
+  ARCHIVED
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -19,4 +26,38 @@ model User {
   role         Role     @default(USER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  projects Project[]
+}
+
+model Project {
+  id        String        @id @default(cuid())
+  title     String
+  status    ProjectStatus @default(ONGOING)
+  ownerId   String
+  owner     User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks     Task[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([ownerId, status, updatedAt])
+}
+
+model Task {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  work           String
+  area           Float
+  contractorRate Float
+  inHouseRate    Float
+  stipulated     Decimal  @db.Decimal(14, 2)
+  paid           Decimal  @default(0) @db.Decimal(14, 2)
+  progress       Int      @default(0)
+  startDate      DateTime @db.Date
+  endDate        DateTime @db.Date
+  position       Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([projectId, position])
 }
