@@ -12,6 +12,7 @@ import { corsOptions } from './config/cors.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 import authRoutes from './modules/auth/auth.routes.js';
 import projectRoutes from './modules/projects/projects.routes.js';
+import attendanceRoutes from './modules/attendance/attendance.routes.js';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(compression());
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/projects', projectRoutes);
+app.use('/api/v1/attendance', attendanceRoutes);
 
 app.use(notFound);
 app.use(errorHandler);   // must be last

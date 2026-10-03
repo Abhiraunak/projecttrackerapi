@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Project: 'Project',
-  Task: 'Task'
+  Task: 'Task',
+  Attendance: 'Attendance',
+  AttendanceWorker: 'AttendanceWorker'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -114,6 +116,33 @@ export const TaskScalarFieldEnum = {
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  ownerId: 'ownerId',
+  contractorName: 'contractorName',
+  date: 'date',
+  extras: 'extras',
+  notes: 'notes',
+  totalAmount: 'totalAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const AttendanceWorkerScalarFieldEnum = {
+  id: 'id',
+  attendanceId: 'attendanceId',
+  label: 'label',
+  amount: 'amount',
+  position: 'position'
+} as const
+
+export type AttendanceWorkerScalarFieldEnum = (typeof AttendanceWorkerScalarFieldEnum)[keyof typeof AttendanceWorkerScalarFieldEnum]
 
 
 export const SortOrder = {

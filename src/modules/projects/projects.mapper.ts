@@ -1,4 +1,5 @@
-import type { Project, Task } from "@prisma/client";
+
+import { Project, Task } from "../../generated/prisma/client.js";
 import type { TaskBody } from "./projects.schema.js";
 
 type ProjectWithTasks = Project & { tasks: Task[] };
@@ -44,7 +45,7 @@ export const projectDto = (p: ProjectWithTasks) => ({
 });
 
 /** Lightweight shape for the project cards */
-export function summaryDto(p: ProjectWithTasks) {
+export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }) {
   const tasks = p.tasks.map(taskDto);
   const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
   const paid = tasks.reduce((s, t) => s + t.paid, 0);
@@ -62,6 +63,7 @@ export function summaryDto(p: ProjectWithTasks) {
     title: p.title,
     status: p.status,
     taskCount: tasks.length,
+    attendanceCount: p._count?.attendance ?? 0,
     budget,
     paid,
     progress: Math.round(progress),

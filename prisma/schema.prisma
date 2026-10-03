@@ -27,6 +27,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   projects Project[]
+  attendance Attendance[]
 }
 
 model Project {
@@ -38,6 +39,7 @@ model Project {
   tasks     Task[]
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  attendance Attendance[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -60,4 +62,34 @@ model Task {
   updatedAt      DateTime @updatedAt
 
   @@index([projectId, position])
+}
+
+model Attendance {
+  id             String             @id @default(cuid())
+  projectId      String
+  project        Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  ownerId        String
+  owner          User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  contractorName String
+  date           DateTime           @db.Date
+  extras         Decimal            @default(0) @db.Decimal(14, 2)
+  notes          String             @default("")
+  totalAmount    Decimal            @db.Decimal(14, 2) // always computed on the server
+  workers        AttendanceWorker[]
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@index([ownerId, createdAt(sort: Desc)])
+  @@index([projectId, createdAt(sort: Desc)])
+}
+
+model AttendanceWorker {
+  id           String     @id @default(cuid())
+  attendanceId String
+  attendance   Attendance @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+  label        String
+  amount       Decimal    @db.Decimal(14, 2)
+  position     Int        @default(0)
+
+  @@index([attendanceId, position])
 }

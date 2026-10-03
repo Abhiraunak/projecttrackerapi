@@ -1,20 +1,27 @@
 import type { Request, Response } from "express";
 import { prisma } from "../../lib/prisma.js";
-import { HttpError } from "../../lib/error.js";
-import { projectDto, summaryDto, taskData, taskDto } from "./projects.mapper.js";
-import { CreateBody, PatchProjectBody, PatchTaskBody, UpdateBody, statusEnum } from "./projects.schema.js";
 
+import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
+import {
+  statusEnum,
+  type CreateBody,
+  type UpdateBody,
+  type PatchProjectBody,
+  type PatchTaskBody,
+} from "./projects.schema.js";
+import { HttpError } from "../../lib/error.js";
+// import { any } from "zod";
 
 const withTasks = { tasks: { orderBy: { position: "asc" } } } as const;
 
 // Every query is scoped to the signed-in user, so one user can never read or change another's project (IDOR)
-const uid = (req: Request) => req.user!.sub;
+const uid = (req: Pick<Request, "user">) => req.user!.sub;
 
 export async function list(req: Request, res: Response) {
   const status = statusEnum.safeParse(req.query.status);
   const projects = await prisma.project.findMany({
     where: { ownerId: uid(req), status: status.success ? status.data : { not: "ARCHIVED" } },
-    include: withTasks,
+    include: { ...withTasks, _count: { select: { attendance: true } } },
     orderBy: { updatedAt: "desc" },
     take: 100,
   });

@@ -56,3 +56,13 @@ export type Project = Prisma.ProjectModel
  * 
  */
 export type Task = Prisma.TaskModel
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = Prisma.AttendanceModel
+/**
+ * Model AttendanceWorker
+ * 
+ */
+export type AttendanceWorker = Prisma.AttendanceWorkerModel
