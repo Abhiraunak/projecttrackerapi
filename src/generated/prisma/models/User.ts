@@ -192,6 +192,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   projects?: Prisma.ProjectListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -203,6 +204,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   projects?: Prisma.ProjectOrderByRelationAggregateInput
   attendance?: Prisma.AttendanceOrderByRelationAggregateInput
+  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -217,6 +219,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   projects?: Prisma.ProjectListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -252,6 +255,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -263,6 +267,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -274,6 +279,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -285,6 +291,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -358,6 +365,20 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutRefreshTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput
+  upsert?: Prisma.UserUpsertWithoutRefreshTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
+}
+
 export type UserCreateNestedOneWithoutProjectsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProjectsInput, Prisma.UserUncheckedCreateWithoutProjectsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectsInput
@@ -386,6 +407,66 @@ export type UserUpdateOneRequiredWithoutAttendanceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttendanceInput, Prisma.UserUpdateWithoutAttendanceInput>, Prisma.UserUncheckedUpdateWithoutAttendanceInput>
 }
 
+export type UserCreateWithoutRefreshTokensInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutRefreshTokensInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutRefreshTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
+}
+
+export type UserUpsertWithoutRefreshTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
+}
+
+export type UserUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
 export type UserCreateWithoutProjectsInput = {
   id?: string
   email: string
@@ -394,6 +475,7 @@ export type UserCreateWithoutProjectsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectsInput = {
@@ -404,6 +486,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectsInput = {
@@ -430,6 +513,7 @@ export type UserUpdateWithoutProjectsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -440,6 +524,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttendanceInput = {
@@ -450,6 +535,7 @@ export type UserCreateWithoutAttendanceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttendanceInput = {
@@ -460,6 +546,7 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttendanceInput = {
@@ -486,6 +573,7 @@ export type UserUpdateWithoutAttendanceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendanceInput = {
@@ -496,6 +584,7 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -506,11 +595,13 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
 export type UserCountOutputType = {
   projects: number
   attendance: number
+  refreshTokens: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   projects?: boolean | UserCountOutputTypeCountProjectsArgs
   attendance?: boolean | UserCountOutputTypeCountAttendanceArgs
+  refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
 }
 
 /**
@@ -537,6 +628,13 @@ export type UserCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types
   where?: Prisma.AttendanceWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -547,6 +645,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   attendance?: boolean | Prisma.User$attendanceArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -581,6 +680,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   attendance?: boolean | Prisma.User$attendanceArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -591,6 +691,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     projects: Prisma.$ProjectPayload<ExtArgs>[]
     attendance: Prisma.$AttendancePayload<ExtArgs>[]
+    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -995,6 +1096,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   projects<T extends Prisma.User$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendance<T extends Prisma.User$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1468,6 +1570,30 @@ export type User$attendanceArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
+}
+
+/**
+ * User.refreshTokens
+ */
+export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
 }
 
 /**

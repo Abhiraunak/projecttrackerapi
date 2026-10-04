@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  RefreshToken: 'RefreshToken',
   Project: 'Project',
   Task: 'Task',
   Attendance: 'Attendance',
@@ -84,6 +85,23 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  familyId: 'familyId',
+  tokenHash: 'tokenHash',
+  authTime: 'authTime',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  revokedAt: 'revokedAt',
+  userAgent: 'userAgent',
+  ip: 'ip',
+  createdAt: 'createdAt'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
 export const ProjectScalarFieldEnum = {
@@ -159,4 +177,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

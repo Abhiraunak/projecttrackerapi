@@ -7,19 +7,15 @@ const worker = z.object({
 });
 const fields = {
     contractorName: z.string().trim().min(1).max(120),
-    date: z.string().date(), // Validates strictly against "YYYY-MM-DD"
+    date: z.iso.date(), // "YYYY-MM-DD"
     workers: z.array(worker).min(1).max(100),
     extras: amount.default(0),
     notes: z.string().trim().max(500).default(""),
 };
-// 1. Export the schemas directly for req.body validation
-export const createBodySchema = z.object({
-    projectId: z.string().min(1).max(64),
-    ...fields
+export const createAttendanceSchema = z.object({
+    body: z.object({ projectId: z.string().min(1).max(64), ...fields }),
 });
-export const updateBodySchema = z.object({
-    ...fields
-}); // a record can't move to another project
+export const updateAttendanceSchema = z.object({ body: z.object(fields) }); // a record can't move to another project
 /** req.query is read-only in Express 5, so the controller parses it directly */
 export const listQuerySchema = z.object({
     projectId: z.string().min(1).max(64).optional(),

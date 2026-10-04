@@ -28,7 +28,28 @@ model User {
   updatedAt    DateTime @updatedAt
   projects Project[]
   attendance Attendance[]
+  refreshTokens RefreshToken[]
 }
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  familyId  String    // one login = one family; if an old token is replayed, the whole family is revoked
+  tokenHash String    @unique // SHA-256 of the token. The raw token is never stored.
+  authTime  DateTime  // when the user really typed their password; carried through every rotation
+  expiresAt DateTime
+  usedAt    DateTime? // set when this token has been exchanged for a new one
+  revokedAt DateTime?
+  userAgent String?
+  ip        String?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([familyId])
+  @@index([expiresAt])
+}
+
 
 model Project {
   id        String        @id @default(cuid())

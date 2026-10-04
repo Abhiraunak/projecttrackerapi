@@ -5,6 +5,7 @@ import { HttpError } from '../lib/error.js';
 
 const allowed = env.CORS_ORIGINS.split(',').map((o) => o.trim());
 
+
 export const corsOptions: CorsOptions = {
   origin(origin, cb) {
     // No Origin header = curl / server-to-server / same-origin
@@ -13,6 +14,6 @@ export const corsOptions: CorsOptions = {
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   maxAge: 600,
 };
