@@ -12,12 +12,16 @@ import { notFound, errorHandler } from './middleware/errorHandler.js';
 import authRoutes from './modules/auth/auth.routes.js';
 import projectRoutes from './modules/projects/projects.routes.js';
 import attendanceRoutes from './modules/attendance/attendance.routes.js';
+import { env } from './config/env.js';
+import { requireCsrfHeader } from './middleware/csrf.js';
 const app = express();
 app.set('trust proxy', 1); // behind Nginx/ALB/Render etc., so rate limiting sees real IPs
 app.disable('x-powered-by');
 app.use(pinoHttp({ logger }));
 app.use(helmet()); // CSP, HSTS, noSniff, frameguard...
 app.use(cors(corsOptions));
+if (env.COOKIE_SAMESITE === 'none')
+    app.use(requireCsrfHeader);
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: 'draft-7', legacyHeaders: false }));
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));

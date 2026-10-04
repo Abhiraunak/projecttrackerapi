@@ -4,9 +4,13 @@ import { prisma } from "../../lib/prisma.js";
 import { endAllSessions, endSession, refreshSession, startSession } from "../../lib/session.js";
 import type { Credentials } from "./auth.schema.js";
 
+type NoParams = Record<string, string>;
+type CredentialsRequest = Request<NoParams, unknown, Credentials>;
+
 const publicUser = (u: { id: string; email: string; role: string }) => ({ id: u.id, email: u.email, role: u.role });
 
-export async function register(req: Request<unknown, unknown, Credentials>, res: Response) {
+
+export async function register(req: CredentialsRequest, res: Response) {
   const { email, password } = req.body;
   const passwordHash = await argon2.hash(password);
   const user = await prisma.user.create({
@@ -16,7 +20,7 @@ export async function register(req: Request<unknown, unknown, Credentials>, res:
   res.status(201).json({ user });
 }
 
-export async function login(req: Request<unknown, unknown, Credentials>, res: Response) {
+export async function login(req: CredentialsRequest, res: Response) {
   const { email, password } = req.body;
   const user = await prisma.user.findUnique({ where: { email } });
   const ok = user && (await argon2.verify(user.passwordHash, password));
