@@ -47,3 +47,13 @@ export type Attendance = Prisma.AttendanceModel
  * 
  */
 export type AttendanceWorker = Prisma.AttendanceWorkerModel
+/**
+ * Model Drawing
+ * 
+ */
+export type Drawing = Prisma.DrawingModel
+/**
+ * Model DrawingShare
+ * 
+ */
+export type DrawingShare = Prisma.DrawingShareModel

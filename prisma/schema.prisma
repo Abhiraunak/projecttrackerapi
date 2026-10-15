@@ -20,24 +20,26 @@ enum ProjectStatus {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(USER)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  projects Project[]
-  attendance Attendance[]
+  id            String         @id @default(cuid())
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  projects      Project[]
+  attendance    Attendance[]
   refreshTokens RefreshToken[]
+  drawings      Drawing[]
+  drawingShares DrawingShare[]
 }
 
 model RefreshToken {
   id        String    @id @default(cuid())
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  familyId  String    // one login = one family; if an old token is replayed, the whole family is revoked
+  familyId  String // one login = one family; if an old token is replayed, the whole family is revoked
   tokenHash String    @unique // SHA-256 of the token. The raw token is never stored.
-  authTime  DateTime  // when the user really typed their password; carried through every rotation
+  authTime  DateTime // when the user really typed their password; carried through every rotation
   expiresAt DateTime
   usedAt    DateTime? // set when this token has been exchanged for a new one
   revokedAt DateTime?
@@ -50,16 +52,15 @@ model RefreshToken {
   @@index([expiresAt])
 }
 
-
 model Project {
-  id        String        @id @default(cuid())
-  title     String
-  status    ProjectStatus @default(ONGOING)
-  ownerId   String
-  owner     User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  tasks     Task[]
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id         String        @id @default(cuid())
+  title      String
+  status     ProjectStatus @default(ONGOING)
+  ownerId    String
+  owner      User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks      Task[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
   attendance Attendance[]
 
   @@index([ownerId, status, updatedAt])
@@ -113,4 +114,37 @@ model AttendanceWorker {
   position     Int        @default(0)
 
   @@index([attendanceId, position])
+}
+
+model Drawing {
+  id          String @id @default(cuid())
+  ownerId     String
+  owner       User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  title       String
+  description String @default("")
+
+  // The image itself lives on Cloudinary. We keep only its reference and a few facts about it.
+  publicId String @unique // Cloudinary's id: builds the links and deletes the file
+  version  Int // changes if the file is ever replaced, so cached links stay correct
+  format   String // png, jpg, webp, gif
+  bytes    Int
+  width    Int
+  height   Int
+
+  shares    DrawingShare[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([ownerId, createdAt(sort: Desc)])
+}
+
+model DrawingShare {
+  drawingId String
+  drawing   Drawing  @relation(fields: [drawingId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([drawingId, userId])
+  @@index([userId, createdAt(sort: Desc)])
 }

@@ -56,7 +56,9 @@ export const ModelName = {
   Project: 'Project',
   Task: 'Task',
   Attendance: 'Attendance',
-  AttendanceWorker: 'AttendanceWorker'
+  AttendanceWorker: 'AttendanceWorker',
+  Drawing: 'Drawing',
+  DrawingShare: 'DrawingShare'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -161,6 +163,33 @@ export const AttendanceWorkerScalarFieldEnum = {
 } as const
 
 export type AttendanceWorkerScalarFieldEnum = (typeof AttendanceWorkerScalarFieldEnum)[keyof typeof AttendanceWorkerScalarFieldEnum]
+
+
+export const DrawingScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  title: 'title',
+  description: 'description',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  bytes: 'bytes',
+  width: 'width',
+  height: 'height',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DrawingScalarFieldEnum = (typeof DrawingScalarFieldEnum)[keyof typeof DrawingScalarFieldEnum]
+
+
+export const DrawingShareScalarFieldEnum = {
+  drawingId: 'drawingId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type DrawingShareScalarFieldEnum = (typeof DrawingShareScalarFieldEnum)[keyof typeof DrawingShareScalarFieldEnum]
 
 
 export const SortOrder = {

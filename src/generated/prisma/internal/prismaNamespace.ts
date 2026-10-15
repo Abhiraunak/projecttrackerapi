@@ -402,7 +402,9 @@ export const ModelName = {
   Project: 'Project',
   Task: 'Task',
   Attendance: 'Attendance',
-  AttendanceWorker: 'AttendanceWorker'
+  AttendanceWorker: 'AttendanceWorker',
+  Drawing: 'Drawing',
+  DrawingShare: 'DrawingShare'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker"
+    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -866,6 +868,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Drawing: {
+      payload: Prisma.$DrawingPayload<ExtArgs>
+      fields: Prisma.DrawingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DrawingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DrawingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>
+        }
+        findFirst: {
+          args: Prisma.DrawingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DrawingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>
+        }
+        findMany: {
+          args: Prisma.DrawingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>[]
+        }
+        create: {
+          args: Prisma.DrawingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>
+        }
+        createMany: {
+          args: Prisma.DrawingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DrawingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>[]
+        }
+        delete: {
+          args: Prisma.DrawingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>
+        }
+        update: {
+          args: Prisma.DrawingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>
+        }
+        deleteMany: {
+          args: Prisma.DrawingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DrawingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DrawingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>[]
+        }
+        upsert: {
+          args: Prisma.DrawingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingPayload>
+        }
+        aggregate: {
+          args: Prisma.DrawingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDrawing>
+        }
+        groupBy: {
+          args: Prisma.DrawingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DrawingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DrawingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DrawingCountAggregateOutputType> | number
+        }
+      }
+    }
+    DrawingShare: {
+      payload: Prisma.$DrawingSharePayload<ExtArgs>
+      fields: Prisma.DrawingShareFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DrawingShareFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DrawingShareFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>
+        }
+        findFirst: {
+          args: Prisma.DrawingShareFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DrawingShareFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>
+        }
+        findMany: {
+          args: Prisma.DrawingShareFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>[]
+        }
+        create: {
+          args: Prisma.DrawingShareCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>
+        }
+        createMany: {
+          args: Prisma.DrawingShareCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DrawingShareCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>[]
+        }
+        delete: {
+          args: Prisma.DrawingShareDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>
+        }
+        update: {
+          args: Prisma.DrawingShareUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>
+        }
+        deleteMany: {
+          args: Prisma.DrawingShareDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DrawingShareUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DrawingShareUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>[]
+        }
+        upsert: {
+          args: Prisma.DrawingShareUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DrawingSharePayload>
+        }
+        aggregate: {
+          args: Prisma.DrawingShareAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDrawingShare>
+        }
+        groupBy: {
+          args: Prisma.DrawingShareGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DrawingShareGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DrawingShareCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DrawingShareCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -991,6 +1141,33 @@ export const AttendanceWorkerScalarFieldEnum = {
 } as const
 
 export type AttendanceWorkerScalarFieldEnum = (typeof AttendanceWorkerScalarFieldEnum)[keyof typeof AttendanceWorkerScalarFieldEnum]
+
+
+export const DrawingScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  title: 'title',
+  description: 'description',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  bytes: 'bytes',
+  width: 'width',
+  height: 'height',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DrawingScalarFieldEnum = (typeof DrawingScalarFieldEnum)[keyof typeof DrawingScalarFieldEnum]
+
+
+export const DrawingShareScalarFieldEnum = {
+  drawingId: 'drawingId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type DrawingShareScalarFieldEnum = (typeof DrawingShareScalarFieldEnum)[keyof typeof DrawingShareScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1277,6 +1454,8 @@ export type GlobalOmitConfig = {
   task?: Prisma.TaskOmit
   attendance?: Prisma.AttendanceOmit
   attendanceWorker?: Prisma.AttendanceWorkerOmit
+  drawing?: Prisma.DrawingOmit
+  drawingShare?: Prisma.DrawingShareOmit
 }
 
 /* Types for Logging */

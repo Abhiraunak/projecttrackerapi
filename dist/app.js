@@ -12,6 +12,8 @@ import { notFound, errorHandler } from './middleware/errorHandler.js';
 import authRoutes from './modules/auth/auth.routes.js';
 import projectRoutes from './modules/projects/projects.routes.js';
 import attendanceRoutes from './modules/attendance/attendance.routes.js';
+import drawingRoutes from './modules/drawings/drawings.routes.js';
+import userRoutes from './modules/users/users.routes.js';
 import { env } from './config/env.js';
 import { requireCsrfHeader } from './middleware/csrf.js';
 const app = express();
@@ -32,6 +34,8 @@ app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
+app.use('/api/v1/drawings', drawingRoutes);
+app.use('/api/v1/users', userRoutes);
 app.use(notFound);
 app.use(errorHandler); // must be last
 const PORT = process.env.PORT || 4000;

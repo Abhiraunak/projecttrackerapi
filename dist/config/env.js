@@ -4,6 +4,10 @@ const schema = z.object({
     PORT: z.coerce.number().default(4000),
     DATABASE_URL: z.string().min(1),
     JWT_ACCESS_SECRET: z.string().min(32, 'use a long random secret'),
+    CLOUDINARY_CLOUD_NAME: z.string().min(1),
+    CLOUDINARY_API_KEY: z.string().min(1),
+    CLOUDINARY_API_SECRET: z.string().min(1),
+    CLOUDINARY_FOLDER: z.string().default("construction-app/drawings"),
     CORS_ORIGINS: z.string().default('http://localhost:3000'), // comma-separated
     ACCESS_TOKEN_TTL_MINUTES: z.coerce.number().int().min(1).max(120).default(15),
     REFRESH_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(90).default(30),

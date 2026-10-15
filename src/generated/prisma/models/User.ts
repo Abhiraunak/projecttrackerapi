@@ -193,6 +193,8 @@ export type UserWhereInput = {
   projects?: Prisma.ProjectListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  drawings?: Prisma.DrawingListRelationFilter
+  drawingShares?: Prisma.DrawingShareListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -205,6 +207,8 @@ export type UserOrderByWithRelationInput = {
   projects?: Prisma.ProjectOrderByRelationAggregateInput
   attendance?: Prisma.AttendanceOrderByRelationAggregateInput
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  drawings?: Prisma.DrawingOrderByRelationAggregateInput
+  drawingShares?: Prisma.DrawingShareOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -220,6 +224,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   projects?: Prisma.ProjectListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  drawings?: Prisma.DrawingListRelationFilter
+  drawingShares?: Prisma.DrawingShareListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -256,6 +262,8 @@ export type UserCreateInput = {
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -268,6 +276,8 @@ export type UserUncheckedCreateInput = {
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -280,6 +290,8 @@ export type UserUpdateInput = {
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -292,6 +304,8 @@ export type UserUncheckedUpdateInput = {
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -407,6 +421,34 @@ export type UserUpdateOneRequiredWithoutAttendanceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttendanceInput, Prisma.UserUpdateWithoutAttendanceInput>, Prisma.UserUncheckedUpdateWithoutAttendanceInput>
 }
 
+export type UserCreateNestedOneWithoutDrawingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDrawingsInput, Prisma.UserUncheckedCreateWithoutDrawingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDrawingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDrawingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDrawingsInput, Prisma.UserUncheckedCreateWithoutDrawingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDrawingsInput
+  upsert?: Prisma.UserUpsertWithoutDrawingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDrawingsInput, Prisma.UserUpdateWithoutDrawingsInput>, Prisma.UserUncheckedUpdateWithoutDrawingsInput>
+}
+
+export type UserCreateNestedOneWithoutDrawingSharesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDrawingSharesInput, Prisma.UserUncheckedCreateWithoutDrawingSharesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDrawingSharesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDrawingSharesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDrawingSharesInput, Prisma.UserUncheckedCreateWithoutDrawingSharesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDrawingSharesInput
+  upsert?: Prisma.UserUpsertWithoutDrawingSharesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDrawingSharesInput, Prisma.UserUpdateWithoutDrawingSharesInput>, Prisma.UserUncheckedUpdateWithoutDrawingSharesInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
@@ -416,6 +458,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -427,6 +471,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -454,6 +500,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -465,6 +513,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProjectsInput = {
@@ -476,6 +526,8 @@ export type UserCreateWithoutProjectsInput = {
   updatedAt?: Date | string
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectsInput = {
@@ -487,6 +539,8 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   updatedAt?: Date | string
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectsInput = {
@@ -514,6 +568,8 @@ export type UserUpdateWithoutProjectsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -525,6 +581,8 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttendanceInput = {
@@ -536,6 +594,8 @@ export type UserCreateWithoutAttendanceInput = {
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttendanceInput = {
@@ -547,6 +607,8 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttendanceInput = {
@@ -574,6 +636,8 @@ export type UserUpdateWithoutAttendanceInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendanceInput = {
@@ -585,6 +649,144 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDrawingsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDrawingsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDrawingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDrawingsInput, Prisma.UserUncheckedCreateWithoutDrawingsInput>
+}
+
+export type UserUpsertWithoutDrawingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDrawingsInput, Prisma.UserUncheckedUpdateWithoutDrawingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDrawingsInput, Prisma.UserUncheckedCreateWithoutDrawingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDrawingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDrawingsInput, Prisma.UserUncheckedUpdateWithoutDrawingsInput>
+}
+
+export type UserUpdateWithoutDrawingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDrawingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDrawingSharesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutDrawingSharesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutDrawingSharesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDrawingSharesInput, Prisma.UserUncheckedCreateWithoutDrawingSharesInput>
+}
+
+export type UserUpsertWithoutDrawingSharesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDrawingSharesInput, Prisma.UserUncheckedUpdateWithoutDrawingSharesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDrawingSharesInput, Prisma.UserUncheckedCreateWithoutDrawingSharesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDrawingSharesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDrawingSharesInput, Prisma.UserUncheckedUpdateWithoutDrawingSharesInput>
+}
+
+export type UserUpdateWithoutDrawingSharesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDrawingSharesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 
@@ -596,12 +798,16 @@ export type UserCountOutputType = {
   projects: number
   attendance: number
   refreshTokens: number
+  drawings: number
+  drawingShares: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   projects?: boolean | UserCountOutputTypeCountProjectsArgs
   attendance?: boolean | UserCountOutputTypeCountAttendanceArgs
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+  drawings?: boolean | UserCountOutputTypeCountDrawingsArgs
+  drawingShares?: boolean | UserCountOutputTypeCountDrawingSharesArgs
 }
 
 /**
@@ -635,6 +841,20 @@ export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Ty
   where?: Prisma.RefreshTokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDrawingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DrawingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDrawingSharesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DrawingShareWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -646,6 +866,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   attendance?: boolean | Prisma.User$attendanceArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  drawings?: boolean | Prisma.User$drawingsArgs<ExtArgs>
+  drawingShares?: boolean | Prisma.User$drawingSharesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -681,6 +903,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   attendance?: boolean | Prisma.User$attendanceArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  drawings?: boolean | Prisma.User$drawingsArgs<ExtArgs>
+  drawingShares?: boolean | Prisma.User$drawingSharesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -692,6 +916,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     projects: Prisma.$ProjectPayload<ExtArgs>[]
     attendance: Prisma.$AttendancePayload<ExtArgs>[]
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    drawings: Prisma.$DrawingPayload<ExtArgs>[]
+    drawingShares: Prisma.$DrawingSharePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1097,6 +1323,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   projects<T extends Prisma.User$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendance<T extends Prisma.User$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  drawings<T extends Prisma.User$drawingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$drawingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  drawingShares<T extends Prisma.User$drawingSharesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$drawingSharesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1594,6 +1822,54 @@ export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
+}
+
+/**
+ * User.drawings
+ */
+export type User$drawingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Drawing
+   */
+  select?: Prisma.DrawingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Drawing
+   */
+  omit?: Prisma.DrawingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DrawingInclude<ExtArgs> | null
+  where?: Prisma.DrawingWhereInput
+  orderBy?: Prisma.DrawingOrderByWithRelationInput | Prisma.DrawingOrderByWithRelationInput[]
+  cursor?: Prisma.DrawingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DrawingScalarFieldEnum | Prisma.DrawingScalarFieldEnum[]
+}
+
+/**
+ * User.drawingShares
+ */
+export type User$drawingSharesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DrawingShare
+   */
+  select?: Prisma.DrawingShareSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DrawingShare
+   */
+  omit?: Prisma.DrawingShareOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DrawingShareInclude<ExtArgs> | null
+  where?: Prisma.DrawingShareWhereInput
+  orderBy?: Prisma.DrawingShareOrderByWithRelationInput | Prisma.DrawingShareOrderByWithRelationInput[]
+  cursor?: Prisma.DrawingShareWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DrawingShareScalarFieldEnum | Prisma.DrawingShareScalarFieldEnum[]
 }
 
 /**

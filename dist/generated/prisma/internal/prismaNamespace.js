@@ -72,7 +72,9 @@ export const ModelName = {
     Project: 'Project',
     Task: 'Task',
     Attendance: 'Attendance',
-    AttendanceWorker: 'AttendanceWorker'
+    AttendanceWorker: 'AttendanceWorker',
+    Drawing: 'Drawing',
+    DrawingShare: 'DrawingShare'
 };
 /**
  * Enums
@@ -146,6 +148,25 @@ export const AttendanceWorkerScalarFieldEnum = {
     label: 'label',
     amount: 'amount',
     position: 'position'
+};
+export const DrawingScalarFieldEnum = {
+    id: 'id',
+    ownerId: 'ownerId',
+    title: 'title',
+    description: 'description',
+    publicId: 'publicId',
+    version: 'version',
+    format: 'format',
+    bytes: 'bytes',
+    width: 'width',
+    height: 'height',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const DrawingShareScalarFieldEnum = {
+    drawingId: 'drawingId',
+    userId: 'userId',
+    createdAt: 'createdAt'
 };
 export const SortOrder = {
     asc: 'asc',
