@@ -11,11 +11,11 @@ const publicUser = (u: { id: string; email: string; role: string }) => ({ id: u.
 
 
 export async function register(req: CredentialsRequest, res: Response) {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
   const passwordHash = await argon2.hash(password);
   const user = await prisma.user.create({
-    data: { email, passwordHash },
-    select: { id: true, email: true, role: true }, // never return the hash
+    data: { email, passwordHash, name: name?.trim() || null, },
+    select: { id: true, email: true, name: true, role: true }, // never return the hash
   });
   res.status(201).json({ user });
 }

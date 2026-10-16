@@ -495,10 +495,6 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type RefreshTokenCreateWithoutUserInput = {
   id?: string
   familyId: string

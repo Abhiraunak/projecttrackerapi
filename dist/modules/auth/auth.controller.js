@@ -3,11 +3,11 @@ import { prisma } from "../../lib/prisma.js";
 import { endAllSessions, endSession, refreshSession, startSession } from "../../lib/session.js";
 const publicUser = (u) => ({ id: u.id, email: u.email, role: u.role });
 export async function register(req, res) {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
     const passwordHash = await argon2.hash(password);
     const user = await prisma.user.create({
-        data: { email, passwordHash },
-        select: { id: true, email: true, role: true }, // never return the hash
+        data: { email, passwordHash, name: name?.trim() || null, },
+        select: { id: true, email: true, name: true, role: true }, // never return the hash
     });
     res.status(201).json({ user });
 }
