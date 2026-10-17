@@ -313,6 +313,8 @@ export type TaskWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  requirements?: Prisma.RequirementListRelationFilter
+  stockMovements?: Prisma.StockMovementListRelationFilter
 }
 
 export type TaskOrderByWithRelationInput = {
@@ -331,6 +333,8 @@ export type TaskOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
+  requirements?: Prisma.RequirementOrderByRelationAggregateInput
+  stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
 }
 
 export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -352,6 +356,8 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  requirements?: Prisma.RequirementListRelationFilter
+  stockMovements?: Prisma.StockMovementListRelationFilter
 }, "id">
 
 export type TaskOrderByWithAggregationInput = {
@@ -411,6 +417,8 @@ export type TaskCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutTasksInput
+  requirements?: Prisma.RequirementCreateNestedManyWithoutTaskInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUncheckedCreateInput = {
@@ -428,6 +436,8 @@ export type TaskUncheckedCreateInput = {
   position?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutTaskInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUpdateInput = {
@@ -445,6 +455,8 @@ export type TaskUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutTasksNestedInput
+  requirements?: Prisma.RequirementUpdateManyWithoutTaskNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateInput = {
@@ -462,6 +474,8 @@ export type TaskUncheckedUpdateInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requirements?: Prisma.RequirementUncheckedUpdateManyWithoutTaskNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskCreateManyInput = {
@@ -595,6 +609,16 @@ export type TaskSumOrderByAggregateInput = {
   position?: Prisma.SortOrder
 }
 
+export type TaskScalarRelationFilter = {
+  is?: Prisma.TaskWhereInput
+  isNot?: Prisma.TaskWhereInput
+}
+
+export type TaskNullableScalarRelationFilter = {
+  is?: Prisma.TaskWhereInput | null
+  isNot?: Prisma.TaskWhereInput | null
+}
+
 export type TaskCreateNestedManyWithoutProjectInput = {
   create?: Prisma.XOR<Prisma.TaskCreateWithoutProjectInput, Prisma.TaskUncheckedCreateWithoutProjectInput> | Prisma.TaskCreateWithoutProjectInput[] | Prisma.TaskUncheckedCreateWithoutProjectInput[]
   connectOrCreate?: Prisma.TaskCreateOrConnectWithoutProjectInput | Prisma.TaskCreateOrConnectWithoutProjectInput[]
@@ -661,6 +685,36 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type TaskCreateNestedOneWithoutRequirementsInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutRequirementsInput, Prisma.TaskUncheckedCreateWithoutRequirementsInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutRequirementsInput
+  connect?: Prisma.TaskWhereUniqueInput
+}
+
+export type TaskUpdateOneRequiredWithoutRequirementsNestedInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutRequirementsInput, Prisma.TaskUncheckedCreateWithoutRequirementsInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutRequirementsInput
+  upsert?: Prisma.TaskUpsertWithoutRequirementsInput
+  connect?: Prisma.TaskWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TaskUpdateToOneWithWhereWithoutRequirementsInput, Prisma.TaskUpdateWithoutRequirementsInput>, Prisma.TaskUncheckedUpdateWithoutRequirementsInput>
+}
+
+export type TaskCreateNestedOneWithoutStockMovementsInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutStockMovementsInput, Prisma.TaskUncheckedCreateWithoutStockMovementsInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutStockMovementsInput
+  connect?: Prisma.TaskWhereUniqueInput
+}
+
+export type TaskUpdateOneWithoutStockMovementsNestedInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutStockMovementsInput, Prisma.TaskUncheckedCreateWithoutStockMovementsInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutStockMovementsInput
+  upsert?: Prisma.TaskUpsertWithoutStockMovementsInput
+  disconnect?: Prisma.TaskWhereInput | boolean
+  delete?: Prisma.TaskWhereInput | boolean
+  connect?: Prisma.TaskWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TaskUpdateToOneWithWhereWithoutStockMovementsInput, Prisma.TaskUpdateWithoutStockMovementsInput>, Prisma.TaskUncheckedUpdateWithoutStockMovementsInput>
+}
+
 export type TaskCreateWithoutProjectInput = {
   id?: string
   work: string
@@ -675,6 +729,8 @@ export type TaskCreateWithoutProjectInput = {
   position?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  requirements?: Prisma.RequirementCreateNestedManyWithoutTaskInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUncheckedCreateWithoutProjectInput = {
@@ -691,6 +747,8 @@ export type TaskUncheckedCreateWithoutProjectInput = {
   position?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutTaskInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type TaskCreateOrConnectWithoutProjectInput = {
@@ -739,6 +797,182 @@ export type TaskScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Task"> | Date | string
 }
 
+export type TaskCreateWithoutRequirementsInput = {
+  id?: string
+  work: string
+  area: number
+  contractorRate: number
+  inHouseRate: number
+  stipulated: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: number
+  startDate: Date | string
+  endDate: Date | string
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutTasksInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTaskInput
+}
+
+export type TaskUncheckedCreateWithoutRequirementsInput = {
+  id?: string
+  projectId: string
+  work: string
+  area: number
+  contractorRate: number
+  inHouseRate: number
+  stipulated: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: number
+  startDate: Date | string
+  endDate: Date | string
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTaskInput
+}
+
+export type TaskCreateOrConnectWithoutRequirementsInput = {
+  where: Prisma.TaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.TaskCreateWithoutRequirementsInput, Prisma.TaskUncheckedCreateWithoutRequirementsInput>
+}
+
+export type TaskUpsertWithoutRequirementsInput = {
+  update: Prisma.XOR<Prisma.TaskUpdateWithoutRequirementsInput, Prisma.TaskUncheckedUpdateWithoutRequirementsInput>
+  create: Prisma.XOR<Prisma.TaskCreateWithoutRequirementsInput, Prisma.TaskUncheckedCreateWithoutRequirementsInput>
+  where?: Prisma.TaskWhereInput
+}
+
+export type TaskUpdateToOneWithWhereWithoutRequirementsInput = {
+  where?: Prisma.TaskWhereInput
+  data: Prisma.XOR<Prisma.TaskUpdateWithoutRequirementsInput, Prisma.TaskUncheckedUpdateWithoutRequirementsInput>
+}
+
+export type TaskUpdateWithoutRequirementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.FloatFieldUpdateOperationsInput | number
+  contractorRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  inHouseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  stipulated?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutTasksNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTaskNestedInput
+}
+
+export type TaskUncheckedUpdateWithoutRequirementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.FloatFieldUpdateOperationsInput | number
+  contractorRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  inHouseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  stipulated?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTaskNestedInput
+}
+
+export type TaskCreateWithoutStockMovementsInput = {
+  id?: string
+  work: string
+  area: number
+  contractorRate: number
+  inHouseRate: number
+  stipulated: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: number
+  startDate: Date | string
+  endDate: Date | string
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutTasksInput
+  requirements?: Prisma.RequirementCreateNestedManyWithoutTaskInput
+}
+
+export type TaskUncheckedCreateWithoutStockMovementsInput = {
+  id?: string
+  projectId: string
+  work: string
+  area: number
+  contractorRate: number
+  inHouseRate: number
+  stipulated: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: number
+  startDate: Date | string
+  endDate: Date | string
+  position?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutTaskInput
+}
+
+export type TaskCreateOrConnectWithoutStockMovementsInput = {
+  where: Prisma.TaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.TaskCreateWithoutStockMovementsInput, Prisma.TaskUncheckedCreateWithoutStockMovementsInput>
+}
+
+export type TaskUpsertWithoutStockMovementsInput = {
+  update: Prisma.XOR<Prisma.TaskUpdateWithoutStockMovementsInput, Prisma.TaskUncheckedUpdateWithoutStockMovementsInput>
+  create: Prisma.XOR<Prisma.TaskCreateWithoutStockMovementsInput, Prisma.TaskUncheckedCreateWithoutStockMovementsInput>
+  where?: Prisma.TaskWhereInput
+}
+
+export type TaskUpdateToOneWithWhereWithoutStockMovementsInput = {
+  where?: Prisma.TaskWhereInput
+  data: Prisma.XOR<Prisma.TaskUpdateWithoutStockMovementsInput, Prisma.TaskUncheckedUpdateWithoutStockMovementsInput>
+}
+
+export type TaskUpdateWithoutStockMovementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.FloatFieldUpdateOperationsInput | number
+  contractorRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  inHouseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  stipulated?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutTasksNestedInput
+  requirements?: Prisma.RequirementUpdateManyWithoutTaskNestedInput
+}
+
+export type TaskUncheckedUpdateWithoutStockMovementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.FloatFieldUpdateOperationsInput | number
+  contractorRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  inHouseRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  stipulated?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  progress?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  position?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requirements?: Prisma.RequirementUncheckedUpdateManyWithoutTaskNestedInput
+}
+
 export type TaskCreateManyProjectInput = {
   id?: string
   work: string
@@ -769,6 +1003,8 @@ export type TaskUpdateWithoutProjectInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requirements?: Prisma.RequirementUpdateManyWithoutTaskNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutProjectInput = {
@@ -785,6 +1021,8 @@ export type TaskUncheckedUpdateWithoutProjectInput = {
   position?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  requirements?: Prisma.RequirementUncheckedUpdateManyWithoutTaskNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutProjectInput = {
@@ -804,6 +1042,44 @@ export type TaskUncheckedUpdateManyWithoutProjectInput = {
 }
 
 
+/**
+ * Count Type TaskCountOutputType
+ */
+
+export type TaskCountOutputType = {
+  requirements: number
+  stockMovements: number
+}
+
+export type TaskCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  requirements?: boolean | TaskCountOutputTypeCountRequirementsArgs
+  stockMovements?: boolean | TaskCountOutputTypeCountStockMovementsArgs
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaskCountOutputType
+   */
+  select?: Prisma.TaskCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeCountRequirementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RequirementWhereInput
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StockMovementWhereInput
+}
+
 
 export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -821,6 +1097,9 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  requirements?: boolean | Prisma.Task$requirementsArgs<ExtArgs>
+  stockMovements?: boolean | Prisma.Task$stockMovementsArgs<ExtArgs>
+  _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["task"]>
 
 export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -879,6 +1158,9 @@ export type TaskSelectScalar = {
 export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "work" | "area" | "contractorRate" | "inHouseRate" | "stipulated" | "paid" | "progress" | "startDate" | "endDate" | "position" | "createdAt" | "updatedAt", ExtArgs["result"]["task"]>
 export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  requirements?: boolean | Prisma.Task$requirementsArgs<ExtArgs>
+  stockMovements?: boolean | Prisma.Task$stockMovementsArgs<ExtArgs>
+  _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -891,6 +1173,8 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Task"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
+    requirements: Prisma.$RequirementPayload<ExtArgs>[]
+    stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1302,6 +1586,8 @@ readonly fields: TaskFieldRefs;
 export interface Prisma__TaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  requirements<T extends Prisma.Task$requirementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$requirementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequirementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stockMovements<T extends Prisma.Task$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1743,6 +2029,54 @@ export type TaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Tasks to delete.
    */
   limit?: number
+}
+
+/**
+ * Task.requirements
+ */
+export type Task$requirementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Requirement
+   */
+  select?: Prisma.RequirementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Requirement
+   */
+  omit?: Prisma.RequirementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RequirementInclude<ExtArgs> | null
+  where?: Prisma.RequirementWhereInput
+  orderBy?: Prisma.RequirementOrderByWithRelationInput | Prisma.RequirementOrderByWithRelationInput[]
+  cursor?: Prisma.RequirementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RequirementScalarFieldEnum | Prisma.RequirementScalarFieldEnum[]
+}
+
+/**
+ * Task.stockMovements
+ */
+export type Task$stockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StockMovement
+   */
+  select?: Prisma.StockMovementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StockMovement
+   */
+  omit?: Prisma.StockMovementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StockMovementInclude<ExtArgs> | null
+  where?: Prisma.StockMovementWhereInput
+  orderBy?: Prisma.StockMovementOrderByWithRelationInput | Prisma.StockMovementOrderByWithRelationInput[]
+  cursor?: Prisma.StockMovementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StockMovementScalarFieldEnum | Prisma.StockMovementScalarFieldEnum[]
 }
 
 /**

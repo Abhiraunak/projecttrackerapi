@@ -19,19 +19,31 @@ enum ProjectStatus {
   ARCHIVED
 }
 
+enum MovementType {
+  RECEIVED
+  ISSUED
+  RESERVED
+  RELEASED
+  ADJUSTMENT_IN
+  ADJUSTMENT_OUT
+}
+
 model User {
-  id            String         @id @default(cuid())
-  name          String?
-  email         String         @unique
-  passwordHash  String
-  role          Role           @default(USER)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  projects      Project[]
-  attendance    Attendance[]
-  refreshTokens RefreshToken[]
-  drawings      Drawing[]
-  drawingShares DrawingShare[]
+  id             String          @id @default(cuid())
+  name           String?
+  email          String          @unique
+  passwordHash   String
+  role           Role            @default(USER)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  projects       Project[]
+  attendance     Attendance[]
+  refreshTokens  RefreshToken[]
+  drawings       Drawing[]
+  drawingShares  DrawingShare[]
+  materials      Material[]
+  vendors        Vendor[]
+  stockMovements StockMovement[]
 }
 
 model RefreshToken {
@@ -54,35 +66,39 @@ model RefreshToken {
 }
 
 model Project {
-  id         String        @id @default(cuid())
-  title      String
-  status     ProjectStatus @default(ONGOING)
-  ownerId    String
-  owner      User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  tasks      Task[]
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  attendance Attendance[]
+  id             String          @id @default(cuid())
+  title          String
+  status         ProjectStatus   @default(ONGOING)
+  ownerId        String
+  owner          User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks          Task[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  attendance     Attendance[]
+  requirements   Requirement[]
+  stockMovements StockMovement[]
 
   @@index([ownerId, status, updatedAt])
 }
 
 model Task {
-  id             String   @id @default(cuid())
+  id             String          @id @default(cuid())
   projectId      String
-  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
   work           String
   area           Float
   contractorRate Float
   inHouseRate    Float
-  stipulated     Decimal  @db.Decimal(14, 2)
-  paid           Decimal  @default(0) @db.Decimal(14, 2)
-  progress       Int      @default(0)
-  startDate      DateTime @db.Date
-  endDate        DateTime @db.Date
-  position       Int      @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  stipulated     Decimal         @db.Decimal(14, 2)
+  paid           Decimal         @default(0) @db.Decimal(14, 2)
+  progress       Int             @default(0)
+  startDate      DateTime        @db.Date
+  endDate        DateTime        @db.Date
+  position       Int             @default(0)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  requirements   Requirement[]
+  stockMovements StockMovement[]
 
   @@index([projectId, position])
 }
@@ -148,4 +164,82 @@ model DrawingShare {
 
   @@id([drawingId, userId])
   @@index([userId, createdAt(sort: Desc)])
+}
+
+model Material {
+  id           String          @id @default(cuid())
+  ownerId      String
+  owner        User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name         String
+  unit         String // bag, kg, m3, nos...
+  category     String          @default("General")
+  minStock     Decimal         @default(0) @db.Decimal(14, 3) // at or under this the store is "low"
+  requirements Requirement[]
+  movements    StockMovement[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@unique([ownerId, name])
+}
+
+model Vendor {
+  id            String        @id @default(cuid())
+  ownerId       String
+  owner         User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name          String
+  contactPerson String        @default("")
+  phone         String        @default("")
+  email         String        @default("")
+  requirements  Requirement[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@unique([ownerId, name])
+}
+
+/// One material needed by one work item, and how far its ordering has got
+model Requirement {
+  id               String          @id @default(cuid())
+  projectId        String
+  project          Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  taskId           String
+  task             Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  materialId       String
+  material         Material        @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  vendorId         String?
+  vendor           Vendor?         @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  requiredQty      Decimal         @db.Decimal(14, 3) // before wastage
+  wastagePercent   Decimal         @default(5) @db.Decimal(5, 2)
+  orderedQty       Decimal         @default(0) @db.Decimal(14, 3)
+  receivedQty      Decimal         @default(0) @db.Decimal(14, 3)
+  expectedDelivery DateTime?       @db.Date
+  requested        Boolean         @default(false) // a request is raised and waiting for approval
+  movements        StockMovement[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@unique([taskId, materialId])
+  @@index([projectId])
+}
+
+/// The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
+model StockMovement {
+  id            String       @id @default(cuid())
+  projectId     String
+  project       Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  materialId    String
+  material      Material     @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  taskId        String?
+  task          Task?        @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  requirementId String?
+  requirement   Requirement? @relation(fields: [requirementId], references: [id], onDelete: SetNull)
+  type          MovementType
+  quantity      Decimal      @db.Decimal(14, 3) // always positive; the type says which way it goes
+  note          String       @default("")
+  createdById   String
+  createdBy     User         @relation(fields: [createdById], references: [id], onDelete: Restrict)
+  createdAt     DateTime     @default(now())
+
+  @@index([projectId, createdAt(sort: Desc)])
+  @@index([projectId, materialId])
 }

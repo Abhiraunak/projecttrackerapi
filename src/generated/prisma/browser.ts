@@ -57,3 +57,23 @@ export type Drawing = Prisma.DrawingModel
  * 
  */
 export type DrawingShare = Prisma.DrawingShareModel
+/**
+ * Model Material
+ * 
+ */
+export type Material = Prisma.MaterialModel
+/**
+ * Model Vendor
+ * 
+ */
+export type Vendor = Prisma.VendorModel
+/**
+ * Model Requirement
+ * One material needed by one work item, and how far its ordering has got
+ */
+export type Requirement = Prisma.RequirementModel
+/**
+ * Model StockMovement
+ * The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
+ */
+export type StockMovement = Prisma.StockMovementModel

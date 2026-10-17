@@ -24,3 +24,15 @@ export const ProjectStatus = {
 } as const
 
 export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
+export const MovementType = {
+  RECEIVED: 'RECEIVED',
+  ISSUED: 'ISSUED',
+  RESERVED: 'RESERVED',
+  RELEASED: 'RELEASED',
+  ADJUSTMENT_IN: 'ADJUSTMENT_IN',
+  ADJUSTMENT_OUT: 'ADJUSTMENT_OUT'
+} as const
+
+export type MovementType = (typeof MovementType)[keyof typeof MovementType]
