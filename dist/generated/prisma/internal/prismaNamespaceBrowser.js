@@ -46,7 +46,11 @@ export const ModelName = {
     Attendance: 'Attendance',
     AttendanceWorker: 'AttendanceWorker',
     Drawing: 'Drawing',
-    DrawingShare: 'DrawingShare'
+    DrawingShare: 'DrawingShare',
+    Material: 'Material',
+    Vendor: 'Vendor',
+    Requirement: 'Requirement',
+    StockMovement: 'StockMovement'
 };
 /*
  * Enums
@@ -139,6 +143,53 @@ export const DrawingScalarFieldEnum = {
 export const DrawingShareScalarFieldEnum = {
     drawingId: 'drawingId',
     userId: 'userId',
+    createdAt: 'createdAt'
+};
+export const MaterialScalarFieldEnum = {
+    id: 'id',
+    ownerId: 'ownerId',
+    name: 'name',
+    unit: 'unit',
+    category: 'category',
+    minStock: 'minStock',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const VendorScalarFieldEnum = {
+    id: 'id',
+    ownerId: 'ownerId',
+    name: 'name',
+    contactPerson: 'contactPerson',
+    phone: 'phone',
+    email: 'email',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const RequirementScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    taskId: 'taskId',
+    materialId: 'materialId',
+    vendorId: 'vendorId',
+    requiredQty: 'requiredQty',
+    wastagePercent: 'wastagePercent',
+    orderedQty: 'orderedQty',
+    receivedQty: 'receivedQty',
+    expectedDelivery: 'expectedDelivery',
+    requested: 'requested',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const StockMovementScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    materialId: 'materialId',
+    taskId: 'taskId',
+    requirementId: 'requirementId',
+    type: 'type',
+    quantity: 'quantity',
+    note: 'note',
+    createdById: 'createdById',
     createdAt: 'createdAt'
 };
 export const SortOrder = {

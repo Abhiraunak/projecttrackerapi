@@ -16,4 +16,12 @@ export const ProjectStatus = {
     COMPLETED: 'COMPLETED',
     ARCHIVED: 'ARCHIVED'
 };
+export const MovementType = {
+    RECEIVED: 'RECEIVED',
+    ISSUED: 'ISSUED',
+    RESERVED: 'RESERVED',
+    RELEASED: 'RELEASED',
+    ADJUSTMENT_IN: 'ADJUSTMENT_IN',
+    ADJUSTMENT_OUT: 'ADJUSTMENT_OUT'
+};
 //# sourceMappingURL=enums.js.map
