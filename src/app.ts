@@ -16,6 +16,9 @@ import drawingRoutes from './modules/drawings/drawings.routes.js';
 import userRoutes from './modules/users/users.routes.js';
 import { env } from './config/env.js';
 import { requireCsrfHeader } from './middleware/csrf.js';
+import catalogRoutes from './modules/materials/catalog.routes.js';
+import requirementRoutes from './modules/requirements/requirements.routes.js';
+import inventoryRoutes from './modules/inventory/inventory.routes.js';
 
 const app = express();
 
@@ -39,6 +42,10 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 app.use('/api/v1/drawings', drawingRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/materials', catalogRoutes);
+app.use('/api/v1', requirementRoutes);   
+app.use('/api/v1', inventoryRoutes);     
+
 
 app.use(notFound);
 app.use(errorHandler);   // must be last
