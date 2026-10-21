@@ -93,6 +93,8 @@ export interface BoqDocument {
   company: Company;
   /** A small image as a data: URL (resized in the browser), or null */
   logo: string | null;
+  /** Show the logo and company details at the top (page, print and Excel). Missing in older BOQs = shown. */
+  showCompanyHeader?: boolean;
   title: string; // THE NATURE PARK, BARIDH, RANCHI (JHARKHAND)
   subtitle: string; // PART H-1 -CONSERVATORY- LEFT AND RIGHT WING
   rateBasis: string; // Rates as per SOR Jharkhand: 2022/ DSR: 2023

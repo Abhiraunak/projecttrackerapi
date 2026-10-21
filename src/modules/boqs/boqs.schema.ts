@@ -39,6 +39,7 @@ export const documentSchema = z
   .object({
     company: z.object({ name: str(200), address: str(500), phone: str(40), email: str(200), gstin: str(30) }),
     logo,
+    showCompanyHeader: z.boolean().optional(),
     title: str(300),
     subtitle: str(300),
     rateBasis: str(300),

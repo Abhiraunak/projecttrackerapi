@@ -1,7 +1,15 @@
 import { prisma } from "./prisma.js";
 
-import { effectivePermissions, type Permission } from "./permissions.js";
+import { PERMISSIONS, effectivePermissions, type Permission } from "./permissions.js";
 import { HttpError } from "./error.js";
+
+/**
+ * DEVELOPMENT ONLY: DEV_FULL_ACCESS=true in .env makes every signed-in account an admin, without reading the
+ * access columns at all (so it works before the access migration is run). It is ignored when NODE_ENV is
+ * "production", so it can't open up the live site even if the setting is copied there by mistake.
+ */
+const DEV_FULL_ACCESS = process.env.DEV_FULL_ACCESS === "true" && process.env.NODE_ENV !== "production";
+if (DEV_FULL_ACCESS) console.warn("[access] DEV_FULL_ACCESS is on: every signed-in account has full access. Development only.");
 
 export interface UserAccess {
   isAdmin: boolean;
@@ -17,6 +25,7 @@ export interface ProjectAccess extends UserAccess {
  * so when an admin changes someone's access it applies at once, not when their token expires.
  */
 export async function getUserAccess(userId: string): Promise<UserAccess> {
+  if (DEV_FULL_ACCESS) return { isAdmin: true, permissions: [...PERMISSIONS] };
   const user = await prisma.user.findUnique({ where: { id: userId }, select: { role: true, permissions: true } });
   if (!user) throw new HttpError(401, "Account not found");
   return { isAdmin: user.role === "ADMIN", permissions: effectivePermissions(user) };
