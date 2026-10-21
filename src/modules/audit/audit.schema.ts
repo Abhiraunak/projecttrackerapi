@@ -11,3 +11,8 @@ export const auditQuerySchema = z.object({
 });
 
 export type AuditQuery = z.infer<typeof auditQuerySchema>;
+
+/** The company-wide list also takes ?all=true (every entry, not only those outside projects) */
+export const companyAuditQuerySchema = auditQuerySchema.extend({
+  all: z.enum(["true", "false"]).optional().transform((v) => v === "true"),
+});

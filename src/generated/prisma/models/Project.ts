@@ -195,6 +195,7 @@ export type ProjectWhereInput = {
   attendance?: Prisma.AttendanceListRelationFilter
   requirements?: Prisma.RequirementListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  auditLog?: Prisma.AuditLogListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -209,6 +210,7 @@ export type ProjectOrderByWithRelationInput = {
   attendance?: Prisma.AttendanceOrderByRelationAggregateInput
   requirements?: Prisma.RequirementOrderByRelationAggregateInput
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
+  auditLog?: Prisma.AuditLogOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -226,6 +228,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   attendance?: Prisma.AttendanceListRelationFilter
   requirements?: Prisma.RequirementListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  auditLog?: Prisma.AuditLogListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -263,6 +266,7 @@ export type ProjectCreateInput = {
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -276,6 +280,7 @@ export type ProjectUncheckedCreateInput = {
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -289,6 +294,7 @@ export type ProjectUpdateInput = {
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -302,6 +308,7 @@ export type ProjectUncheckedUpdateInput = {
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -370,6 +377,11 @@ export type ProjectMinOrderByAggregateInput = {
 export type ProjectScalarRelationFilter = {
   is?: Prisma.ProjectWhereInput
   isNot?: Prisma.ProjectWhereInput
+}
+
+export type ProjectNullableScalarRelationFilter = {
+  is?: Prisma.ProjectWhereInput | null
+  isNot?: Prisma.ProjectWhereInput | null
 }
 
 export type ProjectCreateNestedManyWithoutOwnerInput = {
@@ -474,6 +486,22 @@ export type ProjectUpdateOneRequiredWithoutStockMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutStockMovementsInput, Prisma.ProjectUpdateWithoutStockMovementsInput>, Prisma.ProjectUncheckedUpdateWithoutStockMovementsInput>
 }
 
+export type ProjectCreateNestedOneWithoutAuditLogInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAuditLogInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneWithoutAuditLogNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAuditLogInput
+  upsert?: Prisma.ProjectUpsertWithoutAuditLogInput
+  disconnect?: Prisma.ProjectWhereInput | boolean
+  delete?: Prisma.ProjectWhereInput | boolean
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutAuditLogInput, Prisma.ProjectUpdateWithoutAuditLogInput>, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
+}
+
 export type ProjectCreateWithoutOwnerInput = {
   id?: string
   title: string
@@ -484,6 +512,7 @@ export type ProjectCreateWithoutOwnerInput = {
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -496,6 +525,7 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -546,6 +576,7 @@ export type ProjectCreateWithoutTasksInput = {
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -558,6 +589,7 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -586,6 +618,7 @@ export type ProjectUpdateWithoutTasksInput = {
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -598,6 +631,7 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAttendanceInput = {
@@ -610,6 +644,7 @@ export type ProjectCreateWithoutAttendanceInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAttendanceInput = {
@@ -622,6 +657,7 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAttendanceInput = {
@@ -650,6 +686,7 @@ export type ProjectUpdateWithoutAttendanceInput = {
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAttendanceInput = {
@@ -662,6 +699,7 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutRequirementsInput = {
@@ -674,6 +712,7 @@ export type ProjectCreateWithoutRequirementsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutRequirementsInput = {
@@ -686,6 +725,7 @@ export type ProjectUncheckedCreateWithoutRequirementsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutRequirementsInput = {
@@ -714,6 +754,7 @@ export type ProjectUpdateWithoutRequirementsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutRequirementsInput = {
@@ -726,6 +767,7 @@ export type ProjectUncheckedUpdateWithoutRequirementsInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockMovementsInput = {
@@ -738,6 +780,7 @@ export type ProjectCreateWithoutStockMovementsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockMovementsInput = {
@@ -750,6 +793,7 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockMovementsInput = {
@@ -778,6 +822,7 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
@@ -790,6 +835,75 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutAuditLogInput = {
+  id?: string
+  title: string
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  requirements?: Prisma.RequirementCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutAuditLogInput = {
+  id?: string
+  title: string
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  requirements?: Prisma.RequirementUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutAuditLogInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
+}
+
+export type ProjectUpsertWithoutAuditLogInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutAuditLogInput, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutAuditLogInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutAuditLogInput, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
+}
+
+export type ProjectUpdateWithoutAuditLogInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  requirements?: Prisma.RequirementUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutAuditLogInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  requirements?: Prisma.RequirementUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyOwnerInput = {
@@ -810,6 +924,7 @@ export type ProjectUpdateWithoutOwnerInput = {
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -822,6 +937,7 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   requirements?: Prisma.RequirementUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -842,6 +958,7 @@ export type ProjectCountOutputType = {
   attendance: number
   requirements: number
   stockMovements: number
+  auditLog: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -849,6 +966,7 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   attendance?: boolean | ProjectCountOutputTypeCountAttendanceArgs
   requirements?: boolean | ProjectCountOutputTypeCountRequirementsArgs
   stockMovements?: boolean | ProjectCountOutputTypeCountStockMovementsArgs
+  auditLog?: boolean | ProjectCountOutputTypeCountAuditLogArgs
 }
 
 /**
@@ -889,6 +1007,13 @@ export type ProjectCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtim
   where?: Prisma.StockMovementWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountAuditLogArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -902,6 +1027,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   attendance?: boolean | Prisma.Project$attendanceArgs<ExtArgs>
   requirements?: boolean | Prisma.Project$requirementsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.Project$stockMovementsArgs<ExtArgs>
+  auditLog?: boolean | Prisma.Project$auditLogArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -941,6 +1067,7 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   attendance?: boolean | Prisma.Project$attendanceArgs<ExtArgs>
   requirements?: boolean | Prisma.Project$requirementsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.Project$stockMovementsArgs<ExtArgs>
+  auditLog?: boolean | Prisma.Project$auditLogArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -958,6 +1085,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     attendance: Prisma.$AttendancePayload<ExtArgs>[]
     requirements: Prisma.$RequirementPayload<ExtArgs>[]
     stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
+    auditLog: Prisma.$AuditLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1365,6 +1493,7 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   attendance<T extends Prisma.Project$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requirements<T extends Prisma.Project$requirementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$requirementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RequirementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stockMovements<T extends Prisma.Project$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLog<T extends Prisma.Project$auditLogArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$auditLogArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1894,6 +2023,30 @@ export type Project$stockMovementsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.StockMovementScalarFieldEnum | Prisma.StockMovementScalarFieldEnum[]
+}
+
+/**
+ * Project.auditLog
+ */
+export type Project$auditLogArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
 }
 
 /**

@@ -206,6 +206,9 @@ export type UserWhereInput = {
   materials?: Prisma.MaterialListRelationFilter
   vendors?: Prisma.VendorListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  auditEntries?: Prisma.AuditLogListRelationFilter
+  boqsCreated?: Prisma.BoqListRelationFilter
+  boqsUpdated?: Prisma.BoqListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -224,6 +227,9 @@ export type UserOrderByWithRelationInput = {
   materials?: Prisma.MaterialOrderByRelationAggregateInput
   vendors?: Prisma.VendorOrderByRelationAggregateInput
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
+  auditEntries?: Prisma.AuditLogOrderByRelationAggregateInput
+  boqsCreated?: Prisma.BoqOrderByRelationAggregateInput
+  boqsUpdated?: Prisma.BoqOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -245,6 +251,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   materials?: Prisma.MaterialListRelationFilter
   vendors?: Prisma.VendorListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  auditEntries?: Prisma.AuditLogListRelationFilter
+  boqsCreated?: Prisma.BoqListRelationFilter
+  boqsUpdated?: Prisma.BoqListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -289,6 +298,9 @@ export type UserCreateInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -307,6 +319,9 @@ export type UserUncheckedCreateInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUpdateInput = {
@@ -325,6 +340,9 @@ export type UserUpdateInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -343,6 +361,9 @@ export type UserUncheckedUpdateInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -408,6 +429,11 @@ export type UserMinOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -538,6 +564,54 @@ export type UserUpdateOneRequiredWithoutStockMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStockMovementsInput, Prisma.UserUpdateWithoutStockMovementsInput>, Prisma.UserUncheckedUpdateWithoutStockMovementsInput>
 }
 
+export type UserCreateNestedOneWithoutAuditEntriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditEntriesInput, Prisma.UserUncheckedCreateWithoutAuditEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditEntriesInput, Prisma.UserUncheckedCreateWithoutAuditEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditEntriesInput
+  upsert?: Prisma.UserUpsertWithoutAuditEntriesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditEntriesInput, Prisma.UserUpdateWithoutAuditEntriesInput>, Prisma.UserUncheckedUpdateWithoutAuditEntriesInput>
+}
+
+export type UserCreateNestedOneWithoutBoqsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBoqsCreatedInput, Prisma.UserUncheckedCreateWithoutBoqsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoqsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBoqsUpdatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBoqsUpdatedInput, Prisma.UserUncheckedCreateWithoutBoqsUpdatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoqsUpdatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutBoqsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBoqsCreatedInput, Prisma.UserUncheckedCreateWithoutBoqsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoqsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutBoqsCreatedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBoqsCreatedInput, Prisma.UserUpdateWithoutBoqsCreatedInput>, Prisma.UserUncheckedUpdateWithoutBoqsCreatedInput>
+}
+
+export type UserUpdateOneWithoutBoqsUpdatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBoqsUpdatedInput, Prisma.UserUncheckedCreateWithoutBoqsUpdatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoqsUpdatedInput
+  upsert?: Prisma.UserUpsertWithoutBoqsUpdatedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBoqsUpdatedInput, Prisma.UserUpdateWithoutBoqsUpdatedInput>, Prisma.UserUncheckedUpdateWithoutBoqsUpdatedInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   name?: string | null
@@ -553,6 +627,9 @@ export type UserCreateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -570,6 +647,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -603,6 +683,9 @@ export type UserUpdateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -620,6 +703,9 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutProjectsInput = {
@@ -637,6 +723,9 @@ export type UserCreateWithoutProjectsInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutProjectsInput = {
@@ -654,6 +743,9 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutProjectsInput = {
@@ -687,6 +779,9 @@ export type UserUpdateWithoutProjectsInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -704,6 +799,9 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutAttendanceInput = {
@@ -721,6 +819,9 @@ export type UserCreateWithoutAttendanceInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutAttendanceInput = {
@@ -738,6 +839,9 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutAttendanceInput = {
@@ -771,6 +875,9 @@ export type UserUpdateWithoutAttendanceInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendanceInput = {
@@ -788,6 +895,9 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutDrawingsInput = {
@@ -805,6 +915,9 @@ export type UserCreateWithoutDrawingsInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutDrawingsInput = {
@@ -822,6 +935,9 @@ export type UserUncheckedCreateWithoutDrawingsInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutDrawingsInput = {
@@ -855,6 +971,9 @@ export type UserUpdateWithoutDrawingsInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDrawingsInput = {
@@ -872,6 +991,9 @@ export type UserUncheckedUpdateWithoutDrawingsInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutDrawingSharesInput = {
@@ -889,6 +1011,9 @@ export type UserCreateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutDrawingSharesInput = {
@@ -906,6 +1031,9 @@ export type UserUncheckedCreateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutDrawingSharesInput = {
@@ -939,6 +1067,9 @@ export type UserUpdateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDrawingSharesInput = {
@@ -956,6 +1087,9 @@ export type UserUncheckedUpdateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutMaterialsInput = {
@@ -973,6 +1107,9 @@ export type UserCreateWithoutMaterialsInput = {
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutMaterialsInput = {
@@ -990,6 +1127,9 @@ export type UserUncheckedCreateWithoutMaterialsInput = {
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutMaterialsInput = {
@@ -1023,6 +1163,9 @@ export type UserUpdateWithoutMaterialsInput = {
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialsInput = {
@@ -1040,6 +1183,9 @@ export type UserUncheckedUpdateWithoutMaterialsInput = {
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutVendorsInput = {
@@ -1057,6 +1203,9 @@ export type UserCreateWithoutVendorsInput = {
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutVendorsInput = {
@@ -1074,6 +1223,9 @@ export type UserUncheckedCreateWithoutVendorsInput = {
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutVendorsInput = {
@@ -1107,6 +1259,9 @@ export type UserUpdateWithoutVendorsInput = {
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVendorsInput = {
@@ -1124,6 +1279,9 @@ export type UserUncheckedUpdateWithoutVendorsInput = {
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserCreateWithoutStockMovementsInput = {
@@ -1141,6 +1299,9 @@ export type UserCreateWithoutStockMovementsInput = {
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserUncheckedCreateWithoutStockMovementsInput = {
@@ -1158,6 +1319,9 @@ export type UserUncheckedCreateWithoutStockMovementsInput = {
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
 
 export type UserCreateOrConnectWithoutStockMovementsInput = {
@@ -1191,6 +1355,9 @@ export type UserUpdateWithoutStockMovementsInput = {
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStockMovementsInput = {
@@ -1208,6 +1375,297 @@ export type UserUncheckedUpdateWithoutStockMovementsInput = {
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutAuditEntriesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutAuditEntriesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutAuditEntriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditEntriesInput, Prisma.UserUncheckedCreateWithoutAuditEntriesInput>
+}
+
+export type UserUpsertWithoutAuditEntriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditEntriesInput, Prisma.UserUncheckedUpdateWithoutAuditEntriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditEntriesInput, Prisma.UserUncheckedCreateWithoutAuditEntriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditEntriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditEntriesInput, Prisma.UserUncheckedUpdateWithoutAuditEntriesInput>
+}
+
+export type UserUpdateWithoutAuditEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutBoqsCreatedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutBoqsCreatedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutBoqsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBoqsCreatedInput, Prisma.UserUncheckedCreateWithoutBoqsCreatedInput>
+}
+
+export type UserCreateWithoutBoqsUpdatedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutBoqsUpdatedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutBoqsUpdatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBoqsUpdatedInput, Prisma.UserUncheckedCreateWithoutBoqsUpdatedInput>
+}
+
+export type UserUpsertWithoutBoqsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBoqsCreatedInput, Prisma.UserUncheckedUpdateWithoutBoqsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBoqsCreatedInput, Prisma.UserUncheckedCreateWithoutBoqsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBoqsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBoqsCreatedInput, Prisma.UserUncheckedUpdateWithoutBoqsCreatedInput>
+}
+
+export type UserUpdateWithoutBoqsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBoqsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUpsertWithoutBoqsUpdatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBoqsUpdatedInput, Prisma.UserUncheckedUpdateWithoutBoqsUpdatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBoqsUpdatedInput, Prisma.UserUncheckedCreateWithoutBoqsUpdatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBoqsUpdatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBoqsUpdatedInput, Prisma.UserUncheckedUpdateWithoutBoqsUpdatedInput>
+}
+
+export type UserUpdateWithoutBoqsUpdatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBoqsUpdatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 
@@ -1224,6 +1682,9 @@ export type UserCountOutputType = {
   materials: number
   vendors: number
   stockMovements: number
+  auditEntries: number
+  boqsCreated: number
+  boqsUpdated: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1235,6 +1696,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   materials?: boolean | UserCountOutputTypeCountMaterialsArgs
   vendors?: boolean | UserCountOutputTypeCountVendorsArgs
   stockMovements?: boolean | UserCountOutputTypeCountStockMovementsArgs
+  auditEntries?: boolean | UserCountOutputTypeCountAuditEntriesArgs
+  boqsCreated?: boolean | UserCountOutputTypeCountBoqsCreatedArgs
+  boqsUpdated?: boolean | UserCountOutputTypeCountBoqsUpdatedArgs
 }
 
 /**
@@ -1303,6 +1767,27 @@ export type UserCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtime.T
   where?: Prisma.StockMovementWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBoqsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoqWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBoqsUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoqWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1320,6 +1805,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   materials?: boolean | Prisma.User$materialsArgs<ExtArgs>
   vendors?: boolean | Prisma.User$vendorsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.User$stockMovementsArgs<ExtArgs>
+  auditEntries?: boolean | Prisma.User$auditEntriesArgs<ExtArgs>
+  boqsCreated?: boolean | Prisma.User$boqsCreatedArgs<ExtArgs>
+  boqsUpdated?: boolean | Prisma.User$boqsUpdatedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1363,6 +1851,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   materials?: boolean | Prisma.User$materialsArgs<ExtArgs>
   vendors?: boolean | Prisma.User$vendorsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.User$stockMovementsArgs<ExtArgs>
+  auditEntries?: boolean | Prisma.User$auditEntriesArgs<ExtArgs>
+  boqsCreated?: boolean | Prisma.User$boqsCreatedArgs<ExtArgs>
+  boqsUpdated?: boolean | Prisma.User$boqsUpdatedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1379,6 +1870,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     materials: Prisma.$MaterialPayload<ExtArgs>[]
     vendors: Prisma.$VendorPayload<ExtArgs>[]
     stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
+    auditEntries: Prisma.$AuditLogPayload<ExtArgs>[]
+    boqsCreated: Prisma.$BoqPayload<ExtArgs>[]
+    boqsUpdated: Prisma.$BoqPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1790,6 +2284,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   materials<T extends Prisma.User$materialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vendors<T extends Prisma.User$vendorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stockMovements<T extends Prisma.User$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditEntries<T extends Prisma.User$auditEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  boqsCreated<T extends Prisma.User$boqsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$boqsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  boqsUpdated<T extends Prisma.User$boqsUpdatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$boqsUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2408,6 +2905,78 @@ export type User$stockMovementsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.StockMovementScalarFieldEnum | Prisma.StockMovementScalarFieldEnum[]
+}
+
+/**
+ * User.auditEntries
+ */
+export type User$auditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * User.boqsCreated
+ */
+export type User$boqsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Boq
+   */
+  select?: Prisma.BoqSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Boq
+   */
+  omit?: Prisma.BoqOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoqInclude<ExtArgs> | null
+  where?: Prisma.BoqWhereInput
+  orderBy?: Prisma.BoqOrderByWithRelationInput | Prisma.BoqOrderByWithRelationInput[]
+  cursor?: Prisma.BoqWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoqScalarFieldEnum | Prisma.BoqScalarFieldEnum[]
+}
+
+/**
+ * User.boqsUpdated
+ */
+export type User$boqsUpdatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Boq
+   */
+  select?: Prisma.BoqSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Boq
+   */
+  omit?: Prisma.BoqOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoqInclude<ExtArgs> | null
+  where?: Prisma.BoqWhereInput
+  orderBy?: Prisma.BoqOrderByWithRelationInput | Prisma.BoqOrderByWithRelationInput[]
+  cursor?: Prisma.BoqWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoqScalarFieldEnum | Prisma.BoqScalarFieldEnum[]
 }
 
 /**

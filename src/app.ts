@@ -19,6 +19,9 @@ import { requireCsrfHeader } from './middleware/csrf.js';
 import catalogRoutes from './modules/materials/catalog.routes.js';
 import requirementRoutes from './modules/requirements/requirements.routes.js';
 import inventoryRoutes from './modules/inventory/inventory.routes.js';
+import boqRoutes from './modules/boqs/boqs.routes.js';
+import { jsonBody } from './middleware/jsonBody.js';
+import auditRoutes from './modules/audit/audit.routes.js';
 
 const app = express();
 
@@ -30,7 +33,7 @@ app.use(helmet());           // CSP, HSTS, noSniff, frameguard...
 app.use(cors(corsOptions));
 if (env.COOKIE_SAMESITE === 'none') app.use(requireCsrfHeader);
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: 'draft-7', legacyHeaders: false }));
-app.use(express.json({ limit: '100kb' }));
+app.use(jsonBody);
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 app.use(cookieParser());
 app.use(hpp());
@@ -44,7 +47,9 @@ app.use('/api/v1/drawings', drawingRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/materials', catalogRoutes);
 app.use('/api/v1', requirementRoutes);   
-app.use('/api/v1', inventoryRoutes);     
+app.use('/api/v1', inventoryRoutes); 
+app.use('/api/v1', auditRoutes);  
+app.use('/api/v1/boqs', boqRoutes);  
 
 
 app.use(notFound);

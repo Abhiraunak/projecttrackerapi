@@ -36,3 +36,11 @@ export const MovementType = {
 } as const
 
 export type MovementType = (typeof MovementType)[keyof typeof MovementType]
+
+
+export const BoqStatus = {
+  DRAFT: 'DRAFT',
+  FINAL: 'FINAL'
+} as const
+
+export type BoqStatus = (typeof BoqStatus)[keyof typeof BoqStatus]

@@ -77,3 +77,13 @@ export type Requirement = Prisma.RequirementModel
  * The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
  */
 export type StockMovement = Prisma.StockMovementModel
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model Boq
+ * 
+ */
+export type Boq = Prisma.BoqModel
