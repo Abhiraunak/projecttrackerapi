@@ -22,6 +22,7 @@ import inventoryRoutes from './modules/inventory/inventory.routes.js';
 import boqRoutes from './modules/boqs/boqs.routes.js';
 import { jsonBody } from './middleware/jsonBody.js';
 import auditRoutes from './modules/audit/audit.routes.js';
+import pushRoutes from './modules/push/push.routes.js';
 
 const app = express();
 
@@ -49,7 +50,8 @@ app.use('/api/v1/materials', catalogRoutes);
 app.use('/api/v1', requirementRoutes);   
 app.use('/api/v1', inventoryRoutes); 
 app.use('/api/v1', auditRoutes);  
-app.use('/api/v1/boqs', boqRoutes);  
+app.use('/api/v1/boqs', boqRoutes);
+app.use('/api/v1/push', pushRoutes);  
 
 
 app.use(notFound);

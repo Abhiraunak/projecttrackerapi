@@ -12,8 +12,8 @@ export async function list(req: Request, res: Response) {
   res.json(await listDrawings(viewerId(req), query));
 }
 
-export async function create(req: Request<{}, unknown, CreateBody>, res: Response) {
-  if (!req.file) throw new HttpError(400, "Choose an image to upload.");
+export async function create(req: Request<unknown, unknown, CreateBody>, res: Response) {
+  if (!req.file) throw new HttpError(400, "Choose a file to upload.");
   const drawing = await createDrawing({ ownerId: viewerId(req), ...req.body, file: req.file });
   res.status(201).json({ drawing });
 }

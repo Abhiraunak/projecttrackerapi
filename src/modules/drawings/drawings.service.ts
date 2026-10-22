@@ -1,7 +1,9 @@
 import { prisma } from "../../lib/prisma.js";
-import { deleteImage, uploadImage } from "../../lib/cloudinary.js";
-import { detectImageType } from "../../lib/imageType.js";
-import { toDrawingDto } from "./drawings.mapper.js";
+import { deleteDrawingFile, uploadDrawingFile } from "../../lib/cloudinary.js";
+import { ACCEPTED_DESCRIPTION, detectFileType } from "../../lib/fileType.js";
+import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
+import { notifyDrawingShared } from "../push/push.notify.js";
+import { kindOf, toDrawingDto } from "./drawings.mapper.js";
 import { drawingInclude } from "./drawings.types.js";
 import type { ListQuery } from "./drawings.schema.js";
 import { Prisma } from "../../generated/prisma/client.js";
@@ -40,6 +42,8 @@ async function resolveRecipients(ownerId: string, requested: string[]): Promise<
 
 const shareRows = (userIds: string[]) => userIds.map((userId) => ({ userId }));
 
+const KIND = { image: "IMAGE", pdf: "PDF", cad: "CAD" } as const;
+
 /* ------------------------------- operations ------------------------------- */
 
 export async function listDrawings(viewerId: string, { scope, q, page, pageSize }: ListQuery) {
@@ -75,44 +79,54 @@ interface CreateInput {
 
 export async function createDrawing({ ownerId, title, description, sharedWith, file }: CreateInput) {
   // 1. Cheap checks first, so a bad request never costs an upload
-  if (!detectImageType(file.buffer)) throw new HttpError(415, "Only PNG, JPG, WebP or GIF images are allowed.");
+  const detected = detectFileType(file.buffer);
+  if (!detected) throw new HttpError(415, `Only ${ACCEPTED_DESCRIPTION} files are allowed.`);
+  if (detected.kind === "image" && file.size > MAX_IMAGE_BYTES) throw new HttpError(413, "Images can be up to 10 MB.");
   const recipients = await resolveRecipients(ownerId, sharedWith);
 
-  // 2. The image goes to Cloudinary
-  const image = await uploadImage(file.buffer);
+  // 2. The file goes to Cloudinary
+  const stored = await uploadDrawingFile(file.buffer, detected);
 
   // 3. Only the reference is saved. If saving fails, don't leave an orphan file behind.
+  let row;
   try {
-    const row = await prisma.drawing.create({
-      data: { ownerId, title, description, ...image, shares: { create: shareRows(recipients) } },
+    row = await prisma.drawing.create({
+      data: { ownerId, title, description, kind: KIND[detected.kind], ...stored, shares: { create: shareRows(recipients) } },
       include: drawingInclude,
     });
-    return toDrawingDto(row, ownerId);
   } catch (error) {
-    await deleteImage(image.publicId);
+    await deleteDrawingFile(stored.publicId, detected.kind);
     throw error;
   }
+
+  // 4. Tell the people it was shared with (in the background: a slow push service never delays the upload)
+  notifyDrawingShared(row, recipients);
+  return toDrawingDto(row, ownerId);
 }
 
 /** Replaces the whole list of people a drawing is shared with. Only the owner may do this. */
 export async function replaceShares(ownerId: string, drawingId: string, requested: string[]) {
-  const owned = await prisma.drawing.findFirst({ where: { id: drawingId, ownerId }, select: { id: true } });
+  const owned = await prisma.drawing.findFirst({ where: { id: drawingId, ownerId }, select: { id: true, shares: { select: { userId: true } } } });
   if (!owned) throw new HttpError(404, "Drawing not found");
 
   const recipients = await resolveRecipients(ownerId, requested);
+  const already = new Set(owned.shares.map((share) => share.userId));
   const row = await prisma.drawing.update({
     where: { id: drawingId },
     data: { shares: { deleteMany: {}, create: shareRows(recipients) } }, // one statement: all or nothing
     include: drawingInclude,
   });
+
+  // Only the people newly added hear about it, not everyone each time the list is changed
+  notifyDrawingShared(row, recipients.filter((id) => !already.has(id)));
   return toDrawingDto(row, ownerId);
 }
 
 /** Deletes the record first (so it disappears at once), then the file. Only the owner may do this. */
 export async function deleteDrawing(ownerId: string, drawingId: string) {
-  const drawing = await prisma.drawing.findFirst({ where: { id: drawingId, ownerId }, select: { id: true, publicId: true } });
+  const drawing = await prisma.drawing.findFirst({ where: { id: drawingId, ownerId }, select: { id: true, publicId: true, kind: true } });
   if (!drawing) throw new HttpError(404, "Drawing not found");
 
   await prisma.drawing.delete({ where: { id: drawing.id } });
-  await deleteImage(drawing.publicId);
+  await deleteDrawingFile(drawing.publicId, kindOf(drawing));
 }

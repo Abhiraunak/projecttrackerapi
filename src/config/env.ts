@@ -14,6 +14,9 @@ const schema = z.object({
   REFRESH_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(90).default(30),
   SESSION_MAX_DAYS: z.coerce.number().int().min(1).max(365).default(90),
   COOKIE_SAMESITE: z.enum(["lax", "strict", "none"]).default("lax"),
+  VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+  VAPID_SUBJECT: z.string().optional(),
 });
 
 export const env = schema.parse(process.env);
