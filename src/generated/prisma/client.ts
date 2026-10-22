@@ -82,6 +82,11 @@ export type Drawing = Prisma.DrawingModel
  */
 export type DrawingShare = Prisma.DrawingShareModel
 /**
+ * Model PushSubscription
+ * 
+ */
+export type PushSubscription = Prisma.PushSubscriptionModel
+/**
  * Model Material
  * 
  */

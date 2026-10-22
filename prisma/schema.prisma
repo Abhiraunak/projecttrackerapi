@@ -33,6 +33,12 @@ enum BoqStatus {
   FINAL
 }
 
+enum DrawingKind {
+  IMAGE
+  PDF
+  CAD
+}
+
 model User {
   id             String          @id @default(cuid())
   name           String?
@@ -46,6 +52,7 @@ model User {
   refreshTokens  RefreshToken[]
   drawings       Drawing[]
   drawingShares  DrawingShare[]
+  pushSubscriptions PushSubscription[]
   materials      Material[]
   vendors        Vendor[]
   stockMovements StockMovement[]
@@ -154,9 +161,10 @@ model Drawing {
   version  Int // changes if the file is ever replaced, so cached links stay correct
   format   String // png, jpg, webp, gif
   bytes    Int
-  width    Int
-  height   Int
-
+  width    Int?
+  height   Int?
+  pages  Int? 
+  kind   DrawingKind @default(IMAGE) 
   shares    DrawingShare[]
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
@@ -173,6 +181,20 @@ model DrawingShare {
 
   @@id([drawingId, userId])
   @@index([userId, createdAt(sort: Desc)])
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique // the push service address for this device: also identifies it
+  p256dh    String // the device's encryption key
+  auth      String // and its secret
+  userAgent String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Material {

@@ -44,3 +44,12 @@ export const BoqStatus = {
 } as const
 
 export type BoqStatus = (typeof BoqStatus)[keyof typeof BoqStatus]
+
+
+export const DrawingKind = {
+  IMAGE: 'IMAGE',
+  PDF: 'PDF',
+  CAD: 'CAD'
+} as const
+
+export type DrawingKind = (typeof DrawingKind)[keyof typeof DrawingKind]

@@ -59,6 +59,7 @@ export const ModelName = {
   AttendanceWorker: 'AttendanceWorker',
   Drawing: 'Drawing',
   DrawingShare: 'DrawingShare',
+  PushSubscription: 'PushSubscription',
   Material: 'Material',
   Vendor: 'Vendor',
   Requirement: 'Requirement',
@@ -183,6 +184,8 @@ export const DrawingScalarFieldEnum = {
   bytes: 'bytes',
   width: 'width',
   height: 'height',
+  pages: 'pages',
+  kind: 'kind',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -197,6 +200,20 @@ export const DrawingShareScalarFieldEnum = {
 } as const
 
 export type DrawingShareScalarFieldEnum = (typeof DrawingShareScalarFieldEnum)[keyof typeof DrawingShareScalarFieldEnum]
+
+
+export const PushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  endpoint: 'endpoint',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
 
 
 export const MaterialScalarFieldEnum = {

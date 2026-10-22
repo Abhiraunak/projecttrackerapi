@@ -203,6 +203,7 @@ export type UserWhereInput = {
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   drawings?: Prisma.DrawingListRelationFilter
   drawingShares?: Prisma.DrawingShareListRelationFilter
+  pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
   materials?: Prisma.MaterialListRelationFilter
   vendors?: Prisma.VendorListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
@@ -224,6 +225,7 @@ export type UserOrderByWithRelationInput = {
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   drawings?: Prisma.DrawingOrderByRelationAggregateInput
   drawingShares?: Prisma.DrawingShareOrderByRelationAggregateInput
+  pushSubscriptions?: Prisma.PushSubscriptionOrderByRelationAggregateInput
   materials?: Prisma.MaterialOrderByRelationAggregateInput
   vendors?: Prisma.VendorOrderByRelationAggregateInput
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
@@ -248,6 +250,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   drawings?: Prisma.DrawingListRelationFilter
   drawingShares?: Prisma.DrawingShareListRelationFilter
+  pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
   materials?: Prisma.MaterialListRelationFilter
   vendors?: Prisma.VendorListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
@@ -295,6 +298,7 @@ export type UserCreateInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -316,6 +320,7 @@ export type UserUncheckedCreateInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -337,6 +342,7 @@ export type UserUpdateInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -358,6 +364,7 @@ export type UserUncheckedUpdateInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -522,6 +529,20 @@ export type UserUpdateOneRequiredWithoutDrawingSharesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDrawingSharesInput, Prisma.UserUpdateWithoutDrawingSharesInput>, Prisma.UserUncheckedUpdateWithoutDrawingSharesInput>
 }
 
+export type UserCreateNestedOneWithoutPushSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPushSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPushSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPushSubscriptionsInput
+  upsert?: Prisma.UserUpsertWithoutPushSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPushSubscriptionsInput, Prisma.UserUpdateWithoutPushSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
+}
+
 export type UserCreateNestedOneWithoutMaterialsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMaterialsInput, Prisma.UserUncheckedCreateWithoutMaterialsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMaterialsInput
@@ -624,6 +645,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -644,6 +666,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -680,6 +703,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -700,6 +724,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -720,6 +745,7 @@ export type UserCreateWithoutProjectsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -740,6 +766,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -776,6 +803,7 @@ export type UserUpdateWithoutProjectsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -796,6 +824,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -816,6 +845,7 @@ export type UserCreateWithoutAttendanceInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -836,6 +866,7 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -872,6 +903,7 @@ export type UserUpdateWithoutAttendanceInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -892,6 +924,7 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -912,6 +945,7 @@ export type UserCreateWithoutDrawingsInput = {
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -932,6 +966,7 @@ export type UserUncheckedCreateWithoutDrawingsInput = {
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -968,6 +1003,7 @@ export type UserUpdateWithoutDrawingsInput = {
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -988,6 +1024,7 @@ export type UserUncheckedUpdateWithoutDrawingsInput = {
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1008,6 +1045,7 @@ export type UserCreateWithoutDrawingSharesInput = {
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -1028,6 +1066,7 @@ export type UserUncheckedCreateWithoutDrawingSharesInput = {
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1064,6 +1103,7 @@ export type UserUpdateWithoutDrawingSharesInput = {
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -1084,6 +1124,107 @@ export type UserUncheckedUpdateWithoutDrawingSharesInput = {
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutPushSubscriptionsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+}
+
+export type UserUpsertWithoutPushSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPushSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPushSubscriptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPushSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
+}
+
+export type UserUpdateWithoutPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1105,6 +1246,7 @@ export type UserCreateWithoutMaterialsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
@@ -1125,6 +1267,7 @@ export type UserUncheckedCreateWithoutMaterialsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
@@ -1161,6 +1304,7 @@ export type UserUpdateWithoutMaterialsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
@@ -1181,6 +1325,7 @@ export type UserUncheckedUpdateWithoutMaterialsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
@@ -1201,6 +1346,7 @@ export type UserCreateWithoutVendorsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
@@ -1221,6 +1367,7 @@ export type UserUncheckedCreateWithoutVendorsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
@@ -1257,6 +1404,7 @@ export type UserUpdateWithoutVendorsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
@@ -1277,6 +1425,7 @@ export type UserUncheckedUpdateWithoutVendorsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
@@ -1297,6 +1446,7 @@ export type UserCreateWithoutStockMovementsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
@@ -1317,6 +1467,7 @@ export type UserUncheckedCreateWithoutStockMovementsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
@@ -1353,6 +1504,7 @@ export type UserUpdateWithoutStockMovementsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
@@ -1373,6 +1525,7 @@ export type UserUncheckedUpdateWithoutStockMovementsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
@@ -1393,6 +1546,7 @@ export type UserCreateWithoutAuditEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -1413,6 +1567,7 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1449,6 +1604,7 @@ export type UserUpdateWithoutAuditEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -1469,6 +1625,7 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1489,6 +1646,7 @@ export type UserCreateWithoutBoqsCreatedInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -1509,6 +1667,7 @@ export type UserUncheckedCreateWithoutBoqsCreatedInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1534,6 +1693,7 @@ export type UserCreateWithoutBoqsUpdatedInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
@@ -1554,6 +1714,7 @@ export type UserUncheckedCreateWithoutBoqsUpdatedInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
   drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1590,6 +1751,7 @@ export type UserUpdateWithoutBoqsCreatedInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -1610,6 +1772,7 @@ export type UserUncheckedUpdateWithoutBoqsCreatedInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1641,6 +1804,7 @@ export type UserUpdateWithoutBoqsUpdatedInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
@@ -1661,6 +1825,7 @@ export type UserUncheckedUpdateWithoutBoqsUpdatedInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1679,6 +1844,7 @@ export type UserCountOutputType = {
   refreshTokens: number
   drawings: number
   drawingShares: number
+  pushSubscriptions: number
   materials: number
   vendors: number
   stockMovements: number
@@ -1693,6 +1859,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   drawings?: boolean | UserCountOutputTypeCountDrawingsArgs
   drawingShares?: boolean | UserCountOutputTypeCountDrawingSharesArgs
+  pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
   materials?: boolean | UserCountOutputTypeCountMaterialsArgs
   vendors?: boolean | UserCountOutputTypeCountVendorsArgs
   stockMovements?: boolean | UserCountOutputTypeCountStockMovementsArgs
@@ -1744,6 +1911,13 @@ export type UserCountOutputTypeCountDrawingsArgs<ExtArgs extends runtime.Types.E
  */
 export type UserCountOutputTypeCountDrawingSharesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DrawingShareWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PushSubscriptionWhereInput
 }
 
 /**
@@ -1802,6 +1976,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   drawings?: boolean | Prisma.User$drawingsArgs<ExtArgs>
   drawingShares?: boolean | Prisma.User$drawingSharesArgs<ExtArgs>
+  pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   materials?: boolean | Prisma.User$materialsArgs<ExtArgs>
   vendors?: boolean | Prisma.User$vendorsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.User$stockMovementsArgs<ExtArgs>
@@ -1848,6 +2023,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   drawings?: boolean | Prisma.User$drawingsArgs<ExtArgs>
   drawingShares?: boolean | Prisma.User$drawingSharesArgs<ExtArgs>
+  pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   materials?: boolean | Prisma.User$materialsArgs<ExtArgs>
   vendors?: boolean | Prisma.User$vendorsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.User$stockMovementsArgs<ExtArgs>
@@ -1867,6 +2043,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     drawings: Prisma.$DrawingPayload<ExtArgs>[]
     drawingShares: Prisma.$DrawingSharePayload<ExtArgs>[]
+    pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
     materials: Prisma.$MaterialPayload<ExtArgs>[]
     vendors: Prisma.$VendorPayload<ExtArgs>[]
     stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
@@ -2281,6 +2458,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   drawings<T extends Prisma.User$drawingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$drawingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   drawingShares<T extends Prisma.User$drawingSharesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$drawingSharesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pushSubscriptions<T extends Prisma.User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materials<T extends Prisma.User$materialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vendors<T extends Prisma.User$vendorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stockMovements<T extends Prisma.User$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2833,6 +3011,30 @@ export type User$drawingSharesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.DrawingShareScalarFieldEnum | Prisma.DrawingShareScalarFieldEnum[]
+}
+
+/**
+ * User.pushSubscriptions
+ */
+export type User$pushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PushSubscription
+   */
+  select?: Prisma.PushSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PushSubscription
+   */
+  omit?: Prisma.PushSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PushSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.PushSubscriptionWhereInput
+  orderBy?: Prisma.PushSubscriptionOrderByWithRelationInput | Prisma.PushSubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.PushSubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PushSubscriptionScalarFieldEnum | Prisma.PushSubscriptionScalarFieldEnum[]
 }
 
 /**

@@ -31,6 +31,7 @@ export type DrawingAvgAggregateOutputType = {
   bytes: number | null
   width: number | null
   height: number | null
+  pages: number | null
 }
 
 export type DrawingSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type DrawingSumAggregateOutputType = {
   bytes: number | null
   width: number | null
   height: number | null
+  pages: number | null
 }
 
 export type DrawingMinAggregateOutputType = {
@@ -51,6 +53,8 @@ export type DrawingMinAggregateOutputType = {
   bytes: number | null
   width: number | null
   height: number | null
+  pages: number | null
+  kind: $Enums.DrawingKind | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +70,8 @@ export type DrawingMaxAggregateOutputType = {
   bytes: number | null
   width: number | null
   height: number | null
+  pages: number | null
+  kind: $Enums.DrawingKind | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -81,6 +87,8 @@ export type DrawingCountAggregateOutputType = {
   bytes: number
   width: number
   height: number
+  pages: number
+  kind: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -92,6 +100,7 @@ export type DrawingAvgAggregateInputType = {
   bytes?: true
   width?: true
   height?: true
+  pages?: true
 }
 
 export type DrawingSumAggregateInputType = {
@@ -99,6 +108,7 @@ export type DrawingSumAggregateInputType = {
   bytes?: true
   width?: true
   height?: true
+  pages?: true
 }
 
 export type DrawingMinAggregateInputType = {
@@ -112,6 +122,8 @@ export type DrawingMinAggregateInputType = {
   bytes?: true
   width?: true
   height?: true
+  pages?: true
+  kind?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -127,6 +139,8 @@ export type DrawingMaxAggregateInputType = {
   bytes?: true
   width?: true
   height?: true
+  pages?: true
+  kind?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -142,6 +156,8 @@ export type DrawingCountAggregateInputType = {
   bytes?: true
   width?: true
   height?: true
+  pages?: true
+  kind?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -242,8 +258,10 @@ export type DrawingGroupByOutputType = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width: number | null
+  height: number | null
+  pages: number | null
+  kind: $Enums.DrawingKind
   createdAt: Date
   updatedAt: Date
   _count: DrawingCountAggregateOutputType | null
@@ -280,8 +298,10 @@ export type DrawingWhereInput = {
   version?: Prisma.IntFilter<"Drawing"> | number
   format?: Prisma.StringFilter<"Drawing"> | string
   bytes?: Prisma.IntFilter<"Drawing"> | number
-  width?: Prisma.IntFilter<"Drawing"> | number
-  height?: Prisma.IntFilter<"Drawing"> | number
+  width?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  height?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  pages?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  kind?: Prisma.EnumDrawingKindFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -297,8 +317,10 @@ export type DrawingOrderByWithRelationInput = {
   version?: Prisma.SortOrder
   format?: Prisma.SortOrder
   bytes?: Prisma.SortOrder
-  width?: Prisma.SortOrder
-  height?: Prisma.SortOrder
+  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  pages?: Prisma.SortOrderInput | Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
@@ -317,8 +339,10 @@ export type DrawingWhereUniqueInput = Prisma.AtLeast<{
   version?: Prisma.IntFilter<"Drawing"> | number
   format?: Prisma.StringFilter<"Drawing"> | string
   bytes?: Prisma.IntFilter<"Drawing"> | number
-  width?: Prisma.IntFilter<"Drawing"> | number
-  height?: Prisma.IntFilter<"Drawing"> | number
+  width?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  height?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  pages?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  kind?: Prisma.EnumDrawingKindFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -334,8 +358,10 @@ export type DrawingOrderByWithAggregationInput = {
   version?: Prisma.SortOrder
   format?: Prisma.SortOrder
   bytes?: Prisma.SortOrder
-  width?: Prisma.SortOrder
-  height?: Prisma.SortOrder
+  width?: Prisma.SortOrderInput | Prisma.SortOrder
+  height?: Prisma.SortOrderInput | Prisma.SortOrder
+  pages?: Prisma.SortOrderInput | Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DrawingCountOrderByAggregateInput
@@ -357,8 +383,10 @@ export type DrawingScalarWhereWithAggregatesInput = {
   version?: Prisma.IntWithAggregatesFilter<"Drawing"> | number
   format?: Prisma.StringWithAggregatesFilter<"Drawing"> | string
   bytes?: Prisma.IntWithAggregatesFilter<"Drawing"> | number
-  width?: Prisma.IntWithAggregatesFilter<"Drawing"> | number
-  height?: Prisma.IntWithAggregatesFilter<"Drawing"> | number
+  width?: Prisma.IntNullableWithAggregatesFilter<"Drawing"> | number | null
+  height?: Prisma.IntNullableWithAggregatesFilter<"Drawing"> | number | null
+  pages?: Prisma.IntNullableWithAggregatesFilter<"Drawing"> | number | null
+  kind?: Prisma.EnumDrawingKindWithAggregatesFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Drawing"> | Date | string
 }
@@ -371,8 +399,10 @@ export type DrawingCreateInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutDrawingsInput
@@ -388,8 +418,10 @@ export type DrawingUncheckedCreateInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutDrawingInput
@@ -403,8 +435,10 @@ export type DrawingUpdateInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutDrawingsNestedInput
@@ -420,8 +454,10 @@ export type DrawingUncheckedUpdateInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.DrawingShareUncheckedUpdateManyWithoutDrawingNestedInput
@@ -436,8 +472,10 @@ export type DrawingCreateManyInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -450,8 +488,10 @@ export type DrawingUpdateManyMutationInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -465,8 +505,10 @@ export type DrawingUncheckedUpdateManyInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -492,6 +534,8 @@ export type DrawingCountOrderByAggregateInput = {
   bytes?: Prisma.SortOrder
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
+  pages?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -501,6 +545,7 @@ export type DrawingAvgOrderByAggregateInput = {
   bytes?: Prisma.SortOrder
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
+  pages?: Prisma.SortOrder
 }
 
 export type DrawingMaxOrderByAggregateInput = {
@@ -514,6 +559,8 @@ export type DrawingMaxOrderByAggregateInput = {
   bytes?: Prisma.SortOrder
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
+  pages?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -529,6 +576,8 @@ export type DrawingMinOrderByAggregateInput = {
   bytes?: Prisma.SortOrder
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
+  pages?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -538,6 +587,7 @@ export type DrawingSumOrderByAggregateInput = {
   bytes?: Prisma.SortOrder
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
+  pages?: Prisma.SortOrder
 }
 
 export type DrawingScalarRelationFilter = {
@@ -587,6 +637,18 @@ export type DrawingUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.DrawingScalarWhereInput | Prisma.DrawingScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type EnumDrawingKindFieldUpdateOperationsInput = {
+  set?: $Enums.DrawingKind
+}
+
 export type DrawingCreateNestedOneWithoutSharesInput = {
   create?: Prisma.XOR<Prisma.DrawingCreateWithoutSharesInput, Prisma.DrawingUncheckedCreateWithoutSharesInput>
   connectOrCreate?: Prisma.DrawingCreateOrConnectWithoutSharesInput
@@ -609,8 +671,10 @@ export type DrawingCreateWithoutOwnerInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.DrawingShareCreateNestedManyWithoutDrawingInput
@@ -624,8 +688,10 @@ export type DrawingUncheckedCreateWithoutOwnerInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutDrawingInput
@@ -669,8 +735,10 @@ export type DrawingScalarWhereInput = {
   version?: Prisma.IntFilter<"Drawing"> | number
   format?: Prisma.StringFilter<"Drawing"> | string
   bytes?: Prisma.IntFilter<"Drawing"> | number
-  width?: Prisma.IntFilter<"Drawing"> | number
-  height?: Prisma.IntFilter<"Drawing"> | number
+  width?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  height?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  pages?: Prisma.IntNullableFilter<"Drawing"> | number | null
+  kind?: Prisma.EnumDrawingKindFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
 }
@@ -683,8 +751,10 @@ export type DrawingCreateWithoutSharesInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutDrawingsInput
@@ -699,8 +769,10 @@ export type DrawingUncheckedCreateWithoutSharesInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -729,8 +801,10 @@ export type DrawingUpdateWithoutSharesInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutDrawingsNestedInput
@@ -745,8 +819,10 @@ export type DrawingUncheckedUpdateWithoutSharesInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -759,8 +835,10 @@ export type DrawingCreateManyOwnerInput = {
   version: number
   format: string
   bytes: number
-  width: number
-  height: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -773,8 +851,10 @@ export type DrawingUpdateWithoutOwnerInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.DrawingShareUpdateManyWithoutDrawingNestedInput
@@ -788,8 +868,10 @@ export type DrawingUncheckedUpdateWithoutOwnerInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.DrawingShareUncheckedUpdateManyWithoutDrawingNestedInput
@@ -803,8 +885,10 @@ export type DrawingUncheckedUpdateManyWithoutOwnerInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   format?: Prisma.StringFieldUpdateOperationsInput | string
   bytes?: Prisma.IntFieldUpdateOperationsInput | number
-  width?: Prisma.IntFieldUpdateOperationsInput | number
-  height?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -851,6 +935,8 @@ export type DrawingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   bytes?: boolean
   width?: boolean
   height?: boolean
+  pages?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -869,6 +955,8 @@ export type DrawingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   bytes?: boolean
   width?: boolean
   height?: boolean
+  pages?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -885,6 +973,8 @@ export type DrawingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   bytes?: boolean
   width?: boolean
   height?: boolean
+  pages?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -901,11 +991,13 @@ export type DrawingSelectScalar = {
   bytes?: boolean
   width?: boolean
   height?: boolean
+  pages?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DrawingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "title" | "description" | "publicId" | "version" | "format" | "bytes" | "width" | "height" | "createdAt" | "updatedAt", ExtArgs["result"]["drawing"]>
+export type DrawingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "title" | "description" | "publicId" | "version" | "format" | "bytes" | "width" | "height" | "pages" | "kind" | "createdAt" | "updatedAt", ExtArgs["result"]["drawing"]>
 export type DrawingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shares?: boolean | Prisma.Drawing$sharesArgs<ExtArgs>
@@ -933,8 +1025,10 @@ export type $DrawingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     version: number
     format: string
     bytes: number
-    width: number
-    height: number
+    width: number | null
+    height: number | null
+    pages: number | null
+    kind: $Enums.DrawingKind
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["drawing"]>
@@ -1372,6 +1466,8 @@ export interface DrawingFieldRefs {
   readonly bytes: Prisma.FieldRef<"Drawing", 'Int'>
   readonly width: Prisma.FieldRef<"Drawing", 'Int'>
   readonly height: Prisma.FieldRef<"Drawing", 'Int'>
+  readonly pages: Prisma.FieldRef<"Drawing", 'Int'>
+  readonly kind: Prisma.FieldRef<"Drawing", 'DrawingKind'>
   readonly createdAt: Prisma.FieldRef<"Drawing", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Drawing", 'DateTime'>
 }
