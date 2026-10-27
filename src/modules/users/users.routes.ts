@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { requireAuth } from "../../middleware/auth.js";
+import { allow } from "../../middleware/permissions.js";
 import { search } from "./users.controller.js";
 
 const router = Router();
-router.get("/", requireAuth, search);
+router.get("/", requireAuth, allow("drawings.use"), search);
 
 export default router;

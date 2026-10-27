@@ -1,5 +1,4 @@
 import { Project, Task } from "../../generated/prisma/client.js";
-import type { EffectiveRole } from "../../lib/permissions.js";
 import type { TaskBody } from "./projects.schema.js";
 
 type ProjectWithTasks = Project & { tasks: Task[] };
@@ -35,20 +34,18 @@ export const taskDto = (t: Task) => ({
   endDate: day(t.endDate),
 });
 
-/** `myRole` is the signed-in user's role on this project, so the browser knows what to offer */
-export const projectDto = (p: ProjectWithTasks, myRole: EffectiveRole) => ({
+export const projectDto = (p: ProjectWithTasks) => ({
   id: p.id,
   title: p.title,
   projectCost: p.projectCost?.toNumber() ?? null,
   status: p.status,
-  myRole,
   createdAt: p.createdAt,
   updatedAt: p.updatedAt,
   tasks: p.tasks.map(taskDto),
 });
 
 /** Lightweight shape for the project cards */
-export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, myRole: EffectiveRole) {
+export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }) {
   const tasks = p.tasks.map(taskDto);
   const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
   const paid = tasks.reduce((s, t) => s + t.paid, 0);
@@ -67,7 +64,6 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
     projectCost: p.projectCost?.toNumber() ?? null,
     spent: paid, // paid so far, so a card can show what is left of the project cost
     status: p.status,
-    myRole,
     taskCount: tasks.length,
     attendanceCount: p._count?.attendance ?? 0,
     budget,

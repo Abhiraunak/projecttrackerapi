@@ -3,7 +3,7 @@ import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { allow } from "../../middleware/permissions.js";
 import { validate } from "../../middleware/validate.js";
-import { uploadSingleFile } from "../../middleware/uploadImage.js";
+import { uploadSingleImage } from "../../middleware/uploadImage.js";
 import { createDrawingSchema, shareDrawingSchema } from "./drawings.schema.js";
 import * as c from "./drawings.controller.js";
 
@@ -19,7 +19,7 @@ const router = Router();
 router.use(requireAuth, allow("drawings.use"));
 
 router.get("/", c.list);
-router.post("/", uploadLimiter, uploadSingleFile, validate(createDrawingSchema), c.create);
+router.post("/", uploadLimiter, uploadSingleImage, validate(createDrawingSchema), c.create);
 router.put("/:id/shares", validate(shareDrawingSchema), c.share);
 router.delete("/:id", c.remove);
 

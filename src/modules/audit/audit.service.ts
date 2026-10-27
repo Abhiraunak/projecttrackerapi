@@ -1,6 +1,6 @@
-import type { Prisma } from "@prisma/client";
+import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
-import { requireCan, requirePermission } from "../../lib/projectAccess.js";
+import { requirePermission } from "../../lib/projectAccess.js";
 import { hasChanges, type Changes } from "./audit.diff.js";
 import type { AuditEntity, AuditQuery } from "./audit.schema.js";
 
@@ -36,22 +36,10 @@ export async function recordAudit(db: Db, input: AuditInput): Promise<void> {
   });
 }
 
-/** One project's history: who changed what on it, newest first */
-export async function listAudit(userId: string, projectId: string, query: AuditQuery) {
+export async function listAudit(userId: string, projectId: string, { entityType, page, pageSize }: AuditQuery) {
   await requirePermission(userId, projectId, "audit.view");
-  return pageOfEntries({ projectId, ...(query.entityType ? { entityType: query.entityType } : {}) }, query);
-}
 
-/**
- * Changes that belong to no project: BOQs, and who may do what (admin page).
- * Add ?all=true to include every project's entries too.
- */
-export async function listCompanyAudit(userId: string, query: AuditQuery & { all?: boolean }) {
-  await requireCan(userId, "audit.view");
-  return pageOfEntries({ ...(query.all ? {} : { projectId: null }), ...(query.entityType ? { entityType: query.entityType } : {}) }, query);
-}
-
-async function pageOfEntries(where: Prisma.AuditLogWhereInput, { page, pageSize }: AuditQuery) {
+  const where: Prisma.AuditLogWhereInput = { projectId, ...(entityType ? { entityType } : {}) };
   const [rows, total] = await prisma.$transaction([
     prisma.auditLog.findMany({
       where,
@@ -65,7 +53,6 @@ async function pageOfEntries(where: Prisma.AuditLogWhereInput, { page, pageSize 
   return {
     items: rows.map((row) => ({
       id: row.id,
-      projectId: row.projectId,
       action: row.action,
       entityType: row.entityType,
       entityId: row.entityId,

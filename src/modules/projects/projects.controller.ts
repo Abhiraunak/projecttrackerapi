@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { prisma } from "../../lib/prisma.js";
-import type { EffectiveRole, ProjectRole } from "../../lib/permissions.js";
-import { requirePermission } from "../../lib/projectAccess.js";
+
+import { requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { diffFields, hasChanges } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
@@ -15,40 +15,36 @@ import {
 import { HttpError } from "../../lib/error.js";
 
 const withTasks = { tasks: { orderBy: { position: "asc" } } } as const;
-const uid = (req: Request<any, any, any, any>) => req.user!.sub;
+const uid =  (req: Pick<Request, "user">) => req.user!.sub;
 
 /** The fields of a work item that are worth recording when they change */
 const TASK_FIELDS = ["work", "area", "contractorRate", "inHouseRate", "stipulated", "paid", "progress", "startDate", "endDate"] as const;
 
-/** Owner, or the role someone was given. Used only for projects the query already limited to this user. */
-const roleOf = (p: { ownerId: string; members: { role: ProjectRole }[] }, userId: string): EffectiveRole =>
-  p.ownerId === userId ? "OWNER" : (p.members[0]?.role ?? "CLIENT");
+/** The project-level facts worth recording when they change */
+const headline = (p: { title: string; status: string; projectCost: { toNumber(): number } | number | null }) => ({
+  title: p.title,
+  status: p.status,
+  projectCost: p.projectCost === null ? null : typeof p.projectCost === "number" ? p.projectCost : p.projectCost.toNumber(),
+});
 
-/** Projects you own, and projects you were added to */
+/** Every project: access is company-wide, so anyone allowed to view projects sees all of them */
 export async function list(req: Request, res: Response) {
-  const userId = uid(req);
+  await requireCan(uid(req), "project.view");
   const status = statusEnum.safeParse(req.query.status);
   const projects = await prisma.project.findMany({
-    where: {
-      AND: [
-        { OR: [{ ownerId: userId }, { members: { some: { userId } } }] },
-        { status: status.success ? status.data : { not: "ARCHIVED" } },
-      ],
-    },
-    include: {
-      ...withTasks,
-      _count: { select: { attendance: true } },
-      members: { where: { userId }, select: { role: true } },
-    },
+    where: { status: status.success ? status.data : { not: "ARCHIVED" } },
+    include: { ...withTasks, _count: { select: { attendance: true } } },
     orderBy: { updatedAt: "desc" },
     take: 100,
   });
-  res.json({ projects: projects.map((p) => summaryDto(p, roleOf(p, userId))) });
+  res.json({ projects: projects.map((p) => summaryDto(p)) });
 }
 
 export async function create(req: Request<unknown, unknown, CreateBody>, res: Response) {
   const userId = uid(req);
+  await requireCan(userId, "project.manage");
   const { title, projectCost, tasks } = req.body;
+
   const project = await prisma.$transaction(async (tx) => {
     const created = await tx.project.create({
       data: { title, projectCost, ownerId: userId, tasks: { create: tasks.map((t, i) => taskData(t, i)) } },
@@ -64,13 +60,13 @@ export async function create(req: Request<unknown, unknown, CreateBody>, res: Re
     });
     return created;
   });
-  res.status(201).json({ project: projectDto(project, "OWNER") });
+  res.status(201).json({ project: projectDto(project) });
 }
 
 export async function getOne(req: Request<{ id: string }>, res: Response) {
-  const access = await requirePermission(uid(req), req.params.id, "project.view");
+  await requirePermission(uid(req), req.params.id, "project.view");
   const project = await prisma.project.findUniqueOrThrow({ where: { id: req.params.id }, include: withTasks });
-  res.json({ project: projectDto(project, access.role) });
+  res.json({ project: projectDto(project) });
 }
 
 /** Full edit from the form: update existing work items, add new ones, delete removed ones, all or nothing. */
@@ -78,7 +74,7 @@ export async function update(req: Request<{ id: string }, unknown, UpdateBody>, 
   const userId = uid(req);
   const { id } = req.params;
   const { title, projectCost, status, tasks } = req.body;
-  const access = await requirePermission(userId, id, "project.manage");
+  await requirePermission(userId, id, "project.manage");
 
   const project = await prisma.$transaction(async (tx) => {
     const current = await tx.project.findUniqueOrThrow({ where: { id }, select: { title: true, status: true, projectCost: true } });
@@ -107,37 +103,34 @@ export async function update(req: Request<{ id: string }, unknown, UpdateBody>, 
       }
     }
 
-    const before = { title: current.title, status: current.status, projectCost: current.projectCost?.toNumber() ?? null };
-    const headline = diffFields(before, { title, status: status ?? current.status, projectCost }, ["title", "status", "projectCost"]);
-    if (hasChanges(headline)) {
-      await recordAudit(tx, { projectId: id, actorId: userId, action: "project.updated", entityType: "project", entityId: id, summary: "Changed project details", changes: headline });
+    const changes = diffFields(headline(current), headline({ title, status: status ?? current.status, projectCost }), ["title", "status", "projectCost"]);
+    if (hasChanges(changes)) {
+      await recordAudit(tx, { projectId: id, actorId: userId, action: "project.updated", entityType: "project", entityId: id, summary: "Changed project details", changes });
     }
 
     return tx.project.update({ where: { id }, data: { title, projectCost, ...(status ? { status } : {}) }, include: withTasks });
   });
 
-  res.json({ project: projectDto(project, access.role) });
+  res.json({ project: projectDto(project) });
 }
 
 export async function patchProject(req: Request<{ id: string }, unknown, PatchProjectBody>, res: Response) {
   const userId = uid(req);
   const { id } = req.params;
-  const access = await requirePermission(userId, id, "project.manage");
+  await requirePermission(userId, id, "project.manage");
 
   const project = await prisma.$transaction(async (tx) => {
     const before = await tx.project.findUniqueOrThrow({ where: { id }, select: { title: true, status: true, projectCost: true } });
     const updated = await tx.project.update({ where: { id }, data: req.body, include: withTasks });
-    const facts = (p: { title: string; status: string; projectCost: { toNumber(): number } | null }) => ({ title: p.title, status: p.status, projectCost: p.projectCost?.toNumber() ?? null });
-    const changes = diffFields(facts(before), facts(updated), ["title", "status", "projectCost"]);
+    const changes = diffFields(headline(before), headline(updated), ["title", "status", "projectCost"]);
     if (hasChanges(changes)) {
       await recordAudit(tx, { projectId: id, actorId: userId, action: "project.updated", entityType: "project", entityId: id, summary: "Changed project details", changes });
     }
     return updated;
   });
-  res.json({ project: projectDto(project, access.role) });
+  res.json({ project: projectDto(project) });
 }
 
-/** Only the owner can delete a project */
 export async function remove(req: Request<{ id: string }>, res: Response) {
   await requirePermission(uid(req), req.params.id, "project.delete");
   await prisma.project.delete({ where: { id: req.params.id } }); // work items and everything attached go with it (cascade)
@@ -146,7 +139,7 @@ export async function remove(req: Request<{ id: string }>, res: Response) {
 
 /**
  * Quick live edit of one work item's progress and/or amount paid.
- * Progress can be updated by a site engineer; the amount paid is money, so that needs a manager.
+ * Updating progress needs "tasks.progress"; the amount paid is money, so that needs "project.manage".
  */
 export async function patchTask(req: Request<{ id: string; taskId: string }, unknown, PatchTaskBody>, res: Response) {
   const userId = uid(req);
