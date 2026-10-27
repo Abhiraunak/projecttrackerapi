@@ -40,25 +40,25 @@ enum DrawingKind {
 }
 
 model User {
-  id             String          @id @default(cuid())
-  name           String?
-  email          String          @unique
-  passwordHash   String
-  role           Role            @default(USER)
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  projects       Project[]
-  attendance     Attendance[]
-  refreshTokens  RefreshToken[]
-  drawings       Drawing[]
-  drawingShares  DrawingShare[]
+  id                String             @id @default(cuid())
+  name              String?
+  email             String             @unique
+  passwordHash      String
+  role              Role               @default(USER)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  projects          Project[]
+  attendance        Attendance[]
+  refreshTokens     RefreshToken[]
+  drawings          Drawing[]
+  drawingShares     DrawingShare[]
   pushSubscriptions PushSubscription[]
-  materials      Material[]
-  vendors        Vendor[]
-  stockMovements StockMovement[]
-  auditEntries AuditLog[]
-  boqsCreated    Boq[]           @relation("BoqCreatedBy")
-  boqsUpdated    Boq[]           @relation("BoqUpdatedBy")
+  materials         Material[]
+  vendors           Vendor[]
+  stockMovements    StockMovement[]
+  auditEntries      AuditLog[]
+  boqsCreated       Boq[]              @relation("BoqCreatedBy")
+  boqsUpdated       Boq[]              @relation("BoqUpdatedBy")
 }
 
 model RefreshToken {
@@ -89,10 +89,11 @@ model Project {
   tasks          Task[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  projectCost    Decimal?        @db.Decimal(14, 2)
   attendance     Attendance[]
   requirements   Requirement[]
   stockMovements StockMovement[]
-  auditLog     AuditLog[]
+  auditLog       AuditLog[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -157,14 +158,14 @@ model Drawing {
   description String @default("")
 
   // The image itself lives on Cloudinary. We keep only its reference and a few facts about it.
-  publicId String @unique // Cloudinary's id: builds the links and deletes the file
-  version  Int // changes if the file is ever replaced, so cached links stay correct
-  format   String // png, jpg, webp, gif
-  bytes    Int
-  width    Int?
-  height   Int?
-  pages  Int? 
-  kind   DrawingKind @default(IMAGE) 
+  publicId  String         @unique // Cloudinary's id: builds the links and deletes the file
+  version   Int // changes if the file is ever replaced, so cached links stay correct
+  format    String // png, jpg, webp, gif
+  bytes     Int
+  width     Int?
+  height    Int?
+  pages     Int?
+  kind      DrawingKind    @default(IMAGE)
   shares    DrawingShare[]
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
@@ -293,7 +294,6 @@ model AuditLog {
   @@index([projectId, entityType])
   @@index([createdAt(sort: Desc)])
 }
-
 
 model Boq {
   id          String    @id @default(cuid())

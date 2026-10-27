@@ -5,7 +5,7 @@ import { requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { diffFields, hasChanges } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { attendanceDto, toDate } from "./attendance.mapper.js";
-import { listQuerySchema, type CreateBody, type CreateManyBody, type UpdateBody } from "./attendance.schema.js";
+import { listQuerySchema, type CreateBody, type CreateManyBody, type UpdateBody } from "./atttendance.schema.js"
 import { Prisma } from "../../generated/prisma/client.js";
 import { HttpError } from "../../lib/error.js";
 

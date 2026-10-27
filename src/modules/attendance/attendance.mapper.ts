@@ -1,8 +1,6 @@
 import { Attendance, AttendanceWorker } from "../../generated/prisma/client.js";
 
 
-
-
 type Row = Attendance & {
   project: { id: string; title: string };
   workers: AttendanceWorker[];
