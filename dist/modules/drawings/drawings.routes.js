@@ -1,6 +1,7 @@
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
+import { allow } from "../../middleware/permissions.js";
 import { validate } from "../../middleware/validate.js";
 import { uploadSingleImage } from "../../middleware/uploadImage.js";
 import { createDrawingSchema, shareDrawingSchema } from "./drawings.schema.js";
@@ -13,7 +14,7 @@ const uploadLimiter = rateLimit({
     legacyHeaders: false,
 });
 const router = Router();
-router.use(requireAuth);
+router.use(requireAuth, allow("drawings.use"));
 router.get("/", c.list);
 router.post("/", uploadLimiter, uploadSingleImage, validate(createDrawingSchema), c.create);
 router.put("/:id/shares", validate(shareDrawingSchema), c.share);

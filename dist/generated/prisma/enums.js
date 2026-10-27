@@ -24,4 +24,13 @@ export const MovementType = {
     ADJUSTMENT_IN: 'ADJUSTMENT_IN',
     ADJUSTMENT_OUT: 'ADJUSTMENT_OUT'
 };
+export const BoqStatus = {
+    DRAFT: 'DRAFT',
+    FINAL: 'FINAL'
+};
+export const DrawingKind = {
+    IMAGE: 'IMAGE',
+    PDF: 'PDF',
+    CAD: 'CAD'
+};
 //# sourceMappingURL=enums.js.map

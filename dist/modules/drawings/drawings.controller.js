@@ -8,7 +8,7 @@ export async function list(req, res) {
 }
 export async function create(req, res) {
     if (!req.file)
-        throw new HttpError(400, "Choose an image to upload.");
+        throw new HttpError(400, "Choose a file to upload.");
     const drawing = await createDrawing({ ownerId: viewerId(req), ...req.body, file: req.file });
     res.status(201).json({ drawing });
 }

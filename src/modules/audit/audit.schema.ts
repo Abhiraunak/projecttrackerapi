@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AUDIT_ENTITIES = ["project", "task", "member", "requirement", "stock", "attendance", "user"] as const;
+export const AUDIT_ENTITIES = ["project", "task", "member", "requirement", "stock", "attendance", "user", "boq"] as const;
 export type AuditEntity = (typeof AUDIT_ENTITIES)[number];
 
 /** req.query is read-only in Express 5, so the controller parses it directly */
@@ -11,3 +11,8 @@ export const auditQuerySchema = z.object({
 });
 
 export type AuditQuery = z.infer<typeof auditQuerySchema>;
+
+/** The company-wide list also takes ?all=true (every entry, not only those outside projects) */
+export const companyAuditQuerySchema = auditQuerySchema.extend({
+  all: z.enum(["true", "false"]).optional().transform((v) => v === "true"),
+});

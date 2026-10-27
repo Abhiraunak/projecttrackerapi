@@ -16,6 +16,13 @@ import drawingRoutes from './modules/drawings/drawings.routes.js';
 import userRoutes from './modules/users/users.routes.js';
 import { env } from './config/env.js';
 import { requireCsrfHeader } from './middleware/csrf.js';
+import catalogRoutes from './modules/materials/catalog.routes.js';
+import requirementRoutes from './modules/requirements/requirements.routes.js';
+import inventoryRoutes from './modules/inventory/inventory.routes.js';
+import boqRoutes from './modules/boqs/boqs.routes.js';
+import { jsonBody } from './middleware/jsonBody.js';
+import auditRoutes from './modules/audit/audit.routes.js';
+import pushRoutes from './modules/push/push.routes.js';
 const app = express();
 app.set('trust proxy', 1); // behind Nginx/ALB/Render etc., so rate limiting sees real IPs
 app.disable('x-powered-by');
@@ -25,7 +32,7 @@ app.use(cors(corsOptions));
 if (env.COOKIE_SAMESITE === 'none')
     app.use(requireCsrfHeader);
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 300, standardHeaders: 'draft-7', legacyHeaders: false }));
-app.use(express.json({ limit: '100kb' }));
+app.use(jsonBody);
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 app.use(cookieParser());
 app.use(hpp());
@@ -36,6 +43,12 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 app.use('/api/v1/drawings', drawingRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/materials', catalogRoutes);
+app.use('/api/v1', requirementRoutes);
+app.use('/api/v1', inventoryRoutes);
+app.use('/api/v1', auditRoutes);
+app.use('/api/v1/boqs', boqRoutes);
+app.use('/api/v1/push', pushRoutes);
 app.use(notFound);
 app.use(errorHandler); // must be last
 const PORT = process.env.PORT || 4000;

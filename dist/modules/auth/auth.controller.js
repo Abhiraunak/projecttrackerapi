@@ -6,8 +6,8 @@ export async function register(req, res) {
     const { email, password, name } = req.body;
     const passwordHash = await argon2.hash(password);
     const user = await prisma.user.create({
-        data: { email, passwordHash, name: name?.trim() || null, },
-        select: { id: true, email: true, name: true, role: true }, // never return the hash
+        data: { email, passwordHash, role: (await prisma.user.count()) === 0 ? "ADMIN" : "USER" },
+        select: { id: true, email: true, role: true }, // never return the hash // never return the hash
     });
     res.status(201).json({ user });
 }

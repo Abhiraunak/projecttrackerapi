@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { createBoq, deleteBoq, duplicateBoq, getBoq, listBoqs, saveBoq } from "./boqs.service.js";
 import { listQuerySchema, type BoqDocumentInput, type SaveBody } from "./boqs.schema.js";
 
-const userId = (req: Request) => req.user!.sub;
+const userId = (req: Request<any, any, any, any>) => req.user!.sub;
 
 export async function list(req: Request, res: Response) {
   res.json(await listBoqs(listQuerySchema.parse(req.query)));

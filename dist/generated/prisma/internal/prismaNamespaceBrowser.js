@@ -47,10 +47,13 @@ export const ModelName = {
     AttendanceWorker: 'AttendanceWorker',
     Drawing: 'Drawing',
     DrawingShare: 'DrawingShare',
+    PushSubscription: 'PushSubscription',
     Material: 'Material',
     Vendor: 'Vendor',
     Requirement: 'Requirement',
-    StockMovement: 'StockMovement'
+    StockMovement: 'StockMovement',
+    AuditLog: 'AuditLog',
+    Boq: 'Boq'
 };
 /*
  * Enums
@@ -89,7 +92,8 @@ export const ProjectScalarFieldEnum = {
     status: 'status',
     ownerId: 'ownerId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    projectCost: 'projectCost'
 };
 export const TaskScalarFieldEnum = {
     id: 'id',
@@ -137,6 +141,8 @@ export const DrawingScalarFieldEnum = {
     bytes: 'bytes',
     width: 'width',
     height: 'height',
+    pages: 'pages',
+    kind: 'kind',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
@@ -144,6 +150,16 @@ export const DrawingShareScalarFieldEnum = {
     drawingId: 'drawingId',
     userId: 'userId',
     createdAt: 'createdAt'
+};
+export const PushSubscriptionScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    endpoint: 'endpoint',
+    p256dh: 'p256dh',
+    auth: 'auth',
+    userAgent: 'userAgent',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const MaterialScalarFieldEnum = {
     id: 'id',
@@ -192,9 +208,43 @@ export const StockMovementScalarFieldEnum = {
     createdById: 'createdById',
     createdAt: 'createdAt'
 };
+export const AuditLogScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    actorId: 'actorId',
+    actorEmail: 'actorEmail',
+    action: 'action',
+    entityType: 'entityType',
+    entityId: 'entityId',
+    summary: 'summary',
+    changes: 'changes',
+    createdAt: 'createdAt'
+};
+export const BoqScalarFieldEnum = {
+    id: 'id',
+    title: 'title',
+    subtitle: 'subtitle',
+    boqNumber: 'boqNumber',
+    status: 'status',
+    grandTotal: 'grandTotal',
+    itemCount: 'itemCount',
+    document: 'document',
+    version: 'version',
+    createdById: 'createdById',
+    updatedById: 'updatedById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
 export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
+};
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
+    JsonNull: JsonNull
+};
+export const JsonNullValueInput = {
+    JsonNull: JsonNull
 };
 export const QueryMode = {
     default: 'default',
@@ -203,5 +253,10 @@ export const QueryMode = {
 export const NullsOrder = {
     first: 'first',
     last: 'last'
+};
+export const JsonNullValueFilter = {
+    DbNull: DbNull,
+    JsonNull: JsonNull,
+    AnyNull: AnyNull
 };
 //# sourceMappingURL=prismaNamespaceBrowser.js.map

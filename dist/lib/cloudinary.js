@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { v2 as cloudinary } from "cloudinary";
 import { env } from "../config/env.js";
 import { logger } from "../config/logger.js";
@@ -9,68 +10,80 @@ cloudinary.config({
     secure: true,
 });
 /**
- * "authenticated" means a file can only be fetched through a signed link that this server makes.
- * Nobody can guess a link from the file name. To make links public instead, change this to
- * `{ type: "upload", resource_type: "image", secure: true }` (and delete sign_url).
+ * Where each kind of file lives on Cloudinary:
+ *  - images and PDFs are "image" resources, so Cloudinary can make thumbnails (for a PDF, of page 1)
+ *  - AutoCAD files are "raw" resources: stored and delivered as they are
+ * "authenticated" means a file can only be fetched through a signed link made by this server.
  */
-const DELIVERY = { type: "authenticated", resource_type: "image", sign_url: true, secure: true };
-/** Sends the image to Cloudinary. Nothing is written to this server's disk. */
-export function uploadImage(buffer) {
+const resourceTypeFor = (kind) => (kind === "cad" ? "raw" : "image");
+const delivery = (kind) => ({ type: "authenticated", resource_type: resourceTypeFor(kind), sign_url: true, secure: true });
+function uploadOptions(detected) {
+    const common = { folder: env.CLOUDINARY_FOLDER, type: "authenticated", overwrite: false };
+    if (detected.kind === "cad") {
+        // Raw files keep their extension only if it is part of the id; the id is random, never the uploaded name
+        return { ...common, resource_type: "raw", public_id: `${randomUUID()}.${detected.format}` };
+    }
+    return {
+        ...common,
+        resource_type: "image",
+        allowed_formats: ["png", "jpg", "jpeg", "webp", "gif", "pdf"],
+        use_filename: false,
+        unique_filename: true,
+    };
+}
+/** Sends the file to Cloudinary. Nothing is written to this server's disk. */
+export function uploadDrawingFile(buffer, detected) {
     return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream({
-            folder: env.CLOUDINARY_FOLDER,
-            resource_type: "image",
-            type: DELIVERY.type,
-            allowed_formats: ["png", "jpg", "jpeg", "webp", "gif"],
-            use_filename: false, // random names: the uploaded file name is never part of the link
-            unique_filename: true,
-            overwrite: false,
-        }, (error, result) => {
+        const stream = cloudinary.uploader.upload_stream(uploadOptions(detected), (error, result) => {
+            if (error?.http_code === 400 && /too large/i.test(error.message ?? "")) {
+                reject(new HttpError(413, "That file is larger than your Cloudinary plan allows (the free plan allows 10 MB per file)."));
+                return;
+            }
             if (error || !result) {
                 logger.error({ err: error }, "cloudinary upload failed");
-                reject(new HttpError(502, "Image storage is unavailable right now. Please try again."));
+                reject(new HttpError(502, "File storage is unavailable right now. Please try again."));
                 return;
             }
             resolve({
                 publicId: result.public_id,
                 version: result.version,
-                format: result.format,
+                format: detected.format, // raw uploads report no format, so use what was detected
                 bytes: result.bytes,
-                width: result.width,
-                height: result.height,
+                width: detected.kind === "cad" ? null : (result.width ?? null),
+                height: detected.kind === "cad" ? null : (result.height ?? null),
+                pages: detected.kind === "pdf" ? (result.pages ?? null) : null,
             });
         });
         stream.end(buffer);
     });
 }
 /** Removes the file. A failure is logged, not thrown, so a deleted drawing never reappears because of it. */
-export async function deleteImage(publicId) {
+export async function deleteDrawingFile(publicId, kind) {
     try {
-        await cloudinary.uploader.destroy(publicId, { resource_type: "image", type: DELIVERY.type, invalidate: true });
+        await cloudinary.uploader.destroy(publicId, { resource_type: resourceTypeFor(kind), type: "authenticated", invalidate: true });
     }
     catch (err) {
         logger.error({ err, publicId }, "cloudinary delete failed: file left behind");
     }
 }
-/**
- * The three links the app needs, computed locally (no call to Cloudinary):
- *  - thumbnail: small, for the grid
- *  - image: full size but compressed and in the best format for the browser
- *  - download: the untouched original, sent as a download
- */
-export function imageUrls({ publicId, version, format }) {
+/** The links the app needs, computed locally (no call to Cloudinary) */
+export function drawingUrls({ publicId, version, format, kind }) {
+    const base = { ...delivery(kind), version };
+    if (kind === "cad") {
+        const file = cloudinary.url(publicId, base);
+        return { thumbnailUrl: null, imageUrl: null, openUrl: file, downloadUrl: file };
+    }
+    // For a PDF, "page: 1" and format jpg turn page 1 into a picture
+    const picture = (width) => cloudinary.url(publicId, {
+        ...base,
+        ...(kind === "pdf" ? { format: "jpg" } : {}),
+        transformation: [{ ...(kind === "pdf" ? { page: 1 } : {}), width, crop: "limit", quality: "auto", ...(kind === "pdf" ? {} : { fetch_format: "auto" }) }],
+    });
     return {
-        thumbnailUrl: cloudinary.url(publicId, {
-            ...DELIVERY,
-            version,
-            transformation: [{ width: 800, crop: "limit", quality: "auto", fetch_format: "auto" }],
-        }),
-        imageUrl: cloudinary.url(publicId, {
-            ...DELIVERY,
-            version,
-            transformation: [{ width: 2400, crop: "limit", quality: "auto", fetch_format: "auto" }],
-        }),
-        downloadUrl: cloudinary.url(publicId, { ...DELIVERY, version, format, flags: "attachment" }),
+        thumbnailUrl: picture(800),
+        imageUrl: picture(2400),
+        openUrl: cloudinary.url(publicId, { ...base, format }),
+        downloadUrl: cloudinary.url(publicId, { ...base, format, flags: "attachment" }),
     };
 }
 //# sourceMappingURL=cloudinary.js.map

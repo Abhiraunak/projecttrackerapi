@@ -1,11 +1,21 @@
 import { prisma } from "../../lib/prisma.js";
-import { assertProjectOwner } from "../../lib/projectAccess.js";
+import { MOVEMENT_PERMISSION } from "../../lib/permissions.js";
+import { requirePermission } from "../../lib/projectAccess.js";
+import { recordAudit } from "../audit/audit.service.js";
 import { movementDto, movementInclude, toEntry, toFigures, toMaterialInfo } from "./inventory.mapper.js";
 import { NEEDS_TASK, buildInventory, inventoryItemFor, validateMovement } from "./stock.js";
 import { HttpError } from "../../lib/error.js";
 /* ------------------------------ small helpers ----------------------------- */
 const OLDEST_FIRST = [{ createdAt: "asc" }, { id: "asc" }];
 const ENTRY_COLUMNS = { materialId: true, type: true, quantity: true, taskId: true };
+const VERB = {
+    RECEIVED: "Received",
+    ISSUED: "Issued",
+    RESERVED: "Reserved",
+    RELEASED: "Released the reservation of",
+    ADJUSTMENT_IN: "Corrected up by",
+    ADJUSTMENT_OUT: "Corrected down by",
+};
 /** task id -> task name, for the project (a work item is called "work" in the database) */
 async function taskNames(db, projectId) {
     const tasks = await db.task.findMany({ where: { projectId }, select: { id: true, work: true } });
@@ -22,27 +32,27 @@ async function assertReceivableOrder(projectId, materialId, input) {
         return;
     if (input.type !== "RECEIVED")
         throw new HttpError(400, "Only received stock can be linked to an order.");
-    const order = await prisma.requirement.findFirst({
-        where: { id: input.requirementId, projectId, materialId },
-        select: { id: true },
-    });
+    const order = await prisma.requirement.findFirst({ where: { id: input.requirementId, projectId, materialId }, select: { id: true } });
     if (!order)
         throw new HttpError(400, "That order doesn't match this project and material.");
 }
 /* ------------------------------- operations ------------------------------- */
-export async function getInventory(ownerId, projectId) {
-    await assertProjectOwner(ownerId, projectId);
+export async function getInventory(userId, projectId) {
+    await requirePermission(userId, projectId, "materials.view");
     const [entries, requirements, names] = await Promise.all([
         prisma.stockMovement.findMany({ where: { projectId }, select: ENTRY_COLUMNS, orderBy: [...OLDEST_FIRST] }),
         prisma.requirement.findMany({ where: { projectId } }),
         taskNames(prisma, projectId),
     ]);
     const materialIds = [...new Set([...entries.map((e) => e.materialId), ...requirements.map((r) => r.materialId)])];
-    const materials = await prisma.material.findMany({ where: { id: { in: materialIds }, ownerId }, orderBy: { name: "asc" } });
+    const materials = await prisma.material.findMany({
+        where: { id: { in: materialIds } },
+        orderBy: { name: "asc" },
+    });
     return buildInventory(materials.map(toMaterialInfo), entries.map(toEntry), requirements.map(toFigures), names);
 }
-export async function listMovements(ownerId, projectId, { materialId, page, pageSize }) {
-    await assertProjectOwner(ownerId, projectId);
+export async function listMovements(userId, projectId, { materialId, page, pageSize }) {
+    await requirePermission(userId, projectId, "materials.view");
     const where = { projectId, ...(materialId ? { materialId } : {}) };
     const [rows, total] = await prisma.$transaction([
         prisma.stockMovement.findMany({
@@ -54,25 +64,19 @@ export async function listMovements(ownerId, projectId, { materialId, page, page
         }),
         prisma.stockMovement.count({ where }),
     ]);
-    return {
-        items: rows.map(movementDto),
-        page,
-        pageSize,
-        total,
-        totalPages: Math.max(1, Math.ceil(total / pageSize)),
-    };
+    return { items: rows.map(movementDto), page, pageSize, total, totalPages: Math.max(1, Math.ceil(total / pageSize)) };
 }
 /**
  * Adds one entry to the stock log.
  *
- * The check "is there enough stock?" and the insert happen in one transaction, behind a lock on this
- * project and material. So two people issuing the same cement at the same moment can't both succeed
- * and push the stock below zero: the second one waits, then sees the reduced stock and is refused.
+ * The role check depends on the kind of entry (a storekeeper receives, an engineer only issues).
+ * The "is there enough stock?" check and the insert happen in one transaction, behind a lock on this project and
+ * material, so two people issuing the same cement at the same moment can't push the stock below zero.
  */
-export async function recordMovement(ownerId, projectId, input) {
+export async function recordMovement(userId, projectId, input) {
     // Cheap checks first, outside the lock
-    await assertProjectOwner(ownerId, projectId);
-    const material = await prisma.material.findFirst({ where: { id: input.materialId, ownerId } });
+    await requirePermission(userId, projectId, MOVEMENT_PERMISSION[input.type]);
+    const material = await prisma.material.findUnique({ where: { id: input.materialId } });
     if (!material)
         throw new HttpError(404, "Material not found");
     const taskId = NEEDS_TASK[input.type] ? input.taskId : null; // other types don't belong to a work item
@@ -91,22 +95,24 @@ export async function recordMovement(ownerId, projectId, input) {
         if (problem)
             throw new HttpError(400, problem);
         const row = await tx.stockMovement.create({
-            data: {
-                projectId,
-                materialId: material.id,
-                taskId,
-                requirementId: input.requirementId,
-                type: input.type,
-                quantity: input.quantity,
-                note: input.note,
-                createdById: ownerId,
-            },
+            data: { projectId, materialId: material.id, taskId, requirementId: input.requirementId, type: input.type, quantity: input.quantity, note: input.note, createdById: userId },
             include: movementInclude,
         });
         // Stock received against an order counts as delivered on that order
         if (input.requirementId) {
             await tx.requirement.update({ where: { id: input.requirementId }, data: { receivedQty: { increment: input.quantity } } });
         }
+        const where = taskId ? ` (${names.get(taskId) ?? "work item"})` : "";
+        const why = input.note ? `: ${input.note}` : "";
+        await recordAudit(tx, {
+            projectId,
+            actorId: userId,
+            action: `stock.${input.type.toLowerCase()}`,
+            entityType: "stock",
+            entityId: row.id,
+            summary: `${VERB[input.type]} ${input.quantity} ${material.unit} of ${material.name}${where}${why}`,
+            changes: { quantity: { from: null, to: input.quantity } },
+        });
         return movementDto(row);
     });
 }

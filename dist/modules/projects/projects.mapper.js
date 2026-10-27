@@ -29,6 +29,7 @@ export const taskDto = (t) => ({
 export const projectDto = (p) => ({
     id: p.id,
     title: p.title,
+    projectCost: p.projectCost?.toNumber() ?? null,
     status: p.status,
     createdAt: p.createdAt,
     updatedAt: p.updatedAt,
@@ -49,6 +50,8 @@ export function summaryDto(p) {
     return {
         id: p.id,
         title: p.title,
+        projectCost: p.projectCost?.toNumber() ?? null,
+        spent: paid, // paid so far, so a card can show what is left of the project cost
         status: p.status,
         taskCount: tasks.length,
         attendanceCount: p._count?.attendance ?? 0,
