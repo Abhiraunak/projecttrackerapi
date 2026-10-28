@@ -23,6 +23,8 @@ import boqRoutes from './modules/boqs/boqs.routes.js';
 import { jsonBody } from './middleware/jsonBody.js';
 import auditRoutes from './modules/audit/audit.routes.js';
 import pushRoutes from './modules/push/push.routes.js';
+import accessRoutes from './modules/access/access.routes.js';
+import adminRoutes from './modules/admin/admin.routes.js';
 
 const app = express();
 
@@ -51,7 +53,9 @@ app.use('/api/v1', requirementRoutes);
 app.use('/api/v1', inventoryRoutes); 
 app.use('/api/v1', auditRoutes);  
 app.use('/api/v1/boqs', boqRoutes);
-app.use('/api/v1/push', pushRoutes);  
+app.use('/api/v1/push', pushRoutes); 
+app.use('/api/v1', accessRoutes);        // GET /me/access
+app.use('/api/v1/admin', adminRoutes);   // admin page 
 
 
 app.use(notFound);
