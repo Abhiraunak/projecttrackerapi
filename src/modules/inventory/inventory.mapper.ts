@@ -1,30 +1,27 @@
+import { Prisma } from "../../generated/prisma/client.js";
+import type { ItemLabel, MaterialInfo, StockEntry } from "./stock.js";
 
-import { Material, Prisma, Requirement, StockMovement } from "../../generated/prisma/client.js";
-import type { MaterialInfo, RequirementFigures, StockEntry } from "./stock.js";
-
-/** What to load with a movement: the material, the work item and who recorded it */
+/** What to load with a movement: the material, the BOQ item, the order and who recorded it */
 export const movementInclude = {
   material: { select: { id: true, name: true, unit: true } },
-  task: { select: { id: true, work: true } },
+  boqItem: { select: { id: true, code: true, title: true } },
+  order: { select: { id: true, reference: true } },
   createdBy: { select: { email: true } },
 } as const;
 
 export type MovementRow = Prisma.StockMovementGetPayload<{ include: typeof movementInclude }>;
 
-/** Database row -> the JSON the frontend expects */
 export const movementDto = (row: MovementRow) => ({
   id: row.id,
   material: row.material,
   type: row.type,
   quantity: row.quantity.toNumber(),
-  task: row.task ? { id: row.task.id, name: row.task.work } : null,
-  requirementId: row.requirementId,
+  boqItem: row.boqItem,
+  order: row.order,
   note: row.note,
   createdAt: row.createdAt,
   createdBy: row.createdBy.email,
 });
-
-/* Database rows -> the plain numbers the stock rules work with */
 
 export const toMaterialInfo = (m: Material): MaterialInfo => ({
   id: m.id,
@@ -34,18 +31,11 @@ export const toMaterialInfo = (m: Material): MaterialInfo => ({
   minStock: m.minStock.toNumber(),
 });
 
-export const toEntry = (row: Pick<StockMovement, "materialId" | "type" | "quantity" | "taskId">): StockEntry => ({
+export const toEntry = (row: Pick<StockMovement, "materialId" | "type" | "quantity" | "boqItemId">): StockEntry => ({
   materialId: row.materialId,
   type: row.type,
   quantity: row.quantity.toNumber(),
-  taskId: row.taskId,
+  itemId: row.boqItemId,
 });
 
-export const toFigures = (r: Requirement): RequirementFigures => ({
-  materialId: r.materialId,
-  taskId: r.taskId,
-  requiredQty: r.requiredQty.toNumber(),
-  wastagePercent: r.wastagePercent.toNumber(),
-  orderedQty: r.orderedQty.toNumber(),
-  receivedQty: r.receivedQty.toNumber(),
-});
+export const toItemLabel = (i: { id: string; code: string; title: string; active: boolean }): ItemLabel => ({ id: i.id, code: i.code, title: i.title, active: i.active });

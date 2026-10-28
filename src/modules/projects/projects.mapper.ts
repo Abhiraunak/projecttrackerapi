@@ -1,4 +1,4 @@
-import { Project, Task } from "../../generated/prisma/client.js";
+import type { Project, Task } from "../../generated/prisma/client.js";
 import type { TaskBody } from "./projects.schema.js";
 
 type ProjectWithTasks = Project & { tasks: Task[] };
@@ -45,7 +45,13 @@ export const projectDto = (p: ProjectWithTasks) => ({
 });
 
 /** Lightweight shape for the project cards */
-export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }) {
+/** Material totals for one project (from materialTotalsByProject); none yet means zero */
+export interface MaterialTotals {
+  spent: number;
+  expected: number;
+}
+
+export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, materials: MaterialTotals = { spent: 0, expected: 0 }) {
   const tasks = p.tasks.map(taskDto);
   const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
   const paid = tasks.reduce((s, t) => s + t.paid, 0);
@@ -62,7 +68,10 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
     id: p.id,
     title: p.title,
     projectCost: p.projectCost?.toNumber() ?? null,
-    spent: paid, // paid so far, so a card can show what is left of the project cost
+    spent: Math.round((paid + materials.spent) * 100) / 100, // labour paid + materials received, so a card can show what is left
+    labourPaid: paid,
+    materialSpent: materials.spent,
+    materialExpected: materials.expected,
     status: p.status,
     taskCount: tasks.length,
     attendanceCount: p._count?.attendance ?? 0,
@@ -70,7 +79,7 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
     paid,
     progress: Math.round(progress),
     startDate: starts[0] ?? null,
-    endDate: ends.at(-1) ?? null,
+    endDate: ends.length > 0 ? ends[ends.length - 1]! : null,
     updatedAt: p.updatedAt,
   };
 }

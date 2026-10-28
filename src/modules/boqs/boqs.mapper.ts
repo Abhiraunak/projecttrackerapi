@@ -1,8 +1,7 @@
-
 import { Prisma } from "../../generated/prisma/client.js";
 import { boqTotals, itemCount, type BoqDocument } from "./boq.calc.js";
 
-export const boqInclude = { updatedBy: { select: { email: true } } } as const;
+export const boqInclude = { updatedBy: { select: { email: true } }, project: { select: { id: true, title: true } } } as const;
 export type BoqRow = Prisma.BoqGetPayload<{ include: typeof boqInclude }>;
 
 /** The copies of document facts kept in their own columns, for search and the dashboard. Always derived, never typed. */
@@ -22,6 +21,7 @@ export const boqDto = (row: BoqRow) => ({
   version: row.version,
   document: row.document,
   grandTotal: row.grandTotal.toNumber(),
+  project: row.project,
   createdAt: row.createdAt,
   updatedAt: row.updatedAt,
   updatedBy: row.updatedBy?.email ?? null,
@@ -35,6 +35,7 @@ export const boqSummaryDto = (row: BoqRow) => ({
   status: row.status,
   grandTotal: row.grandTotal.toNumber(),
   itemCount: row.itemCount,
+  project: row.project,
   updatedAt: row.updatedAt,
   updatedBy: row.updatedBy?.email ?? null,
 });

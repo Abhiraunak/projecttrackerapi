@@ -19,6 +19,8 @@ export const PERMISSIONS = [
   "stock.issue",
   "stock.reserve",
   "stock.adjust",
+  "requests.create", // ask for material from site
+  "requests.approve", // approve or reject those requests
   "attendance.view",
   "attendance.write",
   "drawings.use",
