@@ -17,7 +17,6 @@ import userRoutes from './modules/users/users.routes.js';
 import { env } from './config/env.js';
 import { requireCsrfHeader } from './middleware/csrf.js';
 import catalogRoutes from './modules/materials/catalog.routes.js';
-import requirementRoutes from './modules/requirements/requirements.routes.js';
 import inventoryRoutes from './modules/inventory/inventory.routes.js';
 import boqRoutes from './modules/boqs/boqs.routes.js';
 import { jsonBody } from './middleware/jsonBody.js';
@@ -25,6 +24,11 @@ import auditRoutes from './modules/audit/audit.routes.js';
 import pushRoutes from './modules/push/push.routes.js';
 import accessRoutes from './modules/access/access.routes.js';
 import adminRoutes from './modules/admin/admin.routes.js';
+import materialPlanRoutes from './modules/materialPlan/plan.routes.js';
+import orderRoutes from './modules/orders/orders.routes.js';
+import alertRoutes from './modules/alerts/alerts.routes.js';
+import requestRoutes from './modules/requests/requests.routes.js';
+import dashboardRoutes from './modules/dashboard/dashboard.routes.js';
 
 const app = express();
 
@@ -48,14 +52,19 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 app.use('/api/v1/drawings', drawingRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/materials', catalogRoutes);
-app.use('/api/v1', requirementRoutes);   
+app.use('/api/v1/materials', catalogRoutes);   
 app.use('/api/v1', inventoryRoutes); 
 app.use('/api/v1', auditRoutes);  
 app.use('/api/v1/boqs', boqRoutes);
 app.use('/api/v1/push', pushRoutes); 
 app.use('/api/v1', accessRoutes);        // GET /me/access
-app.use('/api/v1/admin', adminRoutes);   // admin page 
+app.use('/api/v1/admin', adminRoutes);   // admin page
+app.use('/api/v1', inventoryRoutes);
+app.use('/api/v1', materialPlanRoutes);
+app.use('/api/v1', orderRoutes);
+app.use('/api/v1', alertRoutes);
+app.use('/api/v1', requestRoutes); 
+app.use('/api/v1', dashboardRoutes);
 
 
 app.use(notFound);

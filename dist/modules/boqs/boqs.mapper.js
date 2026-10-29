@@ -1,5 +1,5 @@
 import { boqTotals, itemCount } from "./boq.calc.js";
-export const boqInclude = { updatedBy: { select: { email: true } } };
+export const boqInclude = { updatedBy: { select: { email: true } }, project: { select: { id: true, title: true } } };
 /** The copies of document facts kept in their own columns, for search and the dashboard. Always derived, never typed. */
 export function derivedColumns(document) {
     return {
@@ -16,6 +16,7 @@ export const boqDto = (row) => ({
     version: row.version,
     document: row.document,
     grandTotal: row.grandTotal.toNumber(),
+    project: row.project,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
     updatedBy: row.updatedBy?.email ?? null,
@@ -28,6 +29,7 @@ export const boqSummaryDto = (row) => ({
     status: row.status,
     grandTotal: row.grandTotal.toNumber(),
     itemCount: row.itemCount,
+    project: row.project,
     updatedAt: row.updatedAt,
     updatedBy: row.updatedBy?.email ?? null,
 });

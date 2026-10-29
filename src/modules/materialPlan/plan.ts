@@ -48,7 +48,8 @@ export interface OutlineSheet {
 
 /**
  * The BOQ as sheets, sections and items, each item with its priced parts: what "Import from BOQ" lets people tick.
- * Parts with no quantity and no unit are skipped; items left with no parts and sections left with no items too.
+ * Only completely blank parts are skipped (no quantity, unit or description); then items with no parts and sections
+ * with no items.
  */
 export function boqOutline(boqId: string, doc: BoqDocument, startPosition = 0): OutlineSheet[] {
   let position = startPosition;
@@ -65,8 +66,10 @@ export function boqOutline(boqId: string, doc: BoqDocument, startPosition = 0): 
         const parts: BoqPartRow[] = [];
         for (const part of entry.parts) {
           const quantity = round3(partQty(part));
-          if (quantity === 0 && !part.unit.trim()) continue;
           const own = squash(part.description);
+          // Skip only a completely blank part. A part still waiting for its quantity or unit is kept, so it can be
+          // imported now and picks up its quantity on the next sync.
+          if (quantity === 0 && !part.unit.trim() && !own && !squash(entry.description)) continue;
           parts.push({
             boqId,
             partKey: part.id,

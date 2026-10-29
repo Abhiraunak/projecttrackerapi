@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { createMaterial, createVendor, deleteVendor, getCatalog, updateMaterial, updateVendor } from "./catalog.service.js";
 import type { MaterialBody, VendorBody } from "./catalog.schema.js";
 
-const userId = (req: Request) => req.user!.sub;
+const userId = (req: Request<any, any, any, any>) => req.user!.sub;
 
 // A ?projectId= sent by older screens is simply ignored: the catalog is the same for every project
 export async function catalog(req: Request, res: Response) {

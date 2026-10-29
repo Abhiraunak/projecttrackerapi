@@ -44,7 +44,10 @@ export const documentSchema = z
     signatures: z.object({ leftLabel: str(100), leftName: str(200), rightLabel: str(100), rightName: str(200) }),
 })
     .refine((doc) => doc.sheets.reduce((n, sh) => n + sh.sections.reduce((m, s) => m + s.entries.reduce((k, e) => k + (e.kind === "item" ? e.parts.reduce((j, p) => j + p.lines.length, 0) : 0), 0), 0), 0) <= LIMITS.totalLines, { message: `A BOQ can have at most ${LIMITS.totalLines} rows` });
-export const createBoqSchema = z.object({ body: z.object({ document: documentSchema }) });
+const projectId = z.string().min(1).max(64).nullable();
+export const createBoqSchema = z.object({ body: z.object({ document: documentSchema, projectId: projectId.default(null) }) });
+/** Which project the BOQ belongs to (null: none). Its items reach the project's materials on the next sync. */
+export const setProjectSchema = z.object({ body: z.object({ projectId }) });
 export const saveBoqSchema = z.object({
     body: z.object({ document: documentSchema, version: z.number().int().min(1), status: z.enum(["DRAFT", "FINAL"]) }),
 });
@@ -52,6 +55,7 @@ export const saveBoqSchema = z.object({
 export const listQuerySchema = z.object({
     q: z.string().trim().max(100).optional(),
     status: z.enum(["DRAFT", "FINAL"]).optional(),
+    projectId: z.string().min(1).max(64).optional(),
     page: z.coerce.number().int().min(1).default(1),
     pageSize: z.coerce.number().int().min(1).max(50).default(10),
 });

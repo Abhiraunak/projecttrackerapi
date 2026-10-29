@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma.js";
+import { HttpError } from "../../lib/error.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { boqDto, boqInclude, boqSummaryDto, derivedColumns } from "./boqs.mapper.js";
-import { HttpError } from "../../lib/error.js";
 const WEEK_MS = 7 * 86_400_000;
 const asJson = (document) => document;
 async function findOrThrow(id) {
@@ -17,8 +17,8 @@ function searchFilter(q) {
     return { OR: [{ title: contains }, { subtitle: contains }, { boqNumber: contains }] };
 }
 /** The dashboard: one page of BOQs (newest change first) and the figures for its summary cards */
-export async function listBoqs({ q, status, page, pageSize }) {
-    const where = { ...searchFilter(q), ...(status ? { status } : {}) };
+export async function listBoqs({ q, status, projectId, page, pageSize }) {
+    const where = { ...searchFilter(q), ...(status ? { status } : {}), ...(projectId ? { projectId } : {}) };
     const [rows, total, sum, drafts, finals, recent] = await prisma.$transaction([
         prisma.boq.findMany({ where, include: boqInclude, orderBy: [{ updatedAt: "desc" }, { id: "desc" }], skip: (page - 1) * pageSize, take: pageSize }),
         prisma.boq.count({ where }),
@@ -39,10 +39,16 @@ export async function listBoqs({ q, status, page, pageSize }) {
 export async function getBoq(id) {
     return boqDto(await findOrThrow(id));
 }
-export async function createBoq(userId, document) {
+async function assertProject(projectId) {
+    if (projectId && !(await prisma.project.findUnique({ where: { id: projectId }, select: { id: true } }))) {
+        throw new HttpError(400, "That project could not be found.");
+    }
+}
+export async function createBoq(userId, document, projectId = null) {
+    await assertProject(projectId);
     const row = await prisma.$transaction(async (tx) => {
         const created = await tx.boq.create({
-            data: { ...derivedColumns(document), document: asJson(document), createdById: userId, updatedById: userId },
+            data: { ...derivedColumns(document), document: asJson(document), projectId, createdById: userId, updatedById: userId },
             include: boqInclude,
         });
         await recordAudit(tx, { projectId: null, actorId: userId, action: "boq.created", entityType: "boq", entityId: created.id, summary: `Created BOQ "${document.title || "Untitled"}"` });
@@ -50,11 +56,14 @@ export async function createBoq(userId, document) {
     });
     return boqDto(row);
 }
-/** A copy to start a new BOQ from: always a draft, marked "Copy of" */
+/**
+ * A copy to start a new BOQ from: always a draft, marked "Copy of", and linked to no project
+ * (linked to the same project, both copies would feed its materials and count everything twice).
+ */
 export async function duplicateBoq(userId, sourceId) {
     const source = await findOrThrow(sourceId);
     const document = source.document;
-    return createBoq(userId, { ...document, title: `Copy of ${document.title || "Untitled"}`, boqNumber: "" });
+    return createBoq(userId, { ...document, title: `Copy of ${document.title || "Untitled"}`, boqNumber: "" }, null);
 }
 /**
  * Saves the whole document. Two rules:
@@ -102,5 +111,31 @@ export async function deleteBoq(userId, id) {
             summary: `Deleted BOQ "${current.title || "Untitled"}" (total ${current.grandTotal.toNumber()})`,
         });
     });
+}
+/**
+ * Moves a BOQ to a project (or to none). Allowed even when the BOQ is final: it changes where its items are counted,
+ * not the BOQ itself. The project's materials update on its next "Sync from BOQ".
+ */
+export async function setBoqProject(userId, id, projectId) {
+    const current = await findOrThrow(id);
+    if (current.projectId === projectId)
+        return boqDto(current);
+    await assertProject(projectId);
+    const row = await prisma.$transaction(async (tx) => {
+        const updated = await tx.boq.update({ where: { id }, data: { projectId }, include: boqInclude });
+        const from = current.project?.title ?? null;
+        const to = updated.project?.title ?? null;
+        await recordAudit(tx, {
+            projectId: null,
+            actorId: userId,
+            action: "boq.project_changed",
+            entityType: "boq",
+            entityId: id,
+            summary: to ? `Linked BOQ "${current.title || "Untitled"}" to project "${to}"` : `Unlinked BOQ "${current.title || "Untitled"}" from its project`,
+            changes: { project: { from, to } },
+        });
+        return updated;
+    });
+    return boqDto(row);
 }
 //# sourceMappingURL=boqs.service.js.map

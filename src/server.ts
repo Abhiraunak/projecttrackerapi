@@ -3,8 +3,17 @@ import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { prisma } from './lib/prisma.js';
 import { purgeExpiredSessions } from './lib/session.js';
+// import { ensureAdminAccount } from './lib/adminBootstrap.js';
+import { startAlertSweep } from './modules/alerts/alerts.service.js';
+
+// Create the admin account from ADMIN_EMAIL / ADMIN_PASSWORD if needed. A failure is logged, not fatal:
+// the app still runs, and it will try again on the next restart.
+// await ensureAdminAccount().catch((err: unknown) => logger.error({ err }, 'admin account check failed'));
 
 const server = app.listen(env.PORT, () => logger.info(`Listening on :${env.PORT}`));
+
+// Stock alerts that come from the calendar (late deliveries): checked a minute after start, then every 3 hours
+startAlertSweep(3);
 
 // Delete expired refresh tokens now and every 6 hours
 const purge = () =>

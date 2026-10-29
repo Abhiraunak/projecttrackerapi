@@ -50,8 +50,14 @@ export const ModelName = {
     PushSubscription: 'PushSubscription',
     Material: 'Material',
     Vendor: 'Vendor',
-    Requirement: 'Requirement',
     StockMovement: 'StockMovement',
+    BoqItem: 'BoqItem',
+    BoqItemMaterial: 'BoqItemMaterial',
+    MaterialRecipe: 'MaterialRecipe',
+    MaterialRecipeLine: 'MaterialRecipeLine',
+    MaterialOrder: 'MaterialOrder',
+    StockAlert: 'StockAlert',
+    MaterialRequest: 'MaterialRequest',
     AuditLog: 'AuditLog',
     Boq: 'Boq'
 };
@@ -70,6 +76,7 @@ export const UserScalarFieldEnum = {
     email: 'email',
     passwordHash: 'passwordHash',
     role: 'role',
+    permissions: 'permissions',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
@@ -168,6 +175,7 @@ export const MaterialScalarFieldEnum = {
     unit: 'unit',
     category: 'category',
     minStock: 'minStock',
+    rate: 'rate',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
@@ -181,32 +189,107 @@ export const VendorScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-export const RequirementScalarFieldEnum = {
-    id: 'id',
-    projectId: 'projectId',
-    taskId: 'taskId',
-    materialId: 'materialId',
-    vendorId: 'vendorId',
-    requiredQty: 'requiredQty',
-    wastagePercent: 'wastagePercent',
-    orderedQty: 'orderedQty',
-    receivedQty: 'receivedQty',
-    expectedDelivery: 'expectedDelivery',
-    requested: 'requested',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-};
 export const StockMovementScalarFieldEnum = {
     id: 'id',
     projectId: 'projectId',
     materialId: 'materialId',
-    taskId: 'taskId',
-    requirementId: 'requirementId',
+    boqItemId: 'boqItemId',
+    orderId: 'orderId',
     type: 'type',
     quantity: 'quantity',
     note: 'note',
     createdById: 'createdById',
     createdAt: 'createdAt'
+};
+export const BoqItemScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    boqId: 'boqId',
+    partKey: 'partKey',
+    sheetName: 'sheetName',
+    code: 'code',
+    title: 'title',
+    matchText: 'matchText',
+    contextText: 'contextText',
+    unit: 'unit',
+    quantity: 'quantity',
+    position: 'position',
+    active: 'active',
+    noMaterials: 'noMaterials',
+    suggested: 'suggested',
+    recipeName: 'recipeName',
+    syncedAt: 'syncedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const BoqItemMaterialScalarFieldEnum = {
+    id: 'id',
+    itemId: 'itemId',
+    materialId: 'materialId',
+    perUnit: 'perUnit',
+    wastagePercent: 'wastagePercent',
+    position: 'position'
+};
+export const MaterialRecipeScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    unit: 'unit',
+    match: 'match',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const MaterialRecipeLineScalarFieldEnum = {
+    id: 'id',
+    recipeId: 'recipeId',
+    materialId: 'materialId',
+    perUnit: 'perUnit',
+    wastagePercent: 'wastagePercent',
+    position: 'position'
+};
+export const MaterialOrderScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    materialId: 'materialId',
+    vendorId: 'vendorId',
+    quantity: 'quantity',
+    receivedQty: 'receivedQty',
+    rate: 'rate',
+    expectedDelivery: 'expectedDelivery',
+    reference: 'reference',
+    note: 'note',
+    createdById: 'createdById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const StockAlertScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    key: 'key',
+    kind: 'kind',
+    materialId: 'materialId',
+    orderId: 'orderId',
+    message: 'message',
+    openedAt: 'openedAt',
+    resolvedAt: 'resolvedAt',
+    notifiedAt: 'notifiedAt'
+};
+export const MaterialRequestScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    materialId: 'materialId',
+    boqItemId: 'boqItemId',
+    quantity: 'quantity',
+    neededBy: 'neededBy',
+    note: 'note',
+    status: 'status',
+    requestedById: 'requestedById',
+    decidedById: 'decidedById',
+    decidedAt: 'decidedAt',
+    decisionNote: 'decisionNote',
+    movementId: 'movementId',
+    orderId: 'orderId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const AuditLogScalarFieldEnum = {
     id: 'id',
@@ -230,6 +313,7 @@ export const BoqScalarFieldEnum = {
     itemCount: 'itemCount',
     document: 'document',
     version: 'version',
+    projectId: 'projectId',
     createdById: 'createdById',
     updatedById: 'updatedById',
     createdAt: 'createdAt',
@@ -239,11 +323,11 @@ export const SortOrder = {
     asc: 'asc',
     desc: 'desc'
 };
-export const NullableJsonNullValueInput = {
-    DbNull: DbNull,
+export const JsonNullValueInput = {
     JsonNull: JsonNull
 };
-export const JsonNullValueInput = {
+export const NullableJsonNullValueInput = {
+    DbNull: DbNull,
     JsonNull: JsonNull
 };
 export const QueryMode = {

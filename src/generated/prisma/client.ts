@@ -97,15 +97,46 @@ export type Material = Prisma.MaterialModel
  */
 export type Vendor = Prisma.VendorModel
 /**
- * Model Requirement
- * One material needed by one work item, and how far its ordering has got
- */
-export type Requirement = Prisma.RequirementModel
-/**
  * Model StockMovement
  * The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
  */
 export type StockMovement = Prisma.StockMovementModel
+/**
+ * Model BoqItem
+ * One priced part of one of the project's BOQs, as last synced. Never deleted by a sync: an item that left
+ * the BOQ is marked inactive, so stock already issued to it keeps its history.
+ */
+export type BoqItem = Prisma.BoqItemModel
+/**
+ * Model BoqItemMaterial
+ * How much of one material one BOQ item needs per unit of the item
+ */
+export type BoqItemMaterial = Prisma.BoqItemMaterialModel
+/**
+ * Model MaterialRecipe
+ * Company-wide: the materials a kind of BOQ item needs per unit ("Concrete 1:2:4 (M15)": cement, sand, aggregate)
+ */
+export type MaterialRecipe = Prisma.MaterialRecipeModel
+/**
+ * Model MaterialRecipeLine
+ * 
+ */
+export type MaterialRecipeLine = Prisma.MaterialRecipeLineModel
+/**
+ * Model MaterialOrder
+ * A purchase order for one material on one project. Deliveries are received against it.
+ */
+export type MaterialOrder = Prisma.MaterialOrderModel
+/**
+ * Model StockAlert
+ * An alert stays open while its condition holds; it is closed (resolvedAt) when the condition clears
+ */
+export type StockAlert = Prisma.StockAlertModel
+/**
+ * Model MaterialRequest
+ * A request from site: "40 bags of cement for 5.3.9 footing by Friday"
+ */
+export type MaterialRequest = Prisma.MaterialRequestModel
 /**
  * Model AuditLog
  * 

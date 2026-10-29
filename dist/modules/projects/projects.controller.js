@@ -1,10 +1,11 @@
 import { prisma } from "../../lib/prisma.js";
+import { HttpError } from "../../lib/error.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { diffFields, hasChanges } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
+import { materialTotalsByProject } from "../inventory/cost.service.js";
 import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
 import { statusEnum, } from "./projects.schema.js";
-import { HttpError } from "../../lib/error.js";
 const withTasks = { tasks: { orderBy: { position: "asc" } } };
 const uid = (req) => req.user.sub;
 /** The fields of a work item that are worth recording when they change */
@@ -25,7 +26,8 @@ export async function list(req, res) {
         orderBy: { updatedAt: "desc" },
         take: 100,
     });
-    res.json({ projects: projects.map((p) => summaryDto(p)) });
+    const materials = await materialTotalsByProject(projects.map((p) => p.id));
+    res.json({ projects: projects.map((p) => summaryDto(p, materials.get(p.id))) });
 }
 export async function create(req, res) {
     const userId = uid(req);

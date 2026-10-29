@@ -33,33 +33,56 @@ const toRecipe = (r: RecipeRow): Recipe => ({
   lines: r.lines.map((l) => ({ materialId: l.materialId, perUnit: num(l.perUnit), wastagePercent: num(l.wastagePercent) })),
 });
 
-/** A material by name (any case), created if missing, for the starter recipes */
-async function materialByName(db: Db, userId: string, m: (typeof RECIPE_MATERIALS)[number]) {
-  const found = await db.material.findFirst({ where: { name: { equals: m.name, mode: "insensitive" } }, select: { id: true } });
-  if (found) return found.id;
-  const created = await db.material.create({ data: { ...m, ownerId: userId }, select: { id: true } });
-  return created.id;
+/**
+ * First use only: the company gets the starter recipes (and the materials they need). Safe to call repeatedly.
+ * Done in a handful of queries (not one per material and recipe), so it fits easily in a transaction even on a
+ * far-away database: one query per row used to run past Prisma's 5-second transaction limit, which made the first
+ * "Import from BOQ" or "Recipes" fail with a 500.
+ */
+async function seedStarterRecipes(userId: string) {
+  await prisma.$transaction(
+    async (tx) => {
+      await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext('starter-recipes'))`;
+      if ((await tx.materialRecipe.count()) > 0) return; // someone else seeded them meanwhile
+
+      // The materials the recipes use: reuse ones that already exist (any case), add the rest
+      const findAll = () =>
+        tx.material.findMany({
+          where: { OR: RECIPE_MATERIALS.map((m) => ({ name: { equals: m.name, mode: "insensitive" as const } })) },
+          select: { id: true, name: true },
+        });
+      const have = new Set((await findAll()).map((m) => m.name.toLowerCase()));
+      const missing = RECIPE_MATERIALS.filter((m) => !have.has(m.name.toLowerCase()));
+      if (missing.length) await tx.material.createMany({ data: missing.map((m) => ({ ...m, ownerId: userId })), skipDuplicates: true });
+      const ids = new Map((await findAll()).map((m) => [m.name.toLowerCase(), m.id]));
+
+      // The recipes, then all their lines in one go
+      const recipes = await tx.materialRecipe.createManyAndReturn({
+        data: STARTER_RECIPES.map((r) => ({ name: r.name, unit: r.unit, match: r.match })),
+        select: { id: true, name: true },
+      });
+      const recipeId = new Map(recipes.map((r) => [r.name, r.id]));
+      await tx.materialRecipeLine.createMany({
+        data: STARTER_RECIPES.flatMap((r) =>
+          r.lines.flatMap((l, position) => {
+            const materialId = ids.get(l.material.toLowerCase());
+            return materialId ? [{ recipeId: recipeId.get(r.name)!, materialId, perUnit: l.perUnit, wastagePercent: l.wastagePercent, position }] : [];
+          })
+        ),
+      });
+    },
+    { timeout: 30_000, maxWait: 10_000 }
+  );
 }
 
-/** First use only: the company gets the starter recipes (and the materials they need). Safe to call repeatedly. */
 async function ensureStarterRecipes(userId: string) {
   if ((await prisma.materialRecipe.count()) > 0) return;
-  await prisma.$transaction(async (tx) => {
-    await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext('starter-recipes'))`;
-    if ((await tx.materialRecipe.count()) > 0) return; // someone else seeded them meanwhile
-    const ids = new Map<string, string>();
-    for (const m of RECIPE_MATERIALS) ids.set(m.name, await materialByName(tx, userId, m));
-    for (const r of STARTER_RECIPES) {
-      await tx.materialRecipe.create({
-        data: {
-          name: r.name,
-          unit: r.unit,
-          match: r.match,
-          lines: { create: r.lines.map((l, position) => ({ materialId: ids.get(l.material)!, perUnit: l.perUnit, wastagePercent: l.wastagePercent, position })) },
-        },
-      });
-    }
-  });
+  try {
+    await seedStarterRecipes(userId);
+  } catch (err) {
+    // Starter recipes are a convenience: if adding them fails, the screens still work (just without suggestions)
+    console.error("Could not add the starter material recipes:", err);
+  }
 }
 
 async function loadRecipes(userId: string): Promise<RecipeRow[]> {

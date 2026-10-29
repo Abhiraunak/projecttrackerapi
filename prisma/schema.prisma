@@ -39,6 +39,21 @@ enum DrawingKind {
   CAD
 }
 
+enum StockAlertKind {
+  ORDER_MORE // the BOQ still needs more than is in store or on order
+  LOW_STOCK // the store is at or under the material's minimum while it is still needed
+  LATE_DELIVERY // an order's expected date has passed with material still to come
+}
+
+enum MaterialRequestStatus {
+  PENDING // waiting for approval
+  APPROVED // approved: to be issued from the store, or ordered
+  REJECTED
+  CANCELLED
+  ISSUED // issued from the store to its BOQ item
+  ORDERED // an order was placed for it
+}
+
 model User {
   id                String             @id @default(cuid())
   name              String?
@@ -57,6 +72,9 @@ model User {
   materials         Material[]
   vendors           Vendor[]
   stockMovements    StockMovement[]
+  materialOrders    MaterialOrder[]
+  requestsMade      MaterialRequest[]  @relation("RequestedBy")
+  requestsDecided   MaterialRequest[]  @relation("DecidedBy")
   auditEntries      AuditLog[]
   boqsCreated       Boq[]              @relation("BoqCreatedBy")
   boqsUpdated       Boq[]              @relation("BoqUpdatedBy")
@@ -82,41 +100,43 @@ model RefreshToken {
 }
 
 model Project {
-  id             String          @id @default(cuid())
-  title          String
-  status         ProjectStatus   @default(ONGOING)
-  ownerId        String
-  owner          User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  tasks          Task[]
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  projectCost    Decimal?        @db.Decimal(14, 2)
-  attendance     Attendance[]
-  requirements   Requirement[]
-  stockMovements StockMovement[]
-  auditLog       AuditLog[]
+  id               String            @id @default(cuid())
+  title            String
+  status           ProjectStatus     @default(ONGOING)
+  ownerId          String
+  owner            User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks            Task[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  projectCost      Decimal?          @db.Decimal(14, 2)
+  attendance       Attendance[]
+  stockMovements   StockMovement[]
+  boqs             Boq[]
+  boqItems         BoqItem[]
+  materialOrders   MaterialOrder[]
+  stockAlerts      StockAlert[]
+  materialRequests MaterialRequest[]
+  auditLog         AuditLog[]
 
   @@index([ownerId, status, updatedAt])
 }
 
 model Task {
-  id             String          @id @default(cuid())
+  id             String   @id @default(cuid())
   projectId      String
-  project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   work           String
   area           Float
   contractorRate Float
   inHouseRate    Float
-  stipulated     Decimal         @db.Decimal(14, 2)
-  paid           Decimal         @default(0) @db.Decimal(14, 2)
-  progress       Int             @default(0)
-  startDate      DateTime        @db.Date
-  endDate        DateTime        @db.Date
-  position       Int             @default(0)
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  requirements   Requirement[]
-  stockMovements StockMovement[]
+  stipulated     Decimal  @db.Decimal(14, 2)
+  paid           Decimal  @default(0) @db.Decimal(14, 2)
+  progress       Int      @default(0)
+  startDate      DateTime @db.Date
+  endDate        DateTime @db.Date
+  position       Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@index([projectId, position])
 }
@@ -199,83 +219,218 @@ model PushSubscription {
   @@index([userId])
 }
 
+/**
+ * ------------------------------- Inventory --------------------------------
+ */
+
 model Material {
-  id           String          @id @default(cuid())
-  ownerId      String
-  owner        User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  name         String
-  unit         String // bag, kg, m3, nos...
-  category     String          @default("General")
-  minStock     Decimal         @default(0) @db.Decimal(14, 3) // at or under this the store is "low"
-  requirements Requirement[]
-  movements    StockMovement[]
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
+  id            String               @id @default(cuid())
+  ownerId       String
+  owner         User                 @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name          String
+  unit          String // bag, kg, m3, nos...
+  category      String               @default("General")
+  minStock      Decimal              @default(0) @db.Decimal(14, 3) // at or under this the store is "low"
+  rate          Decimal              @default(0) @db.Decimal(14, 2) // standard rate per unit, for the BOQ material budget
+  movements     StockMovement[]
+  itemMaterials BoqItemMaterial[]
+  recipeLines   MaterialRecipeLine[]
+  orders        MaterialOrder[]
+  alerts        StockAlert[]
+  requests      MaterialRequest[]
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
 
   @@unique([ownerId, name])
 }
 
 model Vendor {
-  id            String        @id @default(cuid())
+  id            String          @id @default(cuid())
   ownerId       String
-  owner         User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner         User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   name          String
-  contactPerson String        @default("")
-  phone         String        @default("")
-  email         String        @default("")
-  requirements  Requirement[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  contactPerson String          @default("")
+  phone         String          @default("")
+  email         String          @default("")
+  orders        MaterialOrder[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 
   @@unique([ownerId, name])
 }
 
-/// One material needed by one work item, and how far its ordering has got
-model Requirement {
-  id               String          @id @default(cuid())
-  projectId        String
-  project          Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  taskId           String
-  task             Task            @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  materialId       String
-  material         Material        @relation(fields: [materialId], references: [id], onDelete: Restrict)
-  vendorId         String?
-  vendor           Vendor?         @relation(fields: [vendorId], references: [id], onDelete: SetNull)
-  requiredQty      Decimal         @db.Decimal(14, 3) // before wastage
-  wastagePercent   Decimal         @default(5) @db.Decimal(5, 2)
-  orderedQty       Decimal         @default(0) @db.Decimal(14, 3)
-  receivedQty      Decimal         @default(0) @db.Decimal(14, 3)
-  expectedDelivery DateTime?       @db.Date
-  requested        Boolean         @default(false) // a request is raised and waiting for approval
-  movements        StockMovement[]
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-
-  @@unique([taskId, materialId])
-  @@index([projectId])
-}
-
 /// The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
 model StockMovement {
-  id            String       @id @default(cuid())
-  projectId     String
-  project       Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  materialId    String
-  material      Material     @relation(fields: [materialId], references: [id], onDelete: Restrict)
-  taskId        String?
-  task          Task?        @relation(fields: [taskId], references: [id], onDelete: SetNull)
-  requirementId String?
-  requirement   Requirement? @relation(fields: [requirementId], references: [id], onDelete: SetNull)
-  type          MovementType
-  quantity      Decimal      @db.Decimal(14, 3) // always positive; the type says which way it goes
-  note          String       @default("")
-  createdById   String
-  createdBy     User         @relation(fields: [createdById], references: [id], onDelete: Restrict)
-  createdAt     DateTime     @default(now())
+  id          String           @id @default(cuid())
+  projectId   String
+  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  materialId  String
+  material    Material         @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  boqItemId   String? // the BOQ item it was issued or reserved for
+  boqItem     BoqItem?         @relation(fields: [boqItemId], references: [id], onDelete: SetNull)
+  orderId     String? // the order a delivery was received against
+  order       MaterialOrder?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  type        MovementType
+  quantity    Decimal          @db.Decimal(14, 3) // always positive; the type says which way it goes
+  note        String           @default("")
+  createdById String
+  createdBy   User             @relation(fields: [createdById], references: [id], onDelete: Restrict)
+  request     MaterialRequest? // the material request this issue fulfilled, if any
+  createdAt   DateTime         @default(now())
+
+  @@index([projectId, createdAt(sort: Desc)])
+  @@index([projectId, materialId])
+  @@index([boqItemId])
+}
+
+/// One priced part of one of the project's BOQs, as last synced. Never deleted by a sync: an item that left
+/// the BOQ is marked inactive, so stock already issued to it keeps its history.
+model BoqItem {
+  id          String            @id @default(cuid())
+  projectId   String
+  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  boqId       String?
+  boq         Boq?              @relation(fields: [boqId], references: [id], onDelete: SetNull)
+  partKey     String // the part's id inside the BOQ document
+  sheetName   String            @default("")
+  code        String            @default("")
+  title       String
+  matchText   String            @default("")
+  contextText String            @default("")
+  unit        String            @default("")
+  quantity    Decimal           @db.Decimal(14, 3)
+  position    Int               @default(0)
+  active      Boolean           @default(true) // false: no longer in the BOQ
+  noMaterials Boolean           @default(false) // reviewed: labour only (earthwork, shuttering...)
+  suggested   Boolean           @default(false) // materials filled in from a recipe: to be checked
+  recipeName  String            @default("") // the recipe that filled it, for display
+  materials   BoqItemMaterial[]
+  movements   StockMovement[]
+  requests    MaterialRequest[]
+  syncedAt    DateTime          @default(now())
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@unique([projectId, boqId, partKey])
+  @@index([projectId, position])
+}
+
+/// How much of one material one BOQ item needs per unit of the item
+model BoqItemMaterial {
+  id             String   @id @default(cuid())
+  itemId         String
+  item           BoqItem  @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  materialId     String
+  material       Material @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  perUnit        Decimal  @db.Decimal(14, 4)
+  wastagePercent Decimal  @default(0) @db.Decimal(5, 2)
+  position       Int      @default(0)
+
+  @@unique([itemId, materialId])
+}
+
+/// Company-wide: the materials a kind of BOQ item needs per unit ("Concrete 1:2:4 (M15)": cement, sand, aggregate)
+model MaterialRecipe {
+  id        String               @id @default(cuid())
+  name      String               @unique
+  unit      String // the BOQ unit it applies to: cum, sqm, MT, kg...
+  match     Json // [["1:2:4"], ["m15"]]: any group whose words all appear in the item's description
+  lines     MaterialRecipeLine[]
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+model MaterialRecipeLine {
+  id             String         @id @default(cuid())
+  recipeId       String
+  recipe         MaterialRecipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  materialId     String
+  material       Material       @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  perUnit        Decimal        @db.Decimal(14, 4)
+  wastagePercent Decimal        @default(0) @db.Decimal(5, 2)
+  position       Int            @default(0)
+
+  @@unique([recipeId, materialId])
+}
+
+/// A purchase order for one material on one project. Deliveries are received against it.
+model MaterialOrder {
+  id               String            @id @default(cuid())
+  projectId        String
+  project          Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  materialId       String
+  material         Material          @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  vendorId         String?
+  vendor           Vendor?           @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  quantity         Decimal           @db.Decimal(14, 3)
+  receivedQty      Decimal           @default(0) @db.Decimal(14, 3)
+  rate             Decimal           @default(0) @db.Decimal(14, 2) // agreed rate per unit on this order
+  expectedDelivery DateTime?         @db.Date
+  reference        String            @default("") // PO number
+  note             String            @default("")
+  createdById      String
+  createdBy        User              @relation(fields: [createdById], references: [id], onDelete: Restrict)
+  movements        StockMovement[]
+  requests         MaterialRequest[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 
   @@index([projectId, createdAt(sort: Desc)])
   @@index([projectId, materialId])
 }
+
+/// An alert stays open while its condition holds; it is closed (resolvedAt) when the condition clears
+model StockAlert {
+  id         String         @id @default(cuid())
+  projectId  String
+  project    Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  key        String // "order:<materialId>", "low:<materialId>", "late:<orderId>"
+  kind       StockAlertKind
+  materialId String?
+  material   Material?      @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  orderId    String?
+  message    String
+  openedAt   DateTime       @default(now())
+  resolvedAt DateTime?
+  notifiedAt DateTime? // when a push went out for it
+
+  @@index([projectId, resolvedAt])
+  @@index([key, notifiedAt])
+}
+
+/// A request from site: "40 bags of cement for 5.3.9 footing by Friday"
+model MaterialRequest {
+  id            String                @id @default(cuid())
+  projectId     String
+  project       Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  materialId    String
+  material      Material              @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  boqItemId     String?
+  boqItem       BoqItem?              @relation(fields: [boqItemId], references: [id], onDelete: SetNull)
+  quantity      Decimal               @db.Decimal(14, 3)
+  neededBy      DateTime?             @db.Date
+  note          String                @default("")
+  status        MaterialRequestStatus @default(PENDING)
+  requestedById String
+  requestedBy   User                  @relation("RequestedBy", fields: [requestedById], references: [id], onDelete: Restrict)
+  decidedById   String?
+  decidedBy     User?                 @relation("DecidedBy", fields: [decidedById], references: [id], onDelete: SetNull)
+  decidedAt     DateTime?
+  decisionNote  String                @default("")
+  movementId    String?               @unique // the issue that fulfilled it
+  movement      StockMovement?        @relation(fields: [movementId], references: [id], onDelete: SetNull)
+  orderId       String? // the order placed for it
+  order         MaterialOrder?        @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+
+  @@index([projectId, status])
+  @@index([projectId, createdAt(sort: Desc)])
+}
+
+/**
+ * --------------------------------- Audit ----------------------------------
+ */
 
 model AuditLog {
   id         String   @id @default(cuid())
@@ -284,17 +439,21 @@ model AuditLog {
   actorId    String?
   actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
   actorEmail String // kept as text, so the entry still names the person if the account is deleted later
-  action     String // "requirement.order_updated"
-  entityType String // project, task, member, requirement, stock, attendance, user, boq
+  action     String // "materials.imported"
+  entityType String // project, task, requirement, stock, attendance, user, boq
   entityId   String?
   summary    String // a sentence for people to read
-  changes    Json? // { "orderedQty": { "from": 0, "to": 210 } }
+  changes    Json? // { "receivedQty": { "from": 0, "to": 210 } }
   createdAt  DateTime @default(now())
 
   @@index([projectId, createdAt(sort: Desc)])
   @@index([projectId, entityType])
   @@index([createdAt(sort: Desc)])
 }
+
+/**
+ * ---------------------------------- BOQ -----------------------------------
+ */
 
 model Boq {
   id          String    @id @default(cuid())
@@ -306,6 +465,9 @@ model Boq {
   itemCount   Int       @default(0)
   document    Json
   version     Int       @default(1) // goes up on every save; a save from an older version is refused
+  projectId   String? // the project whose materials this BOQ feeds
+  project     Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  boqItems    BoqItem[]
   createdById String?
   createdBy   User?     @relation("BoqCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
   updatedById String?
@@ -315,4 +477,5 @@ model Boq {
 
   @@index([updatedAt(sort: Desc)])
   @@index([status])
+  @@index([projectId])
 }

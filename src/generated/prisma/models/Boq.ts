@@ -47,6 +47,7 @@ export type BoqMinAggregateOutputType = {
   grandTotal: runtime.Decimal | null
   itemCount: number | null
   version: number | null
+  projectId: string | null
   createdById: string | null
   updatedById: string | null
   createdAt: Date | null
@@ -62,6 +63,7 @@ export type BoqMaxAggregateOutputType = {
   grandTotal: runtime.Decimal | null
   itemCount: number | null
   version: number | null
+  projectId: string | null
   createdById: string | null
   updatedById: string | null
   createdAt: Date | null
@@ -78,6 +80,7 @@ export type BoqCountAggregateOutputType = {
   itemCount: number
   document: number
   version: number
+  projectId: number
   createdById: number
   updatedById: number
   createdAt: number
@@ -107,6 +110,7 @@ export type BoqMinAggregateInputType = {
   grandTotal?: true
   itemCount?: true
   version?: true
+  projectId?: true
   createdById?: true
   updatedById?: true
   createdAt?: true
@@ -122,6 +126,7 @@ export type BoqMaxAggregateInputType = {
   grandTotal?: true
   itemCount?: true
   version?: true
+  projectId?: true
   createdById?: true
   updatedById?: true
   createdAt?: true
@@ -138,6 +143,7 @@ export type BoqCountAggregateInputType = {
   itemCount?: true
   document?: true
   version?: true
+  projectId?: true
   createdById?: true
   updatedById?: true
   createdAt?: true
@@ -241,6 +247,7 @@ export type BoqGroupByOutputType = {
   itemCount: number
   document: runtime.JsonValue
   version: number
+  projectId: string | null
   createdById: string | null
   updatedById: string | null
   createdAt: Date
@@ -280,10 +287,13 @@ export type BoqWhereInput = {
   itemCount?: Prisma.IntFilter<"Boq"> | number
   document?: Prisma.JsonFilter<"Boq">
   version?: Prisma.IntFilter<"Boq"> | number
+  projectId?: Prisma.StringNullableFilter<"Boq"> | string | null
   createdById?: Prisma.StringNullableFilter<"Boq"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Boq"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Boq"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Boq"> | Date | string
+  project?: Prisma.XOR<Prisma.ProjectNullableScalarRelationFilter, Prisma.ProjectWhereInput> | null
+  boqItems?: Prisma.BoqItemListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
@@ -298,10 +308,13 @@ export type BoqOrderByWithRelationInput = {
   itemCount?: Prisma.SortOrder
   document?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  projectId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  project?: Prisma.ProjectOrderByWithRelationInput
+  boqItems?: Prisma.BoqItemOrderByRelationAggregateInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
 }
@@ -319,10 +332,13 @@ export type BoqWhereUniqueInput = Prisma.AtLeast<{
   itemCount?: Prisma.IntFilter<"Boq"> | number
   document?: Prisma.JsonFilter<"Boq">
   version?: Prisma.IntFilter<"Boq"> | number
+  projectId?: Prisma.StringNullableFilter<"Boq"> | string | null
   createdById?: Prisma.StringNullableFilter<"Boq"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Boq"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Boq"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Boq"> | Date | string
+  project?: Prisma.XOR<Prisma.ProjectNullableScalarRelationFilter, Prisma.ProjectWhereInput> | null
+  boqItems?: Prisma.BoqItemListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
@@ -337,6 +353,7 @@ export type BoqOrderByWithAggregationInput = {
   itemCount?: Prisma.SortOrder
   document?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  projectId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -361,6 +378,7 @@ export type BoqScalarWhereWithAggregatesInput = {
   itemCount?: Prisma.IntWithAggregatesFilter<"Boq"> | number
   document?: Prisma.JsonWithAggregatesFilter<"Boq">
   version?: Prisma.IntWithAggregatesFilter<"Boq"> | number
+  projectId?: Prisma.StringNullableWithAggregatesFilter<"Boq"> | string | null
   createdById?: Prisma.StringNullableWithAggregatesFilter<"Boq"> | string | null
   updatedById?: Prisma.StringNullableWithAggregatesFilter<"Boq"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Boq"> | Date | string
@@ -379,6 +397,8 @@ export type BoqCreateInput = {
   version?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  project?: Prisma.ProjectCreateNestedOneWithoutBoqsInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutBoqInput
   createdBy?: Prisma.UserCreateNestedOneWithoutBoqsCreatedInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutBoqsUpdatedInput
 }
@@ -393,10 +413,12 @@ export type BoqUncheckedCreateInput = {
   itemCount?: number
   document: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
+  projectId?: string | null
   createdById?: string | null
   updatedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutBoqInput
 }
 
 export type BoqUpdateInput = {
@@ -411,6 +433,8 @@ export type BoqUpdateInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneWithoutBoqsNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutBoqNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutBoqsCreatedNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutBoqsUpdatedNestedInput
 }
@@ -425,10 +449,12 @@ export type BoqUncheckedUpdateInput = {
   itemCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutBoqNestedInput
 }
 
 export type BoqCreateManyInput = {
@@ -441,6 +467,7 @@ export type BoqCreateManyInput = {
   itemCount?: number
   document: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
+  projectId?: string | null
   createdById?: string | null
   updatedById?: string | null
   createdAt?: Date | string
@@ -471,6 +498,7 @@ export type BoqUncheckedUpdateManyInput = {
   itemCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -487,6 +515,11 @@ export type BoqOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type BoqNullableScalarRelationFilter = {
+  is?: Prisma.BoqWhereInput | null
+  isNot?: Prisma.BoqWhereInput | null
+}
+
 export type BoqCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -497,6 +530,7 @@ export type BoqCountOrderByAggregateInput = {
   itemCount?: Prisma.SortOrder
   document?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -518,6 +552,7 @@ export type BoqMaxOrderByAggregateInput = {
   grandTotal?: Prisma.SortOrder
   itemCount?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -533,6 +568,7 @@ export type BoqMinOrderByAggregateInput = {
   grandTotal?: Prisma.SortOrder
   itemCount?: Prisma.SortOrder
   version?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -629,6 +665,64 @@ export type BoqUncheckedUpdateManyWithoutUpdatedByNestedInput = {
   deleteMany?: Prisma.BoqScalarWhereInput | Prisma.BoqScalarWhereInput[]
 }
 
+export type BoqCreateNestedManyWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.BoqCreateWithoutProjectInput, Prisma.BoqUncheckedCreateWithoutProjectInput> | Prisma.BoqCreateWithoutProjectInput[] | Prisma.BoqUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.BoqCreateOrConnectWithoutProjectInput | Prisma.BoqCreateOrConnectWithoutProjectInput[]
+  createMany?: Prisma.BoqCreateManyProjectInputEnvelope
+  connect?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+}
+
+export type BoqUncheckedCreateNestedManyWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.BoqCreateWithoutProjectInput, Prisma.BoqUncheckedCreateWithoutProjectInput> | Prisma.BoqCreateWithoutProjectInput[] | Prisma.BoqUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.BoqCreateOrConnectWithoutProjectInput | Prisma.BoqCreateOrConnectWithoutProjectInput[]
+  createMany?: Prisma.BoqCreateManyProjectInputEnvelope
+  connect?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+}
+
+export type BoqUpdateManyWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.BoqCreateWithoutProjectInput, Prisma.BoqUncheckedCreateWithoutProjectInput> | Prisma.BoqCreateWithoutProjectInput[] | Prisma.BoqUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.BoqCreateOrConnectWithoutProjectInput | Prisma.BoqCreateOrConnectWithoutProjectInput[]
+  upsert?: Prisma.BoqUpsertWithWhereUniqueWithoutProjectInput | Prisma.BoqUpsertWithWhereUniqueWithoutProjectInput[]
+  createMany?: Prisma.BoqCreateManyProjectInputEnvelope
+  set?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  disconnect?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  delete?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  connect?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  update?: Prisma.BoqUpdateWithWhereUniqueWithoutProjectInput | Prisma.BoqUpdateWithWhereUniqueWithoutProjectInput[]
+  updateMany?: Prisma.BoqUpdateManyWithWhereWithoutProjectInput | Prisma.BoqUpdateManyWithWhereWithoutProjectInput[]
+  deleteMany?: Prisma.BoqScalarWhereInput | Prisma.BoqScalarWhereInput[]
+}
+
+export type BoqUncheckedUpdateManyWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.BoqCreateWithoutProjectInput, Prisma.BoqUncheckedCreateWithoutProjectInput> | Prisma.BoqCreateWithoutProjectInput[] | Prisma.BoqUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.BoqCreateOrConnectWithoutProjectInput | Prisma.BoqCreateOrConnectWithoutProjectInput[]
+  upsert?: Prisma.BoqUpsertWithWhereUniqueWithoutProjectInput | Prisma.BoqUpsertWithWhereUniqueWithoutProjectInput[]
+  createMany?: Prisma.BoqCreateManyProjectInputEnvelope
+  set?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  disconnect?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  delete?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  connect?: Prisma.BoqWhereUniqueInput | Prisma.BoqWhereUniqueInput[]
+  update?: Prisma.BoqUpdateWithWhereUniqueWithoutProjectInput | Prisma.BoqUpdateWithWhereUniqueWithoutProjectInput[]
+  updateMany?: Prisma.BoqUpdateManyWithWhereWithoutProjectInput | Prisma.BoqUpdateManyWithWhereWithoutProjectInput[]
+  deleteMany?: Prisma.BoqScalarWhereInput | Prisma.BoqScalarWhereInput[]
+}
+
+export type BoqCreateNestedOneWithoutBoqItemsInput = {
+  create?: Prisma.XOR<Prisma.BoqCreateWithoutBoqItemsInput, Prisma.BoqUncheckedCreateWithoutBoqItemsInput>
+  connectOrCreate?: Prisma.BoqCreateOrConnectWithoutBoqItemsInput
+  connect?: Prisma.BoqWhereUniqueInput
+}
+
+export type BoqUpdateOneWithoutBoqItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.BoqCreateWithoutBoqItemsInput, Prisma.BoqUncheckedCreateWithoutBoqItemsInput>
+  connectOrCreate?: Prisma.BoqCreateOrConnectWithoutBoqItemsInput
+  upsert?: Prisma.BoqUpsertWithoutBoqItemsInput
+  disconnect?: Prisma.BoqWhereInput | boolean
+  delete?: Prisma.BoqWhereInput | boolean
+  connect?: Prisma.BoqWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BoqUpdateToOneWithWhereWithoutBoqItemsInput, Prisma.BoqUpdateWithoutBoqItemsInput>, Prisma.BoqUncheckedUpdateWithoutBoqItemsInput>
+}
+
 export type EnumBoqStatusFieldUpdateOperationsInput = {
   set?: $Enums.BoqStatus
 }
@@ -645,6 +739,8 @@ export type BoqCreateWithoutCreatedByInput = {
   version?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  project?: Prisma.ProjectCreateNestedOneWithoutBoqsInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutBoqInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutBoqsUpdatedInput
 }
 
@@ -658,9 +754,11 @@ export type BoqUncheckedCreateWithoutCreatedByInput = {
   itemCount?: number
   document: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
+  projectId?: string | null
   updatedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutBoqInput
 }
 
 export type BoqCreateOrConnectWithoutCreatedByInput = {
@@ -685,6 +783,8 @@ export type BoqCreateWithoutUpdatedByInput = {
   version?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  project?: Prisma.ProjectCreateNestedOneWithoutBoqsInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutBoqInput
   createdBy?: Prisma.UserCreateNestedOneWithoutBoqsCreatedInput
 }
 
@@ -698,9 +798,11 @@ export type BoqUncheckedCreateWithoutUpdatedByInput = {
   itemCount?: number
   document: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
+  projectId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutBoqInput
 }
 
 export type BoqCreateOrConnectWithoutUpdatedByInput = {
@@ -742,6 +844,7 @@ export type BoqScalarWhereInput = {
   itemCount?: Prisma.IntFilter<"Boq"> | number
   document?: Prisma.JsonFilter<"Boq">
   version?: Prisma.IntFilter<"Boq"> | number
+  projectId?: Prisma.StringNullableFilter<"Boq"> | string | null
   createdById?: Prisma.StringNullableFilter<"Boq"> | string | null
   updatedById?: Prisma.StringNullableFilter<"Boq"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Boq"> | Date | string
@@ -764,6 +867,150 @@ export type BoqUpdateManyWithWhereWithoutUpdatedByInput = {
   data: Prisma.XOR<Prisma.BoqUpdateManyMutationInput, Prisma.BoqUncheckedUpdateManyWithoutUpdatedByInput>
 }
 
+export type BoqCreateWithoutProjectInput = {
+  id?: string
+  title?: string
+  subtitle?: string
+  boqNumber?: string
+  status?: $Enums.BoqStatus
+  grandTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: number
+  document: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutBoqInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutBoqsCreatedInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutBoqsUpdatedInput
+}
+
+export type BoqUncheckedCreateWithoutProjectInput = {
+  id?: string
+  title?: string
+  subtitle?: string
+  boqNumber?: string
+  status?: $Enums.BoqStatus
+  grandTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: number
+  document: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  createdById?: string | null
+  updatedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutBoqInput
+}
+
+export type BoqCreateOrConnectWithoutProjectInput = {
+  where: Prisma.BoqWhereUniqueInput
+  create: Prisma.XOR<Prisma.BoqCreateWithoutProjectInput, Prisma.BoqUncheckedCreateWithoutProjectInput>
+}
+
+export type BoqCreateManyProjectInputEnvelope = {
+  data: Prisma.BoqCreateManyProjectInput | Prisma.BoqCreateManyProjectInput[]
+  skipDuplicates?: boolean
+}
+
+export type BoqUpsertWithWhereUniqueWithoutProjectInput = {
+  where: Prisma.BoqWhereUniqueInput
+  update: Prisma.XOR<Prisma.BoqUpdateWithoutProjectInput, Prisma.BoqUncheckedUpdateWithoutProjectInput>
+  create: Prisma.XOR<Prisma.BoqCreateWithoutProjectInput, Prisma.BoqUncheckedCreateWithoutProjectInput>
+}
+
+export type BoqUpdateWithWhereUniqueWithoutProjectInput = {
+  where: Prisma.BoqWhereUniqueInput
+  data: Prisma.XOR<Prisma.BoqUpdateWithoutProjectInput, Prisma.BoqUncheckedUpdateWithoutProjectInput>
+}
+
+export type BoqUpdateManyWithWhereWithoutProjectInput = {
+  where: Prisma.BoqScalarWhereInput
+  data: Prisma.XOR<Prisma.BoqUpdateManyMutationInput, Prisma.BoqUncheckedUpdateManyWithoutProjectInput>
+}
+
+export type BoqCreateWithoutBoqItemsInput = {
+  id?: string
+  title?: string
+  subtitle?: string
+  boqNumber?: string
+  status?: $Enums.BoqStatus
+  grandTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: number
+  document: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  project?: Prisma.ProjectCreateNestedOneWithoutBoqsInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutBoqsCreatedInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutBoqsUpdatedInput
+}
+
+export type BoqUncheckedCreateWithoutBoqItemsInput = {
+  id?: string
+  title?: string
+  subtitle?: string
+  boqNumber?: string
+  status?: $Enums.BoqStatus
+  grandTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: number
+  document: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  projectId?: string | null
+  createdById?: string | null
+  updatedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BoqCreateOrConnectWithoutBoqItemsInput = {
+  where: Prisma.BoqWhereUniqueInput
+  create: Prisma.XOR<Prisma.BoqCreateWithoutBoqItemsInput, Prisma.BoqUncheckedCreateWithoutBoqItemsInput>
+}
+
+export type BoqUpsertWithoutBoqItemsInput = {
+  update: Prisma.XOR<Prisma.BoqUpdateWithoutBoqItemsInput, Prisma.BoqUncheckedUpdateWithoutBoqItemsInput>
+  create: Prisma.XOR<Prisma.BoqCreateWithoutBoqItemsInput, Prisma.BoqUncheckedCreateWithoutBoqItemsInput>
+  where?: Prisma.BoqWhereInput
+}
+
+export type BoqUpdateToOneWithWhereWithoutBoqItemsInput = {
+  where?: Prisma.BoqWhereInput
+  data: Prisma.XOR<Prisma.BoqUpdateWithoutBoqItemsInput, Prisma.BoqUncheckedUpdateWithoutBoqItemsInput>
+}
+
+export type BoqUpdateWithoutBoqItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.StringFieldUpdateOperationsInput | string
+  boqNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBoqStatusFieldUpdateOperationsInput | $Enums.BoqStatus
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneWithoutBoqsNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutBoqsCreatedNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutBoqsUpdatedNestedInput
+}
+
+export type BoqUncheckedUpdateWithoutBoqItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.StringFieldUpdateOperationsInput | string
+  boqNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBoqStatusFieldUpdateOperationsInput | $Enums.BoqStatus
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BoqCreateManyCreatedByInput = {
   id?: string
   title?: string
@@ -774,6 +1021,7 @@ export type BoqCreateManyCreatedByInput = {
   itemCount?: number
   document: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
+  projectId?: string | null
   updatedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -789,6 +1037,7 @@ export type BoqCreateManyUpdatedByInput = {
   itemCount?: number
   document: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: number
+  projectId?: string | null
   createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -806,6 +1055,8 @@ export type BoqUpdateWithoutCreatedByInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneWithoutBoqsNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutBoqNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutBoqsUpdatedNestedInput
 }
 
@@ -819,9 +1070,11 @@ export type BoqUncheckedUpdateWithoutCreatedByInput = {
   itemCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutBoqNestedInput
 }
 
 export type BoqUncheckedUpdateManyWithoutCreatedByInput = {
@@ -834,6 +1087,7 @@ export type BoqUncheckedUpdateManyWithoutCreatedByInput = {
   itemCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -851,6 +1105,8 @@ export type BoqUpdateWithoutUpdatedByInput = {
   version?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneWithoutBoqsNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutBoqNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutBoqsCreatedNestedInput
 }
 
@@ -864,9 +1120,11 @@ export type BoqUncheckedUpdateWithoutUpdatedByInput = {
   itemCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutBoqNestedInput
 }
 
 export type BoqUncheckedUpdateManyWithoutUpdatedByInput = {
@@ -879,11 +1137,107 @@ export type BoqUncheckedUpdateManyWithoutUpdatedByInput = {
   itemCount?: Prisma.IntFieldUpdateOperationsInput | number
   document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   version?: Prisma.IntFieldUpdateOperationsInput | number
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type BoqCreateManyProjectInput = {
+  id?: string
+  title?: string
+  subtitle?: string
+  boqNumber?: string
+  status?: $Enums.BoqStatus
+  grandTotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: number
+  document: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: number
+  createdById?: string | null
+  updatedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BoqUpdateWithoutProjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.StringFieldUpdateOperationsInput | string
+  boqNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBoqStatusFieldUpdateOperationsInput | $Enums.BoqStatus
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boqItems?: Prisma.BoqItemUpdateManyWithoutBoqNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutBoqsCreatedNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutBoqsUpdatedNestedInput
+}
+
+export type BoqUncheckedUpdateWithoutProjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.StringFieldUpdateOperationsInput | string
+  boqNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBoqStatusFieldUpdateOperationsInput | $Enums.BoqStatus
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutBoqNestedInput
+}
+
+export type BoqUncheckedUpdateManyWithoutProjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  subtitle?: Prisma.StringFieldUpdateOperationsInput | string
+  boqNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumBoqStatusFieldUpdateOperationsInput | $Enums.BoqStatus
+  grandTotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  itemCount?: Prisma.IntFieldUpdateOperationsInput | number
+  document?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type BoqCountOutputType
+ */
+
+export type BoqCountOutputType = {
+  boqItems: number
+}
+
+export type BoqCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  boqItems?: boolean | BoqCountOutputTypeCountBoqItemsArgs
+}
+
+/**
+ * BoqCountOutputType without action
+ */
+export type BoqCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BoqCountOutputType
+   */
+  select?: Prisma.BoqCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BoqCountOutputType without action
+ */
+export type BoqCountOutputTypeCountBoqItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BoqItemWhereInput
+}
 
 
 export type BoqSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -896,12 +1250,16 @@ export type BoqSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   itemCount?: boolean
   document?: boolean
   version?: boolean
+  projectId?: boolean
   createdById?: boolean
   updatedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  project?: boolean | Prisma.Boq$projectArgs<ExtArgs>
+  boqItems?: boolean | Prisma.Boq$boqItemsArgs<ExtArgs>
   createdBy?: boolean | Prisma.Boq$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Boq$updatedByArgs<ExtArgs>
+  _count?: boolean | Prisma.BoqCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["boq"]>
 
 export type BoqSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -914,10 +1272,12 @@ export type BoqSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   itemCount?: boolean
   document?: boolean
   version?: boolean
+  projectId?: boolean
   createdById?: boolean
   updatedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  project?: boolean | Prisma.Boq$projectArgs<ExtArgs>
   createdBy?: boolean | Prisma.Boq$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Boq$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["boq"]>
@@ -932,10 +1292,12 @@ export type BoqSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   itemCount?: boolean
   document?: boolean
   version?: boolean
+  projectId?: boolean
   createdById?: boolean
   updatedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  project?: boolean | Prisma.Boq$projectArgs<ExtArgs>
   createdBy?: boolean | Prisma.Boq$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Boq$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["boq"]>
@@ -950,22 +1312,28 @@ export type BoqSelectScalar = {
   itemCount?: boolean
   document?: boolean
   version?: boolean
+  projectId?: boolean
   createdById?: boolean
   updatedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BoqOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "boqNumber" | "status" | "grandTotal" | "itemCount" | "document" | "version" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["boq"]>
+export type BoqOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "subtitle" | "boqNumber" | "status" | "grandTotal" | "itemCount" | "document" | "version" | "projectId" | "createdById" | "updatedById" | "createdAt" | "updatedAt", ExtArgs["result"]["boq"]>
 export type BoqInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  project?: boolean | Prisma.Boq$projectArgs<ExtArgs>
+  boqItems?: boolean | Prisma.Boq$boqItemsArgs<ExtArgs>
   createdBy?: boolean | Prisma.Boq$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Boq$updatedByArgs<ExtArgs>
+  _count?: boolean | Prisma.BoqCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BoqIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  project?: boolean | Prisma.Boq$projectArgs<ExtArgs>
   createdBy?: boolean | Prisma.Boq$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Boq$updatedByArgs<ExtArgs>
 }
 export type BoqIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  project?: boolean | Prisma.Boq$projectArgs<ExtArgs>
   createdBy?: boolean | Prisma.Boq$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Boq$updatedByArgs<ExtArgs>
 }
@@ -973,6 +1341,8 @@ export type BoqIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type $BoqPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Boq"
   objects: {
+    project: Prisma.$ProjectPayload<ExtArgs> | null
+    boqItems: Prisma.$BoqItemPayload<ExtArgs>[]
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
   }
@@ -986,6 +1356,7 @@ export type $BoqPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     itemCount: number
     document: runtime.JsonValue
     version: number
+    projectId: string | null
     createdById: string | null
     updatedById: string | null
     createdAt: Date
@@ -1384,6 +1755,8 @@ readonly fields: BoqFieldRefs;
  */
 export interface Prisma__BoqClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  project<T extends Prisma.Boq$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Boq$projectArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  boqItems<T extends Prisma.Boq$boqItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Boq$boqItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoqItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBy<T extends Prisma.Boq$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Boq$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.Boq$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Boq$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1424,6 +1797,7 @@ export interface BoqFieldRefs {
   readonly itemCount: Prisma.FieldRef<"Boq", 'Int'>
   readonly document: Prisma.FieldRef<"Boq", 'Json'>
   readonly version: Prisma.FieldRef<"Boq", 'Int'>
+  readonly projectId: Prisma.FieldRef<"Boq", 'String'>
   readonly createdById: Prisma.FieldRef<"Boq", 'String'>
   readonly updatedById: Prisma.FieldRef<"Boq", 'String'>
   readonly createdAt: Prisma.FieldRef<"Boq", 'DateTime'>
@@ -1826,6 +2200,49 @@ export type BoqDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Limit how many Boqs to delete.
    */
   limit?: number
+}
+
+/**
+ * Boq.project
+ */
+export type Boq$projectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Project
+   */
+  select?: Prisma.ProjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Project
+   */
+  omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  where?: Prisma.ProjectWhereInput
+}
+
+/**
+ * Boq.boqItems
+ */
+export type Boq$boqItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BoqItem
+   */
+  select?: Prisma.BoqItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BoqItem
+   */
+  omit?: Prisma.BoqItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BoqItemInclude<ExtArgs> | null
+  where?: Prisma.BoqItemWhereInput
+  orderBy?: Prisma.BoqItemOrderByWithRelationInput | Prisma.BoqItemOrderByWithRelationInput[]
+  cursor?: Prisma.BoqItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BoqItemScalarFieldEnum | Prisma.BoqItemScalarFieldEnum[]
 }
 
 /**

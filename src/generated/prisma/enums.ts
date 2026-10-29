@@ -53,3 +53,24 @@ export const DrawingKind = {
 } as const
 
 export type DrawingKind = (typeof DrawingKind)[keyof typeof DrawingKind]
+
+
+export const StockAlertKind = {
+  ORDER_MORE: 'ORDER_MORE',
+  LOW_STOCK: 'LOW_STOCK',
+  LATE_DELIVERY: 'LATE_DELIVERY'
+} as const
+
+export type StockAlertKind = (typeof StockAlertKind)[keyof typeof StockAlertKind]
+
+
+export const MaterialRequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED',
+  ISSUED: 'ISSUED',
+  ORDERED: 'ORDERED'
+} as const
+
+export type MaterialRequestStatus = (typeof MaterialRequestStatus)[keyof typeof MaterialRequestStatus]

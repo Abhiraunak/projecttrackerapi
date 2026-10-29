@@ -15,7 +15,7 @@ import {
 } from "./projects.schema.js";
 
 const withTasks = { tasks: { orderBy: { position: "asc" } } } as const;
-const uid = (req: Request) => req.user!.sub;
+const uid = (req: Request<any, any, any, any>) => req.user!.sub;
 
 /** The fields of a work item that are worth recording when they change */
 const TASK_FIELDS = ["work", "area", "contractorRate", "inHouseRate", "stipulated", "paid", "progress", "startDate", "endDate"] as const;

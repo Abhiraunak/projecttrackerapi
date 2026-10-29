@@ -211,6 +211,9 @@ export type UserWhereInput = {
   materials?: Prisma.MaterialListRelationFilter
   vendors?: Prisma.VendorListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  materialOrders?: Prisma.MaterialOrderListRelationFilter
+  requestsMade?: Prisma.MaterialRequestListRelationFilter
+  requestsDecided?: Prisma.MaterialRequestListRelationFilter
   auditEntries?: Prisma.AuditLogListRelationFilter
   boqsCreated?: Prisma.BoqListRelationFilter
   boqsUpdated?: Prisma.BoqListRelationFilter
@@ -234,6 +237,9 @@ export type UserOrderByWithRelationInput = {
   materials?: Prisma.MaterialOrderByRelationAggregateInput
   vendors?: Prisma.VendorOrderByRelationAggregateInput
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
+  materialOrders?: Prisma.MaterialOrderOrderByRelationAggregateInput
+  requestsMade?: Prisma.MaterialRequestOrderByRelationAggregateInput
+  requestsDecided?: Prisma.MaterialRequestOrderByRelationAggregateInput
   auditEntries?: Prisma.AuditLogOrderByRelationAggregateInput
   boqsCreated?: Prisma.BoqOrderByRelationAggregateInput
   boqsUpdated?: Prisma.BoqOrderByRelationAggregateInput
@@ -260,6 +266,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   materials?: Prisma.MaterialListRelationFilter
   vendors?: Prisma.VendorListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  materialOrders?: Prisma.MaterialOrderListRelationFilter
+  requestsMade?: Prisma.MaterialRequestListRelationFilter
+  requestsDecided?: Prisma.MaterialRequestListRelationFilter
   auditEntries?: Prisma.AuditLogListRelationFilter
   boqsCreated?: Prisma.BoqListRelationFilter
   boqsUpdated?: Prisma.BoqListRelationFilter
@@ -311,6 +320,9 @@ export type UserCreateInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -334,6 +346,9 @@ export type UserUncheckedCreateInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -357,6 +372,9 @@ export type UserUpdateInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -380,6 +398,9 @@ export type UserUncheckedUpdateInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -618,6 +639,50 @@ export type UserUpdateOneRequiredWithoutStockMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStockMovementsInput, Prisma.UserUpdateWithoutStockMovementsInput>, Prisma.UserUncheckedUpdateWithoutStockMovementsInput>
 }
 
+export type UserCreateNestedOneWithoutMaterialOrdersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMaterialOrdersInput, Prisma.UserUncheckedCreateWithoutMaterialOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMaterialOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMaterialOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMaterialOrdersInput, Prisma.UserUncheckedCreateWithoutMaterialOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMaterialOrdersInput
+  upsert?: Prisma.UserUpsertWithoutMaterialOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMaterialOrdersInput, Prisma.UserUpdateWithoutMaterialOrdersInput>, Prisma.UserUncheckedUpdateWithoutMaterialOrdersInput>
+}
+
+export type UserCreateNestedOneWithoutRequestsMadeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequestsMadeInput, Prisma.UserUncheckedCreateWithoutRequestsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequestsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRequestsDecidedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequestsDecidedInput, Prisma.UserUncheckedCreateWithoutRequestsDecidedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequestsDecidedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRequestsMadeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequestsMadeInput, Prisma.UserUncheckedCreateWithoutRequestsMadeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequestsMadeInput
+  upsert?: Prisma.UserUpsertWithoutRequestsMadeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRequestsMadeInput, Prisma.UserUpdateWithoutRequestsMadeInput>, Prisma.UserUncheckedUpdateWithoutRequestsMadeInput>
+}
+
+export type UserUpdateOneWithoutRequestsDecidedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequestsDecidedInput, Prisma.UserUncheckedCreateWithoutRequestsDecidedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequestsDecidedInput
+  upsert?: Prisma.UserUpsertWithoutRequestsDecidedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRequestsDecidedInput, Prisma.UserUpdateWithoutRequestsDecidedInput>, Prisma.UserUncheckedUpdateWithoutRequestsDecidedInput>
+}
+
 export type UserCreateNestedOneWithoutAuditEntriesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAuditEntriesInput, Prisma.UserUncheckedCreateWithoutAuditEntriesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditEntriesInput
@@ -683,6 +748,9 @@ export type UserCreateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -705,6 +773,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -743,6 +814,9 @@ export type UserUpdateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -765,6 +839,9 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -787,6 +864,9 @@ export type UserCreateWithoutProjectsInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -809,6 +889,9 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -847,6 +930,9 @@ export type UserUpdateWithoutProjectsInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -869,6 +955,9 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -891,6 +980,9 @@ export type UserCreateWithoutAttendanceInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -913,6 +1005,9 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -951,6 +1046,9 @@ export type UserUpdateWithoutAttendanceInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -973,6 +1071,9 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -995,6 +1096,9 @@ export type UserCreateWithoutDrawingsInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -1017,6 +1121,9 @@ export type UserUncheckedCreateWithoutDrawingsInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1055,6 +1162,9 @@ export type UserUpdateWithoutDrawingsInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -1077,6 +1187,9 @@ export type UserUncheckedUpdateWithoutDrawingsInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -1099,6 +1212,9 @@ export type UserCreateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -1121,6 +1237,9 @@ export type UserUncheckedCreateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1159,6 +1278,9 @@ export type UserUpdateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -1181,6 +1303,9 @@ export type UserUncheckedUpdateWithoutDrawingSharesInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -1203,6 +1328,9 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -1225,6 +1353,9 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1263,6 +1394,9 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -1285,6 +1419,9 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -1307,6 +1444,9 @@ export type UserCreateWithoutMaterialsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -1329,6 +1469,9 @@ export type UserUncheckedCreateWithoutMaterialsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1367,6 +1510,9 @@ export type UserUpdateWithoutMaterialsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -1389,6 +1535,9 @@ export type UserUncheckedUpdateWithoutMaterialsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -1411,6 +1560,9 @@ export type UserCreateWithoutVendorsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -1433,6 +1585,9 @@ export type UserUncheckedCreateWithoutVendorsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1471,6 +1626,9 @@ export type UserUpdateWithoutVendorsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -1493,6 +1651,9 @@ export type UserUncheckedUpdateWithoutVendorsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -1515,6 +1676,9 @@ export type UserCreateWithoutStockMovementsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
@@ -1537,6 +1701,9 @@ export type UserUncheckedCreateWithoutStockMovementsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1575,6 +1742,9 @@ export type UserUpdateWithoutStockMovementsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
@@ -1597,6 +1767,357 @@ export type UserUncheckedUpdateWithoutStockMovementsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutMaterialOrdersInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutMaterialOrdersInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutMaterialOrdersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMaterialOrdersInput, Prisma.UserUncheckedCreateWithoutMaterialOrdersInput>
+}
+
+export type UserUpsertWithoutMaterialOrdersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMaterialOrdersInput, Prisma.UserUncheckedUpdateWithoutMaterialOrdersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMaterialOrdersInput, Prisma.UserUncheckedCreateWithoutMaterialOrdersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMaterialOrdersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMaterialOrdersInput, Prisma.UserUncheckedUpdateWithoutMaterialOrdersInput>
+}
+
+export type UserUpdateWithoutMaterialOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMaterialOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutRequestsMadeInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutRequestsMadeInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutRequestsMadeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequestsMadeInput, Prisma.UserUncheckedCreateWithoutRequestsMadeInput>
+}
+
+export type UserCreateWithoutRequestsDecidedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutRequestsDecidedInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutRequestsDecidedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequestsDecidedInput, Prisma.UserUncheckedCreateWithoutRequestsDecidedInput>
+}
+
+export type UserUpsertWithoutRequestsMadeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRequestsMadeInput, Prisma.UserUncheckedUpdateWithoutRequestsMadeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequestsMadeInput, Prisma.UserUncheckedCreateWithoutRequestsMadeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRequestsMadeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRequestsMadeInput, Prisma.UserUncheckedUpdateWithoutRequestsMadeInput>
+}
+
+export type UserUpdateWithoutRequestsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRequestsMadeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUpsertWithoutRequestsDecidedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRequestsDecidedInput, Prisma.UserUncheckedUpdateWithoutRequestsDecidedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequestsDecidedInput, Prisma.UserUncheckedCreateWithoutRequestsDecidedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRequestsDecidedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRequestsDecidedInput, Prisma.UserUncheckedUpdateWithoutRequestsDecidedInput>
+}
+
+export type UserUpdateWithoutRequestsDecidedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRequestsDecidedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -1620,6 +2141,9 @@ export type UserCreateWithoutAuditEntriesInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
@@ -1642,6 +2166,9 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
@@ -1680,6 +2207,9 @@ export type UserUpdateWithoutAuditEntriesInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
@@ -1702,6 +2232,9 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
@@ -1724,6 +2257,9 @@ export type UserCreateWithoutBoqsCreatedInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
 }
@@ -1746,6 +2282,9 @@ export type UserUncheckedCreateWithoutBoqsCreatedInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
 }
@@ -1773,6 +2312,9 @@ export type UserCreateWithoutBoqsUpdatedInput = {
   materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
 }
@@ -1795,6 +2337,9 @@ export type UserUncheckedCreateWithoutBoqsUpdatedInput = {
   materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
   vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
   auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
 }
@@ -1833,6 +2378,9 @@ export type UserUpdateWithoutBoqsCreatedInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
 }
@@ -1855,6 +2403,9 @@ export type UserUncheckedUpdateWithoutBoqsCreatedInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
@@ -1888,6 +2439,9 @@ export type UserUpdateWithoutBoqsUpdatedInput = {
   materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
 }
@@ -1910,6 +2464,9 @@ export type UserUncheckedUpdateWithoutBoqsUpdatedInput = {
   materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
   vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
   auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
 }
@@ -1929,6 +2486,9 @@ export type UserCountOutputType = {
   materials: number
   vendors: number
   stockMovements: number
+  materialOrders: number
+  requestsMade: number
+  requestsDecided: number
   auditEntries: number
   boqsCreated: number
   boqsUpdated: number
@@ -1944,6 +2504,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   materials?: boolean | UserCountOutputTypeCountMaterialsArgs
   vendors?: boolean | UserCountOutputTypeCountVendorsArgs
   stockMovements?: boolean | UserCountOutputTypeCountStockMovementsArgs
+  materialOrders?: boolean | UserCountOutputTypeCountMaterialOrdersArgs
+  requestsMade?: boolean | UserCountOutputTypeCountRequestsMadeArgs
+  requestsDecided?: boolean | UserCountOutputTypeCountRequestsDecidedArgs
   auditEntries?: boolean | UserCountOutputTypeCountAuditEntriesArgs
   boqsCreated?: boolean | UserCountOutputTypeCountBoqsCreatedArgs
   boqsUpdated?: boolean | UserCountOutputTypeCountBoqsUpdatedArgs
@@ -2025,6 +2588,27 @@ export type UserCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtime.T
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountMaterialOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterialOrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRequestsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterialRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRequestsDecidedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterialRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountAuditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AuditLogWhereInput
 }
@@ -2062,6 +2646,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   materials?: boolean | Prisma.User$materialsArgs<ExtArgs>
   vendors?: boolean | Prisma.User$vendorsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.User$stockMovementsArgs<ExtArgs>
+  materialOrders?: boolean | Prisma.User$materialOrdersArgs<ExtArgs>
+  requestsMade?: boolean | Prisma.User$requestsMadeArgs<ExtArgs>
+  requestsDecided?: boolean | Prisma.User$requestsDecidedArgs<ExtArgs>
   auditEntries?: boolean | Prisma.User$auditEntriesArgs<ExtArgs>
   boqsCreated?: boolean | Prisma.User$boqsCreatedArgs<ExtArgs>
   boqsUpdated?: boolean | Prisma.User$boqsUpdatedArgs<ExtArgs>
@@ -2112,6 +2699,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   materials?: boolean | Prisma.User$materialsArgs<ExtArgs>
   vendors?: boolean | Prisma.User$vendorsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.User$stockMovementsArgs<ExtArgs>
+  materialOrders?: boolean | Prisma.User$materialOrdersArgs<ExtArgs>
+  requestsMade?: boolean | Prisma.User$requestsMadeArgs<ExtArgs>
+  requestsDecided?: boolean | Prisma.User$requestsDecidedArgs<ExtArgs>
   auditEntries?: boolean | Prisma.User$auditEntriesArgs<ExtArgs>
   boqsCreated?: boolean | Prisma.User$boqsCreatedArgs<ExtArgs>
   boqsUpdated?: boolean | Prisma.User$boqsUpdatedArgs<ExtArgs>
@@ -2132,6 +2722,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     materials: Prisma.$MaterialPayload<ExtArgs>[]
     vendors: Prisma.$VendorPayload<ExtArgs>[]
     stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
+    materialOrders: Prisma.$MaterialOrderPayload<ExtArgs>[]
+    requestsMade: Prisma.$MaterialRequestPayload<ExtArgs>[]
+    requestsDecided: Prisma.$MaterialRequestPayload<ExtArgs>[]
     auditEntries: Prisma.$AuditLogPayload<ExtArgs>[]
     boqsCreated: Prisma.$BoqPayload<ExtArgs>[]
     boqsUpdated: Prisma.$BoqPayload<ExtArgs>[]
@@ -2548,6 +3141,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   materials<T extends Prisma.User$materialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   vendors<T extends Prisma.User$vendorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$vendorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stockMovements<T extends Prisma.User$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  materialOrders<T extends Prisma.User$materialOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  requestsMade<T extends Prisma.User$requestsMadeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$requestsMadeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  requestsDecided<T extends Prisma.User$requestsDecidedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$requestsDecidedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditEntries<T extends Prisma.User$auditEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   boqsCreated<T extends Prisma.User$boqsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$boqsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   boqsUpdated<T extends Prisma.User$boqsUpdatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$boqsUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BoqPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3194,6 +3790,78 @@ export type User$stockMovementsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.StockMovementScalarFieldEnum | Prisma.StockMovementScalarFieldEnum[]
+}
+
+/**
+ * User.materialOrders
+ */
+export type User$materialOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialOrder
+   */
+  select?: Prisma.MaterialOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MaterialOrder
+   */
+  omit?: Prisma.MaterialOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterialOrderInclude<ExtArgs> | null
+  where?: Prisma.MaterialOrderWhereInput
+  orderBy?: Prisma.MaterialOrderOrderByWithRelationInput | Prisma.MaterialOrderOrderByWithRelationInput[]
+  cursor?: Prisma.MaterialOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterialOrderScalarFieldEnum | Prisma.MaterialOrderScalarFieldEnum[]
+}
+
+/**
+ * User.requestsMade
+ */
+export type User$requestsMadeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialRequest
+   */
+  select?: Prisma.MaterialRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MaterialRequest
+   */
+  omit?: Prisma.MaterialRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterialRequestInclude<ExtArgs> | null
+  where?: Prisma.MaterialRequestWhereInput
+  orderBy?: Prisma.MaterialRequestOrderByWithRelationInput | Prisma.MaterialRequestOrderByWithRelationInput[]
+  cursor?: Prisma.MaterialRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterialRequestScalarFieldEnum | Prisma.MaterialRequestScalarFieldEnum[]
+}
+
+/**
+ * User.requestsDecided
+ */
+export type User$requestsDecidedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialRequest
+   */
+  select?: Prisma.MaterialRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MaterialRequest
+   */
+  omit?: Prisma.MaterialRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterialRequestInclude<ExtArgs> | null
+  where?: Prisma.MaterialRequestWhereInput
+  orderBy?: Prisma.MaterialRequestOrderByWithRelationInput | Prisma.MaterialRequestOrderByWithRelationInput[]
+  cursor?: Prisma.MaterialRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterialRequestScalarFieldEnum | Prisma.MaterialRequestScalarFieldEnum[]
 }
 
 /**

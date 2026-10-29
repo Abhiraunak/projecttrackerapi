@@ -1,14 +1,11 @@
 /**
- * The stock rules, with no database in them: give it the log and the requirements, get the figures back.
- * Stock levels are never stored. They are always worked out from the movement log, so they can't drift.
- * (The frontend has a copy of validateMovement for instant feedback; this one is the authority.)
+ * The stock rules, with no database in them: give it the log, what the BOQ items need and the orders,
+ * get the figures back. Stock levels are never stored: they are always worked out from the movement log.
  */
 const round3 = (value) => Math.round(value * 1000) / 1000;
 const formatQty = (value, unit) => `${value.toLocaleString("en-IN", { maximumFractionDigits: 3 })} ${unit}`;
-export const totalRequired = (r) => round3(r.requiredQty * (1 + r.wastagePercent / 100));
-const pendingQty = (r) => round3(Math.max(0, r.orderedQty - r.receivedQty));
-/** Which movement types must name a work item, and which must carry a note */
-export const NEEDS_TASK = {
+/** Which movement types must name a BOQ item, and which must carry a note */
+export const NEEDS_ITEM = {
     RECEIVED: false,
     ISSUED: true,
     RESERVED: true,
@@ -17,16 +14,14 @@ export const NEEDS_TASK = {
     ADJUSTMENT_OUT: false,
 };
 export const requiresNote = (type) => type === "ADJUSTMENT_IN" || type === "ADJUSTMENT_OUT";
-const emptyLevels = () => ({ onHand: 0, consumed: 0, consumedByTask: new Map(), reservedByTask: new Map() });
-function shrinkReservation(levels, taskId, quantity) {
-    const left = (levels.reservedByTask.get(taskId) ?? 0) - quantity;
-    if (left > 0)
-        levels.reservedByTask.set(taskId, left);
+const add = (map, key, by) => {
+    const next = (map.get(key) ?? 0) + by;
+    if (next > 1e-9)
+        map.set(key, next);
     else
-        levels.reservedByTask.delete(taskId);
-}
-function applyEntry(levels, entry) {
-    const { type, quantity, taskId } = entry;
+        map.delete(key);
+};
+function applyEntry(levels, { type, quantity, itemId }) {
     switch (type) {
         case "RECEIVED":
         case "ADJUSTMENT_IN":
@@ -37,70 +32,89 @@ function applyEntry(levels, entry) {
             break;
         case "ISSUED":
             levels.onHand -= quantity;
-            levels.consumed += quantity;
-            if (taskId) {
-                levels.consumedByTask.set(taskId, (levels.consumedByTask.get(taskId) ?? 0) + quantity);
-                // Material used by the work item it was reserved for uses up that reservation
-                shrinkReservation(levels, taskId, Math.min(quantity, levels.reservedByTask.get(taskId) ?? 0));
+            levels.issued += quantity;
+            if (itemId) {
+                add(levels.issuedByItem, itemId, quantity);
+                // Material issued to the item it was reserved for uses up that reservation
+                add(levels.reservedByItem, itemId, -Math.min(quantity, levels.reservedByItem.get(itemId) ?? 0));
             }
             break;
         case "RESERVED":
-            if (taskId)
-                levels.reservedByTask.set(taskId, (levels.reservedByTask.get(taskId) ?? 0) + quantity);
+            if (itemId)
+                add(levels.reservedByItem, itemId, quantity);
             break;
         case "RELEASED":
-            if (taskId)
-                shrinkReservation(levels, taskId, Math.min(quantity, levels.reservedByTask.get(taskId) ?? 0));
+            if (itemId)
+                add(levels.reservedByItem, itemId, -Math.min(quantity, levels.reservedByItem.get(itemId) ?? 0));
             break;
     }
 }
-/** `entries` must be oldest first */
 function levelsOf(entries) {
-    const levels = emptyLevels();
+    const levels = { onHand: 0, issued: 0, issuedByItem: new Map(), reservedByItem: new Map() };
     for (const entry of entries)
         applyEntry(levels, entry);
     return levels;
 }
 /* ------------------------------ the figures ------------------------------- */
-/**
- * Figures for one material.
- * `entries` oldest first, and only this material's; `requirements` only this material's.
- */
-export function inventoryItemFor(material, entries, requirements, taskNames) {
+/** Figures for one material. `entries` oldest first; everything passed in is this material's only. */
+export function inventoryItemFor(material, entries, needs, orders, items) {
     const levels = levelsOf(entries);
-    // Still needed: each requirement's total, minus what its own work item already used
-    const stillNeeded = requirements.reduce((sum, r) => sum + Math.max(0, totalRequired(r) - (levels.consumedByTask.get(r.taskId) ?? 0)), 0);
-    const incoming = requirements.reduce((sum, r) => sum + pendingQty(r), 0);
-    const reservedByTask = [...levels.reservedByTask].map(([taskId, quantity]) => ({
-        task: { id: taskId, name: taskNames.get(taskId) ?? "Work item" },
-        quantity: round3(quantity),
-    }));
-    const reserved = reservedByTask.reduce((sum, r) => sum + r.quantity, 0);
+    const requiredBy = new Map();
+    for (const need of needs)
+        requiredBy.set(need.itemId, (requiredBy.get(need.itemId) ?? 0) + need.required);
+    // Every item that needs this material, or has used or set aside some of it
+    const itemIds = [...new Set([...requiredBy.keys(), ...levels.issuedByItem.keys(), ...levels.reservedByItem.keys()])];
+    const byItem = itemIds.map((id) => {
+        const required = round3(requiredBy.get(id) ?? 0);
+        const issued = round3(levels.issuedByItem.get(id) ?? 0);
+        return {
+            item: items.get(id) ?? { id, code: "", title: "BOQ item", active: false },
+            required,
+            issued,
+            reserved: round3(levels.reservedByItem.get(id) ?? 0),
+            remaining: round3(Math.max(0, required - issued)),
+        };
+    });
+    const required = round3(needs.reduce((s, n) => s + n.required, 0));
+    const stillNeeded = round3(byItem.reduce((s, u) => s + u.remaining, 0));
+    const reserved = round3(byItem.reduce((s, u) => s + u.reserved, 0));
+    const ordered = round3(orders.reduce((s, o) => s + o.quantity, 0));
+    const incoming = round3(orders.reduce((s, o) => s + Math.max(0, o.quantity - o.receivedQty), 0));
+    const onHand = round3(levels.onHand);
     return {
         material,
-        onHand: round3(levels.onHand),
-        reserved: round3(reserved),
-        available: round3(levels.onHand - reserved),
-        consumed: round3(levels.consumed),
-        stillNeeded: round3(stillNeeded),
-        incoming: round3(incoming),
-        shortage: round3(Math.max(0, stillNeeded - (levels.onHand + incoming))),
-        reservedByTask,
+        required,
+        issued: round3(levels.issued),
+        stillNeeded,
+        onHand,
+        reserved,
+        available: round3(onHand - reserved),
+        ordered,
+        incoming,
+        toOrder: round3(Math.max(0, stillNeeded - onHand - incoming)),
+        byItem: byItem.sort((a, b) => b.required - a.required),
     };
 }
-const groupBy = (items, key) => {
+const groupBy = (list, key) => {
     const groups = new Map();
-    for (const item of items)
-        groups.set(key(item), [...(groups.get(key(item)) ?? []), item]);
+    for (const x of list) {
+        const k = key(x);
+        const group = groups.get(k);
+        if (group)
+            group.push(x);
+        else
+            groups.set(k, [x]);
+    }
     return groups;
 };
-/** Figures for every material that has stock activity or a requirement. `entries` oldest first. */
-export function buildInventory(materials, entries, requirements, taskNames) {
-    const entriesBy = groupBy(entries, (e) => e.materialId);
-    const requirementsBy = groupBy(requirements, (r) => r.materialId);
+/** Figures for every material the plan needs, that was ordered, or has stock activity. `entries` oldest first. */
+export function buildInventory(materials, entries, needs, orders, items) {
+    const e = groupBy(entries, (x) => x.materialId);
+    const n = groupBy(needs, (x) => x.materialId);
+    const o = groupBy(orders, (x) => x.materialId);
     return materials
-        .filter((m) => entriesBy.has(m.id) || requirementsBy.has(m.id))
-        .map((m) => inventoryItemFor(m, entriesBy.get(m.id) ?? [], requirementsBy.get(m.id) ?? [], taskNames));
+        .filter((m) => e.has(m.id) || n.has(m.id) || o.has(m.id))
+        .map((m) => inventoryItemFor(m, e.get(m.id) ?? [], n.get(m.id) ?? [], o.get(m.id) ?? [], items));
 }
 /* -------------------------------- validation ------------------------------ */
 /** The rules a stock entry must follow: a message if it breaks one, otherwise null. Stock can never go below zero. */
@@ -108,19 +122,19 @@ export function validateMovement(item, input) {
     const unit = item.material.unit;
     if (!Number.isFinite(input.quantity) || input.quantity <= 0)
         return "Enter a quantity greater than zero.";
-    if (NEEDS_TASK[input.type] && !input.taskId)
-        return "Choose the work item.";
+    if (NEEDS_ITEM[input.type] && !input.itemId)
+        return "Choose the BOQ item.";
     if (requiresNote(input.type) && input.note.trim().length < 3)
         return "Add a short note explaining the correction.";
     switch (input.type) {
         case "ISSUED":
         case "ADJUSTMENT_OUT":
-            return input.quantity > item.onHand ? `Only ${formatQty(item.onHand, unit)} is in the store.` : null;
+            return input.quantity > item.onHand + 1e-9 ? `Only ${formatQty(item.onHand, unit)} is in the store.` : null;
         case "RESERVED":
-            return input.quantity > item.available ? `Only ${formatQty(item.available, unit)} is available to reserve.` : null;
+            return input.quantity > item.available + 1e-9 ? `Only ${formatQty(item.available, unit)} is available to reserve.` : null;
         case "RELEASED": {
-            const reserved = item.reservedByTask.find((r) => r.task.id === input.taskId)?.quantity ?? 0;
-            return input.quantity > reserved ? `Only ${formatQty(reserved, unit)} is reserved for that work item.` : null;
+            const reserved = item.byItem.find((u) => u.item.id === input.itemId)?.reserved ?? 0;
+            return input.quantity > reserved + 1e-9 ? `Only ${formatQty(reserved, unit)} is reserved for that BOQ item.` : null;
         }
         default:
             return null;

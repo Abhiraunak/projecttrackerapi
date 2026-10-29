@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import * as s from "./plan.service.js";
 import type { ImportBody, ItemMaterialsBody, RecipeBody } from "./plan.schema.js";
 
-const uid = (req: Request) => req.user!.sub;
+const uid = (req: Request<any, any, any, any>) => req.user!.sub;
 type P = Request<{ projectId: string }>;
 
 export const plan = async (req: P, res: Response) => res.json(await s.getPlan(uid(req), req.params.projectId));

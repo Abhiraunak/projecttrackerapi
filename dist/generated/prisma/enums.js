@@ -33,4 +33,17 @@ export const DrawingKind = {
     PDF: 'PDF',
     CAD: 'CAD'
 };
+export const StockAlertKind = {
+    ORDER_MORE: 'ORDER_MORE',
+    LOW_STOCK: 'LOW_STOCK',
+    LATE_DELIVERY: 'LATE_DELIVERY'
+};
+export const MaterialRequestStatus = {
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    REJECTED: 'REJECTED',
+    CANCELLED: 'CANCELLED',
+    ISSUED: 'ISSUED',
+    ORDERED: 'ORDERED'
+};
 //# sourceMappingURL=enums.js.map

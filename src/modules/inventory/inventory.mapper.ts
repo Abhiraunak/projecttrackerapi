@@ -1,4 +1,4 @@
-import { Prisma } from "../../generated/prisma/client.js";
+import { Material, Prisma, StockMovement } from "../../generated/prisma/client.js";
 import type { ItemLabel, MaterialInfo, StockEntry } from "./stock.js";
 
 /** What to load with a movement: the material, the BOQ item, the order and who recorded it */

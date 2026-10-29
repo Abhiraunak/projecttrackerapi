@@ -35,8 +35,7 @@ export const projectDto = (p) => ({
     updatedAt: p.updatedAt,
     tasks: p.tasks.map(taskDto),
 });
-/** Lightweight shape for the project cards */
-export function summaryDto(p) {
+export function summaryDto(p, materials = { spent: 0, expected: 0 }) {
     const tasks = p.tasks.map(taskDto);
     const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
     const paid = tasks.reduce((s, t) => s + t.paid, 0);
@@ -51,7 +50,10 @@ export function summaryDto(p) {
         id: p.id,
         title: p.title,
         projectCost: p.projectCost?.toNumber() ?? null,
-        spent: paid, // paid so far, so a card can show what is left of the project cost
+        spent: Math.round((paid + materials.spent) * 100) / 100, // labour paid + materials received, so a card can show what is left
+        labourPaid: paid,
+        materialSpent: materials.spent,
+        materialExpected: materials.expected,
         status: p.status,
         taskCount: tasks.length,
         attendanceCount: p._count?.attendance ?? 0,
@@ -59,7 +61,7 @@ export function summaryDto(p) {
         paid,
         progress: Math.round(progress),
         startDate: starts[0] ?? null,
-        endDate: ends.at(-1) ?? null,
+        endDate: ends.length > 0 ? ends[ends.length - 1] : null,
         updatedAt: p.updatedAt,
     };
 }
