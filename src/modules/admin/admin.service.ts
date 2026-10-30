@@ -7,7 +7,7 @@ import type { UpdateAccessBody } from "./admin.schema.js";
 
 const USER_COLUMNS = { id: true, email: true, role: true, permissions: true, createdAt: true } as const;
 
-type UserRow = { id: string; email: string; role: "USER" | "ADMIN"; permissions: string[]; createdAt: Date };
+type UserRow = { id: string; email: string; role: "USER" | "ADMIN" | "CLIENT"; permissions: string[]; createdAt: Date };
 
 const userDto = (u: UserRow) => ({
   id: u.id,
@@ -20,9 +20,9 @@ const userDto = (u: UserRow) => ({
 /** In the fixed order of the permission list, without repeats, so the log reads the same way each time */
 const tidy = (permissions: string[]) => PERMISSIONS.filter((p) => permissions.includes(p));
 
-/** Everyone with an account, oldest first */
+/** Every staff account, oldest first. Client accounts are managed on the Clients page, not here. */
 export async function listUsers() {
-  const users = await prisma.user.findMany({ select: USER_COLUMNS, orderBy: { createdAt: "asc" } });
+  const users = await prisma.user.findMany({ where: { role: { not: "CLIENT" } }, select: USER_COLUMNS, orderBy: { createdAt: "asc" } });
   return users.map(userDto);
 }
 
@@ -37,6 +37,7 @@ export async function updateAccess(actorId: string, userId: string, { isAdmin, p
 
     const target = await tx.user.findUnique({ where: { id: userId }, select: USER_COLUMNS });
     if (!target) throw new HttpError(404, "User not found");
+    if (target.role === "CLIENT") throw new HttpError(409, "That's a client account. Clients only use the client portal.");
 
     if (target.role === "ADMIN" && !isAdmin) {
       const admins = await tx.user.count({ where: { role: "ADMIN" } });
