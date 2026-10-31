@@ -29,6 +29,8 @@ import orderRoutes from './modules/orders/orders.routes.js';
 import alertRoutes from './modules/alerts/alerts.routes.js';
 import requestRoutes from './modules/requests/requests.routes.js';
 import dashboardRoutes from './modules/dashboard/dashboard.routes.js';
+import clientRoutes from './modules/client/client.routes.js';
+import notificationRoutes from './modules/notifications/notifications.routes.js';
 
 const app = express();
 
@@ -52,20 +54,21 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 app.use('/api/v1/drawings', drawingRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/materials', catalogRoutes);   
-app.use('/api/v1', inventoryRoutes); 
-app.use('/api/v1', auditRoutes);  
+app.use('/api/v1/materials', catalogRoutes);
+app.use('/api/v1', inventoryRoutes);
+app.use('/api/v1', auditRoutes);
 app.use('/api/v1/boqs', boqRoutes);
-app.use('/api/v1/push', pushRoutes); 
+app.use('/api/v1/push', pushRoutes);
 app.use('/api/v1', accessRoutes);        // GET /me/access
 app.use('/api/v1/admin', adminRoutes);   // admin page
 app.use('/api/v1', inventoryRoutes);
 app.use('/api/v1', materialPlanRoutes);
 app.use('/api/v1', orderRoutes);
 app.use('/api/v1', alertRoutes);
-app.use('/api/v1', requestRoutes); 
+app.use('/api/v1', requestRoutes);
 app.use('/api/v1', dashboardRoutes);
-
+app.use('/api/v1', clientRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);   // must be last

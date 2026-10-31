@@ -71,7 +71,12 @@ export const ModelName = {
   StockAlert: 'StockAlert',
   MaterialRequest: 'MaterialRequest',
   AuditLog: 'AuditLog',
-  Boq: 'Boq'
+  Boq: 'Boq',
+  ProjectClient: 'ProjectClient',
+  PaymentInstalment: 'PaymentInstalment',
+  PaymentProof: 'PaymentProof',
+  ProjectDelay: 'ProjectDelay',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -128,7 +133,8 @@ export const ProjectScalarFieldEnum = {
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  projectCost: 'projectCost'
+  projectCost: 'projectCost',
+  advanceOverride: 'advanceOverride'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -421,6 +427,89 @@ export const BoqScalarFieldEnum = {
 } as const
 
 export type BoqScalarFieldEnum = (typeof BoqScalarFieldEnum)[keyof typeof BoqScalarFieldEnum]
+
+
+export const ProjectClientScalarFieldEnum = {
+  projectId: 'projectId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectClientScalarFieldEnum = (typeof ProjectClientScalarFieldEnum)[keyof typeof ProjectClientScalarFieldEnum]
+
+
+export const PaymentInstalmentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  number: 'number',
+  label: 'label',
+  kind: 'kind',
+  amount: 'amount',
+  taxPercent: 'taxPercent',
+  dueDate: 'dueDate',
+  dueAtProgress: 'dueAtProgress',
+  requestedAt: 'requestedAt',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentInstalmentScalarFieldEnum = (typeof PaymentInstalmentScalarFieldEnum)[keyof typeof PaymentInstalmentScalarFieldEnum]
+
+
+export const PaymentProofScalarFieldEnum = {
+  id: 'id',
+  instalmentId: 'instalmentId',
+  projectId: 'projectId',
+  uploadedById: 'uploadedById',
+  amount: 'amount',
+  paidOn: 'paidOn',
+  mode: 'mode',
+  reference: 'reference',
+  note: 'note',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  bytes: 'bytes',
+  status: 'status',
+  decidedById: 'decidedById',
+  decidedAt: 'decidedAt',
+  decisionNote: 'decisionNote',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentProofScalarFieldEnum = (typeof PaymentProofScalarFieldEnum)[keyof typeof PaymentProofScalarFieldEnum]
+
+
+export const ProjectDelayScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  reason: 'reason',
+  title: 'title',
+  note: 'note',
+  fromDate: 'fromDate',
+  days: 'days',
+  tasksMoved: 'tasksMoved',
+  paymentsMoved: 'paymentsMoved',
+  createdById: 'createdById',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectDelayScalarFieldEnum = (typeof ProjectDelayScalarFieldEnum)[keyof typeof ProjectDelayScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  key: 'key',
+  title: 'title',
+  body: 'body',
+  url: 'url',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const SortOrder = {

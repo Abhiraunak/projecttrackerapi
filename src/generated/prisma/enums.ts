@@ -11,7 +11,8 @@
 
 export const Role = {
   USER: 'USER',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  CLIENT: 'CLIENT'
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -74,3 +75,41 @@ export const MaterialRequestStatus = {
 } as const
 
 export type MaterialRequestStatus = (typeof MaterialRequestStatus)[keyof typeof MaterialRequestStatus]
+
+
+export const InstalmentKind = {
+  ADVANCE: 'ADVANCE',
+  INSTALMENT: 'INSTALMENT'
+} as const
+
+export type InstalmentKind = (typeof InstalmentKind)[keyof typeof InstalmentKind]
+
+
+export const PaymentMode = {
+  UPI: 'UPI',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  CHEQUE: 'CHEQUE',
+  CASH: 'CASH',
+  OTHER: 'OTHER'
+} as const
+
+export type PaymentMode = (typeof PaymentMode)[keyof typeof PaymentMode]
+
+
+export const ProofStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ProofStatus = (typeof ProofStatus)[keyof typeof ProofStatus]
+
+
+export const DelayReason = {
+  MONSOON: 'MONSOON',
+  FESTIVAL: 'FESTIVAL',
+  NATURAL: 'NATURAL',
+  OTHER: 'OTHER'
+} as const
+
+export type DelayReason = (typeof DelayReason)[keyof typeof DelayReason]

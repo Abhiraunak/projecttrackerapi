@@ -774,10 +774,6 @@ export type BoqItemUpdateOneWithoutMovementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BoqItemUpdateToOneWithWhereWithoutMovementsInput, Prisma.BoqItemUpdateWithoutMovementsInput>, Prisma.BoqItemUncheckedUpdateWithoutMovementsInput>
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type BoqItemCreateNestedOneWithoutMaterialsInput = {
   create?: Prisma.XOR<Prisma.BoqItemCreateWithoutMaterialsInput, Prisma.BoqItemUncheckedCreateWithoutMaterialsInput>
   connectOrCreate?: Prisma.BoqItemCreateOrConnectWithoutMaterialsInput

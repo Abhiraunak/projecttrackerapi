@@ -11,6 +11,7 @@ datasource db {
 enum Role {
   USER
   ADMIN
+  CLIENT // a customer: sees only the client portal for the projects they are linked to
 }
 
 enum ProjectStatus {
@@ -78,6 +79,11 @@ model User {
   auditEntries      AuditLog[]
   boqsCreated       Boq[]              @relation("BoqCreatedBy")
   boqsUpdated       Boq[]              @relation("BoqUpdatedBy")
+  clientProjects    ProjectClient[]
+  proofsUploaded    PaymentProof[]     @relation("ProofUploadedBy")
+  proofsDecided     PaymentProof[]     @relation("ProofDecidedBy")
+  delaysRecorded    ProjectDelay[]
+  notifications     Notification[]
 }
 
 model RefreshToken {
@@ -117,6 +123,12 @@ model Project {
   stockAlerts      StockAlert[]
   materialRequests MaterialRequest[]
   auditLog         AuditLog[]
+  // Client portal
+  advanceOverride  Boolean              @default(false) // admin let work start before the advance was paid
+  clients          ProjectClient[]
+  instalments      PaymentInstalment[]
+  paymentProofs    PaymentProof[]
+  delays           ProjectDelay[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -219,9 +231,7 @@ model PushSubscription {
   @@index([userId])
 }
 
-/**
- * ------------------------------- Inventory --------------------------------
- */
+/* ------------------------------- Inventory -------------------------------- */
 
 model Material {
   id            String               @id @default(cuid())
@@ -428,9 +438,7 @@ model MaterialRequest {
   @@index([projectId, createdAt(sort: Desc)])
 }
 
-/**
- * --------------------------------- Audit ----------------------------------
- */
+/* --------------------------------- Audit ---------------------------------- */
 
 model AuditLog {
   id         String   @id @default(cuid())
@@ -451,9 +459,7 @@ model AuditLog {
   @@index([createdAt(sort: Desc)])
 }
 
-/**
- * ---------------------------------- BOQ -----------------------------------
- */
+/* ---------------------------------- BOQ ----------------------------------- */
 
 model Boq {
   id          String    @id @default(cuid())
@@ -478,4 +484,132 @@ model Boq {
   @@index([updatedAt(sort: Desc)])
   @@index([status])
   @@index([projectId])
+}
+
+/* ------------------------------- client portal ------------------------------- */
+
+enum InstalmentKind {
+  ADVANCE // asked for before work starts
+  INSTALMENT
+}
+
+enum PaymentMode {
+  UPI
+  BANK_TRANSFER
+  CHEQUE
+  CASH
+  OTHER
+}
+
+enum ProofStatus {
+  PENDING // the client sent it; an admin hasn't checked it yet
+  APPROVED // the money arrived: counts as paid
+  REJECTED
+}
+
+enum DelayReason {
+  MONSOON
+  FESTIVAL
+  NATURAL // flood, storm, heat wave and the like
+  OTHER
+}
+
+/** A client account linked to a project: they see that project in the client portal, nothing else */
+model ProjectClient {
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([projectId, userId])
+  @@index([userId])
+}
+
+/** One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>). */
+model PaymentInstalment {
+  id            String         @id @default(cuid())
+  projectId     String
+  project       Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  number        Int // 1, 2, 3… within the project: the invoice number
+  label         String // "Advance", "Plinth complete"
+  kind          InstalmentKind @default(INSTALMENT)
+  amount        Decimal        @db.Decimal(14, 2) // before tax
+  taxPercent    Decimal        @default(0) @db.Decimal(5, 2) // GST
+  dueDate       DateTime?      @db.Date // due on this date…
+  dueAtProgress Int? // …or once the work reaches this % (whichever comes first)
+  requestedAt   DateTime? // the admin asked for it now: due from then
+  note          String         @default("")
+  proofs        PaymentProof[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@unique([projectId, number])
+  @@index([projectId, dueDate])
+}
+
+/** A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly */
+model PaymentProof {
+  id           String            @id @default(cuid())
+  instalmentId String
+  instalment   PaymentInstalment @relation(fields: [instalmentId], references: [id], onDelete: Cascade)
+  projectId    String
+  project      Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  uploadedById String
+  uploadedBy   User              @relation("ProofUploadedBy", fields: [uploadedById], references: [id], onDelete: Restrict)
+  amount       Decimal           @db.Decimal(14, 2)
+  paidOn       DateTime          @db.Date
+  mode         PaymentMode
+  reference    String            @default("") // UTR / cheque number
+  note         String            @default("")
+  // The file on Cloudinary (none when the admin records a payment by hand)
+  publicId     String?           @unique
+  version      Int?
+  format       String?
+  bytes        Int?
+  status       ProofStatus       @default(PENDING)
+  decidedById  String?
+  decidedBy    User?             @relation("ProofDecidedBy", fields: [decidedById], references: [id], onDelete: SetNull)
+  decidedAt    DateTime?
+  decisionNote String            @default("")
+  createdAt    DateTime          @default(now())
+
+  @@index([projectId, status])
+  @@index([status, createdAt])
+  @@index([instalmentId])
+}
+
+/** Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later. */
+model ProjectDelay {
+  id            String      @id @default(cuid())
+  projectId     String
+  project       Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  reason        DelayReason
+  title         String // "Heavy monsoon rain", "Diwali holidays"
+  note          String      @default("")
+  fromDate      DateTime    @db.Date
+  days          Int
+  tasksMoved    Int         @default(0)
+  paymentsMoved Int         @default(0)
+  createdById   String
+  createdBy     User        @relation(fields: [createdById], references: [id], onDelete: Restrict)
+  createdAt     DateTime    @default(now())
+
+  @@index([projectId, createdAt])
+}
+
+/** The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on) */
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key       String? // set for reminders, so the same reminder is never sent twice ("overdue:<id>:1")
+  title     String
+  body      String
+  url       String // where tapping it goes
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@unique([userId, key])
+  @@index([userId, createdAt(sort: Desc)])
 }

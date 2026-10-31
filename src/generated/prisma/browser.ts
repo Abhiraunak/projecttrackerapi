@@ -123,3 +123,28 @@ export type AuditLog = Prisma.AuditLogModel
  * 
  */
 export type Boq = Prisma.BoqModel
+/**
+ * Model ProjectClient
+ * * A client account linked to a project: they see that project in the client portal, nothing else
+ */
+export type ProjectClient = Prisma.ProjectClientModel
+/**
+ * Model PaymentInstalment
+ * * One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>).
+ */
+export type PaymentInstalment = Prisma.PaymentInstalmentModel
+/**
+ * Model PaymentProof
+ * * A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly
+ */
+export type PaymentProof = Prisma.PaymentProofModel
+/**
+ * Model ProjectDelay
+ * * Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later.
+ */
+export type ProjectDelay = Prisma.ProjectDelayModel
+/**
+ * Model Notification
+ * * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
+ */
+export type Notification = Prisma.NotificationModel
