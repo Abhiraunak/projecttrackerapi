@@ -33,13 +33,13 @@ export type MovementKind = "RECEIVED" | "ISSUED" | "RESERVED" | "RELEASED" | "AD
 export const isPermission = (value: string): value is Permission => (PERMISSIONS as readonly string[]).includes(value);
 
 export interface RightsHolder {
-  role: "USER" | "ADMIN";
+  role: "USER" | "ADMIN" | "CLIENT";
   permissions: string[];
 }
 
-/** An admin has everything; anyone else has what was ticked (unknown or retired names are ignored) */
+/** An admin has everything; a client nothing (they only use the client portal); anyone else what was ticked */
 export const effectivePermissions = (user: RightsHolder): Permission[] =>
-  user.role === "ADMIN" ? [...PERMISSIONS] : PERMISSIONS.filter((p) => user.permissions.includes(p));
+  user.role === "ADMIN" ? [...PERMISSIONS] : user.role === "CLIENT" ? [] : PERMISSIONS.filter((p) => user.permissions.includes(p));
 
 /** Each kind of stock entry needs its own right: receiving is not the same as using */
 export const MOVEMENT_PERMISSION: Record<MovementKind, Permission> = {
