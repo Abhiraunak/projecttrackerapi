@@ -19,12 +19,17 @@ export const PERMISSIONS = [
   "stock.issue",
   "stock.reserve",
   "stock.adjust",
+  "deliveries.approve", // approve or reject a delivery that was flagged (off site, short, extra)
   "requests.create", // ask for material from site
   "requests.approve", // approve or reject those requests
   "attendance.view",
   "attendance.write",
+  "attendance.punch", // mark one's own attendance: punch in and out with a photo and location
+  "attendance.team", // see everyone's punches
   "drawings.use",
   "boq.use",
+  "equipment.view", // Phase 6: see the equipment register and what is at each site
+  "equipment.manage", // add equipment, move it between the yard and sites, write it off
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
