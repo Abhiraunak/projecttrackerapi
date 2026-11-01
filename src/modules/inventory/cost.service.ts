@@ -19,7 +19,8 @@ async function requiredByMaterial(projectIds: string[]) {
   return byProject;
 }
 
-async function costInputs(projectIds: string[]) {
+/** Exported for the material sheet, so it values everything exactly as the cost tab does */
+export async function costInputs(projectIds: string[]) {
   const [required, orders, loose] = await Promise.all([
     requiredByMaterial(projectIds),
     prisma.materialOrder.findMany({ where: { projectId: { in: projectIds } }, select: { projectId: true, materialId: true, quantity: true, receivedQty: true, rate: true } }),

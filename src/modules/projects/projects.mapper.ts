@@ -1,4 +1,5 @@
-import type { Project, Task } from "../../generated/prisma/client.js";
+import { Task } from "../../generated/prisma/browser.js";
+import { Project } from "../../generated/prisma/client.js";
 import type { TaskBody } from "./projects.schema.js";
 
 type ProjectWithTasks = Project & { tasks: Task[] };
@@ -37,6 +38,7 @@ export const taskDto = (t: Task) => ({
 export const projectDto = (p: ProjectWithTasks) => ({
   id: p.id,
   title: p.title,
+  firmName: p.firmName,
   projectCost: p.projectCost?.toNumber() ?? null,
   status: p.status,
   createdAt: p.createdAt,
@@ -67,6 +69,7 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
   return {
     id: p.id,
     title: p.title,
+    firmName: p.firmName,
     projectCost: p.projectCost?.toNumber() ?? null,
     spent: Math.round((paid + materials.spent) * 100) / 100, // labour paid + materials received, so a card can show what is left
     labourPaid: paid,

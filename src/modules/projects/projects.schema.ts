@@ -24,6 +24,8 @@ export const taskInput = z
   });
 
 const title = z.string().trim().min(1).max(120);
+// The firm or client name shown on the project tile; empty clears it
+const firmName = z.string().trim().max(120).transform((v) => v || null).nullable();
 const projectCost = amount.nullable().default(null); // what the whole project should cost; null = not set
 const tasks = z.array(taskInput).min(1).max(200);
 
@@ -32,7 +34,7 @@ export const updateProjectSchema = z.object({ body: z.object({ title, projectCos
 
 export const patchProjectSchema = z.object({
   body: z
-    .object({ title: title.optional(), projectCost: projectCost.optional(), status: statusEnum.optional() })
+    .object({ title: title.optional(), firmName: firmName.optional(), projectCost: projectCost.optional(), status: statusEnum.optional() })
     .refine((b) => Object.keys(b).length > 0, "Nothing to update"),
 });
 
