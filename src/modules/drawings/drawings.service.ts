@@ -1,4 +1,6 @@
+import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
+import { HttpError } from "../../lib/error.js";
 import { deleteDrawingFile, uploadDrawingFile } from "../../lib/cloudinary.js";
 import { ACCEPTED_DESCRIPTION, detectFileType } from "../../lib/fileType.js";
 import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
@@ -6,8 +8,6 @@ import { notifyDrawingShared } from "../push/push.notify.js";
 import { kindOf, toDrawingDto } from "./drawings.mapper.js";
 import { drawingInclude } from "./drawings.types.js";
 import type { ListQuery } from "./drawings.schema.js";
-import { Prisma } from "../../generated/prisma/client.js";
-import { HttpError } from "../../lib/error.js";
 
 /* ------------------------------ small helpers ----------------------------- */
 
@@ -47,7 +47,8 @@ const KIND = { image: "IMAGE", pdf: "PDF", cad: "CAD" } as const;
 /* ------------------------------- operations ------------------------------- */
 
 export async function listDrawings(viewerId: string, { scope, q, page, pageSize }: ListQuery) {
-  const where: Prisma.DrawingWhereInput = { AND: [scopeFilter(scope, viewerId), searchFilter(q)] };
+  // Older revisions are history: they show inside their drawing, not as separate cards
+  const where: Prisma.DrawingWhereInput = { AND: [scopeFilter(scope, viewerId), searchFilter(q), { current: true }] };
 
   const [rows, total] = await prisma.$transaction([
     prisma.drawing.findMany({
@@ -124,9 +125,19 @@ export async function replaceShares(ownerId: string, drawingId: string, requeste
 
 /** Deletes the record first (so it disappears at once), then the file. Only the owner may do this. */
 export async function deleteDrawing(ownerId: string, drawingId: string) {
-  const drawing = await prisma.drawing.findFirst({ where: { id: drawingId, ownerId }, select: { id: true, publicId: true, kind: true } });
+  const drawing = await prisma.drawing.findFirst({
+    where: { id: drawingId, ownerId },
+    select: { id: true, publicId: true, kind: true, projectId: true, number: true, current: true },
+  });
   if (!drawing) throw new HttpError(404, "Drawing not found");
 
-  await prisma.drawing.delete({ where: { id: drawing.id } });
+  await prisma.$transaction(async (tx) => {
+    await tx.drawing.delete({ where: { id: drawing.id } });
+    // Deleting the latest revision of a numbered drawing: the one before it becomes the latest again
+    if (drawing.current && drawing.projectId && drawing.number) {
+      const previous = await tx.drawing.findFirst({ where: { projectId: drawing.projectId, number: drawing.number }, orderBy: { revision: "desc" }, select: { id: true } });
+      if (previous) await tx.drawing.update({ where: { id: previous.id }, data: { current: true } });
+    }
+  });
   await deleteDrawingFile(drawing.publicId, kindOf(drawing));
 }

@@ -34,5 +34,8 @@ export function toDrawingDto(row: DrawingRow, viewerId: string) {
     isOwner,
     sharedWith: isOwner ? row.shares.map((share) => share.user) : [], // other people's access list is the owner's business
     createdAt: row.createdAt,
+    projectId: row.projectId ?? null,
+    number: row.number ?? null,
+    revision: row.revision,
   };
 }
