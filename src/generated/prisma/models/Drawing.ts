@@ -32,6 +32,7 @@ export type DrawingAvgAggregateOutputType = {
   width: number | null
   height: number | null
   pages: number | null
+  revision: number | null
 }
 
 export type DrawingSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type DrawingSumAggregateOutputType = {
   width: number | null
   height: number | null
   pages: number | null
+  revision: number | null
 }
 
 export type DrawingMinAggregateOutputType = {
@@ -57,6 +59,10 @@ export type DrawingMinAggregateOutputType = {
   kind: $Enums.DrawingKind | null
   createdAt: Date | null
   updatedAt: Date | null
+  projectId: string | null
+  number: string | null
+  revision: number | null
+  current: boolean | null
 }
 
 export type DrawingMaxAggregateOutputType = {
@@ -74,6 +80,10 @@ export type DrawingMaxAggregateOutputType = {
   kind: $Enums.DrawingKind | null
   createdAt: Date | null
   updatedAt: Date | null
+  projectId: string | null
+  number: string | null
+  revision: number | null
+  current: boolean | null
 }
 
 export type DrawingCountAggregateOutputType = {
@@ -91,6 +101,10 @@ export type DrawingCountAggregateOutputType = {
   kind: number
   createdAt: number
   updatedAt: number
+  projectId: number
+  number: number
+  revision: number
+  current: number
   _all: number
 }
 
@@ -101,6 +115,7 @@ export type DrawingAvgAggregateInputType = {
   width?: true
   height?: true
   pages?: true
+  revision?: true
 }
 
 export type DrawingSumAggregateInputType = {
@@ -109,6 +124,7 @@ export type DrawingSumAggregateInputType = {
   width?: true
   height?: true
   pages?: true
+  revision?: true
 }
 
 export type DrawingMinAggregateInputType = {
@@ -126,6 +142,10 @@ export type DrawingMinAggregateInputType = {
   kind?: true
   createdAt?: true
   updatedAt?: true
+  projectId?: true
+  number?: true
+  revision?: true
+  current?: true
 }
 
 export type DrawingMaxAggregateInputType = {
@@ -143,6 +163,10 @@ export type DrawingMaxAggregateInputType = {
   kind?: true
   createdAt?: true
   updatedAt?: true
+  projectId?: true
+  number?: true
+  revision?: true
+  current?: true
 }
 
 export type DrawingCountAggregateInputType = {
@@ -160,6 +184,10 @@ export type DrawingCountAggregateInputType = {
   kind?: true
   createdAt?: true
   updatedAt?: true
+  projectId?: true
+  number?: true
+  revision?: true
+  current?: true
   _all?: true
 }
 
@@ -264,6 +292,10 @@ export type DrawingGroupByOutputType = {
   kind: $Enums.DrawingKind
   createdAt: Date
   updatedAt: Date
+  projectId: string | null
+  number: string | null
+  revision: number
+  current: boolean
   _count: DrawingCountAggregateOutputType | null
   _avg: DrawingAvgAggregateOutputType | null
   _sum: DrawingSumAggregateOutputType | null
@@ -304,8 +336,13 @@ export type DrawingWhereInput = {
   kind?: Prisma.EnumDrawingKindFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
+  projectId?: Prisma.StringNullableFilter<"Drawing"> | string | null
+  number?: Prisma.StringNullableFilter<"Drawing"> | string | null
+  revision?: Prisma.IntFilter<"Drawing"> | number
+  current?: Prisma.BoolFilter<"Drawing"> | boolean
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shares?: Prisma.DrawingShareListRelationFilter
+  project?: Prisma.XOR<Prisma.ProjectNullableScalarRelationFilter, Prisma.ProjectWhereInput> | null
 }
 
 export type DrawingOrderByWithRelationInput = {
@@ -323,13 +360,19 @@ export type DrawingOrderByWithRelationInput = {
   kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  projectId?: Prisma.SortOrderInput | Prisma.SortOrder
+  number?: Prisma.SortOrderInput | Prisma.SortOrder
+  revision?: Prisma.SortOrder
+  current?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   shares?: Prisma.DrawingShareOrderByRelationAggregateInput
+  project?: Prisma.ProjectOrderByWithRelationInput
 }
 
 export type DrawingWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   publicId?: string
+  projectId_number_revision?: Prisma.DrawingProjectIdNumberRevisionCompoundUniqueInput
   AND?: Prisma.DrawingWhereInput | Prisma.DrawingWhereInput[]
   OR?: Prisma.DrawingWhereInput[]
   NOT?: Prisma.DrawingWhereInput | Prisma.DrawingWhereInput[]
@@ -345,9 +388,14 @@ export type DrawingWhereUniqueInput = Prisma.AtLeast<{
   kind?: Prisma.EnumDrawingKindFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
+  projectId?: Prisma.StringNullableFilter<"Drawing"> | string | null
+  number?: Prisma.StringNullableFilter<"Drawing"> | string | null
+  revision?: Prisma.IntFilter<"Drawing"> | number
+  current?: Prisma.BoolFilter<"Drawing"> | boolean
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   shares?: Prisma.DrawingShareListRelationFilter
-}, "id" | "publicId">
+  project?: Prisma.XOR<Prisma.ProjectNullableScalarRelationFilter, Prisma.ProjectWhereInput> | null
+}, "id" | "publicId" | "projectId_number_revision">
 
 export type DrawingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -364,6 +412,10 @@ export type DrawingOrderByWithAggregationInput = {
   kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  projectId?: Prisma.SortOrderInput | Prisma.SortOrder
+  number?: Prisma.SortOrderInput | Prisma.SortOrder
+  revision?: Prisma.SortOrder
+  current?: Prisma.SortOrder
   _count?: Prisma.DrawingCountOrderByAggregateInput
   _avg?: Prisma.DrawingAvgOrderByAggregateInput
   _max?: Prisma.DrawingMaxOrderByAggregateInput
@@ -389,6 +441,10 @@ export type DrawingScalarWhereWithAggregatesInput = {
   kind?: Prisma.EnumDrawingKindWithAggregatesFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Drawing"> | Date | string
+  projectId?: Prisma.StringNullableWithAggregatesFilter<"Drawing"> | string | null
+  number?: Prisma.StringNullableWithAggregatesFilter<"Drawing"> | string | null
+  revision?: Prisma.IntWithAggregatesFilter<"Drawing"> | number
+  current?: Prisma.BoolWithAggregatesFilter<"Drawing"> | boolean
 }
 
 export type DrawingCreateInput = {
@@ -405,8 +461,12 @@ export type DrawingCreateInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  number?: string | null
+  revision?: number
+  current?: boolean
   owner: Prisma.UserCreateNestedOneWithoutDrawingsInput
   shares?: Prisma.DrawingShareCreateNestedManyWithoutDrawingInput
+  project?: Prisma.ProjectCreateNestedOneWithoutDrawingsInput
 }
 
 export type DrawingUncheckedCreateInput = {
@@ -424,6 +484,10 @@ export type DrawingUncheckedCreateInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectId?: string | null
+  number?: string | null
+  revision?: number
+  current?: boolean
   shares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutDrawingInput
 }
 
@@ -441,8 +505,12 @@ export type DrawingUpdateInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   owner?: Prisma.UserUpdateOneRequiredWithoutDrawingsNestedInput
   shares?: Prisma.DrawingShareUpdateManyWithoutDrawingNestedInput
+  project?: Prisma.ProjectUpdateOneWithoutDrawingsNestedInput
 }
 
 export type DrawingUncheckedUpdateInput = {
@@ -460,6 +528,10 @@ export type DrawingUncheckedUpdateInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   shares?: Prisma.DrawingShareUncheckedUpdateManyWithoutDrawingNestedInput
 }
 
@@ -478,6 +550,10 @@ export type DrawingCreateManyInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectId?: string | null
+  number?: string | null
+  revision?: number
+  current?: boolean
 }
 
 export type DrawingUpdateManyMutationInput = {
@@ -494,6 +570,9 @@ export type DrawingUpdateManyMutationInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DrawingUncheckedUpdateManyInput = {
@@ -511,6 +590,10 @@ export type DrawingUncheckedUpdateManyInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DrawingListRelationFilter = {
@@ -521,6 +604,12 @@ export type DrawingListRelationFilter = {
 
 export type DrawingOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type DrawingProjectIdNumberRevisionCompoundUniqueInput = {
+  projectId: string
+  number: string
+  revision: number
 }
 
 export type DrawingCountOrderByAggregateInput = {
@@ -538,6 +627,10 @@ export type DrawingCountOrderByAggregateInput = {
   kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
+  number?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
+  current?: Prisma.SortOrder
 }
 
 export type DrawingAvgOrderByAggregateInput = {
@@ -546,6 +639,7 @@ export type DrawingAvgOrderByAggregateInput = {
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
   pages?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
 }
 
 export type DrawingMaxOrderByAggregateInput = {
@@ -563,6 +657,10 @@ export type DrawingMaxOrderByAggregateInput = {
   kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
+  number?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
+  current?: Prisma.SortOrder
 }
 
 export type DrawingMinOrderByAggregateInput = {
@@ -580,6 +678,10 @@ export type DrawingMinOrderByAggregateInput = {
   kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  projectId?: Prisma.SortOrder
+  number?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
+  current?: Prisma.SortOrder
 }
 
 export type DrawingSumOrderByAggregateInput = {
@@ -588,6 +690,7 @@ export type DrawingSumOrderByAggregateInput = {
   width?: Prisma.SortOrder
   height?: Prisma.SortOrder
   pages?: Prisma.SortOrder
+  revision?: Prisma.SortOrder
 }
 
 export type DrawingScalarRelationFilter = {
@@ -637,6 +740,48 @@ export type DrawingUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.DrawingScalarWhereInput | Prisma.DrawingScalarWhereInput[]
 }
 
+export type DrawingCreateNestedManyWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.DrawingCreateWithoutProjectInput, Prisma.DrawingUncheckedCreateWithoutProjectInput> | Prisma.DrawingCreateWithoutProjectInput[] | Prisma.DrawingUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.DrawingCreateOrConnectWithoutProjectInput | Prisma.DrawingCreateOrConnectWithoutProjectInput[]
+  createMany?: Prisma.DrawingCreateManyProjectInputEnvelope
+  connect?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+}
+
+export type DrawingUncheckedCreateNestedManyWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.DrawingCreateWithoutProjectInput, Prisma.DrawingUncheckedCreateWithoutProjectInput> | Prisma.DrawingCreateWithoutProjectInput[] | Prisma.DrawingUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.DrawingCreateOrConnectWithoutProjectInput | Prisma.DrawingCreateOrConnectWithoutProjectInput[]
+  createMany?: Prisma.DrawingCreateManyProjectInputEnvelope
+  connect?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+}
+
+export type DrawingUpdateManyWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.DrawingCreateWithoutProjectInput, Prisma.DrawingUncheckedCreateWithoutProjectInput> | Prisma.DrawingCreateWithoutProjectInput[] | Prisma.DrawingUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.DrawingCreateOrConnectWithoutProjectInput | Prisma.DrawingCreateOrConnectWithoutProjectInput[]
+  upsert?: Prisma.DrawingUpsertWithWhereUniqueWithoutProjectInput | Prisma.DrawingUpsertWithWhereUniqueWithoutProjectInput[]
+  createMany?: Prisma.DrawingCreateManyProjectInputEnvelope
+  set?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  disconnect?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  delete?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  connect?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  update?: Prisma.DrawingUpdateWithWhereUniqueWithoutProjectInput | Prisma.DrawingUpdateWithWhereUniqueWithoutProjectInput[]
+  updateMany?: Prisma.DrawingUpdateManyWithWhereWithoutProjectInput | Prisma.DrawingUpdateManyWithWhereWithoutProjectInput[]
+  deleteMany?: Prisma.DrawingScalarWhereInput | Prisma.DrawingScalarWhereInput[]
+}
+
+export type DrawingUncheckedUpdateManyWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.DrawingCreateWithoutProjectInput, Prisma.DrawingUncheckedCreateWithoutProjectInput> | Prisma.DrawingCreateWithoutProjectInput[] | Prisma.DrawingUncheckedCreateWithoutProjectInput[]
+  connectOrCreate?: Prisma.DrawingCreateOrConnectWithoutProjectInput | Prisma.DrawingCreateOrConnectWithoutProjectInput[]
+  upsert?: Prisma.DrawingUpsertWithWhereUniqueWithoutProjectInput | Prisma.DrawingUpsertWithWhereUniqueWithoutProjectInput[]
+  createMany?: Prisma.DrawingCreateManyProjectInputEnvelope
+  set?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  disconnect?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  delete?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  connect?: Prisma.DrawingWhereUniqueInput | Prisma.DrawingWhereUniqueInput[]
+  update?: Prisma.DrawingUpdateWithWhereUniqueWithoutProjectInput | Prisma.DrawingUpdateWithWhereUniqueWithoutProjectInput[]
+  updateMany?: Prisma.DrawingUpdateManyWithWhereWithoutProjectInput | Prisma.DrawingUpdateManyWithWhereWithoutProjectInput[]
+  deleteMany?: Prisma.DrawingScalarWhereInput | Prisma.DrawingScalarWhereInput[]
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -677,7 +822,11 @@ export type DrawingCreateWithoutOwnerInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  number?: string | null
+  revision?: number
+  current?: boolean
   shares?: Prisma.DrawingShareCreateNestedManyWithoutDrawingInput
+  project?: Prisma.ProjectCreateNestedOneWithoutDrawingsInput
 }
 
 export type DrawingUncheckedCreateWithoutOwnerInput = {
@@ -694,6 +843,10 @@ export type DrawingUncheckedCreateWithoutOwnerInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectId?: string | null
+  number?: string | null
+  revision?: number
+  current?: boolean
   shares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutDrawingInput
 }
 
@@ -741,6 +894,78 @@ export type DrawingScalarWhereInput = {
   kind?: Prisma.EnumDrawingKindFilter<"Drawing"> | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Drawing"> | Date | string
+  projectId?: Prisma.StringNullableFilter<"Drawing"> | string | null
+  number?: Prisma.StringNullableFilter<"Drawing"> | string | null
+  revision?: Prisma.IntFilter<"Drawing"> | number
+  current?: Prisma.BoolFilter<"Drawing"> | boolean
+}
+
+export type DrawingCreateWithoutProjectInput = {
+  id?: string
+  title: string
+  description?: string
+  publicId: string
+  version: number
+  format: string
+  bytes: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  number?: string | null
+  revision?: number
+  current?: boolean
+  owner: Prisma.UserCreateNestedOneWithoutDrawingsInput
+  shares?: Prisma.DrawingShareCreateNestedManyWithoutDrawingInput
+}
+
+export type DrawingUncheckedCreateWithoutProjectInput = {
+  id?: string
+  ownerId: string
+  title: string
+  description?: string
+  publicId: string
+  version: number
+  format: string
+  bytes: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  number?: string | null
+  revision?: number
+  current?: boolean
+  shares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutDrawingInput
+}
+
+export type DrawingCreateOrConnectWithoutProjectInput = {
+  where: Prisma.DrawingWhereUniqueInput
+  create: Prisma.XOR<Prisma.DrawingCreateWithoutProjectInput, Prisma.DrawingUncheckedCreateWithoutProjectInput>
+}
+
+export type DrawingCreateManyProjectInputEnvelope = {
+  data: Prisma.DrawingCreateManyProjectInput | Prisma.DrawingCreateManyProjectInput[]
+  skipDuplicates?: boolean
+}
+
+export type DrawingUpsertWithWhereUniqueWithoutProjectInput = {
+  where: Prisma.DrawingWhereUniqueInput
+  update: Prisma.XOR<Prisma.DrawingUpdateWithoutProjectInput, Prisma.DrawingUncheckedUpdateWithoutProjectInput>
+  create: Prisma.XOR<Prisma.DrawingCreateWithoutProjectInput, Prisma.DrawingUncheckedCreateWithoutProjectInput>
+}
+
+export type DrawingUpdateWithWhereUniqueWithoutProjectInput = {
+  where: Prisma.DrawingWhereUniqueInput
+  data: Prisma.XOR<Prisma.DrawingUpdateWithoutProjectInput, Prisma.DrawingUncheckedUpdateWithoutProjectInput>
+}
+
+export type DrawingUpdateManyWithWhereWithoutProjectInput = {
+  where: Prisma.DrawingScalarWhereInput
+  data: Prisma.XOR<Prisma.DrawingUpdateManyMutationInput, Prisma.DrawingUncheckedUpdateManyWithoutProjectInput>
 }
 
 export type DrawingCreateWithoutSharesInput = {
@@ -757,7 +982,11 @@ export type DrawingCreateWithoutSharesInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  number?: string | null
+  revision?: number
+  current?: boolean
   owner: Prisma.UserCreateNestedOneWithoutDrawingsInput
+  project?: Prisma.ProjectCreateNestedOneWithoutDrawingsInput
 }
 
 export type DrawingUncheckedCreateWithoutSharesInput = {
@@ -775,6 +1004,10 @@ export type DrawingUncheckedCreateWithoutSharesInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectId?: string | null
+  number?: string | null
+  revision?: number
+  current?: boolean
 }
 
 export type DrawingCreateOrConnectWithoutSharesInput = {
@@ -807,7 +1040,11 @@ export type DrawingUpdateWithoutSharesInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   owner?: Prisma.UserUpdateOneRequiredWithoutDrawingsNestedInput
+  project?: Prisma.ProjectUpdateOneWithoutDrawingsNestedInput
 }
 
 export type DrawingUncheckedUpdateWithoutSharesInput = {
@@ -825,6 +1062,10 @@ export type DrawingUncheckedUpdateWithoutSharesInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type DrawingCreateManyOwnerInput = {
@@ -841,6 +1082,10 @@ export type DrawingCreateManyOwnerInput = {
   kind?: $Enums.DrawingKind
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectId?: string | null
+  number?: string | null
+  revision?: number
+  current?: boolean
 }
 
 export type DrawingUpdateWithoutOwnerInput = {
@@ -857,7 +1102,11 @@ export type DrawingUpdateWithoutOwnerInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   shares?: Prisma.DrawingShareUpdateManyWithoutDrawingNestedInput
+  project?: Prisma.ProjectUpdateOneWithoutDrawingsNestedInput
 }
 
 export type DrawingUncheckedUpdateWithoutOwnerInput = {
@@ -874,6 +1123,10 @@ export type DrawingUncheckedUpdateWithoutOwnerInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
   shares?: Prisma.DrawingShareUncheckedUpdateManyWithoutDrawingNestedInput
 }
 
@@ -891,6 +1144,92 @@ export type DrawingUncheckedUpdateManyWithoutOwnerInput = {
   kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
+}
+
+export type DrawingCreateManyProjectInput = {
+  id?: string
+  ownerId: string
+  title: string
+  description?: string
+  publicId: string
+  version: number
+  format: string
+  bytes: number
+  width?: number | null
+  height?: number | null
+  pages?: number | null
+  kind?: $Enums.DrawingKind
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  number?: string | null
+  revision?: number
+  current?: boolean
+}
+
+export type DrawingUpdateWithoutProjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  owner?: Prisma.UserUpdateOneRequiredWithoutDrawingsNestedInput
+  shares?: Prisma.DrawingShareUpdateManyWithoutDrawingNestedInput
+}
+
+export type DrawingUncheckedUpdateWithoutProjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  shares?: Prisma.DrawingShareUncheckedUpdateManyWithoutDrawingNestedInput
+}
+
+export type DrawingUncheckedUpdateManyWithoutProjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  version?: Prisma.IntFieldUpdateOperationsInput | number
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pages?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kind?: Prisma.EnumDrawingKindFieldUpdateOperationsInput | $Enums.DrawingKind
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  revision?: Prisma.IntFieldUpdateOperationsInput | number
+  current?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -939,8 +1278,13 @@ export type DrawingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  projectId?: boolean
+  number?: boolean
+  revision?: boolean
+  current?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shares?: boolean | Prisma.Drawing$sharesArgs<ExtArgs>
+  project?: boolean | Prisma.Drawing$projectArgs<ExtArgs>
   _count?: boolean | Prisma.DrawingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["drawing"]>
 
@@ -959,7 +1303,12 @@ export type DrawingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  projectId?: boolean
+  number?: boolean
+  revision?: boolean
+  current?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.Drawing$projectArgs<ExtArgs>
 }, ExtArgs["result"]["drawing"]>
 
 export type DrawingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -977,7 +1326,12 @@ export type DrawingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  projectId?: boolean
+  number?: boolean
+  revision?: boolean
+  current?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.Drawing$projectArgs<ExtArgs>
 }, ExtArgs["result"]["drawing"]>
 
 export type DrawingSelectScalar = {
@@ -995,19 +1349,26 @@ export type DrawingSelectScalar = {
   kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  projectId?: boolean
+  number?: boolean
+  revision?: boolean
+  current?: boolean
 }
 
-export type DrawingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "title" | "description" | "publicId" | "version" | "format" | "bytes" | "width" | "height" | "pages" | "kind" | "createdAt" | "updatedAt", ExtArgs["result"]["drawing"]>
+export type DrawingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "title" | "description" | "publicId" | "version" | "format" | "bytes" | "width" | "height" | "pages" | "kind" | "createdAt" | "updatedAt" | "projectId" | "number" | "revision" | "current", ExtArgs["result"]["drawing"]>
 export type DrawingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   shares?: boolean | Prisma.Drawing$sharesArgs<ExtArgs>
+  project?: boolean | Prisma.Drawing$projectArgs<ExtArgs>
   _count?: boolean | Prisma.DrawingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DrawingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.Drawing$projectArgs<ExtArgs>
 }
 export type DrawingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  project?: boolean | Prisma.Drawing$projectArgs<ExtArgs>
 }
 
 export type $DrawingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1015,6 +1376,7 @@ export type $DrawingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
     shares: Prisma.$DrawingSharePayload<ExtArgs>[]
+    project: Prisma.$ProjectPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1031,6 +1393,10 @@ export type $DrawingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     kind: $Enums.DrawingKind
     createdAt: Date
     updatedAt: Date
+    projectId: string | null
+    number: string | null
+    revision: number
+    current: boolean
   }, ExtArgs["result"]["drawing"]>
   composites: {}
 }
@@ -1427,6 +1793,7 @@ export interface Prisma__DrawingClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   shares<T extends Prisma.Drawing$sharesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Drawing$sharesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  project<T extends Prisma.Drawing$projectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Drawing$projectArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1470,6 +1837,10 @@ export interface DrawingFieldRefs {
   readonly kind: Prisma.FieldRef<"Drawing", 'DrawingKind'>
   readonly createdAt: Prisma.FieldRef<"Drawing", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Drawing", 'DateTime'>
+  readonly projectId: Prisma.FieldRef<"Drawing", 'String'>
+  readonly number: Prisma.FieldRef<"Drawing", 'String'>
+  readonly revision: Prisma.FieldRef<"Drawing", 'Int'>
+  readonly current: Prisma.FieldRef<"Drawing", 'Boolean'>
 }
     
 
@@ -1892,6 +2263,25 @@ export type Drawing$sharesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.DrawingShareScalarFieldEnum | Prisma.DrawingShareScalarFieldEnum[]
+}
+
+/**
+ * Drawing.project
+ */
+export type Drawing$projectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Project
+   */
+  select?: Prisma.ProjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Project
+   */
+  omit?: Prisma.ProjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  where?: Prisma.ProjectWhereInput
 }
 
 /**

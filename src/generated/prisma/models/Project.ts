@@ -28,86 +28,122 @@ export type AggregateProject = {
 
 export type ProjectAvgAggregateOutputType = {
   projectCost: runtime.Decimal | null
+  siteLat: number | null
+  siteLng: number | null
+  siteRadiusM: number | null
 }
 
 export type ProjectSumAggregateOutputType = {
   projectCost: runtime.Decimal | null
+  siteLat: number | null
+  siteLng: number | null
+  siteRadiusM: number | null
 }
 
 export type ProjectMinAggregateOutputType = {
   id: string | null
   title: string | null
+  firmName: string | null
   status: $Enums.ProjectStatus | null
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   projectCost: runtime.Decimal | null
   advanceOverride: boolean | null
+  siteLat: number | null
+  siteLng: number | null
+  siteRadiusM: number | null
 }
 
 export type ProjectMaxAggregateOutputType = {
   id: string | null
   title: string | null
+  firmName: string | null
   status: $Enums.ProjectStatus | null
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
   projectCost: runtime.Decimal | null
   advanceOverride: boolean | null
+  siteLat: number | null
+  siteLng: number | null
+  siteRadiusM: number | null
 }
 
 export type ProjectCountAggregateOutputType = {
   id: number
   title: number
+  firmName: number
   status: number
   ownerId: number
   createdAt: number
   updatedAt: number
   projectCost: number
   advanceOverride: number
+  siteLat: number
+  siteLng: number
+  siteRadiusM: number
   _all: number
 }
 
 
 export type ProjectAvgAggregateInputType = {
   projectCost?: true
+  siteLat?: true
+  siteLng?: true
+  siteRadiusM?: true
 }
 
 export type ProjectSumAggregateInputType = {
   projectCost?: true
+  siteLat?: true
+  siteLng?: true
+  siteRadiusM?: true
 }
 
 export type ProjectMinAggregateInputType = {
   id?: true
   title?: true
+  firmName?: true
   status?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
   projectCost?: true
   advanceOverride?: true
+  siteLat?: true
+  siteLng?: true
+  siteRadiusM?: true
 }
 
 export type ProjectMaxAggregateInputType = {
   id?: true
   title?: true
+  firmName?: true
   status?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
   projectCost?: true
   advanceOverride?: true
+  siteLat?: true
+  siteLng?: true
+  siteRadiusM?: true
 }
 
 export type ProjectCountAggregateInputType = {
   id?: true
   title?: true
+  firmName?: true
   status?: true
   ownerId?: true
   createdAt?: true
   updatedAt?: true
   projectCost?: true
   advanceOverride?: true
+  siteLat?: true
+  siteLng?: true
+  siteRadiusM?: true
   _all?: true
 }
 
@@ -200,12 +236,16 @@ export type ProjectGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type ProjectGroupByOutputType = {
   id: string
   title: string
+  firmName: string | null
   status: $Enums.ProjectStatus
   ownerId: string
   createdAt: Date
   updatedAt: Date
   projectCost: runtime.Decimal | null
   advanceOverride: boolean
+  siteLat: number | null
+  siteLng: number | null
+  siteRadiusM: number
   _count: ProjectCountAggregateOutputType | null
   _avg: ProjectAvgAggregateOutputType | null
   _sum: ProjectSumAggregateOutputType | null
@@ -234,12 +274,16 @@ export type ProjectWhereInput = {
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   id?: Prisma.StringFilter<"Project"> | string
   title?: Prisma.StringFilter<"Project"> | string
+  firmName?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   ownerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   projectCost?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFilter<"Project"> | boolean
+  siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
+  siteLng?: Prisma.FloatNullableFilter<"Project"> | number | null
+  siteRadiusM?: Prisma.IntFilter<"Project"> | number
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
@@ -254,17 +298,24 @@ export type ProjectWhereInput = {
   instalments?: Prisma.PaymentInstalmentListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
   delays?: Prisma.ProjectDelayListRelationFilter
+  punches?: Prisma.StaffPunchListRelationFilter
+  deliveries?: Prisma.DeliveryListRelationFilter
+  drawings?: Prisma.DrawingListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  firmName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   projectCost?: Prisma.SortOrderInput | Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrderInput | Prisma.SortOrder
+  siteLng?: Prisma.SortOrderInput | Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
   attendance?: Prisma.AttendanceOrderByRelationAggregateInput
@@ -279,6 +330,9 @@ export type ProjectOrderByWithRelationInput = {
   instalments?: Prisma.PaymentInstalmentOrderByRelationAggregateInput
   paymentProofs?: Prisma.PaymentProofOrderByRelationAggregateInput
   delays?: Prisma.ProjectDelayOrderByRelationAggregateInput
+  punches?: Prisma.StaffPunchOrderByRelationAggregateInput
+  deliveries?: Prisma.DeliveryOrderByRelationAggregateInput
+  drawings?: Prisma.DrawingOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -287,12 +341,16 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProjectWhereInput[]
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   title?: Prisma.StringFilter<"Project"> | string
+  firmName?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   ownerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   projectCost?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFilter<"Project"> | boolean
+  siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
+  siteLng?: Prisma.FloatNullableFilter<"Project"> | number | null
+  siteRadiusM?: Prisma.IntFilter<"Project"> | number
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
@@ -307,17 +365,24 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   instalments?: Prisma.PaymentInstalmentListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
   delays?: Prisma.ProjectDelayListRelationFilter
+  punches?: Prisma.StaffPunchListRelationFilter
+  deliveries?: Prisma.DeliveryListRelationFilter
+  drawings?: Prisma.DrawingListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  firmName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   projectCost?: Prisma.SortOrderInput | Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrderInput | Prisma.SortOrder
+  siteLng?: Prisma.SortOrderInput | Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
   _count?: Prisma.ProjectCountOrderByAggregateInput
   _avg?: Prisma.ProjectAvgOrderByAggregateInput
   _max?: Prisma.ProjectMaxOrderByAggregateInput
@@ -331,22 +396,30 @@ export type ProjectScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProjectScalarWhereWithAggregatesInput | Prisma.ProjectScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Project"> | string
   title?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  firmName?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
   ownerId?: Prisma.StringWithAggregatesFilter<"Project"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   projectCost?: Prisma.DecimalNullableWithAggregatesFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
+  siteLat?: Prisma.FloatNullableWithAggregatesFilter<"Project"> | number | null
+  siteLng?: Prisma.FloatNullableWithAggregatesFilter<"Project"> | number | null
+  siteRadiusM?: Prisma.IntWithAggregatesFilter<"Project"> | number
 }
 
 export type ProjectCreateInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -361,17 +434,24 @@ export type ProjectCreateInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -385,16 +465,23 @@ export type ProjectUncheckedCreateInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -409,17 +496,24 @@ export type ProjectUpdateInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -433,38 +527,53 @@ export type ProjectUncheckedUpdateInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
 }
 
 export type ProjectUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ProjectUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ProjectListRelationFilter = {
@@ -480,42 +589,60 @@ export type ProjectOrderByRelationAggregateInput = {
 export type ProjectCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  firmName?: Prisma.SortOrder
   status?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrder
+  siteLng?: Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
 }
 
 export type ProjectAvgOrderByAggregateInput = {
   projectCost?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrder
+  siteLng?: Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
 }
 
 export type ProjectMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  firmName?: Prisma.SortOrder
   status?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrder
+  siteLng?: Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
 }
 
 export type ProjectMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  firmName?: Prisma.SortOrder
   status?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrder
+  siteLng?: Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
 }
 
 export type ProjectSumOrderByAggregateInput = {
   projectCost?: Prisma.SortOrder
+  siteLat?: Prisma.SortOrder
+  siteLng?: Prisma.SortOrder
+  siteRadiusM?: Prisma.SortOrder
 }
 
 export type ProjectScalarRelationFilter = {
@@ -586,6 +713,22 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ProjectCreateNestedOneWithoutTasksInput = {
   create?: Prisma.XOR<Prisma.ProjectCreateWithoutTasksInput, Prisma.ProjectUncheckedCreateWithoutTasksInput>
   connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTasksInput
@@ -612,6 +755,22 @@ export type ProjectUpdateOneRequiredWithoutAttendanceNestedInput = {
   upsert?: Prisma.ProjectUpsertWithoutAttendanceInput
   connect?: Prisma.ProjectWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutAttendanceInput, Prisma.ProjectUpdateWithoutAttendanceInput>, Prisma.ProjectUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type ProjectCreateNestedOneWithoutDrawingsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutDrawingsInput, Prisma.ProjectUncheckedCreateWithoutDrawingsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutDrawingsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneWithoutDrawingsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutDrawingsInput, Prisma.ProjectUncheckedCreateWithoutDrawingsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutDrawingsInput
+  upsert?: Prisma.ProjectUpsertWithoutDrawingsInput
+  disconnect?: Prisma.ProjectWhereInput | boolean
+  delete?: Prisma.ProjectWhereInput | boolean
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutDrawingsInput, Prisma.ProjectUpdateWithoutDrawingsInput>, Prisma.ProjectUncheckedUpdateWithoutDrawingsInput>
 }
 
 export type ProjectCreateNestedOneWithoutStockMovementsInput = {
@@ -772,14 +931,48 @@ export type ProjectUpdateOneRequiredWithoutDelaysNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutDelaysInput, Prisma.ProjectUpdateWithoutDelaysInput>, Prisma.ProjectUncheckedUpdateWithoutDelaysInput>
 }
 
+export type ProjectCreateNestedOneWithoutPunchesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutPunchesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneWithoutPunchesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutPunchesInput
+  upsert?: Prisma.ProjectUpsertWithoutPunchesInput
+  disconnect?: Prisma.ProjectWhereInput | boolean
+  delete?: Prisma.ProjectWhereInput | boolean
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutPunchesInput, Prisma.ProjectUpdateWithoutPunchesInput>, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
+}
+
+export type ProjectCreateNestedOneWithoutDeliveriesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutDeliveriesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutDeliveriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutDeliveriesInput
+  upsert?: Prisma.ProjectUpsertWithoutDeliveriesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutDeliveriesInput, Prisma.ProjectUpdateWithoutDeliveriesInput>, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
+}
+
 export type ProjectCreateWithoutOwnerInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
@@ -793,16 +986,23 @@ export type ProjectCreateWithoutOwnerInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutOwnerInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -816,6 +1016,9 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -850,22 +1053,30 @@ export type ProjectScalarWhereInput = {
   NOT?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
   id?: Prisma.StringFilter<"Project"> | string
   title?: Prisma.StringFilter<"Project"> | string
+  firmName?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   ownerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   projectCost?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFilter<"Project"> | boolean
+  siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
+  siteLng?: Prisma.FloatNullableFilter<"Project"> | number | null
+  siteRadiusM?: Prisma.IntFilter<"Project"> | number
 }
 
 export type ProjectCreateWithoutTasksInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
@@ -879,17 +1090,24 @@ export type ProjectCreateWithoutTasksInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
   boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
@@ -902,6 +1120,9 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -923,11 +1144,15 @@ export type ProjectUpdateToOneWithWhereWithoutTasksInput = {
 export type ProjectUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
@@ -941,17 +1166,24 @@ export type ProjectUpdateWithoutTasksInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
@@ -964,16 +1196,23 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAttendanceInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
@@ -987,17 +1226,24 @@ export type ProjectCreateWithoutAttendanceInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAttendanceInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
   boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
@@ -1010,6 +1256,9 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAttendanceInput = {
@@ -1031,11 +1280,15 @@ export type ProjectUpdateToOneWithWhereWithoutAttendanceInput = {
 export type ProjectUpdateWithoutAttendanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
@@ -1049,17 +1302,24 @@ export type ProjectUpdateWithoutAttendanceInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
@@ -1072,16 +1332,159 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectCreateWithoutStockMovementsInput = {
+export type ProjectCreateWithoutDrawingsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutDrawingsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutDrawingsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDrawingsInput, Prisma.ProjectUncheckedCreateWithoutDrawingsInput>
+}
+
+export type ProjectUpsertWithoutDrawingsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutDrawingsInput, Prisma.ProjectUncheckedUpdateWithoutDrawingsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDrawingsInput, Prisma.ProjectUncheckedCreateWithoutDrawingsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutDrawingsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutDrawingsInput, Prisma.ProjectUncheckedUpdateWithoutDrawingsInput>
+}
+
+export type ProjectUpdateWithoutDrawingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutDrawingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutStockMovementsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1095,17 +1498,24 @@ export type ProjectCreateWithoutStockMovementsInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
@@ -1118,6 +1528,9 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockMovementsInput = {
@@ -1139,11 +1552,15 @@ export type ProjectUpdateToOneWithWhereWithoutStockMovementsInput = {
 export type ProjectUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1157,17 +1574,24 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
@@ -1180,16 +1604,23 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutBoqItemsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1203,17 +1634,24 @@ export type ProjectCreateWithoutBoqItemsInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1226,6 +1664,9 @@ export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutBoqItemsInput = {
@@ -1247,11 +1688,15 @@ export type ProjectUpdateToOneWithWhereWithoutBoqItemsInput = {
 export type ProjectUpdateWithoutBoqItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1265,17 +1710,24 @@ export type ProjectUpdateWithoutBoqItemsInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1288,16 +1740,23 @@ export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialOrdersInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1311,17 +1770,24 @@ export type ProjectCreateWithoutMaterialOrdersInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1334,6 +1800,9 @@ export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialOrdersInput = {
@@ -1355,11 +1824,15 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialOrdersInput = {
 export type ProjectUpdateWithoutMaterialOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1373,17 +1846,24 @@ export type ProjectUpdateWithoutMaterialOrdersInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1396,16 +1876,23 @@ export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockAlertsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1419,17 +1906,24 @@ export type ProjectCreateWithoutStockAlertsInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1442,6 +1936,9 @@ export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockAlertsInput = {
@@ -1463,11 +1960,15 @@ export type ProjectUpdateToOneWithWhereWithoutStockAlertsInput = {
 export type ProjectUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1481,17 +1982,24 @@ export type ProjectUpdateWithoutStockAlertsInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1504,16 +2012,23 @@ export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialRequestsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1527,17 +2042,24 @@ export type ProjectCreateWithoutMaterialRequestsInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1550,6 +2072,9 @@ export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialRequestsInput = {
@@ -1571,11 +2096,15 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialRequestsInput = {
 export type ProjectUpdateWithoutMaterialRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1589,17 +2118,24 @@ export type ProjectUpdateWithoutMaterialRequestsInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1612,16 +2148,23 @@ export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAuditLogInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1635,17 +2178,24 @@ export type ProjectCreateWithoutAuditLogInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAuditLogInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1658,6 +2208,9 @@ export type ProjectUncheckedCreateWithoutAuditLogInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAuditLogInput = {
@@ -1679,11 +2232,15 @@ export type ProjectUpdateToOneWithWhereWithoutAuditLogInput = {
 export type ProjectUpdateWithoutAuditLogInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1697,17 +2254,24 @@ export type ProjectUpdateWithoutAuditLogInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1720,16 +2284,23 @@ export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutBoqsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1743,17 +2314,24 @@ export type ProjectCreateWithoutBoqsInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutBoqsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1766,6 +2344,9 @@ export type ProjectUncheckedCreateWithoutBoqsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutBoqsInput = {
@@ -1787,11 +2368,15 @@ export type ProjectUpdateToOneWithWhereWithoutBoqsInput = {
 export type ProjectUpdateWithoutBoqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1805,17 +2390,24 @@ export type ProjectUpdateWithoutBoqsInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutBoqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1828,16 +2420,23 @@ export type ProjectUncheckedUpdateWithoutBoqsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutClientsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1851,17 +2450,24 @@ export type ProjectCreateWithoutClientsInput = {
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutClientsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1874,6 +2480,9 @@ export type ProjectUncheckedCreateWithoutClientsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutClientsInput = {
@@ -1895,11 +2504,15 @@ export type ProjectUpdateToOneWithWhereWithoutClientsInput = {
 export type ProjectUpdateWithoutClientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1913,17 +2526,24 @@ export type ProjectUpdateWithoutClientsInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutClientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -1936,16 +2556,23 @@ export type ProjectUncheckedUpdateWithoutClientsInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutInstalmentsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1959,17 +2586,24 @@ export type ProjectCreateWithoutInstalmentsInput = {
   clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1982,6 +2616,9 @@ export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutInstalmentsInput = {
@@ -2003,11 +2640,15 @@ export type ProjectUpdateToOneWithWhereWithoutInstalmentsInput = {
 export type ProjectUpdateWithoutInstalmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2021,17 +2662,24 @@ export type ProjectUpdateWithoutInstalmentsInput = {
   clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2044,16 +2692,23 @@ export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutPaymentProofsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2067,17 +2722,24 @@ export type ProjectCreateWithoutPaymentProofsInput = {
   clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -2090,6 +2752,9 @@ export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutPaymentProofsInput = {
@@ -2111,11 +2776,15 @@ export type ProjectUpdateToOneWithWhereWithoutPaymentProofsInput = {
 export type ProjectUpdateWithoutPaymentProofsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2129,17 +2798,24 @@ export type ProjectUpdateWithoutPaymentProofsInput = {
   clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2152,16 +2828,23 @@ export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDelaysInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2175,17 +2858,24 @@ export type ProjectCreateWithoutDelaysInput = {
   clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
   instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDelaysInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -2198,6 +2888,9 @@ export type ProjectUncheckedCreateWithoutDelaysInput = {
   clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
   instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDelaysInput = {
@@ -2219,11 +2912,15 @@ export type ProjectUpdateToOneWithWhereWithoutDelaysInput = {
 export type ProjectUpdateWithoutDelaysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2237,17 +2934,24 @@ export type ProjectUpdateWithoutDelaysInput = {
   clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDelaysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2260,26 +2964,100 @@ export type ProjectUncheckedUpdateWithoutDelaysInput = {
   clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectCreateManyOwnerInput = {
+export type ProjectCreateWithoutPunchesInput = {
   id?: string
   title: string
+  firmName?: string | null
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectUpdateWithoutOwnerInput = {
+export type ProjectUncheckedCreateWithoutPunchesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutPunchesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
+}
+
+export type ProjectUpsertWithoutPunchesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPunchesInput, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutPunchesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPunchesInput, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
+}
+
+export type ProjectUpdateWithoutPunchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
@@ -2293,16 +3071,23 @@ export type ProjectUpdateWithoutOwnerInput = {
   instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateWithoutOwnerInput = {
+export type ProjectUncheckedUpdateWithoutPunchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2316,16 +3101,232 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
   delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
+export type ProjectCreateWithoutDeliveriesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutDeliveriesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutDeliveriesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
+}
+
+export type ProjectUpsertWithoutDeliveriesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutDeliveriesInput, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutDeliveriesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutDeliveriesInput, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
+}
+
+export type ProjectUpdateWithoutDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateManyOwnerInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+}
+
+export type ProjectUpdateWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -2347,6 +3348,9 @@ export type ProjectCountOutputType = {
   instalments: number
   paymentProofs: number
   delays: number
+  punches: number
+  deliveries: number
+  drawings: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2363,6 +3367,9 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   instalments?: boolean | ProjectCountOutputTypeCountInstalmentsArgs
   paymentProofs?: boolean | ProjectCountOutputTypeCountPaymentProofsArgs
   delays?: boolean | ProjectCountOutputTypeCountDelaysArgs
+  punches?: boolean | ProjectCountOutputTypeCountPunchesArgs
+  deliveries?: boolean | ProjectCountOutputTypeCountDeliveriesArgs
+  drawings?: boolean | ProjectCountOutputTypeCountDrawingsArgs
 }
 
 /**
@@ -2466,16 +3473,41 @@ export type ProjectCountOutputTypeCountDelaysArgs<ExtArgs extends runtime.Types.
   where?: Prisma.ProjectDelayWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountPunchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffPunchWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DeliveryWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountDrawingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DrawingWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  firmName?: boolean
   status?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
+  siteLat?: boolean
+  siteLng?: boolean
+  siteRadiusM?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
   attendance?: boolean | Prisma.Project$attendanceArgs<ExtArgs>
@@ -2490,45 +3522,60 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   instalments?: boolean | Prisma.Project$instalmentsArgs<ExtArgs>
   paymentProofs?: boolean | Prisma.Project$paymentProofsArgs<ExtArgs>
   delays?: boolean | Prisma.Project$delaysArgs<ExtArgs>
+  punches?: boolean | Prisma.Project$punchesArgs<ExtArgs>
+  deliveries?: boolean | Prisma.Project$deliveriesArgs<ExtArgs>
+  drawings?: boolean | Prisma.Project$drawingsArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  firmName?: boolean
   status?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
+  siteLat?: boolean
+  siteLng?: boolean
+  siteRadiusM?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  firmName?: boolean
   status?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
+  siteLat?: boolean
+  siteLng?: boolean
+  siteRadiusM?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectScalar = {
   id?: boolean
   title?: boolean
+  firmName?: boolean
   status?: boolean
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
+  siteLat?: boolean
+  siteLng?: boolean
+  siteRadiusM?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "status" | "ownerId" | "createdAt" | "updatedAt" | "projectCost" | "advanceOverride", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "firmName" | "status" | "ownerId" | "createdAt" | "updatedAt" | "projectCost" | "advanceOverride" | "siteLat" | "siteLng" | "siteRadiusM", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
@@ -2544,6 +3591,9 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   instalments?: boolean | Prisma.Project$instalmentsArgs<ExtArgs>
   paymentProofs?: boolean | Prisma.Project$paymentProofsArgs<ExtArgs>
   delays?: boolean | Prisma.Project$delaysArgs<ExtArgs>
+  punches?: boolean | Prisma.Project$punchesArgs<ExtArgs>
+  deliveries?: boolean | Prisma.Project$deliveriesArgs<ExtArgs>
+  drawings?: boolean | Prisma.Project$drawingsArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2570,16 +3620,23 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     instalments: Prisma.$PaymentInstalmentPayload<ExtArgs>[]
     paymentProofs: Prisma.$PaymentProofPayload<ExtArgs>[]
     delays: Prisma.$ProjectDelayPayload<ExtArgs>[]
+    punches: Prisma.$StaffPunchPayload<ExtArgs>[]
+    deliveries: Prisma.$DeliveryPayload<ExtArgs>[]
+    drawings: Prisma.$DrawingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
+    firmName: string | null
     status: $Enums.ProjectStatus
     ownerId: string
     createdAt: Date
     updatedAt: Date
     projectCost: runtime.Decimal | null
     advanceOverride: boolean
+    siteLat: number | null
+    siteLng: number | null
+    siteRadiusM: number
   }, ExtArgs["result"]["project"]>
   composites: {}
 }
@@ -2988,6 +4045,9 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   instalments<T extends Prisma.Project$instalmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$instalmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentInstalmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentProofs<T extends Prisma.Project$paymentProofsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$paymentProofsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   delays<T extends Prisma.Project$delaysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$delaysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectDelayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  punches<T extends Prisma.Project$punchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$punchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPunchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  deliveries<T extends Prisma.Project$deliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  drawings<T extends Prisma.Project$drawingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$drawingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3019,12 +4079,16 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
 export interface ProjectFieldRefs {
   readonly id: Prisma.FieldRef<"Project", 'String'>
   readonly title: Prisma.FieldRef<"Project", 'String'>
+  readonly firmName: Prisma.FieldRef<"Project", 'String'>
   readonly status: Prisma.FieldRef<"Project", 'ProjectStatus'>
   readonly ownerId: Prisma.FieldRef<"Project", 'String'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly projectCost: Prisma.FieldRef<"Project", 'Decimal'>
   readonly advanceOverride: Prisma.FieldRef<"Project", 'Boolean'>
+  readonly siteLat: Prisma.FieldRef<"Project", 'Float'>
+  readonly siteLng: Prisma.FieldRef<"Project", 'Float'>
+  readonly siteRadiusM: Prisma.FieldRef<"Project", 'Int'>
 }
     
 
@@ -3735,6 +4799,78 @@ export type Project$delaysArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ProjectDelayScalarFieldEnum | Prisma.ProjectDelayScalarFieldEnum[]
+}
+
+/**
+ * Project.punches
+ */
+export type Project$punchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffPunch
+   */
+  select?: Prisma.StaffPunchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffPunch
+   */
+  omit?: Prisma.StaffPunchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffPunchInclude<ExtArgs> | null
+  where?: Prisma.StaffPunchWhereInput
+  orderBy?: Prisma.StaffPunchOrderByWithRelationInput | Prisma.StaffPunchOrderByWithRelationInput[]
+  cursor?: Prisma.StaffPunchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffPunchScalarFieldEnum | Prisma.StaffPunchScalarFieldEnum[]
+}
+
+/**
+ * Project.deliveries
+ */
+export type Project$deliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Delivery
+   */
+  select?: Prisma.DeliverySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Delivery
+   */
+  omit?: Prisma.DeliveryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DeliveryInclude<ExtArgs> | null
+  where?: Prisma.DeliveryWhereInput
+  orderBy?: Prisma.DeliveryOrderByWithRelationInput | Prisma.DeliveryOrderByWithRelationInput[]
+  cursor?: Prisma.DeliveryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DeliveryScalarFieldEnum | Prisma.DeliveryScalarFieldEnum[]
+}
+
+/**
+ * Project.drawings
+ */
+export type Project$drawingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Drawing
+   */
+  select?: Prisma.DrawingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Drawing
+   */
+  omit?: Prisma.DrawingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DrawingInclude<ExtArgs> | null
+  where?: Prisma.DrawingWhereInput
+  orderBy?: Prisma.DrawingOrderByWithRelationInput | Prisma.DrawingOrderByWithRelationInput[]
+  cursor?: Prisma.DrawingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DrawingScalarFieldEnum | Prisma.DrawingScalarFieldEnum[]
 }
 
 /**

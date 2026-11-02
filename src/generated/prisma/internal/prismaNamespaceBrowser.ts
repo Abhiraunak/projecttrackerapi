@@ -76,7 +76,11 @@ export const ModelName = {
   PaymentInstalment: 'PaymentInstalment',
   PaymentProof: 'PaymentProof',
   ProjectDelay: 'ProjectDelay',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  StaffPunch: 'StaffPunch',
+  Delivery: 'Delivery',
+  DeliveryLine: 'DeliveryLine',
+  DeliveryPhoto: 'DeliveryPhoto'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -129,12 +133,16 @@ export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[k
 export const ProjectScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  firmName: 'firmName',
   status: 'status',
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   projectCost: 'projectCost',
-  advanceOverride: 'advanceOverride'
+  advanceOverride: 'advanceOverride',
+  siteLat: 'siteLat',
+  siteLng: 'siteLng',
+  siteRadiusM: 'siteRadiusM'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -201,7 +209,11 @@ export const DrawingScalarFieldEnum = {
   pages: 'pages',
   kind: 'kind',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  projectId: 'projectId',
+  number: 'number',
+  revision: 'revision',
+  current: 'current'
 } as const
 
 export type DrawingScalarFieldEnum = (typeof DrawingScalarFieldEnum)[keyof typeof DrawingScalarFieldEnum]
@@ -510,6 +522,83 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const StaffPunchScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  at: 'at',
+  projectId: 'projectId',
+  place: 'place',
+  note: 'note',
+  lat: 'lat',
+  lng: 'lng',
+  accuracyM: 'accuracyM',
+  plusCode: 'plusCode',
+  distanceM: 'distanceM',
+  outsideSite: 'outsideSite',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type StaffPunchScalarFieldEnum = (typeof StaffPunchScalarFieldEnum)[keyof typeof StaffPunchScalarFieldEnum]
+
+
+export const DeliveryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  vendorId: 'vendorId',
+  challanNo: 'challanNo',
+  vehicleNo: 'vehicleNo',
+  note: 'note',
+  status: 'status',
+  locationCheck: 'locationCheck',
+  distanceM: 'distanceM',
+  flags: 'flags',
+  receivedById: 'receivedById',
+  decidedById: 'decidedById',
+  decidedAt: 'decidedAt',
+  decisionNote: 'decisionNote',
+  createdAt: 'createdAt'
+} as const
+
+export type DeliveryScalarFieldEnum = (typeof DeliveryScalarFieldEnum)[keyof typeof DeliveryScalarFieldEnum]
+
+
+export const DeliveryLineScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  orderId: 'orderId',
+  materialId: 'materialId',
+  expectedQty: 'expectedQty',
+  receivedQty: 'receivedQty',
+  condition: 'condition',
+  movementId: 'movementId'
+} as const
+
+export type DeliveryLineScalarFieldEnum = (typeof DeliveryLineScalarFieldEnum)[keyof typeof DeliveryLineScalarFieldEnum]
+
+
+export const DeliveryPhotoScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  lat: 'lat',
+  lng: 'lng',
+  accuracyM: 'accuracyM',
+  plusCode: 'plusCode',
+  distanceM: 'distanceM',
+  takenAt: 'takenAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DeliveryPhotoScalarFieldEnum = (typeof DeliveryPhotoScalarFieldEnum)[keyof typeof DeliveryPhotoScalarFieldEnum]
 
 
 export const SortOrder = {

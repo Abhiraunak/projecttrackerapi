@@ -113,3 +113,31 @@ export const DelayReason = {
 } as const
 
 export type DelayReason = (typeof DelayReason)[keyof typeof DelayReason]
+
+
+export const PunchType = {
+  IN: 'IN',
+  OUT: 'OUT'
+} as const
+
+export type PunchType = (typeof PunchType)[keyof typeof PunchType]
+
+
+export const DeliveryStatus = {
+  ACCEPTED: 'ACCEPTED',
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
+
+
+export const LocationCheck = {
+  ON_SITE: 'ON_SITE',
+  OFF_SITE: 'OFF_SITE',
+  NO_LOCATION: 'NO_LOCATION',
+  SITE_NOT_SET: 'SITE_NOT_SET'
+} as const
+
+export type LocationCheck = (typeof LocationCheck)[keyof typeof LocationCheck]

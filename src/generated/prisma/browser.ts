@@ -148,3 +148,23 @@ export type ProjectDelay = Prisma.ProjectDelayModel
  * * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model StaffPunch
+ * * One punch in or out by a staff member: the server's time, a photo, and where the phone was
+ */
+export type StaffPunch = Prisma.StaffPunchModel
+/**
+ * Model Delivery
+ * * A delivery checked in at site: what was expected, what came, photos taken there, and the decision
+ */
+export type Delivery = Prisma.DeliveryModel
+/**
+ * Model DeliveryLine
+ * 
+ */
+export type DeliveryLine = Prisma.DeliveryLineModel
+/**
+ * Model DeliveryPhoto
+ * * A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery)
+ */
+export type DeliveryPhoto = Prisma.DeliveryPhotoModel

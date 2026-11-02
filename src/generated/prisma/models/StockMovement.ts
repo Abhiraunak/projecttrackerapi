@@ -262,6 +262,7 @@ export type StockMovementWhereInput = {
   order?: Prisma.XOR<Prisma.MaterialOrderNullableScalarRelationFilter, Prisma.MaterialOrderWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   request?: Prisma.XOR<Prisma.MaterialRequestNullableScalarRelationFilter, Prisma.MaterialRequestWhereInput> | null
+  deliveryLine?: Prisma.XOR<Prisma.DeliveryLineNullableScalarRelationFilter, Prisma.DeliveryLineWhereInput> | null
 }
 
 export type StockMovementOrderByWithRelationInput = {
@@ -281,6 +282,7 @@ export type StockMovementOrderByWithRelationInput = {
   order?: Prisma.MaterialOrderOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   request?: Prisma.MaterialRequestOrderByWithRelationInput
+  deliveryLine?: Prisma.DeliveryLineOrderByWithRelationInput
 }
 
 export type StockMovementWhereUniqueInput = Prisma.AtLeast<{
@@ -303,6 +305,7 @@ export type StockMovementWhereUniqueInput = Prisma.AtLeast<{
   order?: Prisma.XOR<Prisma.MaterialOrderNullableScalarRelationFilter, Prisma.MaterialOrderWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   request?: Prisma.XOR<Prisma.MaterialRequestNullableScalarRelationFilter, Prisma.MaterialRequestWhereInput> | null
+  deliveryLine?: Prisma.XOR<Prisma.DeliveryLineNullableScalarRelationFilter, Prisma.DeliveryLineWhereInput> | null
 }, "id">
 
 export type StockMovementOrderByWithAggregationInput = {
@@ -351,6 +354,7 @@ export type StockMovementCreateInput = {
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
   createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
   request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateInput = {
@@ -365,6 +369,7 @@ export type StockMovementUncheckedCreateInput = {
   createdById: string
   createdAt?: Date | string
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUpdateInput = {
@@ -379,6 +384,7 @@ export type StockMovementUpdateInput = {
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
   request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateInput = {
@@ -393,6 +399,7 @@ export type StockMovementUncheckedUpdateInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementCreateManyInput = {
@@ -721,6 +728,22 @@ export type StockMovementUpdateOneWithoutRequestNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.StockMovementUpdateToOneWithWhereWithoutRequestInput, Prisma.StockMovementUpdateWithoutRequestInput>, Prisma.StockMovementUncheckedUpdateWithoutRequestInput>
 }
 
+export type StockMovementCreateNestedOneWithoutDeliveryLineInput = {
+  create?: Prisma.XOR<Prisma.StockMovementCreateWithoutDeliveryLineInput, Prisma.StockMovementUncheckedCreateWithoutDeliveryLineInput>
+  connectOrCreate?: Prisma.StockMovementCreateOrConnectWithoutDeliveryLineInput
+  connect?: Prisma.StockMovementWhereUniqueInput
+}
+
+export type StockMovementUpdateOneWithoutDeliveryLineNestedInput = {
+  create?: Prisma.XOR<Prisma.StockMovementCreateWithoutDeliveryLineInput, Prisma.StockMovementUncheckedCreateWithoutDeliveryLineInput>
+  connectOrCreate?: Prisma.StockMovementCreateOrConnectWithoutDeliveryLineInput
+  upsert?: Prisma.StockMovementUpsertWithoutDeliveryLineInput
+  disconnect?: Prisma.StockMovementWhereInput | boolean
+  delete?: Prisma.StockMovementWhereInput | boolean
+  connect?: Prisma.StockMovementWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.StockMovementUpdateToOneWithWhereWithoutDeliveryLineInput, Prisma.StockMovementUpdateWithoutDeliveryLineInput>, Prisma.StockMovementUncheckedUpdateWithoutDeliveryLineInput>
+}
+
 export type StockMovementCreateWithoutCreatedByInput = {
   id?: string
   type: $Enums.MovementType
@@ -732,6 +755,7 @@ export type StockMovementCreateWithoutCreatedByInput = {
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
   request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateWithoutCreatedByInput = {
@@ -745,6 +769,7 @@ export type StockMovementUncheckedCreateWithoutCreatedByInput = {
   note?: string
   createdAt?: Date | string
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementCreateOrConnectWithoutCreatedByInput = {
@@ -800,6 +825,7 @@ export type StockMovementCreateWithoutProjectInput = {
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
   createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
   request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateWithoutProjectInput = {
@@ -813,6 +839,7 @@ export type StockMovementUncheckedCreateWithoutProjectInput = {
   createdById: string
   createdAt?: Date | string
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementCreateOrConnectWithoutProjectInput = {
@@ -852,6 +879,7 @@ export type StockMovementCreateWithoutMaterialInput = {
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
   createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
   request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateWithoutMaterialInput = {
@@ -865,6 +893,7 @@ export type StockMovementUncheckedCreateWithoutMaterialInput = {
   createdById: string
   createdAt?: Date | string
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementCreateOrConnectWithoutMaterialInput = {
@@ -904,6 +933,7 @@ export type StockMovementCreateWithoutBoqItemInput = {
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
   createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
   request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateWithoutBoqItemInput = {
@@ -917,6 +947,7 @@ export type StockMovementUncheckedCreateWithoutBoqItemInput = {
   createdById: string
   createdAt?: Date | string
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementCreateOrConnectWithoutBoqItemInput = {
@@ -956,6 +987,7 @@ export type StockMovementCreateWithoutOrderInput = {
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
   createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
   request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateWithoutOrderInput = {
@@ -969,6 +1001,7 @@ export type StockMovementUncheckedCreateWithoutOrderInput = {
   createdById: string
   createdAt?: Date | string
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementCreateOrConnectWithoutOrderInput = {
@@ -1008,6 +1041,7 @@ export type StockMovementCreateWithoutRequestInput = {
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
   createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
+  deliveryLine?: Prisma.DeliveryLineCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementUncheckedCreateWithoutRequestInput = {
@@ -1021,6 +1055,7 @@ export type StockMovementUncheckedCreateWithoutRequestInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
 export type StockMovementCreateOrConnectWithoutRequestInput = {
@@ -1050,6 +1085,7 @@ export type StockMovementUpdateWithoutRequestInput = {
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateWithoutRequestInput = {
@@ -1063,6 +1099,79 @@ export type StockMovementUncheckedUpdateWithoutRequestInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
+}
+
+export type StockMovementCreateWithoutDeliveryLineInput = {
+  id?: string
+  type: $Enums.MovementType
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string
+  createdAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
+  material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
+  boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
+  order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutStockMovementsInput
+  request?: Prisma.MaterialRequestCreateNestedOneWithoutMovementInput
+}
+
+export type StockMovementUncheckedCreateWithoutDeliveryLineInput = {
+  id?: string
+  projectId: string
+  materialId: string
+  boqItemId?: string | null
+  orderId?: string | null
+  type: $Enums.MovementType
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string
+  createdById: string
+  createdAt?: Date | string
+  request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
+}
+
+export type StockMovementCreateOrConnectWithoutDeliveryLineInput = {
+  where: Prisma.StockMovementWhereUniqueInput
+  create: Prisma.XOR<Prisma.StockMovementCreateWithoutDeliveryLineInput, Prisma.StockMovementUncheckedCreateWithoutDeliveryLineInput>
+}
+
+export type StockMovementUpsertWithoutDeliveryLineInput = {
+  update: Prisma.XOR<Prisma.StockMovementUpdateWithoutDeliveryLineInput, Prisma.StockMovementUncheckedUpdateWithoutDeliveryLineInput>
+  create: Prisma.XOR<Prisma.StockMovementCreateWithoutDeliveryLineInput, Prisma.StockMovementUncheckedCreateWithoutDeliveryLineInput>
+  where?: Prisma.StockMovementWhereInput
+}
+
+export type StockMovementUpdateToOneWithWhereWithoutDeliveryLineInput = {
+  where?: Prisma.StockMovementWhereInput
+  data: Prisma.XOR<Prisma.StockMovementUpdateWithoutDeliveryLineInput, Prisma.StockMovementUncheckedUpdateWithoutDeliveryLineInput>
+}
+
+export type StockMovementUpdateWithoutDeliveryLineInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
+  material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
+  boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
+  order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
+  request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+}
+
+export type StockMovementUncheckedUpdateWithoutDeliveryLineInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  materialId?: Prisma.StringFieldUpdateOperationsInput | string
+  boqItemId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumMovementTypeFieldUpdateOperationsInput | $Enums.MovementType
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementCreateManyCreatedByInput = {
@@ -1088,6 +1197,7 @@ export type StockMovementUpdateWithoutCreatedByInput = {
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
   request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateWithoutCreatedByInput = {
@@ -1101,6 +1211,7 @@ export type StockMovementUncheckedUpdateWithoutCreatedByInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateManyWithoutCreatedByInput = {
@@ -1138,6 +1249,7 @@ export type StockMovementUpdateWithoutProjectInput = {
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
   request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateWithoutProjectInput = {
@@ -1151,6 +1263,7 @@ export type StockMovementUncheckedUpdateWithoutProjectInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateManyWithoutProjectInput = {
@@ -1188,6 +1301,7 @@ export type StockMovementUpdateWithoutMaterialInput = {
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
   request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateWithoutMaterialInput = {
@@ -1201,6 +1315,7 @@ export type StockMovementUncheckedUpdateWithoutMaterialInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateManyWithoutMaterialInput = {
@@ -1238,6 +1353,7 @@ export type StockMovementUpdateWithoutBoqItemInput = {
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
   request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateWithoutBoqItemInput = {
@@ -1251,6 +1367,7 @@ export type StockMovementUncheckedUpdateWithoutBoqItemInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateManyWithoutBoqItemInput = {
@@ -1288,6 +1405,7 @@ export type StockMovementUpdateWithoutOrderInput = {
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutStockMovementsNestedInput
   request?: Prisma.MaterialRequestUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateWithoutOrderInput = {
@@ -1301,6 +1419,7 @@ export type StockMovementUncheckedUpdateWithoutOrderInput = {
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
+  deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
 export type StockMovementUncheckedUpdateManyWithoutOrderInput = {
@@ -1334,6 +1453,7 @@ export type StockMovementSelect<ExtArgs extends runtime.Types.Extensions.Interna
   order?: boolean | Prisma.StockMovement$orderArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   request?: boolean | Prisma.StockMovement$requestArgs<ExtArgs>
+  deliveryLine?: boolean | Prisma.StockMovement$deliveryLineArgs<ExtArgs>
 }, ExtArgs["result"]["stockMovement"]>
 
 export type StockMovementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1393,6 +1513,7 @@ export type StockMovementInclude<ExtArgs extends runtime.Types.Extensions.Intern
   order?: boolean | Prisma.StockMovement$orderArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   request?: boolean | Prisma.StockMovement$requestArgs<ExtArgs>
+  deliveryLine?: boolean | Prisma.StockMovement$deliveryLineArgs<ExtArgs>
 }
 export type StockMovementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -1418,6 +1539,7 @@ export type $StockMovementPayload<ExtArgs extends runtime.Types.Extensions.Inter
     order: Prisma.$MaterialOrderPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs>
     request: Prisma.$MaterialRequestPayload<ExtArgs> | null
+    deliveryLine: Prisma.$DeliveryLinePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1830,6 +1952,7 @@ export interface Prisma__StockMovementClient<T, Null = never, ExtArgs extends ru
   order<T extends Prisma.StockMovement$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockMovement$orderArgs<ExtArgs>>): Prisma.Prisma__MaterialOrderClient<runtime.Types.Result.GetResult<Prisma.$MaterialOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   request<T extends Prisma.StockMovement$requestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockMovement$requestArgs<ExtArgs>>): Prisma.Prisma__MaterialRequestClient<runtime.Types.Result.GetResult<Prisma.$MaterialRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  deliveryLine<T extends Prisma.StockMovement$deliveryLineArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.StockMovement$deliveryLineArgs<ExtArgs>>): Prisma.Prisma__DeliveryLineClient<runtime.Types.Result.GetResult<Prisma.$DeliveryLinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2324,6 +2447,25 @@ export type StockMovement$requestArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.MaterialRequestInclude<ExtArgs> | null
   where?: Prisma.MaterialRequestWhereInput
+}
+
+/**
+ * StockMovement.deliveryLine
+ */
+export type StockMovement$deliveryLineArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DeliveryLine
+   */
+  select?: Prisma.DeliveryLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DeliveryLine
+   */
+  omit?: Prisma.DeliveryLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DeliveryLineInclude<ExtArgs> | null
+  where?: Prisma.DeliveryLineWhereInput
 }
 
 /**
