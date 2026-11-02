@@ -1,4 +1,5 @@
-import { Attendance, AttendanceWorker } from "../../generated/prisma/client.js";
+import { AttendanceWorker } from "../../generated/prisma/client.js";
+import { Attendance } from "../../generated/prisma/client.js";
 
 
 type Row = Attendance & {
@@ -14,6 +15,7 @@ export const attendanceDto = (a: Row) => ({
   projectId: a.projectId,
   project: a.project,
   contractorName: a.contractorName,
+  trade: a.trade,
   date: day(a.date),
   workers: a.workers.map((w) => ({ id: w.id, label: w.label, amount: w.amount.toNumber() })),
   extras: a.extras.toNumber(),
