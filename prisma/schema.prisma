@@ -84,6 +84,9 @@ model User {
   proofsDecided     PaymentProof[]     @relation("ProofDecidedBy")
   delaysRecorded    ProjectDelay[]
   notifications     Notification[]
+  punches           StaffPunch[]
+  deliveriesReceived Delivery[]        @relation("DeliveryReceivedBy")
+  deliveriesDecided  Delivery[]        @relation("DeliveryDecidedBy")
 }
 
 model RefreshToken {
@@ -108,6 +111,7 @@ model RefreshToken {
 model Project {
   id               String            @id @default(cuid())
   title            String
+  firmName         String? // the firm or client name on the project tile (optional, so old rows need nothing)
   status           ProjectStatus     @default(ONGOING)
   ownerId          String
   owner            User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
@@ -129,6 +133,13 @@ model Project {
   instalments      PaymentInstalment[]
   paymentProofs    PaymentProof[]
   delays           ProjectDelay[]
+  // Staff attendance: where the site is, so each punch can be checked against it (optional)
+  siteLat          Float?
+  siteLng          Float?
+  siteRadiusM      Int                  @default(200)
+  punches          StaffPunch[]
+  deliveries       Delivery[]
+  drawings         Drawing[] // Phase 4
 
   @@index([ownerId, status, updatedAt])
 }
@@ -203,7 +214,16 @@ model Drawing {
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 
+  // Phase 4: drawings by project and number. All optional, so existing drawings need nothing until they are sorted.
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  number    String? // "A-1.00", written one way (see drawings.calc.ts)
+  revision  Int      @default(0) // R0 first issue, R1, R2…
+  current   Boolean  @default(true) // false: replaced by a newer revision, kept as history
+
   @@index([ownerId, createdAt(sort: Desc)])
+  @@unique([projectId, number, revision]) // two uploads of the same revision at once: one is refused
+  @@index([projectId, current])
 }
 
 model DrawingShare {
@@ -248,6 +268,7 @@ model Material {
   orders        MaterialOrder[]
   alerts        StockAlert[]
   requests      MaterialRequest[]
+  deliveryLines DeliveryLine[]
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 
@@ -263,6 +284,7 @@ model Vendor {
   phone         String          @default("")
   email         String          @default("")
   orders        MaterialOrder[]
+  deliveries    Delivery[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
@@ -286,6 +308,7 @@ model StockMovement {
   createdById String
   createdBy   User             @relation(fields: [createdById], references: [id], onDelete: Restrict)
   request     MaterialRequest? // the material request this issue fulfilled, if any
+  deliveryLine DeliveryLine? // the checked delivery this stock came in on, if any
   createdAt   DateTime         @default(now())
 
   @@index([projectId, createdAt(sort: Desc)])
@@ -382,6 +405,7 @@ model MaterialOrder {
   createdBy        User              @relation(fields: [createdById], references: [id], onDelete: Restrict)
   movements        StockMovement[]
   requests         MaterialRequest[]
+  deliveryLines    DeliveryLine[]
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 
@@ -612,4 +636,120 @@ model Notification {
 
   @@unique([userId, key])
   @@index([userId, createdAt(sort: Desc)])
+}
+
+/* ----------------------------- staff attendance ----------------------------- */
+
+enum PunchType {
+  IN
+  OUT
+}
+
+/** One punch in or out by a staff member: the server's time, a photo, and where the phone was */
+model StaffPunch {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        PunchType
+  at          DateTime  @default(now()) // the server's clock, never the phone's
+  projectId   String? // the site they punched at
+  project     Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  place       String    @default("") // when not at a project: another place or a vehicle number
+  note        String    @default("")
+  // Where the phone was (none when the person didn't allow location)
+  lat         Float?
+  lng         Float?
+  accuracyM   Float?
+  plusCode    String?
+  distanceM   Int? // from the project's site, when the site's location is set
+  outsideSite Boolean   @default(false)
+  // The verification photo on Cloudinary
+  publicId    String    @unique
+  version     Int
+  format      String
+  userAgent   String    @default("")
+  createdAt   DateTime  @default(now())
+
+  @@index([userId, at(sort: Desc)])
+  @@index([at])
+}
+
+/* ------------------------------- delivery check-in ------------------------------- */
+
+enum DeliveryStatus {
+  ACCEPTED // matched and on site: added to stock at once
+  PENDING // flagged: waiting for someone who can approve deliveries
+  APPROVED // flagged, then approved: added to stock
+  REJECTED // flagged, then rejected: nothing added
+}
+
+enum LocationCheck {
+  ON_SITE
+  OFF_SITE
+  NO_LOCATION // the phone didn't share its location
+  SITE_NOT_SET // the project's site location isn't set, so it couldn't be checked
+}
+
+/** A delivery checked in at site: what was expected, what came, photos taken there, and the decision */
+model Delivery {
+  id            String          @id @default(cuid())
+  projectId     String
+  project       Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  vendorId      String?
+  vendor        Vendor?         @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  challanNo     String          @default("") // delivery challan / invoice number
+  vehicleNo     String          @default("")
+  note          String          @default("")
+  status        DeliveryStatus
+  locationCheck LocationCheck
+  distanceM     Int? // the furthest photo from the site
+  flags         String[]        @default([]) // why it needs approval, in words
+  receivedById  String
+  receivedBy    User            @relation("DeliveryReceivedBy", fields: [receivedById], references: [id], onDelete: Restrict)
+  decidedById   String?
+  decidedBy     User?           @relation("DeliveryDecidedBy", fields: [decidedById], references: [id], onDelete: SetNull)
+  decidedAt     DateTime?
+  decisionNote  String          @default("")
+  lines         DeliveryLine[]
+  photos        DeliveryPhoto[]
+  createdAt     DateTime        @default(now())
+
+  @@index([projectId, createdAt(sort: Desc)])
+  @@index([status, createdAt])
+}
+
+model DeliveryLine {
+  id          String         @id @default(cuid())
+  deliveryId  String
+  delivery    Delivery       @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  orderId     String
+  order       MaterialOrder  @relation(fields: [orderId], references: [id], onDelete: Restrict)
+  materialId  String
+  material    Material       @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  expectedQty Decimal        @db.Decimal(14, 3) // still to come on the order when it arrived
+  receivedQty Decimal        @db.Decimal(14, 3)
+  condition   String         @default("") // "2 bags torn"
+  movementId  String?        @unique // the stock entry, once it is added
+  movement    StockMovement? @relation(fields: [movementId], references: [id], onDelete: SetNull)
+
+  @@index([deliveryId])
+}
+
+/** A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery) */
+model DeliveryPhoto {
+  id         String   @id @default(cuid())
+  deliveryId String
+  delivery   Delivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  publicId   String   @unique
+  version    Int
+  format     String
+  lat        Float?
+  lng        Float?
+  accuracyM  Float?
+  plusCode   String?
+  distanceM  Int?
+  takenAt    DateTime // when the phone says it was taken
+  createdAt  DateTime @default(now())
+
+  @@index([deliveryId])
 }
