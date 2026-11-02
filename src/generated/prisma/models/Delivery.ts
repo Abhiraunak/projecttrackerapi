@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model Delivery
- * * A delivery checked in at site: what was expected, what came, photos taken there, and the decision
+ * *
+ *  * A delivery checked in at site: what was expected, what came, photos taken there, and the decision
  */
 export type DeliveryModel = runtime.Types.Result.DefaultSelection<Prisma.$DeliveryPayload>
 

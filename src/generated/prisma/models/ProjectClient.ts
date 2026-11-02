@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model ProjectClient
- * * A client account linked to a project: they see that project in the client portal, nothing else
+ * *
+ *  * A client account linked to a project: they see that project in the client portal, nothing else
  */
 export type ProjectClientModel = runtime.Types.Result.DefaultSelection<Prisma.$ProjectClientPayload>
 

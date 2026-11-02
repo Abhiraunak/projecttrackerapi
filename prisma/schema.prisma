@@ -56,37 +56,39 @@ enum MaterialRequestStatus {
 }
 
 model User {
-  id                String             @id @default(cuid())
-  name              String?
-  email             String             @unique
-  passwordHash      String
-  role              Role               @default(USER)
-  permissions       String[]           @default([])
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  projects          Project[]
-  attendance        Attendance[]
-  refreshTokens     RefreshToken[]
-  drawings          Drawing[]
-  drawingShares     DrawingShare[]
-  pushSubscriptions PushSubscription[]
-  materials         Material[]
-  vendors           Vendor[]
-  stockMovements    StockMovement[]
-  materialOrders    MaterialOrder[]
-  requestsMade      MaterialRequest[]  @relation("RequestedBy")
-  requestsDecided   MaterialRequest[]  @relation("DecidedBy")
-  auditEntries      AuditLog[]
-  boqsCreated       Boq[]              @relation("BoqCreatedBy")
-  boqsUpdated       Boq[]              @relation("BoqUpdatedBy")
-  clientProjects    ProjectClient[]
-  proofsUploaded    PaymentProof[]     @relation("ProofUploadedBy")
-  proofsDecided     PaymentProof[]     @relation("ProofDecidedBy")
-  delaysRecorded    ProjectDelay[]
-  notifications     Notification[]
-  punches           StaffPunch[]
-  deliveriesReceived Delivery[]        @relation("DeliveryReceivedBy")
-  deliveriesDecided  Delivery[]        @relation("DeliveryDecidedBy")
+  id                 String             @id @default(cuid())
+  name               String?
+  email              String             @unique
+  passwordHash       String
+  role               Role               @default(USER)
+  permissions        String[]           @default([])
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  projects           Project[]
+  attendance         Attendance[]
+  refreshTokens      RefreshToken[]
+  drawings           Drawing[]
+  drawingShares      DrawingShare[]
+  pushSubscriptions  PushSubscription[]
+  materials          Material[]
+  vendors            Vendor[]
+  stockMovements     StockMovement[]
+  materialOrders     MaterialOrder[]
+  requestsMade       MaterialRequest[]  @relation("RequestedBy")
+  requestsDecided    MaterialRequest[]  @relation("DecidedBy")
+  auditEntries       AuditLog[]
+  boqsCreated        Boq[]              @relation("BoqCreatedBy")
+  boqsUpdated        Boq[]              @relation("BoqUpdatedBy")
+  clientProjects     ProjectClient[]
+  proofsUploaded     PaymentProof[]     @relation("ProofUploadedBy")
+  proofsDecided      PaymentProof[]     @relation("ProofDecidedBy")
+  delaysRecorded     ProjectDelay[]
+  notifications      Notification[]
+  punches            StaffPunch[]
+  deliveriesReceived Delivery[]         @relation("DeliveryReceivedBy")
+  deliveriesDecided  Delivery[]         @relation("DeliveryDecidedBy")
+  equipmentAdded     Equipment[]        @relation("EquipmentAddedBy") // Phase 6
+  equipmentMoves     EquipmentMove[]    @relation("EquipmentMovedBy")
 }
 
 model RefreshToken {
@@ -109,16 +111,16 @@ model RefreshToken {
 }
 
 model Project {
-  id               String            @id @default(cuid())
+  id               String              @id @default(cuid())
   title            String
   firmName         String? // the firm or client name on the project tile (optional, so old rows need nothing)
-  status           ProjectStatus     @default(ONGOING)
+  status           ProjectStatus       @default(ONGOING)
   ownerId          String
-  owner            User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  owner            User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   tasks            Task[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  projectCost      Decimal?          @db.Decimal(14, 2)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  projectCost      Decimal?            @db.Decimal(14, 2)
   attendance       Attendance[]
   stockMovements   StockMovement[]
   boqs             Boq[]
@@ -128,7 +130,7 @@ model Project {
   materialRequests MaterialRequest[]
   auditLog         AuditLog[]
   // Client portal
-  advanceOverride  Boolean              @default(false) // admin let work start before the advance was paid
+  advanceOverride  Boolean             @default(false) // admin let work start before the advance was paid
   clients          ProjectClient[]
   instalments      PaymentInstalment[]
   paymentProofs    PaymentProof[]
@@ -136,10 +138,12 @@ model Project {
   // Staff attendance: where the site is, so each punch can be checked against it (optional)
   siteLat          Float?
   siteLng          Float?
-  siteRadiusM      Int                  @default(200)
+  siteRadiusM      Int                 @default(200)
   punches          StaffPunch[]
   deliveries       Delivery[]
   drawings         Drawing[] // Phase 4
+  equipmentIn      EquipmentMove[]     @relation("EquipmentMoveTo") // Phase 6
+  equipmentOut     EquipmentMove[]     @relation("EquipmentMoveFrom")
 
   @@index([ownerId, status, updatedAt])
 }
@@ -223,8 +227,8 @@ model Drawing {
   revision  Int      @default(0) // R0 first issue, R1, R2…
   current   Boolean  @default(true) // false: replaced by a newer revision, kept as history
 
-  @@index([ownerId, createdAt(sort: Desc)])
   @@unique([projectId, number, revision]) // two uploads of the same revision at once: one is refused
+  @@index([ownerId, createdAt(sort: Desc)])
   @@index([projectId, current])
 }
 
@@ -253,7 +257,9 @@ model PushSubscription {
   @@index([userId])
 }
 
-/* ------------------------------- Inventory -------------------------------- */
+/**
+ * ------------------------------- Inventory --------------------------------
+ */
 
 model Material {
   id            String               @id @default(cuid())
@@ -295,23 +301,23 @@ model Vendor {
 
 /// The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
 model StockMovement {
-  id          String           @id @default(cuid())
-  projectId   String
-  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  materialId  String
-  material    Material         @relation(fields: [materialId], references: [id], onDelete: Restrict)
-  boqItemId   String? // the BOQ item it was issued or reserved for
-  boqItem     BoqItem?         @relation(fields: [boqItemId], references: [id], onDelete: SetNull)
-  orderId     String? // the order a delivery was received against
-  order       MaterialOrder?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  type        MovementType
-  quantity    Decimal          @db.Decimal(14, 3) // always positive; the type says which way it goes
-  note        String           @default("")
-  createdById String
-  createdBy   User             @relation(fields: [createdById], references: [id], onDelete: Restrict)
-  request     MaterialRequest? // the material request this issue fulfilled, if any
+  id           String           @id @default(cuid())
+  projectId    String
+  project      Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  materialId   String
+  material     Material         @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  boqItemId    String? // the BOQ item it was issued or reserved for
+  boqItem      BoqItem?         @relation(fields: [boqItemId], references: [id], onDelete: SetNull)
+  orderId      String? // the order a delivery was received against
+  order        MaterialOrder?   @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  type         MovementType
+  quantity     Decimal          @db.Decimal(14, 3) // always positive; the type says which way it goes
+  note         String           @default("")
+  createdById  String
+  createdBy    User             @relation(fields: [createdById], references: [id], onDelete: Restrict)
+  request      MaterialRequest? // the material request this issue fulfilled, if any
   deliveryLine DeliveryLine? // the checked delivery this stock came in on, if any
-  createdAt   DateTime         @default(now())
+  createdAt    DateTime         @default(now())
 
   @@index([projectId, createdAt(sort: Desc)])
   @@index([projectId, materialId])
@@ -464,7 +470,9 @@ model MaterialRequest {
   @@index([projectId, createdAt(sort: Desc)])
 }
 
-/* --------------------------------- Audit ---------------------------------- */
+/**
+ * --------------------------------- Audit ----------------------------------
+ */
 
 model AuditLog {
   id         String   @id @default(cuid())
@@ -485,7 +493,9 @@ model AuditLog {
   @@index([createdAt(sort: Desc)])
 }
 
-/* ---------------------------------- BOQ ----------------------------------- */
+/**
+ * ---------------------------------- BOQ -----------------------------------
+ */
 
 model Boq {
   id          String    @id @default(cuid())
@@ -512,7 +522,9 @@ model Boq {
   @@index([projectId])
 }
 
-/* ------------------------------- client portal ------------------------------- */
+/**
+ * ------------------------------- client portal -------------------------------
+ */
 
 enum InstalmentKind {
   ADVANCE // asked for before work starts
@@ -540,7 +552,9 @@ enum DelayReason {
   OTHER
 }
 
-/** A client account linked to a project: they see that project in the client portal, nothing else */
+/**
+ * A client account linked to a project: they see that project in the client portal, nothing else
+ */
 model ProjectClient {
   projectId String
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -552,7 +566,9 @@ model ProjectClient {
   @@index([userId])
 }
 
-/** One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>). */
+/**
+ * One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>).
+ */
 model PaymentInstalment {
   id            String         @id @default(cuid())
   projectId     String
@@ -574,7 +590,9 @@ model PaymentInstalment {
   @@index([projectId, dueDate])
 }
 
-/** A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly */
+/**
+ * A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly
+ */
 model PaymentProof {
   id           String            @id @default(cuid())
   instalmentId String
@@ -605,7 +623,9 @@ model PaymentProof {
   @@index([instalmentId])
 }
 
-/** Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later. */
+/**
+ * Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later.
+ */
 model ProjectDelay {
   id            String      @id @default(cuid())
   projectId     String
@@ -624,7 +644,9 @@ model ProjectDelay {
   @@index([projectId, createdAt])
 }
 
-/** The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on) */
+/**
+ * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
+ */
 model Notification {
   id        String    @id @default(cuid())
   userId    String
@@ -640,14 +662,18 @@ model Notification {
   @@index([userId, createdAt(sort: Desc)])
 }
 
-/* ----------------------------- staff attendance ----------------------------- */
+/**
+ * ----------------------------- staff attendance -----------------------------
+ */
 
 enum PunchType {
   IN
   OUT
 }
 
-/** One punch in or out by a staff member: the server's time, a photo, and where the phone was */
+/**
+ * One punch in or out by a staff member: the server's time, a photo, and where the phone was
+ */
 model StaffPunch {
   id          String    @id @default(cuid())
   userId      String
@@ -676,7 +702,9 @@ model StaffPunch {
   @@index([at])
 }
 
-/* ------------------------------- delivery check-in ------------------------------- */
+/**
+ * ------------------------------- delivery check-in -------------------------------
+ */
 
 enum DeliveryStatus {
   ACCEPTED // matched and on site: added to stock at once
@@ -692,7 +720,9 @@ enum LocationCheck {
   SITE_NOT_SET // the project's site location isn't set, so it couldn't be checked
 }
 
-/** A delivery checked in at site: what was expected, what came, photos taken there, and the decision */
+/**
+ * A delivery checked in at site: what was expected, what came, photos taken there, and the decision
+ */
 model Delivery {
   id            String          @id @default(cuid())
   projectId     String
@@ -737,7 +767,9 @@ model DeliveryLine {
   @@index([deliveryId])
 }
 
-/** A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery) */
+/**
+ * A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery)
+ */
 model DeliveryPhoto {
   id         String   @id @default(cuid())
   deliveryId String
@@ -754,4 +786,56 @@ model DeliveryPhoto {
   createdAt  DateTime @default(now())
 
   @@index([deliveryId])
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Phase 6: equipment register. Shuttering, machinery and the like, and where every piece is.
+// Quantities are never stored as a number to edit: each change is a move (bought, sent, returned, written off),
+// and "how many where" is worked out from the moves. So the history always explains the numbers.
+// ---------------------------------------------------------------------------------------------------------------
+
+model Equipment {
+  id         String          @id @default(cuid())
+  serialNo   Int             @unique @default(autoincrement()) // EQ-0001…
+  name       String // "Steel plates 2×1 ft", "Concrete mixer"
+  category   String          @default("other") // "shuttering" | "scaffolding" | "machinery" | "tools" | "other"
+  unit       String          @default("nos") // nos, sets, sq m, rft
+  code       String? // tag or serial number, for machines
+  ownership  String          @default("owned") // "owned" | "hired"
+  hireRate   Decimal?        @db.Decimal(12, 2) // per unit, per hirePer (hired items)
+  hirePer    String          @default("day") // "day" | "month"
+  supplier   String? // who it is hired or bought from
+  serviceDue DateTime?       @db.Date // machines: next service
+  notes      String          @default("")
+  retired    Boolean         @default(false) // nothing left and not used any more: hidden from pickers
+  addedById  String
+  addedBy    User            @relation("EquipmentAddedBy", fields: [addedById], references: [id])
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  moves      EquipmentMove[]
+
+  @@index([category, retired])
+}
+
+model EquipmentMove {
+  id            String    @id @default(cuid())
+  equipmentId   String
+  equipment     Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  kind          String // "add" (bought / hired in), "move" (between yard and sites), "write_off" (lost, scrapped, returned to the hirer)
+  // Empty means the yard (the company's store). If a project is deleted, what was there counts as back in the yard.
+  fromProjectId String?
+  fromProject   Project?  @relation("EquipmentMoveFrom", fields: [fromProjectId], references: [id], onDelete: SetNull)
+  toProjectId   String?
+  toProject     Project?  @relation("EquipmentMoveTo", fields: [toProjectId], references: [id], onDelete: SetNull)
+  quantity      Decimal   @db.Decimal(12, 2)
+  date          DateTime  @db.Date
+  condition     String    @default("good") // "good" | "repair" | "damaged": the state it arrived in
+  note          String    @default("")
+  byId          String
+  by            User      @relation("EquipmentMovedBy", fields: [byId], references: [id])
+  createdAt     DateTime  @default(now())
+
+  @@index([equipmentId, date])
+  @@index([toProjectId])
+  @@index([fromProjectId])
 }

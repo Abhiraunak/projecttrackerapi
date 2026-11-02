@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model DeliveryPhoto
- * * A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery)
+ * *
+ *  * A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery)
  */
 export type DeliveryPhotoModel = runtime.Types.Result.DefaultSelection<Prisma.$DeliveryPhotoPayload>
 

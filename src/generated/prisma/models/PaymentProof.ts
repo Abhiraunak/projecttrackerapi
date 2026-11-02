@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model PaymentProof
- * * A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly
+ * *
+ *  * A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly
  */
 export type PaymentProofModel = runtime.Types.Result.DefaultSelection<Prisma.$PaymentProofPayload>
 

@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model ProjectDelay
- * * Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later.
+ * *
+ *  * Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later.
  */
 export type ProjectDelayModel = runtime.Types.Result.DefaultSelection<Prisma.$ProjectDelayPayload>
 

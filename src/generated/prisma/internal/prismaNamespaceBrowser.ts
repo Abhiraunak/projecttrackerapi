@@ -80,7 +80,9 @@ export const ModelName = {
   StaffPunch: 'StaffPunch',
   Delivery: 'Delivery',
   DeliveryLine: 'DeliveryLine',
-  DeliveryPhoto: 'DeliveryPhoto'
+  DeliveryPhoto: 'DeliveryPhoto',
+  Equipment: 'Equipment',
+  EquipmentMove: 'EquipmentMove'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -600,6 +602,45 @@ export const DeliveryPhotoScalarFieldEnum = {
 } as const
 
 export type DeliveryPhotoScalarFieldEnum = (typeof DeliveryPhotoScalarFieldEnum)[keyof typeof DeliveryPhotoScalarFieldEnum]
+
+
+export const EquipmentScalarFieldEnum = {
+  id: 'id',
+  serialNo: 'serialNo',
+  name: 'name',
+  category: 'category',
+  unit: 'unit',
+  code: 'code',
+  ownership: 'ownership',
+  hireRate: 'hireRate',
+  hirePer: 'hirePer',
+  supplier: 'supplier',
+  serviceDue: 'serviceDue',
+  notes: 'notes',
+  retired: 'retired',
+  addedById: 'addedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EquipmentScalarFieldEnum = (typeof EquipmentScalarFieldEnum)[keyof typeof EquipmentScalarFieldEnum]
+
+
+export const EquipmentMoveScalarFieldEnum = {
+  id: 'id',
+  equipmentId: 'equipmentId',
+  kind: 'kind',
+  fromProjectId: 'fromProjectId',
+  toProjectId: 'toProjectId',
+  quantity: 'quantity',
+  date: 'date',
+  condition: 'condition',
+  note: 'note',
+  byId: 'byId',
+  createdAt: 'createdAt'
+} as const
+
+export type EquipmentMoveScalarFieldEnum = (typeof EquipmentMoveScalarFieldEnum)[keyof typeof EquipmentMoveScalarFieldEnum]
 
 
 export const SortOrder = {

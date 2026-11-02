@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model Notification
- * * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
+ * *
+ *  * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
  */
 export type NotificationModel = runtime.Types.Result.DefaultSelection<Prisma.$NotificationPayload>
 

@@ -1,4 +1,5 @@
-
+import { Prisma } from "../../generated/prisma/client.js";
+import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { recordAudit } from "../audit/audit.service.js";
@@ -19,7 +20,6 @@ import {
   type MoveKind,
 } from "./equipment.calc.js";
 import type { CreateEquipment, MoveInput, UpdateEquipment } from "./equipment.schema.js";
-import { Prisma } from "../../generated/prisma/client.js";
 
 /*
  * Phase 6: the equipment register. Every change of quantity is a move; "how many where" is always worked out from
@@ -30,11 +30,12 @@ type Db = Prisma.TransactionClient | typeof prisma;
 const num = (v: Prisma.Decimal | null) => (v === null ? null : v.toNumber());
 const ymd = (d: Date) => d.toISOString().slice(0, 10);
 const asDate = (s: string) => new Date(`${s}T00:00:00Z`);
-// const today = () => dayKeyIn(new Date());
+const today = () => dayKeyIn(new Date());
 const monthStart = (day: string) => `${day.slice(0, 7)}-01`;
 
 const itemSelect = {
   id: true,
+  serialNo: true,
   name: true,
   category: true,
   unit: true,
@@ -75,8 +76,13 @@ const toMove = (m: MoveRow): Move => ({
 
 const termsOf = (i: ItemRow): HireTerms => ({ ownership: i.ownership === "hired" ? "hired" : "owned", rate: num(i.hireRate), per: i.hirePer === "month" ? "month" : "day" });
 
+/** Our running number as people read it: 7 → "EQ-0007" */
+export const equipmentNo = (serialNo: number) => `EQ-${String(serialNo).padStart(4, "0")}`;
+
 const itemDto = (i: ItemRow) => ({
   id: i.id,
+  serialNo: i.serialNo,
+  number: equipmentNo(i.serialNo),
   name: i.name,
   category: i.category,
   unit: i.unit,
@@ -112,7 +118,7 @@ const placesOf = (at: Map<string, number>, names: Map<string, string>) => ({
 export async function listEquipment(userId: string) {
   await requireCan(userId, "equipment.view");
   const [items, moves, projects] = await Promise.all([
-    prisma.equipment.findMany({ select: itemSelect, orderBy: [{ retired: "asc" }, { name: "asc" }] }),
+    prisma.equipment.findMany({ select: itemSelect, orderBy: [{ retired: "asc" }, { serialNo: "asc" }] }),
     prisma.equipmentMove.findMany({ select: { ...moveSelect, equipmentId: true } }),
     prisma.project.findMany({ where: { status: "ONGOING" }, select: { id: true, title: true }, orderBy: { title: "asc" } }),
   ]);
@@ -120,9 +126,13 @@ export async function listEquipment(userId: string) {
   for (const m of moves) byItem.set(m.equipmentId, [...(byItem.get(m.equipmentId) ?? []), toMove(m)]);
   const names = await projectNames([...moves.flatMap((m) => [m.fromProjectId ?? "", m.toProjectId ?? ""]), ...projects.map((p) => p.id)]);
 
+  // The number the next item will most likely get (shown on the Add form; the database gives the real one on saving)
+  const nextNo = items.reduce((max, i) => Math.max(max, i.serialNo), 0) + 1;
+
   return {
     categories: CATEGORIES,
     projects,
+    nextNumber: equipmentNo(nextNo),
     items: items.map((i) => {
       const at = stockByPlace(byItem.get(i.id) ?? []);
       return { ...itemDto(i), total: totalOf(at), ...placesOf(at, names) };
@@ -270,20 +280,20 @@ export async function createEquipment(userId: string, input: CreateEquipment) {
     const { quantity, to, date, serviceDue, ...details } = input;
     const item = await tx.equipment.create({
       data: { ...details, serviceDue: serviceDue ? asDate(serviceDue) : null, addedById: userId },
-      select: { id: true },
+      select: { id: true, serialNo: true },
     });
     await tx.equipmentMove.create({
       data: { equipmentId: item.id, kind: "add", toProjectId: to, quantity, date: asDate(date), byId: userId, note: "Added to the register" },
     });
-    await recordAudit(tx, {
-      projectId: to,
-      actorId: userId,
-      action: "equipment.added",
-      entityType: "equipment",
-      entityId: item.id,
-      summary: `Added ${trimQty(quantity)} ${input.unit} of ${input.name} at ${await placeName(tx, placeKey(to))}`,
-    });
-    return item;
+    // await recordAudit(tx, {
+    //   projectId: to,
+    //   actorId: userId,
+    //   action: "equipment.added",
+    //   entityType: "equipment",
+    //   entityId: item.id,
+    //   summary: `Added ${equipmentNo(item.serialNo)} ${input.name}: ${trimQty(quantity)} ${input.unit} at ${await placeName(tx, placeKey(to))}`,
+    // });
+    return { id: item.id, number: equipmentNo(item.serialNo) };
   });
 }
 
@@ -294,14 +304,14 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
   const { serviceDue, ...rest } = input;
   await prisma.$transaction(async (tx) => {
     await tx.equipment.update({ where: { id }, data: { ...rest, ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}) } });
-    await recordAudit(tx, {
-      projectId: null,
-      actorId: userId,
-      action: "equipment.updated",
-      entityType: "equipment",
-      entityId: id,
-      summary: `Changed the details of ${input.name ?? before.name}`,
-    });
+    // await recordAudit(tx, {
+    //   projectId: null,
+    //   actorId: userId,
+    //   action: "equipment.updated",
+    //   entityType: "equipment",
+    //   entityId: id,
+    //   summary: `Changed the details of ${input.name ?? before.name}`,
+    // });
   });
   return { id };
 }
@@ -348,14 +358,14 @@ export async function addMove(userId: string, id: string, input: MoveInput) {
     // Using it again: it can't stay retired
     await tx.equipment.update({ where: { id }, data: { retired: false } });
     const where = move.kind === "add" ? `at ${name(placeKey(move.to))}` : move.kind === "write_off" ? `at ${name(placeKey(move.from))}` : `from ${name(placeKey(move.from))} to ${name(placeKey(move.to))}`;
-    await recordAudit(tx, {
-      projectId: move.to ?? move.from,
-      actorId: userId,
-      action: `equipment.${move.kind}`,
-      entityType: "equipment",
-      entityId: id,
-      summary: `${KIND_WORDS[move.kind]} ${trimQty(move.qty)} ${item.unit} of ${item.name} ${where}${input.note ? ` (${input.note})` : ""}`,
-    });
+    // await recordAudit(tx, {
+    //   projectId: move.to ?? move.from,
+    //   actorId: userId,
+    //   action: `equipment.${move.kind}`,
+    //   entityType: "equipment",
+    //   entityId: id,
+    //   summary: `${KIND_WORDS[move.kind]} ${trimQty(move.qty)} ${item.unit} of ${item.name} ${where}${input.note ? ` (${input.note})` : ""}`,
+    // });
     return row;
   }, serial);
   return saved;
@@ -371,14 +381,14 @@ export async function undoMove(userId: string, id: string, moveId: string) {
     if (rows.length === 1) throw new HttpError(400, "This is how the item was added. Write it off instead, or edit its details.");
     await tx.equipmentMove.delete({ where: { id: moveId } });
     const item = await tx.equipment.findUnique({ where: { id }, select: { name: true, unit: true } });
-    await recordAudit(tx, {
-      projectId: latest.toProjectId ?? latest.fromProjectId,
-      actorId: userId,
-      action: "equipment.move_undone",
-      entityType: "equipment",
-      entityId: id,
-      summary: `Undid a move of ${trimQty(latest.quantity.toNumber())} ${item?.unit ?? ""} of ${item?.name ?? "equipment"} on ${ymd(latest.date)}`,
-    });
+    // await recordAudit(tx, {
+    //   projectId: latest.toProjectId ?? latest.fromProjectId,
+    //   actorId: userId,
+    //   action: "equipment.move_undone",
+    //   entityType: "equipment",
+    //   entityId: id,
+    //   summary: `Undid a move of ${trimQty(latest.quantity.toNumber())} ${item?.unit ?? ""} of ${item?.name ?? "equipment"} on ${ymd(latest.date)}`,
+    // });
   }, serial);
   return { ok: true };
 }

@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model PaymentInstalment
- * * One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>).
+ * *
+ *  * One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>).
  */
 export type PaymentInstalmentModel = runtime.Types.Result.DefaultSelection<Prisma.$PaymentInstalmentPayload>
 

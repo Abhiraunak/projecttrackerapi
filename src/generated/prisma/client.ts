@@ -149,37 +149,44 @@ export type AuditLog = Prisma.AuditLogModel
 export type Boq = Prisma.BoqModel
 /**
  * Model ProjectClient
- * * A client account linked to a project: they see that project in the client portal, nothing else
+ * *
+ *  * A client account linked to a project: they see that project in the client portal, nothing else
  */
 export type ProjectClient = Prisma.ProjectClientModel
 /**
  * Model PaymentInstalment
- * * One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>).
+ * *
+ *  * One payment the client owes: the advance or an instalment. Each one is also an invoice (INV-<number>).
  */
 export type PaymentInstalment = Prisma.PaymentInstalmentModel
 /**
  * Model PaymentProof
- * * A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly
+ * *
+ *  * A payment against an instalment: a screenshot or PDF the client uploaded, or one the admin recorded directly
  */
 export type PaymentProof = Prisma.PaymentProofModel
 /**
  * Model ProjectDelay
- * * Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later.
+ * *
+ *  * Work stopped for a reason nobody controls. Recording one moves the remaining work and unpaid due dates later.
  */
 export type ProjectDelay = Prisma.ProjectDelayModel
 /**
  * Model Notification
- * * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
+ * *
+ *  * The bell list: what happened that this person should know (a copy is also pushed to their phone, if they turned that on)
  */
 export type Notification = Prisma.NotificationModel
 /**
  * Model StaffPunch
- * * One punch in or out by a staff member: the server's time, a photo, and where the phone was
+ * *
+ *  * One punch in or out by a staff member: the server's time, a photo, and where the phone was
  */
 export type StaffPunch = Prisma.StaffPunchModel
 /**
  * Model Delivery
- * * A delivery checked in at site: what was expected, what came, photos taken there, and the decision
+ * *
+ *  * A delivery checked in at site: what was expected, what came, photos taken there, and the decision
  */
 export type Delivery = Prisma.DeliveryModel
 /**
@@ -189,6 +196,17 @@ export type Delivery = Prisma.DeliveryModel
 export type DeliveryLine = Prisma.DeliveryLineModel
 /**
  * Model DeliveryPhoto
- * * A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery)
+ * *
+ *  * A photo of the delivery, taken with the phone's camera in the app (never picked from the gallery)
  */
 export type DeliveryPhoto = Prisma.DeliveryPhotoModel
+/**
+ * Model Equipment
+ * 
+ */
+export type Equipment = Prisma.EquipmentModel
+/**
+ * Model EquipmentMove
+ * 
+ */
+export type EquipmentMove = Prisma.EquipmentMoveModel

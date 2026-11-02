@@ -426,7 +426,9 @@ export const ModelName = {
   StaffPunch: 'StaffPunch',
   Delivery: 'Delivery',
   DeliveryLine: 'DeliveryLine',
-  DeliveryPhoto: 'DeliveryPhoto'
+  DeliveryPhoto: 'DeliveryPhoto',
+  Equipment: 'Equipment',
+  EquipmentMove: 'EquipmentMove'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -442,7 +444,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto"
+    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2666,6 +2668,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Equipment: {
+      payload: Prisma.$EquipmentPayload<ExtArgs>
+      fields: Prisma.EquipmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EquipmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EquipmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>
+        }
+        findFirst: {
+          args: Prisma.EquipmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EquipmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>
+        }
+        findMany: {
+          args: Prisma.EquipmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>[]
+        }
+        create: {
+          args: Prisma.EquipmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>
+        }
+        createMany: {
+          args: Prisma.EquipmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EquipmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>[]
+        }
+        delete: {
+          args: Prisma.EquipmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>
+        }
+        update: {
+          args: Prisma.EquipmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.EquipmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EquipmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EquipmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.EquipmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentPayload>
+        }
+        aggregate: {
+          args: Prisma.EquipmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEquipment>
+        }
+        groupBy: {
+          args: Prisma.EquipmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EquipmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EquipmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EquipmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    EquipmentMove: {
+      payload: Prisma.$EquipmentMovePayload<ExtArgs>
+      fields: Prisma.EquipmentMoveFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EquipmentMoveFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EquipmentMoveFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>
+        }
+        findFirst: {
+          args: Prisma.EquipmentMoveFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EquipmentMoveFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>
+        }
+        findMany: {
+          args: Prisma.EquipmentMoveFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>[]
+        }
+        create: {
+          args: Prisma.EquipmentMoveCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>
+        }
+        createMany: {
+          args: Prisma.EquipmentMoveCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EquipmentMoveCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>[]
+        }
+        delete: {
+          args: Prisma.EquipmentMoveDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>
+        }
+        update: {
+          args: Prisma.EquipmentMoveUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>
+        }
+        deleteMany: {
+          args: Prisma.EquipmentMoveDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EquipmentMoveUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EquipmentMoveUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>[]
+        }
+        upsert: {
+          args: Prisma.EquipmentMoveUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentMovePayload>
+        }
+        aggregate: {
+          args: Prisma.EquipmentMoveAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEquipmentMove>
+        }
+        groupBy: {
+          args: Prisma.EquipmentMoveGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EquipmentMoveGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EquipmentMoveCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EquipmentMoveCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3208,6 +3358,45 @@ export const DeliveryPhotoScalarFieldEnum = {
 export type DeliveryPhotoScalarFieldEnum = (typeof DeliveryPhotoScalarFieldEnum)[keyof typeof DeliveryPhotoScalarFieldEnum]
 
 
+export const EquipmentScalarFieldEnum = {
+  id: 'id',
+  serialNo: 'serialNo',
+  name: 'name',
+  category: 'category',
+  unit: 'unit',
+  code: 'code',
+  ownership: 'ownership',
+  hireRate: 'hireRate',
+  hirePer: 'hirePer',
+  supplier: 'supplier',
+  serviceDue: 'serviceDue',
+  notes: 'notes',
+  retired: 'retired',
+  addedById: 'addedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EquipmentScalarFieldEnum = (typeof EquipmentScalarFieldEnum)[keyof typeof EquipmentScalarFieldEnum]
+
+
+export const EquipmentMoveScalarFieldEnum = {
+  id: 'id',
+  equipmentId: 'equipmentId',
+  kind: 'kind',
+  fromProjectId: 'fromProjectId',
+  toProjectId: 'toProjectId',
+  quantity: 'quantity',
+  date: 'date',
+  condition: 'condition',
+  note: 'note',
+  byId: 'byId',
+  createdAt: 'createdAt'
+} as const
+
+export type EquipmentMoveScalarFieldEnum = (typeof EquipmentMoveScalarFieldEnum)[keyof typeof EquipmentMoveScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3729,6 +3918,8 @@ export type GlobalOmitConfig = {
   delivery?: Prisma.DeliveryOmit
   deliveryLine?: Prisma.DeliveryLineOmit
   deliveryPhoto?: Prisma.DeliveryPhotoOmit
+  equipment?: Prisma.EquipmentOmit
+  equipmentMove?: Prisma.EquipmentMoveOmit
 }
 
 /* Types for Logging */

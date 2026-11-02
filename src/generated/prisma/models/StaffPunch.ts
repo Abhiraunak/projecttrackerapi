@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model StaffPunch
- * * One punch in or out by a staff member: the server's time, a photo, and where the phone was
+ * *
+ *  * One punch in or out by a staff member: the server's time, a photo, and where the phone was
  */
 export type StaffPunchModel = runtime.Types.Result.DefaultSelection<Prisma.$StaffPunchPayload>
 
