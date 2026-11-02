@@ -41,6 +41,7 @@ export type AttendanceMinAggregateOutputType = {
   projectId: string | null
   ownerId: string | null
   contractorName: string | null
+  trade: string | null
   date: Date | null
   extras: runtime.Decimal | null
   notes: string | null
@@ -54,6 +55,7 @@ export type AttendanceMaxAggregateOutputType = {
   projectId: string | null
   ownerId: string | null
   contractorName: string | null
+  trade: string | null
   date: Date | null
   extras: runtime.Decimal | null
   notes: string | null
@@ -67,6 +69,7 @@ export type AttendanceCountAggregateOutputType = {
   projectId: number
   ownerId: number
   contractorName: number
+  trade: number
   date: number
   extras: number
   notes: number
@@ -92,6 +95,7 @@ export type AttendanceMinAggregateInputType = {
   projectId?: true
   ownerId?: true
   contractorName?: true
+  trade?: true
   date?: true
   extras?: true
   notes?: true
@@ -105,6 +109,7 @@ export type AttendanceMaxAggregateInputType = {
   projectId?: true
   ownerId?: true
   contractorName?: true
+  trade?: true
   date?: true
   extras?: true
   notes?: true
@@ -118,6 +123,7 @@ export type AttendanceCountAggregateInputType = {
   projectId?: true
   ownerId?: true
   contractorName?: true
+  trade?: true
   date?: true
   extras?: true
   notes?: true
@@ -218,6 +224,7 @@ export type AttendanceGroupByOutputType = {
   projectId: string
   ownerId: string
   contractorName: string
+  trade: string
   date: Date
   extras: runtime.Decimal
   notes: string
@@ -254,6 +261,7 @@ export type AttendanceWhereInput = {
   projectId?: Prisma.StringFilter<"Attendance"> | string
   ownerId?: Prisma.StringFilter<"Attendance"> | string
   contractorName?: Prisma.StringFilter<"Attendance"> | string
+  trade?: Prisma.StringFilter<"Attendance"> | string
   date?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   extras?: Prisma.DecimalFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFilter<"Attendance"> | string
@@ -270,6 +278,7 @@ export type AttendanceOrderByWithRelationInput = {
   projectId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   contractorName?: Prisma.SortOrder
+  trade?: Prisma.SortOrder
   date?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -289,6 +298,7 @@ export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
   projectId?: Prisma.StringFilter<"Attendance"> | string
   ownerId?: Prisma.StringFilter<"Attendance"> | string
   contractorName?: Prisma.StringFilter<"Attendance"> | string
+  trade?: Prisma.StringFilter<"Attendance"> | string
   date?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   extras?: Prisma.DecimalFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFilter<"Attendance"> | string
@@ -305,6 +315,7 @@ export type AttendanceOrderByWithAggregationInput = {
   projectId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   contractorName?: Prisma.SortOrder
+  trade?: Prisma.SortOrder
   date?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -326,6 +337,7 @@ export type AttendanceScalarWhereWithAggregatesInput = {
   projectId?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
   ownerId?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
   contractorName?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
+  trade?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"Attendance"> | Date | string
   extras?: Prisma.DecimalWithAggregatesFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
@@ -337,6 +349,7 @@ export type AttendanceScalarWhereWithAggregatesInput = {
 export type AttendanceCreateInput = {
   id?: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -353,6 +366,7 @@ export type AttendanceUncheckedCreateInput = {
   projectId: string
   ownerId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -365,6 +379,7 @@ export type AttendanceUncheckedCreateInput = {
 export type AttendanceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -381,6 +396,7 @@ export type AttendanceUncheckedUpdateInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -395,6 +411,7 @@ export type AttendanceCreateManyInput = {
   projectId: string
   ownerId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -406,6 +423,7 @@ export type AttendanceCreateManyInput = {
 export type AttendanceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -419,6 +437,7 @@ export type AttendanceUncheckedUpdateManyInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -442,6 +461,7 @@ export type AttendanceCountOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   contractorName?: Prisma.SortOrder
+  trade?: Prisma.SortOrder
   date?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -460,6 +480,7 @@ export type AttendanceMaxOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   contractorName?: Prisma.SortOrder
+  trade?: Prisma.SortOrder
   date?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -473,6 +494,7 @@ export type AttendanceMinOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   contractorName?: Prisma.SortOrder
+  trade?: Prisma.SortOrder
   date?: Prisma.SortOrder
   extras?: Prisma.SortOrder
   notes?: Prisma.SortOrder
@@ -592,6 +614,7 @@ export type AttendanceUpdateOneRequiredWithoutWorkersNestedInput = {
 export type AttendanceCreateWithoutOwnerInput = {
   id?: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -606,6 +629,7 @@ export type AttendanceUncheckedCreateWithoutOwnerInput = {
   id?: string
   projectId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -649,6 +673,7 @@ export type AttendanceScalarWhereInput = {
   projectId?: Prisma.StringFilter<"Attendance"> | string
   ownerId?: Prisma.StringFilter<"Attendance"> | string
   contractorName?: Prisma.StringFilter<"Attendance"> | string
+  trade?: Prisma.StringFilter<"Attendance"> | string
   date?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   extras?: Prisma.DecimalFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFilter<"Attendance"> | string
@@ -660,6 +685,7 @@ export type AttendanceScalarWhereInput = {
 export type AttendanceCreateWithoutProjectInput = {
   id?: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -674,6 +700,7 @@ export type AttendanceUncheckedCreateWithoutProjectInput = {
   id?: string
   ownerId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -712,6 +739,7 @@ export type AttendanceUpdateManyWithWhereWithoutProjectInput = {
 export type AttendanceCreateWithoutWorkersInput = {
   id?: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -727,6 +755,7 @@ export type AttendanceUncheckedCreateWithoutWorkersInput = {
   projectId: string
   ownerId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -754,6 +783,7 @@ export type AttendanceUpdateToOneWithWhereWithoutWorkersInput = {
 export type AttendanceUpdateWithoutWorkersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -769,6 +799,7 @@ export type AttendanceUncheckedUpdateWithoutWorkersInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -781,6 +812,7 @@ export type AttendanceCreateManyOwnerInput = {
   id?: string
   projectId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -792,6 +824,7 @@ export type AttendanceCreateManyOwnerInput = {
 export type AttendanceUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -806,6 +839,7 @@ export type AttendanceUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -819,6 +853,7 @@ export type AttendanceUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -831,6 +866,7 @@ export type AttendanceCreateManyProjectInput = {
   id?: string
   ownerId: string
   contractorName: string
+  trade?: string
   date: Date | string
   extras?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string
@@ -842,6 +878,7 @@ export type AttendanceCreateManyProjectInput = {
 export type AttendanceUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -856,6 +893,7 @@ export type AttendanceUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -869,6 +907,7 @@ export type AttendanceUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   extras?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringFieldUpdateOperationsInput | string
@@ -913,6 +952,7 @@ export type AttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   projectId?: boolean
   ownerId?: boolean
   contractorName?: boolean
+  trade?: boolean
   date?: boolean
   extras?: boolean
   notes?: boolean
@@ -930,6 +970,7 @@ export type AttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   projectId?: boolean
   ownerId?: boolean
   contractorName?: boolean
+  trade?: boolean
   date?: boolean
   extras?: boolean
   notes?: boolean
@@ -945,6 +986,7 @@ export type AttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   projectId?: boolean
   ownerId?: boolean
   contractorName?: boolean
+  trade?: boolean
   date?: boolean
   extras?: boolean
   notes?: boolean
@@ -960,6 +1002,7 @@ export type AttendanceSelectScalar = {
   projectId?: boolean
   ownerId?: boolean
   contractorName?: boolean
+  trade?: boolean
   date?: boolean
   extras?: boolean
   notes?: boolean
@@ -968,7 +1011,7 @@ export type AttendanceSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "ownerId" | "contractorName" | "date" | "extras" | "notes" | "totalAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
+export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "ownerId" | "contractorName" | "trade" | "date" | "extras" | "notes" | "totalAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
 export type AttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -996,6 +1039,7 @@ export type $AttendancePayload<ExtArgs extends runtime.Types.Extensions.Internal
     projectId: string
     ownerId: string
     contractorName: string
+    trade: string
     date: Date
     extras: runtime.Decimal
     notes: string
@@ -1432,6 +1476,7 @@ export interface AttendanceFieldRefs {
   readonly projectId: Prisma.FieldRef<"Attendance", 'String'>
   readonly ownerId: Prisma.FieldRef<"Attendance", 'String'>
   readonly contractorName: Prisma.FieldRef<"Attendance", 'String'>
+  readonly trade: Prisma.FieldRef<"Attendance", 'String'>
   readonly date: Prisma.FieldRef<"Attendance", 'DateTime'>
   readonly extras: Prisma.FieldRef<"Attendance", 'Decimal'>
   readonly notes: Prisma.FieldRef<"Attendance", 'String'>

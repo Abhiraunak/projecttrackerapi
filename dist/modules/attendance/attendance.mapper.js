@@ -5,6 +5,7 @@ export const attendanceDto = (a) => ({
     projectId: a.projectId,
     project: a.project,
     contractorName: a.contractorName,
+    trade: a.trade,
     date: day(a.date),
     workers: a.workers.map((w) => ({ id: w.id, label: w.label, amount: w.amount.toNumber() })),
     extras: a.extras.toNumber(),

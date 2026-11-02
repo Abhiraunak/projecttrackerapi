@@ -9,7 +9,8 @@
 */
 export const Role = {
     USER: 'USER',
-    ADMIN: 'ADMIN'
+    ADMIN: 'ADMIN',
+    CLIENT: 'CLIENT'
 };
 export const ProjectStatus = {
     ONGOING: 'ONGOING',
@@ -45,5 +46,43 @@ export const MaterialRequestStatus = {
     CANCELLED: 'CANCELLED',
     ISSUED: 'ISSUED',
     ORDERED: 'ORDERED'
+};
+export const InstalmentKind = {
+    ADVANCE: 'ADVANCE',
+    INSTALMENT: 'INSTALMENT'
+};
+export const PaymentMode = {
+    UPI: 'UPI',
+    BANK_TRANSFER: 'BANK_TRANSFER',
+    CHEQUE: 'CHEQUE',
+    CASH: 'CASH',
+    OTHER: 'OTHER'
+};
+export const ProofStatus = {
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    REJECTED: 'REJECTED'
+};
+export const DelayReason = {
+    MONSOON: 'MONSOON',
+    FESTIVAL: 'FESTIVAL',
+    NATURAL: 'NATURAL',
+    OTHER: 'OTHER'
+};
+export const PunchType = {
+    IN: 'IN',
+    OUT: 'OUT'
+};
+export const DeliveryStatus = {
+    ACCEPTED: 'ACCEPTED',
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    REJECTED: 'REJECTED'
+};
+export const LocationCheck = {
+    ON_SITE: 'ON_SITE',
+    OFF_SITE: 'OFF_SITE',
+    NO_LOCATION: 'NO_LOCATION',
+    SITE_NOT_SET: 'SITE_NOT_SET'
 };
 //# sourceMappingURL=enums.js.map

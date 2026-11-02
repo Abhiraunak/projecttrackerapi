@@ -29,6 +29,9 @@ export function toDrawingDto(row, viewerId) {
         isOwner,
         sharedWith: isOwner ? row.shares.map((share) => share.user) : [], // other people's access list is the owner's business
         createdAt: row.createdAt,
+        projectId: row.projectId ?? null,
+        number: row.number ?? null,
+        revision: row.revision,
     };
 }
 //# sourceMappingURL=drawings.mapper.js.map

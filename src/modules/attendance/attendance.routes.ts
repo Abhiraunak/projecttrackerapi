@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
-import { createAttendanceSchema, createManyAttendanceSchema, setTradeSchema, updateAttendanceSchema } from "./attendance.schema.js";
+import { createAttendanceSchema, createManyAttendanceSchema, setTradeSchema, updateAttendanceSchema } from "./atttendance.schema.js";
 import * as c from "./attendance.controller.js";
 
 const router = Router();

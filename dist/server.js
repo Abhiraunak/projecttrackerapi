@@ -5,12 +5,15 @@ import { prisma } from './lib/prisma.js';
 import { purgeExpiredSessions } from './lib/session.js';
 // import { ensureAdminAccount } from './lib/adminBootstrap.js';
 import { startAlertSweep } from './modules/alerts/alerts.service.js';
+import { startPaymentReminders } from './modules/client/client.notify.js';
 // Create the admin account from ADMIN_EMAIL / ADMIN_PASSWORD if needed. A failure is logged, not fatal:
 // the app still runs, and it will try again on the next restart.
 // await ensureAdminAccount().catch((err: unknown) => logger.error({ err }, 'admin account check failed'));
 const server = app.listen(env.PORT, () => logger.info(`Listening on :${env.PORT}`));
 // Stock alerts that come from the calendar (late deliveries): checked a minute after start, then every 3 hours
 startAlertSweep(3);
+// Client payment reminders (due soon, due, overdue) and unchecked payments for admins: a minute after start, then hourly
+startPaymentReminders();
 // Delete expired refresh tokens now and every 6 hours
 const purge = () => purgeExpiredSessions().catch((err) => logger.error({ err }, 'session purge failed'));
 void purge();

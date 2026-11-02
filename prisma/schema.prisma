@@ -171,6 +171,7 @@ model Attendance {
   ownerId        String
   owner          User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   contractorName String
+  trade          String             @default("") // the trade or team: "Civil", "Tiles", "Fabrication"… empty: not set yet
   date           DateTime           @db.Date
   extras         Decimal            @default(0) @db.Decimal(14, 2)
   notes          String             @default("")
@@ -181,6 +182,7 @@ model Attendance {
 
   @@index([ownerId, createdAt(sort: Desc)])
   @@index([projectId, createdAt(sort: Desc)])
+  @@index([projectId, trade, date])
 }
 
 model AttendanceWorker {

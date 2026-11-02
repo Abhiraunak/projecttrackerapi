@@ -29,6 +29,7 @@ export const taskDto = (t) => ({
 export const projectDto = (p) => ({
     id: p.id,
     title: p.title,
+    firmName: p.firmName,
     projectCost: p.projectCost?.toNumber() ?? null,
     status: p.status,
     createdAt: p.createdAt,
@@ -49,6 +50,7 @@ export function summaryDto(p, materials = { spent: 0, expected: 0 }) {
     return {
         id: p.id,
         title: p.title,
+        firmName: p.firmName,
         projectCost: p.projectCost?.toNumber() ?? null,
         spent: Math.round((paid + materials.spent) * 100) / 100, // labour paid + materials received, so a card can show what is left
         labourPaid: paid,

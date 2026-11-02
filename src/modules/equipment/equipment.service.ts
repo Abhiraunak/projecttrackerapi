@@ -1,5 +1,4 @@
 
-import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { recordAudit } from "../audit/audit.service.js";

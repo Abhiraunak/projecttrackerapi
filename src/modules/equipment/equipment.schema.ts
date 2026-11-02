@@ -26,19 +26,46 @@ const details = {
 
 /** New item: its details, and how many arrive where (the yard, or straight at a site) */
 export const createEquipmentSchema = z.object({
-  ...details,
-  quantity: qty,
-  to: place.default(null),
-  date: z.iso.date(),
+  body: z.object({
+    ...details,
+    quantity: qty,
+    to: place.default(null),
+    date: z.iso.date(),
+  }),
 });
 
-export const updateEquipmentSchema = z
-  .object({ ...details, retired: z.boolean() })
-  .partial()
-  .refine((v) => Object.keys(v).length > 0, "Nothing to change.");
+// No defaults here: a field left out of an update keeps its saved value instead of resetting to the default
+// (and no .nullish(): it would turn a missing field into null and clear it)
+const text = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max)
+    .nullable()
+    .transform((v) => (v ? v : null));
+const changes = {
+  name: details.name,
+  category: z.enum(CATEGORY_KEYS),
+  unit: z.string().trim().min(1).max(20),
+  code: text(60),
+  ownership: z.enum(["owned", "hired"]),
+  hireRate: z.number().finite().min(0).max(100_000_000).nullable(),
+  hirePer: z.enum(["day", "month"]),
+  supplier: text(120),
+  serviceDue: z.iso.date().nullable(),
+  notes: z.string().trim().max(1000),
+  retired: z.boolean(),
+};
 
-export const moveSchema = z
-  .object({
+export const updateEquipmentSchema = z.object({
+  body: z
+    .object(changes)
+    .partial()
+    .refine((v) => Object.keys(v).length > 0, "Nothing to change."),
+});
+
+export const moveSchema = z.object({
+  body: z.object({
     kind: z.enum(["add", "move", "write_off"]),
     from: place.default(null),
     to: place.default(null),
@@ -46,8 +73,9 @@ export const moveSchema = z
     date: z.iso.date(),
     condition: z.enum(["good", "repair", "damaged"]).default("good"),
     note: z.string().trim().max(300).default(""),
-  });
+  }),
+});
 
-export type CreateEquipment = z.infer<typeof createEquipmentSchema>;
-export type UpdateEquipment = z.infer<typeof updateEquipmentSchema>;
-export type MoveInput = z.infer<typeof moveSchema>;
+export type CreateEquipment = z.infer<typeof createEquipmentSchema>["body"];
+export type UpdateEquipment = z.infer<typeof updateEquipmentSchema>["body"];
+export type MoveInput = z.infer<typeof moveSchema>["body"];

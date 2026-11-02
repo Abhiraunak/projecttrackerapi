@@ -8,7 +8,7 @@ import { diffFields, hasChanges } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { attendanceDto, toDate } from "./attendance.mapper.js";
 import { emptyDays, workersOn } from "./attendance.days.js";
-import { listQuerySchema, tradesQuerySchema, type CreateBody, type CreateManyBody, type SetTradeBody, type UpdateBody } from "./attendance.schema.js";
+import { listQuerySchema, tradesQuerySchema, type CreateBody, type CreateManyBody, type SetTradeBody, type UpdateBody } from "./atttendance.schema.js";
 import { canonicalTrade, DEFAULT_TRADES, tradeSummaries, usualTrade } from "./attendance.trades.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 
@@ -17,7 +17,7 @@ const include = {
   workers: { orderBy: { position: "asc" } },
 } as const;
 
-const uid = (req: Request) => req.user!.sub;
+const uid = (req: Request<any, any, any, any>) => req.user!.sub;
 
 /** The trades already used on a project, so "civil" typed today lands on the existing "Civil" */
 async function tradeFor(projectId: string, raw: string) {

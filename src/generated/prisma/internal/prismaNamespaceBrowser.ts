@@ -173,6 +173,7 @@ export const AttendanceScalarFieldEnum = {
   projectId: 'projectId',
   ownerId: 'ownerId',
   contractorName: 'contractorName',
+  trade: 'trade',
   date: 'date',
   extras: 'extras',
   notes: 'notes',

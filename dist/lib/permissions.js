@@ -18,16 +18,21 @@ export const PERMISSIONS = [
     "stock.issue",
     "stock.reserve",
     "stock.adjust",
+    "deliveries.approve", // approve or reject a delivery that was flagged (off site, short, extra)
     "requests.create", // ask for material from site
     "requests.approve", // approve or reject those requests
     "attendance.view",
     "attendance.write",
+    "attendance.punch", // mark one's own attendance: punch in and out with a photo and location
+    "attendance.team", // see everyone's punches
     "drawings.use",
     "boq.use",
+    "equipment.view", // Phase 6: see the equipment register and what is at each site
+    "equipment.manage", // add equipment, move it between the yard and sites, write it off
 ];
 export const isPermission = (value) => PERMISSIONS.includes(value);
-/** An admin has everything; anyone else has what was ticked (unknown or retired names are ignored) */
-export const effectivePermissions = (user) => user.role === "ADMIN" ? [...PERMISSIONS] : PERMISSIONS.filter((p) => user.permissions.includes(p));
+/** An admin has everything; a client nothing (they only use the client portal); anyone else what was ticked */
+export const effectivePermissions = (user) => user.role === "ADMIN" ? [...PERMISSIONS] : user.role === "CLIENT" ? [] : PERMISSIONS.filter((p) => user.permissions.includes(p));
 /** Each kind of stock entry needs its own right: receiving is not the same as using */
 export const MOVEMENT_PERMISSION = {
     RECEIVED: "stock.receive",

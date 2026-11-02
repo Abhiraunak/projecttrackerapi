@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Request } from "express";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
 import {
@@ -20,6 +20,9 @@ import { uploadProjectDrawingSchema } from "../drawings/drawings.schema.js";
 import { listProjectDrawings, uploadProjectDrawing } from "../drawings/projectDrawings.service.js";
 import { projectEquipment } from "../equipment/equipment.service.js";
 
+/** Routes under /:id: the project id is always there, so say so (req.params is otherwise a loose dictionary) */
+type WithId = Request<{ id: string }>;
+
 // Uploads are the expensive request: the same limit as the Drawing page
 const drawingUploadLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 40, standardHeaders: "draft-7", legacyHeaders: false });
 
@@ -31,27 +34,27 @@ router.use(announceAfter((req) => req.path.split("/")[1] || null));
 router.get("/", c.list);
 router.post("/", validate(createProjectSchema), c.create);
 // The project hub: everything about one project in a single request (switched on with FEATURES=projectHub)
-router.get("/:id/hub", requireFeature("projectHub"), async (req, res) => {
+router.get("/:id/hub", requireFeature("projectHub"), async (req: WithId, res) => {
   res.json(await projectHub(req.user!.sub, req.params.id));
 });
 // Phase 2: the Progress page (FEATURES=progress)
-router.get("/:id/progress", requireFeature("progress"), async (req, res) => {
+router.get("/:id/progress", requireFeature("progress"), async (req: WithId, res) => {
   res.json(await projectProgress(req.user!.sub, req.params.id));
 });
 // Phase 3: material tiles and sheets (FEATURES=materialSheet)
-router.get("/:id/materials", requireFeature("materialSheet"), async (req, res) => {
+router.get("/:id/materials", requireFeature("materialSheet"), async (req: WithId, res) => {
   res.json(await projectMaterials(req.user!.sub, req.params.id));
 });
 // Phase 4: drawings by project and number (FEATURES=drawingsByProject)
-router.get("/:id/drawings", requireFeature("drawingsByProject"), async (req, res) => {
+router.get("/:id/drawings", requireFeature("drawingsByProject"), async (req: WithId, res) => {
   res.json(await listProjectDrawings(req.user!.sub, req.params.id));
 });
-router.post("/:id/drawings", requireFeature("drawingsByProject"), drawingUploadLimiter, uploadSingleFile, validate(uploadProjectDrawingSchema), async (req, res) => {
+router.post("/:id/drawings", requireFeature("drawingsByProject"), drawingUploadLimiter, uploadSingleFile, validate(uploadProjectDrawingSchema), async (req: WithId, res) => {
   if (!req.file) throw new HttpError(400, "Choose a file to upload.");
   res.status(201).json(await uploadProjectDrawing({ userId: req.user!.sub, projectId: req.params.id, ...req.body, file: req.file }));
 });
 // Phase 6: equipment at this site (FEATURES=equipment)
-router.get("/:id/equipment", requireFeature("equipment"), async (req, res) => {
+router.get("/:id/equipment", requireFeature("equipment"), async (req: WithId, res) => {
   res.json(await projectEquipment(req.user!.sub, req.params.id));
 });
 router.get("/:id", c.getOne);

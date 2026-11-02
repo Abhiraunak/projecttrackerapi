@@ -13,7 +13,7 @@ export async function adminOverview(userId, period) {
     const { current, previous } = periodWindows(period, now);
     const buckets = trendBuckets(period, now);
     const since = new Date(Math.min(buckets[0].from.getTime(), previous.from.getTime()));
-    const [projects, receipts, attendance, pending, waiting, alerts, sharesNow, sharesBefore, boqs, unpriced, activity] = await Promise.all([
+    const [projects, receipts, attendance, pending, waiting, alerts, sharesNow, sharesBefore, boqs, unpriced, activity, proofs] = await Promise.all([
         prisma.project.findMany({
             where: { status: "ONGOING" },
             select: { id: true, title: true, projectCost: true, tasks: { select: { work: true, stipulated: true, paid: true, progress: true, startDate: true, endDate: true } } },
@@ -49,6 +49,8 @@ export async function adminOverview(userId, period) {
             take: 6,
             select: { id: true, actorEmail: true, summary: true, action: true, createdAt: true, project: { select: { title: true } } },
         }),
+        // Payments clients sent that nobody has checked yet
+        prisma.paymentProof.findMany({ where: { status: "PENDING" }, select: { amount: true, createdAt: true }, orderBy: { createdAt: "asc" } }),
     ]);
     /* ------------------------------ projects ------------------------------ */
     const materials = await materialTotalsByProject(projects.map((p) => p.id));
@@ -77,6 +79,15 @@ export async function adminOverview(userId, period) {
     const boqCount = (status) => boqs.find((b) => b.status === status)?._count._all ?? 0;
     /* ------------------------------ needs you ------------------------------ */
     const needs = [];
+    if (proofs.length) {
+        needs.push({
+            kind: "payments",
+            title: `${proofs.length} client ${proofs.length === 1 ? "payment" : "payments"} to check`,
+            detail: `₹${Math.round(proofs.reduce((s, p) => s + num(p.amount), 0)).toLocaleString("en-IN")} sent with screenshots`,
+            href: "/dashboard/clients",
+            since: proofs[0].createdAt.toISOString(),
+        });
+    }
     if (pending.length) {
         const oldest = pending[0];
         needs.push({
@@ -124,7 +135,7 @@ export async function adminOverview(userId, period) {
             budget: { spent: all.spent, budget: all.budget, projectsWithoutBudget: rows.filter((r) => r.budget === null).length },
             work: { done: all.done, time: all.time, late: rows.filter((r) => r.status === "Running late").map((r) => r.title) },
             labour: { paid: all.labourPaid, earned: all.earned, due: all.labourDue },
-            approvals: { requests: pending.length, people: waiting.length, lateDeliveries: lateAlerts.length, oldest: pending[0]?.createdAt.toISOString() ?? null },
+            approvals: { requests: pending.length, people: waiting.length, lateDeliveries: lateAlerts.length, payments: proofs.length, oldest: pending[0]?.createdAt.toISOString() ?? null },
         },
         strip: {
             materialSpend: { current: materialNow, previous: materialBefore, change: percentChange(materialNow, materialBefore) },

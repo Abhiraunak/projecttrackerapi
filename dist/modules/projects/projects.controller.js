@@ -13,6 +13,7 @@ const TASK_FIELDS = ["work", "area", "contractorRate", "inHouseRate", "stipulate
 /** The project-level facts worth recording when they change */
 const headline = (p) => ({
     title: p.title,
+    firmName: p.firmName ?? null,
     status: p.status,
     projectCost: p.projectCost === null ? null : typeof p.projectCost === "number" ? p.projectCost : p.projectCost.toNumber(),
 });
@@ -99,9 +100,9 @@ export async function patchProject(req, res) {
     const { id } = req.params;
     await requirePermission(userId, id, "project.manage");
     const project = await prisma.$transaction(async (tx) => {
-        const before = await tx.project.findUniqueOrThrow({ where: { id }, select: { title: true, status: true, projectCost: true } });
+        const before = await tx.project.findUniqueOrThrow({ where: { id }, select: { title: true, firmName: true, status: true, projectCost: true } });
         const updated = await tx.project.update({ where: { id }, data: req.body, include: withTasks });
-        const changes = diffFields(headline(before), headline(updated), ["title", "status", "projectCost"]);
+        const changes = diffFields(headline(before), headline(updated), ["title", "firmName", "status", "projectCost"]);
         if (hasChanges(changes)) {
             await recordAudit(tx, { projectId: id, actorId: userId, action: "project.updated", entityType: "project", entityId: id, summary: "Changed project details", changes });
         }

@@ -29,6 +29,11 @@ import orderRoutes from './modules/orders/orders.routes.js';
 import alertRoutes from './modules/alerts/alerts.routes.js';
 import requestRoutes from './modules/requests/requests.routes.js';
 import dashboardRoutes from './modules/dashboard/dashboard.routes.js';
+import clientRoutes from './modules/client/client.routes.js';
+import notificationRoutes from './modules/notifications/notifications.routes.js';
+// import deliveryRoutes from './modules/deliveries/delivery.routes.js';
+// import punchRoutes from './modules/punches/punch.routes.js';
+import equipmentRoutes from './modules/equipment/equipment.routes.js';
 const app = express();
 app.set('trust proxy', 1); // behind Nginx/ALB/Render etc., so rate limiting sees real IPs
 app.disable('x-powered-by');
@@ -56,15 +61,18 @@ app.use('/api/v1/boqs', boqRoutes);
 app.use('/api/v1/push', pushRoutes);
 app.use('/api/v1', accessRoutes); // GET /me/access
 app.use('/api/v1/admin', adminRoutes); // admin page
-app.use('/api/v1', inventoryRoutes);
 app.use('/api/v1', materialPlanRoutes);
 app.use('/api/v1', orderRoutes);
 app.use('/api/v1', alertRoutes);
 app.use('/api/v1', requestRoutes);
 app.use('/api/v1', dashboardRoutes);
+app.use('/api/v1', clientRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
+// app.use('/api/v1/deliveries', deliveryRoutes);   // delivery check-in
+// app.use('/api/v1/punches', punchRoutes);         // staff punch in / out
+app.use('/api/v1/equipment', equipmentRoutes); // Phase 6: equipment register
 app.use(notFound);
 app.use(errorHandler); // must be last
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => logger.info(`Server is running on port ${PORT}`));
+// The server is started in server.ts (it also starts the alert sweep, payment reminders and session clean-up)
 export default app;
 //# sourceMappingURL=app.js.map

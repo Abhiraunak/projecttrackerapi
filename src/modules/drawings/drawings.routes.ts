@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Request } from "express";
 import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { allow } from "../../middleware/permissions.js";
@@ -17,6 +17,9 @@ const uploadLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+/** Routes under /:id: the id is always there (req.params is otherwise a loose dictionary) */
+type WithId = Request<{ id: string }>;
+
 const router = Router();
 router.use(requireAuth, allow("drawings.use"));
 
@@ -27,10 +30,10 @@ router.get("/", c.list);
 router.get("/unassigned", requireFeature("drawingsByProject"), async (req, res) => {
   res.json(await listUnassigned(req.user!.sub));
 });
-router.get("/:id/revisions", requireFeature("drawingsByProject"), async (req, res) => {
+router.get("/:id/revisions", requireFeature("drawingsByProject"), async (req: WithId, res) => {
   res.json(await drawingRevisions(req.user!.sub, req.params.id));
 });
-router.patch("/:id/place", requireFeature("drawingsByProject"), validate(placeDrawingSchema), async (req, res) => {
+router.patch("/:id/place", requireFeature("drawingsByProject"), validate(placeDrawingSchema), async (req: WithId, res) => {
   res.json(await placeDrawing(req.user!.sub, req.params.id, req.body));
 });
 router.post("/", uploadLimiter, uploadSingleFile, validate(createDrawingSchema), c.create);
