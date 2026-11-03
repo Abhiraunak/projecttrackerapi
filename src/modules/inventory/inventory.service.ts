@@ -27,11 +27,13 @@ const VERB: Record<MovementType, string> = {
 /** Everything the stock figures need for a project (optionally one material only) */
 export async function stockInputs(db: Db, projectId: string, materialId?: string) {
   const forMaterial = materialId ? { materialId } : {};
-  const [entries, itemRows, lines, orders] = await Promise.all([
+  const [entries, itemRows, lines, orders, estimates] = await Promise.all([
     db.stockMovement.findMany({ where: { projectId, ...forMaterial }, select: ENTRY_COLUMNS, orderBy: [...OLDEST_FIRST] }),
     db.boqItem.findMany({ where: { projectId }, select: { id: true, code: true, title: true, active: true, quantity: true } }),
     db.boqItemMaterial.findMany({ where: { item: { projectId, active: true }, ...forMaterial }, select: { itemId: true, materialId: true, perUnit: true, wastagePercent: true } }),
     db.materialOrder.findMany({ where: { projectId, ...forMaterial }, select: { materialId: true, quantity: true, receivedQty: true } }),
+    // Materials added by hand (not from the BOQ): needed like a BOQ item's, listed as "Added"
+    db.materialEstimate.findMany({ where: { projectId, ...forMaterial }, select: { id: true, materialId: true, title: true, quantity: true } }),
   ]);
 
   const quantityOf = new Map(itemRows.map((i) => [i.id, i.quantity.toNumber()]));
@@ -40,8 +42,10 @@ export async function stockInputs(db: Db, projectId: string, materialId?: string
     materialId: l.materialId,
     required: requiredQty(quantityOf.get(l.itemId) ?? 0, { perUnit: l.perUnit.toNumber(), wastagePercent: l.wastagePercent.toNumber() }),
   }));
+  for (const e of estimates) needs.push({ itemId: `est:${e.id}`, materialId: e.materialId, required: e.quantity.toNumber() });
   const orderFigures: OrderFigures[] = orders.map((o) => ({ materialId: o.materialId, quantity: o.quantity.toNumber(), receivedQty: o.receivedQty.toNumber() }));
   const items = new Map(itemRows.map((i) => [i.id, toItemLabel(i)]));
+  for (const e of estimates) items.set(`est:${e.id}`, { id: `est:${e.id}`, code: "Added", title: e.title || "Added by hand", active: true });
   return { entries: entries.map(toEntry), needs, orders: orderFigures, items };
 }
 
