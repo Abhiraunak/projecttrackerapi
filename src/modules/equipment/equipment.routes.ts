@@ -1,6 +1,7 @@
 import { Router, type Request } from "express";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
+import { requireFeature } from "../../lib/features.js";
 import { createEquipmentSchema, moveSchema, updateEquipmentSchema } from "./equipment.schema.js";
 import { addMove, createEquipment, getEquipment, listEquipment, undoMove, updateEquipment } from "./equipment.service.js";
 
