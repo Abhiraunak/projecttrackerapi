@@ -89,7 +89,7 @@ model User {
   deliveriesDecided  Delivery[]         @relation("DeliveryDecidedBy")
   equipmentAdded     Equipment[]        @relation("EquipmentAddedBy") // Phase 6
   equipmentMoves     EquipmentMove[]    @relation("EquipmentMovedBy")
-  expensesAdded      Expense[]         @relation("ExpenseAddedBy")
+  expensesAdded      Expense[]          @relation("ExpenseAddedBy")
 }
 
 model RefreshToken {
@@ -797,24 +797,27 @@ model DeliveryPhoto {
 // ---------------------------------------------------------------------------------------------------------------
 
 model Equipment {
-  id         String          @id @default(cuid())
-  serialNo   Int             @unique @default(autoincrement()) // EQ-0001…
-  name       String // "Steel plates 2×1 ft", "Concrete mixer"
-  category   String          @default("other") // "shuttering" | "scaffolding" | "machinery" | "tools" | "other"
-  unit       String          @default("nos") // nos, sets, sq m, rft
-  code       String? // tag or serial number, for machines
-  ownership  String          @default("owned") // "owned" | "hired"
-  hireRate   Decimal?        @db.Decimal(12, 2) // per unit, per hirePer (hired items)
-  hirePer    String          @default("day") // "day" | "month"
-  supplier   String? // who it is hired or bought from
-  serviceDue DateTime?       @db.Date // machines: next service
-  notes      String          @default("")
-  retired    Boolean         @default(false) // nothing left and not used any more: hidden from pickers
-  addedById  String
-  addedBy    User            @relation("EquipmentAddedBy", fields: [addedById], references: [id])
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
-  moves      EquipmentMove[]
+  id            String          @id @default(cuid())
+  serialNo      Int             @unique @default(autoincrement()) // EQ-0001…
+  name          String // "Steel plates 2×1 ft", "Concrete mixer"
+  category      String          @default("other") // "shuttering" | "scaffolding" | "machinery" | "tools" | "other"
+  unit          String          @default("nos") // nos, sets, sq m, rft
+  code          String? // tag or serial number, for machines
+  ownership     String          @default("owned") // "owned" | "hired"
+  hireRate      Decimal?        @db.Decimal(12, 2) // per unit, per hirePer (hired items)
+  hirePer       String          @default("day") // "day" | "month"
+  supplier      String? // who it is hired or bought from
+  unitCost      Decimal?        @db.Decimal(14, 2) // cost of one unit
+  marketValue   Decimal?        @db.Decimal(14, 2) // what one unit is worth today
+  marketValueOn DateTime?       @db.Date // when that value was last set
+  serviceDue    DateTime?       @db.Date // machines: next service
+  notes         String          @default("")
+  retired       Boolean         @default(false) // nothing left and not used any more: hidden from pickers
+  addedById     String
+  addedBy       User            @relation("EquipmentAddedBy", fields: [addedById], references: [id])
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  moves         EquipmentMove[]
 
   @@index([category, retired])
 }

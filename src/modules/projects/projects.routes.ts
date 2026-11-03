@@ -19,12 +19,14 @@ import { uploadSingleFile } from "../../middleware/uploadImage.js";
 import { uploadProjectDrawingSchema } from "../drawings/drawings.schema.js";
 import { listProjectDrawings, uploadProjectDrawing } from "../drawings/projectDrawings.service.js";
 import { projectEquipment } from "../equipment/equipment.service.js";
-
-/** Routes under /:id: the project id is always there, so say so (req.params is otherwise a loose dictionary) */
-type WithId = Request<{ id: string }>;
+import { addExpenseSchema } from "../expenses/expenses.schema.js";
+import { addExpense, listExpenses, removeExpense } from "../expenses/expenses.service.js";
 
 // Uploads are the expensive request: the same limit as the Drawing page
 const drawingUploadLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 40, standardHeaders: "draft-7", legacyHeaders: false });
+
+/** Routes under /:id: the id is always there (req.params is otherwise a loose dictionary) */
+type WithId = Request<{ id: string }>;
 
 const router = Router();
 router.use(requireAuth);
@@ -56,6 +58,16 @@ router.post("/:id/drawings", requireFeature("drawingsByProject"), drawingUploadL
 // Phase 6: equipment at this site (FEATURES=equipment)
 router.get("/:id/equipment", requireFeature("equipment"), async (req: WithId, res) => {
   res.json(await projectEquipment(req.user!.sub, req.params.id));
+});
+// Daily expenditure: date, amount, purpose, remark and an optional bill
+router.get("/:id/expenses", async (req: WithId, res) => {
+  res.json(await listExpenses(req.user!.sub, req.params.id));
+});
+router.post("/:id/expenses", drawingUploadLimiter, uploadSingleFile, validate(addExpenseSchema), async (req: WithId, res) => {
+  res.status(201).json(await addExpense(req.user!.sub, req.params.id, req.body, req.file));
+});
+router.delete("/:id/expenses/:expenseId", async (req: Request<{ id: string; expenseId: string }>, res) => {
+  res.json(await removeExpense(req.user!.sub, req.params.id, req.params.expenseId));
 });
 router.get("/:id", c.getOne);
 router.put("/:id", validate(updateProjectSchema), c.update);

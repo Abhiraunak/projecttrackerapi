@@ -46,6 +46,9 @@ const itemSelect = {
   supplier: true,
   serviceDue: true,
   notes: true,
+  unitCost: true,
+  marketValue: true,
+  marketValueOn: true,
   retired: true,
   updatedAt: true,
 } satisfies Prisma.EquipmentSelect;
@@ -93,6 +96,9 @@ const itemDto = (i: ItemRow) => ({
   supplier: i.supplier,
   serviceDue: i.serviceDue ? ymd(i.serviceDue) : null,
   notes: i.notes,
+  unitCost: num(i.unitCost), // per unit
+  marketValue: num(i.marketValue), // per unit
+  marketValueOn: i.marketValueOn ? ymd(i.marketValueOn) : null,
   retired: i.retired,
   updatedAt: i.updatedAt,
 });
@@ -279,7 +285,12 @@ export async function createEquipment(userId: string, input: CreateEquipment) {
     await assertProject(tx, input.to);
     const { quantity, to, date, serviceDue, ...details } = input;
     const item = await tx.equipment.create({
-      data: { ...details, serviceDue: serviceDue ? asDate(serviceDue) : null, addedById: userId },
+      data: {
+        ...details,
+        serviceDue: serviceDue ? asDate(serviceDue) : null,
+        marketValueOn: details.marketValue !== null ? asDate(today()) : null, // valued today
+        addedById: userId,
+      },
       select: { id: true, serialNo: true },
     });
     await tx.equipmentMove.create({
@@ -303,7 +314,16 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
   if (!before) throw new HttpError(404, "Equipment not found");
   const { serviceDue, ...rest } = input;
   await prisma.$transaction(async (tx) => {
-    await tx.equipment.update({ where: { id }, data: { ...rest, ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}) } });
+    // A new market value is dated today; sending the same value again keeps its old date
+    const valueChanged = rest.marketValue !== undefined && rest.marketValue !== num(before.marketValue);
+    await tx.equipment.update({
+      where: { id },
+      data: {
+        ...rest,
+        ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}),
+        ...(valueChanged ? { marketValueOn: rest.marketValue === null ? null : asDate(today()) } : {}),
+      },
+    });
     // await recordAudit(tx, {
     //   projectId: null,
     //   actorId: userId,
