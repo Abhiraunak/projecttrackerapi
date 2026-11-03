@@ -431,7 +431,8 @@ export const ModelName = {
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
-  MaterialPayment: 'MaterialPayment'
+  MaterialPayment: 'MaterialPayment',
+  MaterialEstimate: 'MaterialEstimate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -447,7 +448,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment"
+    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3041,6 +3042,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MaterialEstimate: {
+      payload: Prisma.$MaterialEstimatePayload<ExtArgs>
+      fields: Prisma.MaterialEstimateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MaterialEstimateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MaterialEstimateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        findFirst: {
+          args: Prisma.MaterialEstimateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MaterialEstimateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        findMany: {
+          args: Prisma.MaterialEstimateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
+        }
+        create: {
+          args: Prisma.MaterialEstimateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        createMany: {
+          args: Prisma.MaterialEstimateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MaterialEstimateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
+        }
+        delete: {
+          args: Prisma.MaterialEstimateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        update: {
+          args: Prisma.MaterialEstimateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        deleteMany: {
+          args: Prisma.MaterialEstimateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MaterialEstimateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MaterialEstimateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
+        }
+        upsert: {
+          args: Prisma.MaterialEstimateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        aggregate: {
+          args: Prisma.MaterialEstimateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterialEstimate>
+        }
+        groupBy: {
+          args: Prisma.MaterialEstimateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MaterialEstimateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3684,6 +3759,24 @@ export const MaterialPaymentScalarFieldEnum = {
 export type MaterialPaymentScalarFieldEnum = (typeof MaterialPaymentScalarFieldEnum)[keyof typeof MaterialPaymentScalarFieldEnum]
 
 
+export const MaterialEstimateScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  materialId: 'materialId',
+  title: 'title',
+  method: 'method',
+  rows: 'rows',
+  wastagePercent: 'wastagePercent',
+  quantity: 'quantity',
+  notes: 'notes',
+  addedById: 'addedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4210,6 +4303,7 @@ export type GlobalOmitConfig = {
   expense?: Prisma.ExpenseOmit
   contractorPayment?: Prisma.ContractorPaymentOmit
   materialPayment?: Prisma.MaterialPaymentOmit
+  materialEstimate?: Prisma.MaterialEstimateOmit
 }
 
 /* Types for Logging */

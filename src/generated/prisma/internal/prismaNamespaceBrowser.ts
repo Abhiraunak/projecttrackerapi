@@ -85,7 +85,8 @@ export const ModelName = {
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
-  MaterialPayment: 'MaterialPayment'
+  MaterialPayment: 'MaterialPayment',
+  MaterialEstimate: 'MaterialEstimate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -706,6 +707,24 @@ export const MaterialPaymentScalarFieldEnum = {
 } as const
 
 export type MaterialPaymentScalarFieldEnum = (typeof MaterialPaymentScalarFieldEnum)[keyof typeof MaterialPaymentScalarFieldEnum]
+
+
+export const MaterialEstimateScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  materialId: 'materialId',
+  title: 'title',
+  method: 'method',
+  rows: 'rows',
+  wastagePercent: 'wastagePercent',
+  quantity: 'quantity',
+  notes: 'notes',
+  addedById: 'addedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
 
 
 export const SortOrder = {

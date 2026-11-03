@@ -92,6 +92,7 @@ model User {
   expensesAdded           Expense[]           @relation("ExpenseAddedBy")
   contractorPaymentsAdded ContractorPayment[] @relation("ContractorPaymentAddedBy")
   materialPaymentsAdded   MaterialPayment[]   @relation("MaterialPaymentAddedBy")
+  materialEstimatesAdded  MaterialEstimate[]  @relation("MaterialEstimateAddedBy")
 }
 
 model RefreshToken {
@@ -150,6 +151,7 @@ model Project {
   expenses           Expense[] // daily expenditure
   contractorPayments ContractorPayment[]
   materialPayments   MaterialPayment[]
+  materialEstimates  MaterialEstimate[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -284,6 +286,7 @@ model Material {
   requests      MaterialRequest[]
   deliveryLines DeliveryLine[]
   payments      MaterialPayment[]
+  estimates     MaterialEstimate[]
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 
@@ -916,4 +919,24 @@ model MaterialPayment {
 
   @@index([projectId, date])
   @@index([projectId, vendorName])
+}
+
+model MaterialEstimate {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  materialId     String
+  material       Material @relation(fields: [materialId], references: [id], onDelete: Restrict)
+  title          String   @default("")
+  method         String   @default("quantity")
+  rows           Json?
+  wastagePercent Decimal  @default(0) @db.Decimal(6, 2)
+  quantity       Decimal  @db.Decimal(14, 3)
+  notes          String   @default("")
+  addedById      String
+  addedBy        User     @relation("MaterialEstimateAddedBy", fields: [addedById], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([projectId, materialId])
 }
