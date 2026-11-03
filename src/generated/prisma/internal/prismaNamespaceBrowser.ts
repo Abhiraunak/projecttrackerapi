@@ -83,7 +83,8 @@ export const ModelName = {
   DeliveryPhoto: 'DeliveryPhoto',
   Equipment: 'Equipment',
   EquipmentMove: 'EquipmentMove',
-  Expense: 'Expense'
+  Expense: 'Expense',
+  ContractorPayment: 'ContractorPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -663,6 +664,24 @@ export const ExpenseScalarFieldEnum = {
 } as const
 
 export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
+
+
+export const ContractorPaymentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  trade: 'trade',
+  contractorName: 'contractorName',
+  date: 'date',
+  amount: 'amount',
+  remark: 'remark',
+  proofId: 'proofId',
+  proofVersion: 'proofVersion',
+  proofFormat: 'proofFormat',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type ContractorPaymentScalarFieldEnum = (typeof ContractorPaymentScalarFieldEnum)[keyof typeof ContractorPaymentScalarFieldEnum]
 
 
 export const SortOrder = {

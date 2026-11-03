@@ -191,3 +191,8 @@ export type EquipmentMove = Prisma.EquipmentMoveModel
  * 
  */
 export type Expense = Prisma.ExpenseModel
+/**
+ * Model ContractorPayment
+ * 
+ */
+export type ContractorPayment = Prisma.ContractorPaymentModel
