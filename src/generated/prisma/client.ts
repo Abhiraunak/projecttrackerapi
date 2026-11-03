@@ -220,3 +220,8 @@ export type Expense = Prisma.ExpenseModel
  * 
  */
 export type ContractorPayment = Prisma.ContractorPaymentModel
+/**
+ * Model MaterialPayment
+ * 
+ */
+export type MaterialPayment = Prisma.MaterialPaymentModel

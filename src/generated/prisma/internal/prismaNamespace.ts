@@ -430,7 +430,8 @@ export const ModelName = {
   Equipment: 'Equipment',
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
-  ContractorPayment: 'ContractorPayment'
+  ContractorPayment: 'ContractorPayment',
+  MaterialPayment: 'MaterialPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -446,7 +447,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment"
+    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2966,6 +2967,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MaterialPayment: {
+      payload: Prisma.$MaterialPaymentPayload<ExtArgs>
+      fields: Prisma.MaterialPaymentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MaterialPaymentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MaterialPaymentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>
+        }
+        findFirst: {
+          args: Prisma.MaterialPaymentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MaterialPaymentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>
+        }
+        findMany: {
+          args: Prisma.MaterialPaymentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>[]
+        }
+        create: {
+          args: Prisma.MaterialPaymentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>
+        }
+        createMany: {
+          args: Prisma.MaterialPaymentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MaterialPaymentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>[]
+        }
+        delete: {
+          args: Prisma.MaterialPaymentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>
+        }
+        update: {
+          args: Prisma.MaterialPaymentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>
+        }
+        deleteMany: {
+          args: Prisma.MaterialPaymentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MaterialPaymentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MaterialPaymentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>[]
+        }
+        upsert: {
+          args: Prisma.MaterialPaymentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPaymentPayload>
+        }
+        aggregate: {
+          args: Prisma.MaterialPaymentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterialPayment>
+        }
+        groupBy: {
+          args: Prisma.MaterialPaymentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialPaymentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MaterialPaymentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialPaymentCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3188,7 +3263,12 @@ export const StockMovementScalarFieldEnum = {
   quantity: 'quantity',
   note: 'note',
   createdById: 'createdById',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  date: 'date',
+  vendorName: 'vendorName',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat'
 } as const
 
 export type StockMovementScalarFieldEnum = (typeof StockMovementScalarFieldEnum)[keyof typeof StockMovementScalarFieldEnum]
@@ -3584,6 +3664,24 @@ export const ContractorPaymentScalarFieldEnum = {
 } as const
 
 export type ContractorPaymentScalarFieldEnum = (typeof ContractorPaymentScalarFieldEnum)[keyof typeof ContractorPaymentScalarFieldEnum]
+
+
+export const MaterialPaymentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  vendorName: 'vendorName',
+  materialId: 'materialId',
+  date: 'date',
+  amount: 'amount',
+  remark: 'remark',
+  proofId: 'proofId',
+  proofVersion: 'proofVersion',
+  proofFormat: 'proofFormat',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type MaterialPaymentScalarFieldEnum = (typeof MaterialPaymentScalarFieldEnum)[keyof typeof MaterialPaymentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -4111,6 +4209,7 @@ export type GlobalOmitConfig = {
   equipmentMove?: Prisma.EquipmentMoveOmit
   expense?: Prisma.ExpenseOmit
   contractorPayment?: Prisma.ContractorPaymentOmit
+  materialPayment?: Prisma.MaterialPaymentOmit
 }
 
 /* Types for Logging */

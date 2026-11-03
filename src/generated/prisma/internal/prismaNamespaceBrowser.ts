@@ -84,7 +84,8 @@ export const ModelName = {
   Equipment: 'Equipment',
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
-  ContractorPayment: 'ContractorPayment'
+  ContractorPayment: 'ContractorPayment',
+  MaterialPayment: 'MaterialPayment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -286,7 +287,12 @@ export const StockMovementScalarFieldEnum = {
   quantity: 'quantity',
   note: 'note',
   createdById: 'createdById',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  date: 'date',
+  vendorName: 'vendorName',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat'
 } as const
 
 export type StockMovementScalarFieldEnum = (typeof StockMovementScalarFieldEnum)[keyof typeof StockMovementScalarFieldEnum]
@@ -682,6 +688,24 @@ export const ContractorPaymentScalarFieldEnum = {
 } as const
 
 export type ContractorPaymentScalarFieldEnum = (typeof ContractorPaymentScalarFieldEnum)[keyof typeof ContractorPaymentScalarFieldEnum]
+
+
+export const MaterialPaymentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  vendorName: 'vendorName',
+  materialId: 'materialId',
+  date: 'date',
+  amount: 'amount',
+  remark: 'remark',
+  proofId: 'proofId',
+  proofVersion: 'proofVersion',
+  proofFormat: 'proofFormat',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type MaterialPaymentScalarFieldEnum = (typeof MaterialPaymentScalarFieldEnum)[keyof typeof MaterialPaymentScalarFieldEnum]
 
 
 export const SortOrder = {

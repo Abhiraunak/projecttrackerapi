@@ -28,10 +28,12 @@ export type AggregateStockMovement = {
 
 export type StockMovementAvgAggregateOutputType = {
   quantity: runtime.Decimal | null
+  billVersion: number | null
 }
 
 export type StockMovementSumAggregateOutputType = {
   quantity: runtime.Decimal | null
+  billVersion: number | null
 }
 
 export type StockMovementMinAggregateOutputType = {
@@ -45,6 +47,11 @@ export type StockMovementMinAggregateOutputType = {
   note: string | null
   createdById: string | null
   createdAt: Date | null
+  date: Date | null
+  vendorName: string | null
+  billId: string | null
+  billVersion: number | null
+  billFormat: string | null
 }
 
 export type StockMovementMaxAggregateOutputType = {
@@ -58,6 +65,11 @@ export type StockMovementMaxAggregateOutputType = {
   note: string | null
   createdById: string | null
   createdAt: Date | null
+  date: Date | null
+  vendorName: string | null
+  billId: string | null
+  billVersion: number | null
+  billFormat: string | null
 }
 
 export type StockMovementCountAggregateOutputType = {
@@ -71,16 +83,23 @@ export type StockMovementCountAggregateOutputType = {
   note: number
   createdById: number
   createdAt: number
+  date: number
+  vendorName: number
+  billId: number
+  billVersion: number
+  billFormat: number
   _all: number
 }
 
 
 export type StockMovementAvgAggregateInputType = {
   quantity?: true
+  billVersion?: true
 }
 
 export type StockMovementSumAggregateInputType = {
   quantity?: true
+  billVersion?: true
 }
 
 export type StockMovementMinAggregateInputType = {
@@ -94,6 +113,11 @@ export type StockMovementMinAggregateInputType = {
   note?: true
   createdById?: true
   createdAt?: true
+  date?: true
+  vendorName?: true
+  billId?: true
+  billVersion?: true
+  billFormat?: true
 }
 
 export type StockMovementMaxAggregateInputType = {
@@ -107,6 +131,11 @@ export type StockMovementMaxAggregateInputType = {
   note?: true
   createdById?: true
   createdAt?: true
+  date?: true
+  vendorName?: true
+  billId?: true
+  billVersion?: true
+  billFormat?: true
 }
 
 export type StockMovementCountAggregateInputType = {
@@ -120,6 +149,11 @@ export type StockMovementCountAggregateInputType = {
   note?: true
   createdById?: true
   createdAt?: true
+  date?: true
+  vendorName?: true
+  billId?: true
+  billVersion?: true
+  billFormat?: true
   _all?: true
 }
 
@@ -220,6 +254,11 @@ export type StockMovementGroupByOutputType = {
   note: string
   createdById: string
   createdAt: Date
+  date: Date | null
+  vendorName: string
+  billId: string | null
+  billVersion: number | null
+  billFormat: string | null
   _count: StockMovementCountAggregateOutputType | null
   _avg: StockMovementAvgAggregateOutputType | null
   _sum: StockMovementSumAggregateOutputType | null
@@ -256,6 +295,11 @@ export type StockMovementWhereInput = {
   note?: Prisma.StringFilter<"StockMovement"> | string
   createdById?: Prisma.StringFilter<"StockMovement"> | string
   createdAt?: Prisma.DateTimeFilter<"StockMovement"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"StockMovement"> | Date | string | null
+  vendorName?: Prisma.StringFilter<"StockMovement"> | string
+  billId?: Prisma.StringNullableFilter<"StockMovement"> | string | null
+  billVersion?: Prisma.IntNullableFilter<"StockMovement"> | number | null
+  billFormat?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   material?: Prisma.XOR<Prisma.MaterialScalarRelationFilter, Prisma.MaterialWhereInput>
   boqItem?: Prisma.XOR<Prisma.BoqItemNullableScalarRelationFilter, Prisma.BoqItemWhereInput> | null
@@ -276,6 +320,11 @@ export type StockMovementOrderByWithRelationInput = {
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  vendorName?: Prisma.SortOrder
+  billId?: Prisma.SortOrderInput | Prisma.SortOrder
+  billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   material?: Prisma.MaterialOrderByWithRelationInput
   boqItem?: Prisma.BoqItemOrderByWithRelationInput
@@ -299,6 +348,11 @@ export type StockMovementWhereUniqueInput = Prisma.AtLeast<{
   note?: Prisma.StringFilter<"StockMovement"> | string
   createdById?: Prisma.StringFilter<"StockMovement"> | string
   createdAt?: Prisma.DateTimeFilter<"StockMovement"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"StockMovement"> | Date | string | null
+  vendorName?: Prisma.StringFilter<"StockMovement"> | string
+  billId?: Prisma.StringNullableFilter<"StockMovement"> | string | null
+  billVersion?: Prisma.IntNullableFilter<"StockMovement"> | number | null
+  billFormat?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   material?: Prisma.XOR<Prisma.MaterialScalarRelationFilter, Prisma.MaterialWhereInput>
   boqItem?: Prisma.XOR<Prisma.BoqItemNullableScalarRelationFilter, Prisma.BoqItemWhereInput> | null
@@ -319,6 +373,11 @@ export type StockMovementOrderByWithAggregationInput = {
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrderInput | Prisma.SortOrder
+  vendorName?: Prisma.SortOrder
+  billId?: Prisma.SortOrderInput | Prisma.SortOrder
+  billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.StockMovementCountOrderByAggregateInput
   _avg?: Prisma.StockMovementAvgOrderByAggregateInput
   _max?: Prisma.StockMovementMaxOrderByAggregateInput
@@ -340,6 +399,11 @@ export type StockMovementScalarWhereWithAggregatesInput = {
   note?: Prisma.StringWithAggregatesFilter<"StockMovement"> | string
   createdById?: Prisma.StringWithAggregatesFilter<"StockMovement"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockMovement"> | Date | string
+  date?: Prisma.DateTimeNullableWithAggregatesFilter<"StockMovement"> | Date | string | null
+  vendorName?: Prisma.StringWithAggregatesFilter<"StockMovement"> | string
+  billId?: Prisma.StringNullableWithAggregatesFilter<"StockMovement"> | string | null
+  billVersion?: Prisma.IntNullableWithAggregatesFilter<"StockMovement"> | number | null
+  billFormat?: Prisma.StringNullableWithAggregatesFilter<"StockMovement"> | string | null
 }
 
 export type StockMovementCreateInput = {
@@ -348,6 +412,11 @@ export type StockMovementCreateInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
@@ -368,6 +437,11 @@ export type StockMovementUncheckedCreateInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
@@ -378,6 +452,11 @@ export type StockMovementUpdateInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
@@ -398,6 +477,11 @@ export type StockMovementUncheckedUpdateInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
@@ -413,6 +497,11 @@ export type StockMovementCreateManyInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
 }
 
 export type StockMovementUpdateManyMutationInput = {
@@ -421,6 +510,11 @@ export type StockMovementUpdateManyMutationInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StockMovementUncheckedUpdateManyInput = {
@@ -434,6 +528,11 @@ export type StockMovementUncheckedUpdateManyInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StockMovementListRelationFilter = {
@@ -457,10 +556,16 @@ export type StockMovementCountOrderByAggregateInput = {
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  vendorName?: Prisma.SortOrder
+  billId?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
+  billFormat?: Prisma.SortOrder
 }
 
 export type StockMovementAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
 }
 
 export type StockMovementMaxOrderByAggregateInput = {
@@ -474,6 +579,11 @@ export type StockMovementMaxOrderByAggregateInput = {
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  vendorName?: Prisma.SortOrder
+  billId?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
+  billFormat?: Prisma.SortOrder
 }
 
 export type StockMovementMinOrderByAggregateInput = {
@@ -487,10 +597,16 @@ export type StockMovementMinOrderByAggregateInput = {
   note?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  vendorName?: Prisma.SortOrder
+  billId?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
+  billFormat?: Prisma.SortOrder
 }
 
 export type StockMovementSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
 }
 
 export type StockMovementNullableScalarRelationFilter = {
@@ -750,6 +866,11 @@ export type StockMovementCreateWithoutCreatedByInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
@@ -768,6 +889,11 @@ export type StockMovementUncheckedCreateWithoutCreatedByInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
@@ -812,6 +938,11 @@ export type StockMovementScalarWhereInput = {
   note?: Prisma.StringFilter<"StockMovement"> | string
   createdById?: Prisma.StringFilter<"StockMovement"> | string
   createdAt?: Prisma.DateTimeFilter<"StockMovement"> | Date | string
+  date?: Prisma.DateTimeNullableFilter<"StockMovement"> | Date | string | null
+  vendorName?: Prisma.StringFilter<"StockMovement"> | string
+  billId?: Prisma.StringNullableFilter<"StockMovement"> | string | null
+  billVersion?: Prisma.IntNullableFilter<"StockMovement"> | number | null
+  billFormat?: Prisma.StringNullableFilter<"StockMovement"> | string | null
 }
 
 export type StockMovementCreateWithoutProjectInput = {
@@ -820,6 +951,11 @@ export type StockMovementCreateWithoutProjectInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
@@ -838,6 +974,11 @@ export type StockMovementUncheckedCreateWithoutProjectInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
@@ -874,6 +1015,11 @@ export type StockMovementCreateWithoutMaterialInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
@@ -892,6 +1038,11 @@ export type StockMovementUncheckedCreateWithoutMaterialInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
@@ -928,6 +1079,11 @@ export type StockMovementCreateWithoutBoqItemInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   order?: Prisma.MaterialOrderCreateNestedOneWithoutMovementsInput
@@ -946,6 +1102,11 @@ export type StockMovementUncheckedCreateWithoutBoqItemInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
@@ -982,6 +1143,11 @@ export type StockMovementCreateWithoutOrderInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
@@ -1000,6 +1166,11 @@ export type StockMovementUncheckedCreateWithoutOrderInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
@@ -1036,6 +1207,11 @@ export type StockMovementCreateWithoutRequestInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
@@ -1055,6 +1231,11 @@ export type StockMovementUncheckedCreateWithoutRequestInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   deliveryLine?: Prisma.DeliveryLineUncheckedCreateNestedOneWithoutMovementInput
 }
 
@@ -1080,6 +1261,11 @@ export type StockMovementUpdateWithoutRequestInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
@@ -1099,6 +1285,11 @@ export type StockMovementUncheckedUpdateWithoutRequestInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
 
@@ -1108,6 +1299,11 @@ export type StockMovementCreateWithoutDeliveryLineInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   project: Prisma.ProjectCreateNestedOneWithoutStockMovementsInput
   material: Prisma.MaterialCreateNestedOneWithoutMovementsInput
   boqItem?: Prisma.BoqItemCreateNestedOneWithoutMovementsInput
@@ -1127,6 +1323,11 @@ export type StockMovementUncheckedCreateWithoutDeliveryLineInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   request?: Prisma.MaterialRequestUncheckedCreateNestedOneWithoutMovementInput
 }
 
@@ -1152,6 +1353,11 @@ export type StockMovementUpdateWithoutDeliveryLineInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
@@ -1171,6 +1377,11 @@ export type StockMovementUncheckedUpdateWithoutDeliveryLineInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
 }
 
@@ -1184,6 +1395,11 @@ export type StockMovementCreateManyCreatedByInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
 }
 
 export type StockMovementUpdateWithoutCreatedByInput = {
@@ -1192,6 +1408,11 @@ export type StockMovementUpdateWithoutCreatedByInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
@@ -1210,6 +1431,11 @@ export type StockMovementUncheckedUpdateWithoutCreatedByInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
@@ -1224,6 +1450,11 @@ export type StockMovementUncheckedUpdateManyWithoutCreatedByInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StockMovementCreateManyProjectInput = {
@@ -1236,6 +1467,11 @@ export type StockMovementCreateManyProjectInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
 }
 
 export type StockMovementUpdateWithoutProjectInput = {
@@ -1244,6 +1480,11 @@ export type StockMovementUpdateWithoutProjectInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
@@ -1262,6 +1503,11 @@ export type StockMovementUncheckedUpdateWithoutProjectInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
@@ -1276,6 +1522,11 @@ export type StockMovementUncheckedUpdateManyWithoutProjectInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StockMovementCreateManyMaterialInput = {
@@ -1288,6 +1539,11 @@ export type StockMovementCreateManyMaterialInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
 }
 
 export type StockMovementUpdateWithoutMaterialInput = {
@@ -1296,6 +1552,11 @@ export type StockMovementUpdateWithoutMaterialInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
@@ -1314,6 +1575,11 @@ export type StockMovementUncheckedUpdateWithoutMaterialInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
@@ -1328,6 +1594,11 @@ export type StockMovementUncheckedUpdateManyWithoutMaterialInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StockMovementCreateManyBoqItemInput = {
@@ -1340,6 +1611,11 @@ export type StockMovementCreateManyBoqItemInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
 }
 
 export type StockMovementUpdateWithoutBoqItemInput = {
@@ -1348,6 +1624,11 @@ export type StockMovementUpdateWithoutBoqItemInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   order?: Prisma.MaterialOrderUpdateOneWithoutMovementsNestedInput
@@ -1366,6 +1647,11 @@ export type StockMovementUncheckedUpdateWithoutBoqItemInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
@@ -1380,6 +1666,11 @@ export type StockMovementUncheckedUpdateManyWithoutBoqItemInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StockMovementCreateManyOrderInput = {
@@ -1392,6 +1683,11 @@ export type StockMovementCreateManyOrderInput = {
   note?: string
   createdById: string
   createdAt?: Date | string
+  date?: Date | string | null
+  vendorName?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
 }
 
 export type StockMovementUpdateWithoutOrderInput = {
@@ -1400,6 +1696,11 @@ export type StockMovementUpdateWithoutOrderInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutStockMovementsNestedInput
   material?: Prisma.MaterialUpdateOneRequiredWithoutMovementsNestedInput
   boqItem?: Prisma.BoqItemUpdateOneWithoutMovementsNestedInput
@@ -1418,6 +1719,11 @@ export type StockMovementUncheckedUpdateWithoutOrderInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   request?: Prisma.MaterialRequestUncheckedUpdateOneWithoutMovementNestedInput
   deliveryLine?: Prisma.DeliveryLineUncheckedUpdateOneWithoutMovementNestedInput
 }
@@ -1432,6 +1738,11 @@ export type StockMovementUncheckedUpdateManyWithoutOrderInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  vendorName?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1447,6 +1758,11 @@ export type StockMovementSelect<ExtArgs extends runtime.Types.Extensions.Interna
   note?: boolean
   createdById?: boolean
   createdAt?: boolean
+  date?: boolean
+  vendorName?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
   boqItem?: boolean | Prisma.StockMovement$boqItemArgs<ExtArgs>
@@ -1467,6 +1783,11 @@ export type StockMovementSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   note?: boolean
   createdById?: boolean
   createdAt?: boolean
+  date?: boolean
+  vendorName?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
   boqItem?: boolean | Prisma.StockMovement$boqItemArgs<ExtArgs>
@@ -1485,6 +1806,11 @@ export type StockMovementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   note?: boolean
   createdById?: boolean
   createdAt?: boolean
+  date?: boolean
+  vendorName?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
   boqItem?: boolean | Prisma.StockMovement$boqItemArgs<ExtArgs>
@@ -1503,9 +1829,14 @@ export type StockMovementSelectScalar = {
   note?: boolean
   createdById?: boolean
   createdAt?: boolean
+  date?: boolean
+  vendorName?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
 }
 
-export type StockMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "materialId" | "boqItemId" | "orderId" | "type" | "quantity" | "note" | "createdById" | "createdAt", ExtArgs["result"]["stockMovement"]>
+export type StockMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "materialId" | "boqItemId" | "orderId" | "type" | "quantity" | "note" | "createdById" | "createdAt" | "date" | "vendorName" | "billId" | "billVersion" | "billFormat", ExtArgs["result"]["stockMovement"]>
 export type StockMovementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
@@ -1552,6 +1883,11 @@ export type $StockMovementPayload<ExtArgs extends runtime.Types.Extensions.Inter
     note: string
     createdById: string
     createdAt: Date
+    date: Date | null
+    vendorName: string
+    billId: string | null
+    billVersion: number | null
+    billFormat: string | null
   }, ExtArgs["result"]["stockMovement"]>
   composites: {}
 }
@@ -1992,6 +2328,11 @@ export interface StockMovementFieldRefs {
   readonly note: Prisma.FieldRef<"StockMovement", 'String'>
   readonly createdById: Prisma.FieldRef<"StockMovement", 'String'>
   readonly createdAt: Prisma.FieldRef<"StockMovement", 'DateTime'>
+  readonly date: Prisma.FieldRef<"StockMovement", 'DateTime'>
+  readonly vendorName: Prisma.FieldRef<"StockMovement", 'String'>
+  readonly billId: Prisma.FieldRef<"StockMovement", 'String'>
+  readonly billVersion: Prisma.FieldRef<"StockMovement", 'Int'>
+  readonly billFormat: Prisma.FieldRef<"StockMovement", 'String'>
 }
     
 

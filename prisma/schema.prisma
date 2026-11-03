@@ -56,41 +56,42 @@ enum MaterialRequestStatus {
 }
 
 model User {
-  id                 String             @id @default(cuid())
-  name               String?
-  email              String             @unique
-  passwordHash       String
-  role               Role               @default(USER)
-  permissions        String[]           @default([])
-  createdAt          DateTime           @default(now())
-  updatedAt          DateTime           @updatedAt
-  projects           Project[]
-  attendance         Attendance[]
-  refreshTokens      RefreshToken[]
-  drawings           Drawing[]
-  drawingShares      DrawingShare[]
-  pushSubscriptions  PushSubscription[]
-  materials          Material[]
-  vendors            Vendor[]
-  stockMovements     StockMovement[]
-  materialOrders     MaterialOrder[]
-  requestsMade       MaterialRequest[]  @relation("RequestedBy")
-  requestsDecided    MaterialRequest[]  @relation("DecidedBy")
-  auditEntries       AuditLog[]
-  boqsCreated        Boq[]              @relation("BoqCreatedBy")
-  boqsUpdated        Boq[]              @relation("BoqUpdatedBy")
-  clientProjects     ProjectClient[]
-  proofsUploaded     PaymentProof[]     @relation("ProofUploadedBy")
-  proofsDecided      PaymentProof[]     @relation("ProofDecidedBy")
-  delaysRecorded     ProjectDelay[]
-  notifications      Notification[]
-  punches            StaffPunch[]
-  deliveriesReceived Delivery[]         @relation("DeliveryReceivedBy")
-  deliveriesDecided  Delivery[]         @relation("DeliveryDecidedBy")
-  equipmentAdded     Equipment[]        @relation("EquipmentAddedBy") // Phase 6
-  equipmentMoves     EquipmentMove[]    @relation("EquipmentMovedBy")
-  expensesAdded      Expense[]          @relation("ExpenseAddedBy")
+  id                      String              @id @default(cuid())
+  name                    String?
+  email                   String              @unique
+  passwordHash            String
+  role                    Role                @default(USER)
+  permissions             String[]            @default([])
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  projects                Project[]
+  attendance              Attendance[]
+  refreshTokens           RefreshToken[]
+  drawings                Drawing[]
+  drawingShares           DrawingShare[]
+  pushSubscriptions       PushSubscription[]
+  materials               Material[]
+  vendors                 Vendor[]
+  stockMovements          StockMovement[]
+  materialOrders          MaterialOrder[]
+  requestsMade            MaterialRequest[]   @relation("RequestedBy")
+  requestsDecided         MaterialRequest[]   @relation("DecidedBy")
+  auditEntries            AuditLog[]
+  boqsCreated             Boq[]               @relation("BoqCreatedBy")
+  boqsUpdated             Boq[]               @relation("BoqUpdatedBy")
+  clientProjects          ProjectClient[]
+  proofsUploaded          PaymentProof[]      @relation("ProofUploadedBy")
+  proofsDecided           PaymentProof[]      @relation("ProofDecidedBy")
+  delaysRecorded          ProjectDelay[]
+  notifications           Notification[]
+  punches                 StaffPunch[]
+  deliveriesReceived      Delivery[]          @relation("DeliveryReceivedBy")
+  deliveriesDecided       Delivery[]          @relation("DeliveryDecidedBy")
+  equipmentAdded          Equipment[]         @relation("EquipmentAddedBy") // Phase 6
+  equipmentMoves          EquipmentMove[]     @relation("EquipmentMovedBy")
+  expensesAdded           Expense[]           @relation("ExpenseAddedBy")
   contractorPaymentsAdded ContractorPayment[] @relation("ContractorPaymentAddedBy")
+  materialPaymentsAdded   MaterialPayment[]   @relation("MaterialPaymentAddedBy")
 }
 
 model RefreshToken {
@@ -113,41 +114,42 @@ model RefreshToken {
 }
 
 model Project {
-  id               String              @id @default(cuid())
-  title            String
-  firmName         String? // the firm or client name on the project tile (optional, so old rows need nothing)
-  status           ProjectStatus       @default(ONGOING)
-  ownerId          String
-  owner            User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  tasks            Task[]
-  createdAt        DateTime            @default(now())
-  updatedAt        DateTime            @updatedAt
-  projectCost      Decimal?            @db.Decimal(14, 2)
-  attendance       Attendance[]
-  stockMovements   StockMovement[]
-  boqs             Boq[]
-  boqItems         BoqItem[]
-  materialOrders   MaterialOrder[]
-  stockAlerts      StockAlert[]
-  materialRequests MaterialRequest[]
-  auditLog         AuditLog[]
+  id                 String              @id @default(cuid())
+  title              String
+  firmName           String? // the firm or client name on the project tile (optional, so old rows need nothing)
+  status             ProjectStatus       @default(ONGOING)
+  ownerId            String
+  owner              User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks              Task[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  projectCost        Decimal?            @db.Decimal(14, 2)
+  attendance         Attendance[]
+  stockMovements     StockMovement[]
+  boqs               Boq[]
+  boqItems           BoqItem[]
+  materialOrders     MaterialOrder[]
+  stockAlerts        StockAlert[]
+  materialRequests   MaterialRequest[]
+  auditLog           AuditLog[]
   // Client portal
-  advanceOverride  Boolean             @default(false) // admin let work start before the advance was paid
-  clients          ProjectClient[]
-  instalments      PaymentInstalment[]
-  paymentProofs    PaymentProof[]
-  delays           ProjectDelay[]
+  advanceOverride    Boolean             @default(false) // admin let work start before the advance was paid
+  clients            ProjectClient[]
+  instalments        PaymentInstalment[]
+  paymentProofs      PaymentProof[]
+  delays             ProjectDelay[]
   // Staff attendance: where the site is, so each punch can be checked against it (optional)
-  siteLat          Float?
-  siteLng          Float?
-  siteRadiusM      Int                 @default(200)
-  punches          StaffPunch[]
-  deliveries       Delivery[]
-  drawings         Drawing[] // Phase 4
-  equipmentIn      EquipmentMove[]     @relation("EquipmentMoveTo") // Phase 6
-  equipmentOut     EquipmentMove[]     @relation("EquipmentMoveFrom")
-  expenses         Expense[] // daily expenditure
+  siteLat            Float?
+  siteLng            Float?
+  siteRadiusM        Int                 @default(200)
+  punches            StaffPunch[]
+  deliveries         Delivery[]
+  drawings           Drawing[] // Phase 4
+  equipmentIn        EquipmentMove[]     @relation("EquipmentMoveTo") // Phase 6
+  equipmentOut       EquipmentMove[]     @relation("EquipmentMoveFrom")
+  expenses           Expense[] // daily expenditure
   contractorPayments ContractorPayment[]
+  materialPayments   MaterialPayment[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -281,6 +283,7 @@ model Material {
   alerts        StockAlert[]
   requests      MaterialRequest[]
   deliveryLines DeliveryLine[]
+  payments      MaterialPayment[]
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 
@@ -322,6 +325,11 @@ model StockMovement {
   request      MaterialRequest? // the material request this issue fulfilled, if any
   deliveryLine DeliveryLine? // the checked delivery this stock came in on, if any
   createdAt    DateTime         @default(now())
+  date         DateTime?        @db.Date
+  vendorName   String           @default("")
+  billId       String?
+  billVersion  Int?
+  billFormat   String?
 
   @@index([projectId, createdAt(sort: Desc)])
   @@index([projectId, materialId])
@@ -869,22 +877,43 @@ model Expense {
   @@index([projectId, category, date])
 }
 
-   model ContractorPayment {
-     id             String   @id @default(cuid())
-     projectId      String
-     project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-     trade          String   @default("")
-     contractorName String
-     date           DateTime @db.Date
-     amount         Decimal  @db.Decimal(14, 2)
-     remark         String   @default("")
-     proofId        String?
-     proofVersion   Int?
-     proofFormat    String?
-     addedById      String
-     addedBy        User     @relation("ContractorPaymentAddedBy", fields: [addedById], references: [id])
-     createdAt      DateTime @default(now())
+model ContractorPayment {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  trade          String   @default("")
+  contractorName String
+  date           DateTime @db.Date
+  amount         Decimal  @db.Decimal(14, 2)
+  remark         String   @default("")
+  proofId        String?
+  proofVersion   Int?
+  proofFormat    String?
+  addedById      String
+  addedBy        User     @relation("ContractorPaymentAddedBy", fields: [addedById], references: [id])
+  createdAt      DateTime @default(now())
 
-     @@index([projectId, date])
-     @@index([projectId, trade, contractorName])
-   }
+  @@index([projectId, date])
+  @@index([projectId, trade, contractorName])
+}
+
+model MaterialPayment {
+  id           String    @id @default(cuid())
+  projectId    String
+  project      Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  vendorName   String
+  materialId   String?
+  material     Material? @relation(fields: [materialId], references: [id], onDelete: SetNull)
+  date         DateTime  @db.Date
+  amount       Decimal   @db.Decimal(14, 2)
+  remark       String    @default("")
+  proofId      String?
+  proofVersion Int?
+  proofFormat  String?
+  addedById    String
+  addedBy      User      @relation("MaterialPaymentAddedBy", fields: [addedById], references: [id])
+  createdAt    DateTime  @default(now())
+
+  @@index([projectId, date])
+  @@index([projectId, vendorName])
+}
