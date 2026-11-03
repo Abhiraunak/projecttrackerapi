@@ -89,6 +89,7 @@ model User {
   deliveriesDecided  Delivery[]         @relation("DeliveryDecidedBy")
   equipmentAdded     Equipment[]        @relation("EquipmentAddedBy") // Phase 6
   equipmentMoves     EquipmentMove[]    @relation("EquipmentMovedBy")
+  expensesAdded      Expense[]         @relation("ExpenseAddedBy")
 }
 
 model RefreshToken {
@@ -144,6 +145,7 @@ model Project {
   drawings         Drawing[] // Phase 4
   equipmentIn      EquipmentMove[]     @relation("EquipmentMoveTo") // Phase 6
   equipmentOut     EquipmentMove[]     @relation("EquipmentMoveFrom")
+  expenses         Expense[] // daily expenditure
 
   @@index([ownerId, status, updatedAt])
 }
@@ -838,4 +840,26 @@ model EquipmentMove {
   @@index([equipmentId, date])
   @@index([toProjectId])
   @@index([fromProjectId])
+}
+
+// Daily expenditure on a project: money paid for anything (transport, tea, small tools…), with the bill if there is one
+model Expense {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  category    String   @default("general") // "general" | "labour" | "material"
+  date        DateTime @db.Date
+  amount      Decimal  @db.Decimal(14, 2)
+  purpose     String
+  remark      String   @default("")
+  // The bill (a photo or PDF), stored on Cloudinary like drawings; all empty when there is no bill
+  billId      String?
+  billVersion Int?
+  billFormat  String?
+  addedById   String
+  addedBy     User     @relation("ExpenseAddedBy", fields: [addedById], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@index([projectId, date])
+  @@index([projectId, category, date])
 }

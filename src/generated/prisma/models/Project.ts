@@ -303,6 +303,7 @@ export type ProjectWhereInput = {
   drawings?: Prisma.DrawingListRelationFilter
   equipmentIn?: Prisma.EquipmentMoveListRelationFilter
   equipmentOut?: Prisma.EquipmentMoveListRelationFilter
+  expenses?: Prisma.ExpenseListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -337,6 +338,7 @@ export type ProjectOrderByWithRelationInput = {
   drawings?: Prisma.DrawingOrderByRelationAggregateInput
   equipmentIn?: Prisma.EquipmentMoveOrderByRelationAggregateInput
   equipmentOut?: Prisma.EquipmentMoveOrderByRelationAggregateInput
+  expenses?: Prisma.ExpenseOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -374,6 +376,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   drawings?: Prisma.DrawingListRelationFilter
   equipmentIn?: Prisma.EquipmentMoveListRelationFilter
   equipmentOut?: Prisma.EquipmentMoveListRelationFilter
+  expenses?: Prisma.ExpenseListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -445,6 +448,7 @@ export type ProjectCreateInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -478,6 +482,7 @@ export type ProjectUncheckedCreateInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -511,6 +516,7 @@ export type ProjectUpdateInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -544,6 +550,7 @@ export type ProjectUncheckedUpdateInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -1007,6 +1014,20 @@ export type ProjectUpdateOneWithoutEquipmentInNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutEquipmentInInput, Prisma.ProjectUpdateWithoutEquipmentInInput>, Prisma.ProjectUncheckedUpdateWithoutEquipmentInInput>
 }
 
+export type ProjectCreateNestedOneWithoutExpensesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutExpensesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutExpensesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutExpensesInput
+  upsert?: Prisma.ProjectUpsertWithoutExpensesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutExpensesInput, Prisma.ProjectUpdateWithoutExpensesInput>, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
+}
+
 export type ProjectCreateWithoutOwnerInput = {
   id?: string
   title: string
@@ -1037,6 +1058,7 @@ export type ProjectCreateWithoutOwnerInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -1069,6 +1091,7 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -1145,6 +1168,7 @@ export type ProjectCreateWithoutTasksInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -1177,6 +1201,7 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -1225,6 +1250,7 @@ export type ProjectUpdateWithoutTasksInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -1257,6 +1283,7 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAttendanceInput = {
@@ -1289,6 +1316,7 @@ export type ProjectCreateWithoutAttendanceInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAttendanceInput = {
@@ -1321,6 +1349,7 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAttendanceInput = {
@@ -1369,6 +1398,7 @@ export type ProjectUpdateWithoutAttendanceInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAttendanceInput = {
@@ -1401,6 +1431,7 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDrawingsInput = {
@@ -1433,6 +1464,7 @@ export type ProjectCreateWithoutDrawingsInput = {
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDrawingsInput = {
@@ -1465,6 +1497,7 @@ export type ProjectUncheckedCreateWithoutDrawingsInput = {
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDrawingsInput = {
@@ -1513,6 +1546,7 @@ export type ProjectUpdateWithoutDrawingsInput = {
   deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDrawingsInput = {
@@ -1545,6 +1579,7 @@ export type ProjectUncheckedUpdateWithoutDrawingsInput = {
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockMovementsInput = {
@@ -1577,6 +1612,7 @@ export type ProjectCreateWithoutStockMovementsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockMovementsInput = {
@@ -1609,6 +1645,7 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockMovementsInput = {
@@ -1657,6 +1694,7 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
@@ -1689,6 +1727,7 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutBoqItemsInput = {
@@ -1721,6 +1760,7 @@ export type ProjectCreateWithoutBoqItemsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutBoqItemsInput = {
@@ -1753,6 +1793,7 @@ export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutBoqItemsInput = {
@@ -1801,6 +1842,7 @@ export type ProjectUpdateWithoutBoqItemsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
@@ -1833,6 +1875,7 @@ export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialOrdersInput = {
@@ -1865,6 +1908,7 @@ export type ProjectCreateWithoutMaterialOrdersInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
@@ -1897,6 +1941,7 @@ export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialOrdersInput = {
@@ -1945,6 +1990,7 @@ export type ProjectUpdateWithoutMaterialOrdersInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
@@ -1977,6 +2023,7 @@ export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockAlertsInput = {
@@ -2009,6 +2056,7 @@ export type ProjectCreateWithoutStockAlertsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockAlertsInput = {
@@ -2041,6 +2089,7 @@ export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockAlertsInput = {
@@ -2089,6 +2138,7 @@ export type ProjectUpdateWithoutStockAlertsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
@@ -2121,6 +2171,7 @@ export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialRequestsInput = {
@@ -2153,6 +2204,7 @@ export type ProjectCreateWithoutMaterialRequestsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
@@ -2185,6 +2237,7 @@ export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialRequestsInput = {
@@ -2233,6 +2286,7 @@ export type ProjectUpdateWithoutMaterialRequestsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
@@ -2265,6 +2319,7 @@ export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAuditLogInput = {
@@ -2297,6 +2352,7 @@ export type ProjectCreateWithoutAuditLogInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAuditLogInput = {
@@ -2329,6 +2385,7 @@ export type ProjectUncheckedCreateWithoutAuditLogInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAuditLogInput = {
@@ -2377,6 +2434,7 @@ export type ProjectUpdateWithoutAuditLogInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAuditLogInput = {
@@ -2409,6 +2467,7 @@ export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutBoqsInput = {
@@ -2441,6 +2500,7 @@ export type ProjectCreateWithoutBoqsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutBoqsInput = {
@@ -2473,6 +2533,7 @@ export type ProjectUncheckedCreateWithoutBoqsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutBoqsInput = {
@@ -2521,6 +2582,7 @@ export type ProjectUpdateWithoutBoqsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutBoqsInput = {
@@ -2553,6 +2615,7 @@ export type ProjectUncheckedUpdateWithoutBoqsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutClientsInput = {
@@ -2585,6 +2648,7 @@ export type ProjectCreateWithoutClientsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutClientsInput = {
@@ -2617,6 +2681,7 @@ export type ProjectUncheckedCreateWithoutClientsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutClientsInput = {
@@ -2665,6 +2730,7 @@ export type ProjectUpdateWithoutClientsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutClientsInput = {
@@ -2697,6 +2763,7 @@ export type ProjectUncheckedUpdateWithoutClientsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutInstalmentsInput = {
@@ -2729,6 +2796,7 @@ export type ProjectCreateWithoutInstalmentsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutInstalmentsInput = {
@@ -2761,6 +2829,7 @@ export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutInstalmentsInput = {
@@ -2809,6 +2878,7 @@ export type ProjectUpdateWithoutInstalmentsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
@@ -2841,6 +2911,7 @@ export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutPaymentProofsInput = {
@@ -2873,6 +2944,7 @@ export type ProjectCreateWithoutPaymentProofsInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
@@ -2905,6 +2977,7 @@ export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutPaymentProofsInput = {
@@ -2953,6 +3026,7 @@ export type ProjectUpdateWithoutPaymentProofsInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
@@ -2985,6 +3059,7 @@ export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDelaysInput = {
@@ -3017,6 +3092,7 @@ export type ProjectCreateWithoutDelaysInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDelaysInput = {
@@ -3049,6 +3125,7 @@ export type ProjectUncheckedCreateWithoutDelaysInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDelaysInput = {
@@ -3097,6 +3174,7 @@ export type ProjectUpdateWithoutDelaysInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDelaysInput = {
@@ -3129,6 +3207,7 @@ export type ProjectUncheckedUpdateWithoutDelaysInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutPunchesInput = {
@@ -3161,6 +3240,7 @@ export type ProjectCreateWithoutPunchesInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutPunchesInput = {
@@ -3193,6 +3273,7 @@ export type ProjectUncheckedCreateWithoutPunchesInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutPunchesInput = {
@@ -3241,6 +3322,7 @@ export type ProjectUpdateWithoutPunchesInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutPunchesInput = {
@@ -3273,6 +3355,7 @@ export type ProjectUncheckedUpdateWithoutPunchesInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDeliveriesInput = {
@@ -3305,6 +3388,7 @@ export type ProjectCreateWithoutDeliveriesInput = {
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDeliveriesInput = {
@@ -3337,6 +3421,7 @@ export type ProjectUncheckedCreateWithoutDeliveriesInput = {
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDeliveriesInput = {
@@ -3385,6 +3470,7 @@ export type ProjectUpdateWithoutDeliveriesInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
@@ -3417,6 +3503,7 @@ export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutEquipmentOutInput = {
@@ -3449,6 +3536,7 @@ export type ProjectCreateWithoutEquipmentOutInput = {
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
@@ -3481,6 +3569,7 @@ export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutEquipmentOutInput = {
@@ -3518,6 +3607,7 @@ export type ProjectCreateWithoutEquipmentInInput = {
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
   equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutEquipmentInInput = {
@@ -3550,6 +3640,7 @@ export type ProjectUncheckedCreateWithoutEquipmentInInput = {
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutEquipmentInInput = {
@@ -3598,6 +3689,7 @@ export type ProjectUpdateWithoutEquipmentOutInput = {
   deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
@@ -3630,6 +3722,7 @@ export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUpsertWithoutEquipmentInInput = {
@@ -3673,6 +3766,7 @@ export type ProjectUpdateWithoutEquipmentInInput = {
   deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
@@ -3704,6 +3798,155 @@ export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
   punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutExpensesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutExpensesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutExpensesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
+}
+
+export type ProjectUpsertWithoutExpensesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutExpensesInput, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutExpensesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutExpensesInput, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
+}
+
+export type ProjectUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
 }
 
@@ -3751,6 +3994,7 @@ export type ProjectUpdateWithoutOwnerInput = {
   drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -3783,6 +4027,7 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
   equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
   equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -3823,6 +4068,7 @@ export type ProjectCountOutputType = {
   drawings: number
   equipmentIn: number
   equipmentOut: number
+  expenses: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3844,6 +4090,7 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   drawings?: boolean | ProjectCountOutputTypeCountDrawingsArgs
   equipmentIn?: boolean | ProjectCountOutputTypeCountEquipmentInArgs
   equipmentOut?: boolean | ProjectCountOutputTypeCountEquipmentOutArgs
+  expenses?: boolean | ProjectCountOutputTypeCountExpensesArgs
 }
 
 /**
@@ -3982,6 +4229,13 @@ export type ProjectCountOutputTypeCountEquipmentOutArgs<ExtArgs extends runtime.
   where?: Prisma.EquipmentMoveWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountExpensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExpenseWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4015,6 +4269,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   drawings?: boolean | Prisma.Project$drawingsArgs<ExtArgs>
   equipmentIn?: boolean | Prisma.Project$equipmentInArgs<ExtArgs>
   equipmentOut?: boolean | Prisma.Project$equipmentOutArgs<ExtArgs>
+  expenses?: boolean | Prisma.Project$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -4086,6 +4341,7 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   drawings?: boolean | Prisma.Project$drawingsArgs<ExtArgs>
   equipmentIn?: boolean | Prisma.Project$equipmentInArgs<ExtArgs>
   equipmentOut?: boolean | Prisma.Project$equipmentOutArgs<ExtArgs>
+  expenses?: boolean | Prisma.Project$expensesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4117,6 +4373,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     drawings: Prisma.$DrawingPayload<ExtArgs>[]
     equipmentIn: Prisma.$EquipmentMovePayload<ExtArgs>[]
     equipmentOut: Prisma.$EquipmentMovePayload<ExtArgs>[]
+    expenses: Prisma.$ExpensePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4544,6 +4801,7 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   drawings<T extends Prisma.Project$drawingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$drawingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DrawingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   equipmentIn<T extends Prisma.Project$equipmentInArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$equipmentInArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   equipmentOut<T extends Prisma.Project$equipmentOutArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$equipmentOutArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  expenses<T extends Prisma.Project$expensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$expensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5415,6 +5673,30 @@ export type Project$equipmentOutArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.EquipmentMoveScalarFieldEnum | Prisma.EquipmentMoveScalarFieldEnum[]
+}
+
+/**
+ * Project.expenses
+ */
+export type Project$expensesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Expense
+   */
+  select?: Prisma.ExpenseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Expense
+   */
+  omit?: Prisma.ExpenseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExpenseInclude<ExtArgs> | null
+  where?: Prisma.ExpenseWhereInput
+  orderBy?: Prisma.ExpenseOrderByWithRelationInput | Prisma.ExpenseOrderByWithRelationInput[]
+  cursor?: Prisma.ExpenseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExpenseScalarFieldEnum | Prisma.ExpenseScalarFieldEnum[]
 }
 
 /**
