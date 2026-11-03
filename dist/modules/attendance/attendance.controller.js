@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
@@ -102,39 +103,50 @@ export async function createMany(req, res) {
     const empty = emptyDays(workers, days, extras);
     if (empty.length)
         throw new HttpError(400, `Nothing is paid on ${empty.join(", ")}. Enter the amounts for ${empty.length === 1 ? "that day" : "those days"}, or remove ${empty.length === 1 ? "it" : "them"}.`);
-    const records = await prisma.$transaction(async (tx) => {
-        const created = [];
-        let total = new Prisma.Decimal(0);
-        for (const date of days) {
-            const onDay = workersOn(workers, date);
-            const dayTotal = computeTotal(onDay, extras);
-            total = total.plus(dayTotal);
-            created.push(await tx.attendance.create({
-                data: {
-                    ownerId: userId,
-                    projectId,
-                    contractorName,
-                    trade,
-                    date: toDate(date),
-                    extras,
-                    notes,
-                    totalAmount: dayTotal,
-                    workers: { create: workerRows(onDay) },
-                },
-                include,
-            }));
-        }
+    // Everything is built in memory first, then written with two bulk inserts. The number of queries stays the same
+    // whether it is 2 days or 62. Saving day by day used to run many queries in one transaction, which a slow or
+    // distant database could not finish in time (500: "Transaction already closed").
+    let total = new Prisma.Decimal(0);
+    const entries = days.map((date) => {
+        const onDay = workersOn(workers, date);
+        const dayTotal = computeTotal(onDay, extras);
+        total = total.plus(dayTotal);
+        return { id: randomUUID(), date, onDay, dayTotal };
+    });
+    const firstDay = days[0] ?? "";
+    const lastDay = days[days.length - 1] ?? "";
+    await prisma.$transaction(async (tx) => {
+        await tx.attendance.createMany({
+            data: entries.map((e) => ({
+                id: e.id,
+                ownerId: userId,
+                projectId,
+                contractorName,
+                trade,
+                date: toDate(e.date),
+                extras,
+                notes,
+                totalAmount: e.dayTotal,
+            })),
+        });
+        await tx.attendanceWorker.createMany({
+            data: entries.flatMap((e) => workerRows(e.onDay).map((w) => ({ ...w, attendanceId: e.id }))),
+        });
         await recordAudit(tx, {
             projectId,
             actorId: userId,
             action: "attendance.created",
             entityType: "attendance",
-            entityId: created[0].id,
-            summary: `Added attendance for ${contractorName} on ${days.length} days (${days[0]} to ${days[days.length - 1]}): total ${total.toNumber()}`,
+            entityId: entries[0]?.id ?? null,
+            summary: `Added attendance for ${contractorName} on ${days.length} days (${firstDay} to ${lastDay}): total ${total.toNumber()}`,
             changes: { totalAmount: { from: null, to: total.toNumber() }, days: { from: null, to: days.join(", ") } },
         });
-        return created;
-    }, { timeout: 20_000 }); // up to 62 entries: give the transaction more than the default 5 seconds
+    }, { maxWait: 10_000, timeout: 30_000 });
+    const records = await prisma.attendance.findMany({
+        where: { id: { in: entries.map((e) => e.id) } },
+        include,
+        orderBy: { date: "asc" },
+    });
     res.status(201).json({ attendance: records.map(attendanceDto), count: records.length });
 }
 export async function update(req, res) {

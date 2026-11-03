@@ -8,7 +8,14 @@ async function requiredByMaterial(projectIds) {
         where: { item: { projectId: { in: projectIds }, active: true } },
         select: { materialId: true, perUnit: true, wastagePercent: true, item: { select: { projectId: true, quantity: true } } },
     });
+    // Materials added by hand count in the budget too, like a BOQ need
+    const estimates = await prisma.materialEstimate.findMany({ where: { projectId: { in: projectIds } }, select: { projectId: true, materialId: true, quantity: true } });
     const byProject = new Map();
+    for (const e of estimates) {
+        const map = byProject.get(e.projectId) ?? new Map();
+        map.set(e.materialId, (map.get(e.materialId) ?? 0) + e.quantity.toNumber());
+        byProject.set(e.projectId, map);
+    }
     for (const l of lines) {
         const map = byProject.get(l.item.projectId) ?? new Map();
         const need = requiredQty(l.item.quantity.toNumber(), { perUnit: l.perUnit.toNumber(), wastagePercent: l.wastagePercent.toNumber() });

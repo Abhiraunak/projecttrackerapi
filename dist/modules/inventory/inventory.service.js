@@ -5,8 +5,9 @@ import { requirePermission } from "../../lib/projectAccess.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { refreshAlertsSoon } from "../alerts/alerts.service.js";
 import { requiredQty } from "../materialPlan/plan.js";
+import { dayKeyIn } from "../punches/punch.calc.js";
 import { movementDto, movementInclude, toEntry, toItemLabel, toMaterialInfo } from "./inventory.mapper.js";
-import { NEEDS_ITEM, buildInventory, inventoryItemFor, validateMovement } from "./stock.js";
+import { TAKES_ITEM, buildInventory, inventoryItemFor, validateMovement } from "./stock.js";
 const OLDEST_FIRST = [{ createdAt: "asc" }, { id: "asc" }];
 const ENTRY_COLUMNS = { materialId: true, type: true, quantity: true, boqItemId: true };
 const VERB = {
@@ -20,11 +21,13 @@ const VERB = {
 /** Everything the stock figures need for a project (optionally one material only) */
 export async function stockInputs(db, projectId, materialId) {
     const forMaterial = materialId ? { materialId } : {};
-    const [entries, itemRows, lines, orders] = await Promise.all([
+    const [entries, itemRows, lines, orders, estimates] = await Promise.all([
         db.stockMovement.findMany({ where: { projectId, ...forMaterial }, select: ENTRY_COLUMNS, orderBy: [...OLDEST_FIRST] }),
         db.boqItem.findMany({ where: { projectId }, select: { id: true, code: true, title: true, active: true, quantity: true } }),
         db.boqItemMaterial.findMany({ where: { item: { projectId, active: true }, ...forMaterial }, select: { itemId: true, materialId: true, perUnit: true, wastagePercent: true } }),
         db.materialOrder.findMany({ where: { projectId, ...forMaterial }, select: { materialId: true, quantity: true, receivedQty: true } }),
+        // Materials added by hand (not from the BOQ): needed like a BOQ item's, listed as "Added"
+        db.materialEstimate.findMany({ where: { projectId, ...forMaterial }, select: { id: true, materialId: true, title: true, quantity: true } }),
     ]);
     const quantityOf = new Map(itemRows.map((i) => [i.id, i.quantity.toNumber()]));
     const needs = lines.map((l) => ({
@@ -32,8 +35,12 @@ export async function stockInputs(db, projectId, materialId) {
         materialId: l.materialId,
         required: requiredQty(quantityOf.get(l.itemId) ?? 0, { perUnit: l.perUnit.toNumber(), wastagePercent: l.wastagePercent.toNumber() }),
     }));
+    for (const e of estimates)
+        needs.push({ itemId: `est:${e.id}`, materialId: e.materialId, required: e.quantity.toNumber() });
     const orderFigures = orders.map((o) => ({ materialId: o.materialId, quantity: o.quantity.toNumber(), receivedQty: o.receivedQty.toNumber() }));
     const items = new Map(itemRows.map((i) => [i.id, toItemLabel(i)]));
+    for (const e of estimates)
+        items.set(`est:${e.id}`, { id: `est:${e.id}`, code: "Added", title: e.title || "Added by hand", active: true });
     return { entries: entries.map(toEntry), needs, orders: orderFigures, items };
 }
 /* ------------------------------- operations ------------------------------- */
@@ -82,7 +89,7 @@ export async function recordMovement(userId, projectId, input) {
     const material = await prisma.material.findUnique({ where: { id: input.materialId } });
     if (!material)
         throw new HttpError(404, "Material not found");
-    const itemId = NEEDS_ITEM[input.type] ? input.boqItemId : null; // other kinds don't belong to an item
+    const itemId = TAKES_ITEM[input.type] ? input.boqItemId : null; // other kinds don't belong to an item
     if (itemId)
         await checkItem(projectId, input.type, itemId);
     await checkOrder(projectId, material.id, input);
@@ -94,7 +101,7 @@ export async function recordMovement(userId, projectId, input) {
  * The checked insert itself, inside a transaction the caller owns (a material request issues stock this way,
  * so the request and the stock entry are saved together or not at all). Permissions are the caller's job.
  */
-export async function recordMovementIn(tx, userId, projectId, input, material) {
+export async function recordMovementIn(tx, userId, projectId, input, material, bill) {
     await tx.$executeRaw `SELECT pg_advisory_xact_lock(hashtext(${`${projectId}:${material.id}`}))`;
     const itemId = input.boqItemId;
     const { entries, needs, orders, items } = await stockInputs(tx, projectId, material.id);
@@ -103,7 +110,19 @@ export async function recordMovementIn(tx, userId, projectId, input, material) {
     if (problem)
         throw new HttpError(400, problem);
     const row = await tx.stockMovement.create({
-        data: { projectId, materialId: material.id, boqItemId: itemId, orderId: input.orderId, type: input.type, quantity: input.quantity, note: input.note, createdById: userId },
+        data: {
+            projectId,
+            materialId: material.id,
+            boqItemId: itemId,
+            orderId: input.orderId,
+            type: input.type,
+            quantity: input.quantity,
+            note: input.note,
+            date: new Date(`${input.date ?? dayKeyIn(new Date())}T00:00:00Z`),
+            vendorName: input.vendorName ?? "",
+            ...bill,
+            createdById: userId,
+        },
         include: movementInclude,
     });
     if (input.orderId) {

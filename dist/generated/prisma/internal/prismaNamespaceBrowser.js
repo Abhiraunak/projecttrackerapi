@@ -68,7 +68,13 @@ export const ModelName = {
     StaffPunch: 'StaffPunch',
     Delivery: 'Delivery',
     DeliveryLine: 'DeliveryLine',
-    DeliveryPhoto: 'DeliveryPhoto'
+    DeliveryPhoto: 'DeliveryPhoto',
+    Equipment: 'Equipment',
+    EquipmentMove: 'EquipmentMove',
+    Expense: 'Expense',
+    ContractorPayment: 'ContractorPayment',
+    MaterialPayment: 'MaterialPayment',
+    MaterialEstimate: 'MaterialEstimate'
 };
 /*
  * Enums
@@ -218,7 +224,12 @@ export const StockMovementScalarFieldEnum = {
     quantity: 'quantity',
     note: 'note',
     createdById: 'createdById',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    date: 'date',
+    vendorName: 'vendorName',
+    billId: 'billId',
+    billVersion: 'billVersion',
+    billFormat: 'billFormat'
 };
 export const BoqItemScalarFieldEnum = {
     id: 'id',
@@ -461,6 +472,96 @@ export const DeliveryPhotoScalarFieldEnum = {
     distanceM: 'distanceM',
     takenAt: 'takenAt',
     createdAt: 'createdAt'
+};
+export const EquipmentScalarFieldEnum = {
+    id: 'id',
+    serialNo: 'serialNo',
+    name: 'name',
+    category: 'category',
+    unit: 'unit',
+    code: 'code',
+    ownership: 'ownership',
+    hireRate: 'hireRate',
+    hirePer: 'hirePer',
+    supplier: 'supplier',
+    unitCost: 'unitCost',
+    marketValue: 'marketValue',
+    marketValueOn: 'marketValueOn',
+    serviceDue: 'serviceDue',
+    notes: 'notes',
+    retired: 'retired',
+    addedById: 'addedById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const EquipmentMoveScalarFieldEnum = {
+    id: 'id',
+    equipmentId: 'equipmentId',
+    kind: 'kind',
+    fromProjectId: 'fromProjectId',
+    toProjectId: 'toProjectId',
+    quantity: 'quantity',
+    date: 'date',
+    condition: 'condition',
+    note: 'note',
+    byId: 'byId',
+    createdAt: 'createdAt'
+};
+export const ExpenseScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    category: 'category',
+    date: 'date',
+    amount: 'amount',
+    purpose: 'purpose',
+    remark: 'remark',
+    billId: 'billId',
+    billVersion: 'billVersion',
+    billFormat: 'billFormat',
+    addedById: 'addedById',
+    createdAt: 'createdAt'
+};
+export const ContractorPaymentScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    trade: 'trade',
+    contractorName: 'contractorName',
+    date: 'date',
+    amount: 'amount',
+    remark: 'remark',
+    proofId: 'proofId',
+    proofVersion: 'proofVersion',
+    proofFormat: 'proofFormat',
+    addedById: 'addedById',
+    createdAt: 'createdAt'
+};
+export const MaterialPaymentScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    vendorName: 'vendorName',
+    materialId: 'materialId',
+    date: 'date',
+    amount: 'amount',
+    remark: 'remark',
+    proofId: 'proofId',
+    proofVersion: 'proofVersion',
+    proofFormat: 'proofFormat',
+    addedById: 'addedById',
+    createdAt: 'createdAt'
+};
+export const MaterialEstimateScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    materialId: 'materialId',
+    title: 'title',
+    method: 'method',
+    rows: 'rows',
+    wastagePercent: 'wastagePercent',
+    quantity: 'quantity',
+    notes: 'notes',
+    addedById: 'addedById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const SortOrder = {
     asc: 'asc',

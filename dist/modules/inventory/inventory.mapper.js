@@ -13,6 +13,9 @@ export const movementDto = (row) => ({
     boqItem: row.boqItem,
     order: row.order,
     note: row.note,
+    date: (row.date ?? row.createdAt).toISOString().slice(0, 10), // older entries have no date: the day they were saved
+    vendorName: row.vendorName,
+    hasBill: !!row.billId,
     createdAt: row.createdAt,
     createdBy: row.createdBy.email,
 });

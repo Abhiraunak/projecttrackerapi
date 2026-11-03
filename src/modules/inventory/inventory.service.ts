@@ -6,8 +6,9 @@ import { requirePermission } from "../../lib/projectAccess.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { refreshAlertsSoon } from "../alerts/alerts.service.js";
 import { requiredQty } from "../materialPlan/plan.js";
+import { dayKeyIn } from "../punches/punch.calc.js";
 import { movementDto, movementInclude, toEntry, toItemLabel, toMaterialInfo } from "./inventory.mapper.js";
-import { NEEDS_ITEM, buildInventory, inventoryItemFor, validateMovement, type ItemNeed, type MovementType, type OrderFigures } from "./stock.js";
+import { TAKES_ITEM, buildInventory, inventoryItemFor, validateMovement, type ItemNeed, type MovementType, type OrderFigures } from "./stock.js";
 import type { MovementBody, MovementsQuery } from "./inventory.schema.js";
 
 type Db = Prisma.TransactionClient | typeof prisma;
@@ -95,7 +96,7 @@ export async function recordMovement(userId: string, projectId: string, input: M
   const material = await prisma.material.findUnique({ where: { id: input.materialId } });
   if (!material) throw new HttpError(404, "Material not found");
 
-  const itemId = NEEDS_ITEM[input.type] ? input.boqItemId : null; // other kinds don't belong to an item
+  const itemId = TAKES_ITEM[input.type] ? input.boqItemId : null; // other kinds don't belong to an item
   if (itemId) await checkItem(projectId, input.type, itemId);
   await checkOrder(projectId, material.id, input);
 
@@ -108,7 +109,14 @@ export async function recordMovement(userId: string, projectId: string, input: M
  * The checked insert itself, inside a transaction the caller owns (a material request issues stock this way,
  * so the request and the stock entry are saved together or not at all). Permissions are the caller's job.
  */
-export async function recordMovementIn(tx: Prisma.TransactionClient, userId: string, projectId: string, input: MovementBody, material: Material) {
+export async function recordMovementIn(
+  tx: Prisma.TransactionClient,
+  userId: string,
+  projectId: string,
+  input: Omit<MovementBody, "vendorName" | "date"> & { vendorName?: string; date?: string },
+  material: Material,
+  bill?: { billId: string; billVersion: number; billFormat: string } | null
+) {
   await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`${projectId}:${material.id}`}))`;
   const itemId = input.boqItemId;
 
@@ -118,7 +126,19 @@ export async function recordMovementIn(tx: Prisma.TransactionClient, userId: str
   if (problem) throw new HttpError(400, problem);
 
   const row = await tx.stockMovement.create({
-    data: { projectId, materialId: material.id, boqItemId: itemId, orderId: input.orderId, type: input.type, quantity: input.quantity, note: input.note, createdById: userId },
+    data: {
+      projectId,
+      materialId: material.id,
+      boqItemId: itemId,
+      orderId: input.orderId,
+      type: input.type,
+      quantity: input.quantity,
+      note: input.note,
+      date: new Date(`${input.date ?? dayKeyIn(new Date())}T00:00:00Z`),
+      vendorName: input.vendorName ?? "",
+      ...bill,
+      createdById: userId,
+    },
     include: movementInclude,
   });
   if (input.orderId) {

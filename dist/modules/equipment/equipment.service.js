@@ -1,16 +1,17 @@
+import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
-import { recordAudit } from "../audit/audit.service.js";
-import { CATEGORIES, checkMove, lastCondition, onSiteSince, placeKey, stockByPlace, totalOf, trimQty, useByPlace, YARD, } from "./equipment.calc.js";
-import { Prisma } from "../../generated/prisma/client.js";
+import { dayKeyIn } from "../punches/punch.calc.js";
+import { CATEGORIES, checkMove, lastCondition, onSiteSince, placeKey, stockByPlace, totalOf, useByPlace, YARD, } from "./equipment.calc.js";
 const num = (v) => (v === null ? null : v.toNumber());
 const ymd = (d) => d.toISOString().slice(0, 10);
 const asDate = (s) => new Date(`${s}T00:00:00Z`);
-// const today = () => dayKeyIn(new Date());
+const today = () => dayKeyIn(new Date());
 const monthStart = (day) => `${day.slice(0, 7)}-01`;
 const itemSelect = {
     id: true,
+    serialNo: true,
     name: true,
     category: true,
     unit: true,
@@ -21,6 +22,9 @@ const itemSelect = {
     supplier: true,
     serviceDue: true,
     notes: true,
+    unitCost: true,
+    marketValue: true,
+    marketValueOn: true,
     retired: true,
     updatedAt: true,
 };
@@ -45,8 +49,12 @@ const toMove = (m) => ({
     condition: m.condition,
 });
 const termsOf = (i) => ({ ownership: i.ownership === "hired" ? "hired" : "owned", rate: num(i.hireRate), per: i.hirePer === "month" ? "month" : "day" });
+/** Our running number as people read it: 7 → "EQ-0007" */
+export const equipmentNo = (serialNo) => `EQ-${String(serialNo).padStart(4, "0")}`;
 const itemDto = (i) => ({
     id: i.id,
+    serialNo: i.serialNo,
+    number: equipmentNo(i.serialNo),
     name: i.name,
     category: i.category,
     unit: i.unit,
@@ -57,6 +65,9 @@ const itemDto = (i) => ({
     supplier: i.supplier,
     serviceDue: i.serviceDue ? ymd(i.serviceDue) : null,
     notes: i.notes,
+    unitCost: num(i.unitCost), // per unit
+    marketValue: num(i.marketValue), // per unit
+    marketValueOn: i.marketValueOn ? ymd(i.marketValueOn) : null,
     retired: i.retired,
     updatedAt: i.updatedAt,
 });
@@ -79,7 +90,7 @@ const placesOf = (at, names) => ({
 export async function listEquipment(userId) {
     await requireCan(userId, "equipment.view");
     const [items, moves, projects] = await Promise.all([
-        prisma.equipment.findMany({ select: itemSelect, orderBy: [{ retired: "asc" }, { name: "asc" }] }),
+        prisma.equipment.findMany({ select: itemSelect, orderBy: [{ retired: "asc" }, { serialNo: "asc" }] }),
         prisma.equipmentMove.findMany({ select: { ...moveSelect, equipmentId: true } }),
         prisma.project.findMany({ where: { status: "ONGOING" }, select: { id: true, title: true }, orderBy: { title: "asc" } }),
     ]);
@@ -87,9 +98,12 @@ export async function listEquipment(userId) {
     for (const m of moves)
         byItem.set(m.equipmentId, [...(byItem.get(m.equipmentId) ?? []), toMove(m)]);
     const names = await projectNames([...moves.flatMap((m) => [m.fromProjectId ?? "", m.toProjectId ?? ""]), ...projects.map((p) => p.id)]);
+    // The number the next item will most likely get (shown on the Add form; the database gives the real one on saving)
+    const nextNo = items.reduce((max, i) => Math.max(max, i.serialNo), 0) + 1;
     return {
         categories: CATEGORIES,
         projects,
+        nextNumber: equipmentNo(nextNo),
         items: items.map((i) => {
             const at = stockByPlace(byItem.get(i.id) ?? []);
             return { ...itemDto(i), total: totalOf(at), ...placesOf(at, names) };
@@ -231,21 +245,26 @@ export async function createEquipment(userId, input) {
         await assertProject(tx, input.to);
         const { quantity, to, date, serviceDue, ...details } = input;
         const item = await tx.equipment.create({
-            data: { ...details, serviceDue: serviceDue ? asDate(serviceDue) : null, addedById: userId },
-            select: { id: true },
+            data: {
+                ...details,
+                serviceDue: serviceDue ? asDate(serviceDue) : null,
+                marketValueOn: details.marketValue !== null ? asDate(today()) : null, // valued today
+                addedById: userId,
+            },
+            select: { id: true, serialNo: true },
         });
         await tx.equipmentMove.create({
             data: { equipmentId: item.id, kind: "add", toProjectId: to, quantity, date: asDate(date), byId: userId, note: "Added to the register" },
         });
-        await recordAudit(tx, {
-            projectId: to,
-            actorId: userId,
-            action: "equipment.added",
-            entityType: "equipment",
-            entityId: item.id,
-            summary: `Added ${trimQty(quantity)} ${input.unit} of ${input.name} at ${await placeName(tx, placeKey(to))}`,
-        });
-        return item;
+        // await recordAudit(tx, {
+        //   projectId: to,
+        //   actorId: userId,
+        //   action: "equipment.added",
+        //   entityType: "equipment",
+        //   entityId: item.id,
+        //   summary: `Added ${equipmentNo(item.serialNo)} ${input.name}: ${trimQty(quantity)} ${input.unit} at ${await placeName(tx, placeKey(to))}`,
+        // });
+        return { id: item.id, number: equipmentNo(item.serialNo) };
     });
 }
 export async function updateEquipment(userId, id, input) {
@@ -255,15 +274,24 @@ export async function updateEquipment(userId, id, input) {
         throw new HttpError(404, "Equipment not found");
     const { serviceDue, ...rest } = input;
     await prisma.$transaction(async (tx) => {
-        await tx.equipment.update({ where: { id }, data: { ...rest, ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}) } });
-        await recordAudit(tx, {
-            projectId: null,
-            actorId: userId,
-            action: "equipment.updated",
-            entityType: "equipment",
-            entityId: id,
-            summary: `Changed the details of ${input.name ?? before.name}`,
+        // A new market value is dated today; sending the same value again keeps its old date
+        const valueChanged = rest.marketValue !== undefined && rest.marketValue !== num(before.marketValue);
+        await tx.equipment.update({
+            where: { id },
+            data: {
+                ...rest,
+                ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}),
+                ...(valueChanged ? { marketValueOn: rest.marketValue === null ? null : asDate(today()) } : {}),
+            },
         });
+        // await recordAudit(tx, {
+        //   projectId: null,
+        //   actorId: userId,
+        //   action: "equipment.updated",
+        //   entityType: "equipment",
+        //   entityId: id,
+        //   summary: `Changed the details of ${input.name ?? before.name}`,
+        // });
     });
     return { id };
 }
@@ -307,14 +335,14 @@ export async function addMove(userId, id, input) {
         // Using it again: it can't stay retired
         await tx.equipment.update({ where: { id }, data: { retired: false } });
         const where = move.kind === "add" ? `at ${name(placeKey(move.to))}` : move.kind === "write_off" ? `at ${name(placeKey(move.from))}` : `from ${name(placeKey(move.from))} to ${name(placeKey(move.to))}`;
-        await recordAudit(tx, {
-            projectId: move.to ?? move.from,
-            actorId: userId,
-            action: `equipment.${move.kind}`,
-            entityType: "equipment",
-            entityId: id,
-            summary: `${KIND_WORDS[move.kind]} ${trimQty(move.qty)} ${item.unit} of ${item.name} ${where}${input.note ? ` (${input.note})` : ""}`,
-        });
+        // await recordAudit(tx, {
+        //   projectId: move.to ?? move.from,
+        //   actorId: userId,
+        //   action: `equipment.${move.kind}`,
+        //   entityType: "equipment",
+        //   entityId: id,
+        //   summary: `${KIND_WORDS[move.kind]} ${trimQty(move.qty)} ${item.unit} of ${item.name} ${where}${input.note ? ` (${input.note})` : ""}`,
+        // });
         return row;
     }, serial);
     return saved;
@@ -331,14 +359,14 @@ export async function undoMove(userId, id, moveId) {
             throw new HttpError(400, "This is how the item was added. Write it off instead, or edit its details.");
         await tx.equipmentMove.delete({ where: { id: moveId } });
         const item = await tx.equipment.findUnique({ where: { id }, select: { name: true, unit: true } });
-        await recordAudit(tx, {
-            projectId: latest.toProjectId ?? latest.fromProjectId,
-            actorId: userId,
-            action: "equipment.move_undone",
-            entityType: "equipment",
-            entityId: id,
-            summary: `Undid a move of ${trimQty(latest.quantity.toNumber())} ${item?.unit ?? ""} of ${item?.name ?? "equipment"} on ${ymd(latest.date)}`,
-        });
+        // await recordAudit(tx, {
+        //   projectId: latest.toProjectId ?? latest.fromProjectId,
+        //   actorId: userId,
+        //   action: "equipment.move_undone",
+        //   entityType: "equipment",
+        //   entityId: id,
+        //   summary: `Undid a move of ${trimQty(latest.quantity.toNumber())} ${item?.unit ?? ""} of ${item?.name ?? "equipment"} on ${ymd(latest.date)}`,
+        // });
     }, serial);
     return { ok: true };
 }

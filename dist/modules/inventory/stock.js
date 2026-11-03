@@ -4,15 +4,20 @@
  */
 const round3 = (value) => Math.round(value * 1000) / 1000;
 const formatQty = (value, unit) => `${value.toLocaleString("en-IN", { maximumFractionDigits: 3 })} ${unit}`;
-/** Which movement types must name a BOQ item, and which must carry a note */
+/**
+ * Which movement types must name a BOQ item, and which must carry a note.
+ * Issuing may name the BOQ item it was used for, but doesn't have to (the Materials tab issues by quantity and date).
+ */
 export const NEEDS_ITEM = {
     RECEIVED: false,
-    ISSUED: true,
+    ISSUED: false,
     RESERVED: true,
     RELEASED: true,
     ADJUSTMENT_IN: false,
     ADJUSTMENT_OUT: false,
 };
+/** Types that may name a BOQ item (keep it when given) */
+export const TAKES_ITEM = { ...NEEDS_ITEM, ISSUED: true };
 export const requiresNote = (type) => type === "ADJUSTMENT_IN" || type === "ADJUSTMENT_OUT";
 const add = (map, key, by) => {
     const next = (map.get(key) ?? 0) + by;

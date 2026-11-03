@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { CATEGORY_KEYS } from "./equipment.calc.js";
 const qty = z.number().finite().positive().max(10_000_000);
+const money = z.number().finite().min(0).max(1_000_000_000);
 const optionalText = (max) => z
     .string()
     .trim()
@@ -19,6 +20,8 @@ const details = {
     supplier: optionalText(120),
     serviceDue: z.iso.date().nullish().transform((v) => v ?? null),
     notes: z.string().trim().max(1000).default(""),
+    unitCost: money.nullish().transform((v) => v ?? null), // per unit
+    marketValue: money.nullish().transform((v) => v ?? null), // per unit, today
 };
 /** New item: its details, and how many arrive where (the yard, or straight at a site) */
 export const createEquipmentSchema = z.object({
@@ -48,6 +51,8 @@ const changes = {
     supplier: text(120),
     serviceDue: z.iso.date().nullable(),
     notes: z.string().trim().max(1000),
+    unitCost: money.nullable(),
+    marketValue: money.nullable(),
     retired: z.boolean(),
 };
 export const updateEquipmentSchema = z.object({
