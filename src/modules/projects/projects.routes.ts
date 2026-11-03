@@ -21,6 +21,8 @@ import { listProjectDrawings, uploadProjectDrawing } from "../drawings/projectDr
 import { projectEquipment } from "../equipment/equipment.service.js";
 import { addExpenseSchema } from "../expenses/expenses.schema.js";
 import { addExpense, listExpenses, removeExpense } from "../expenses/expenses.service.js";
+import { addPaymentSchema } from "../contractor-payments/contractor-payments.schema.js";
+import { addPayment, labourSummary, listPayments, removePayment } from "../contractor-payments/contractor-payments.service.js";
 
 // Uploads are the expensive request: the same limit as the Drawing page
 const drawingUploadLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 40, standardHeaders: "draft-7", legacyHeaders: false });
@@ -69,6 +71,18 @@ router.post("/:id/expenses", drawingUploadLimiter, uploadSingleFile, validate(ad
 router.delete("/:id/expenses/:expenseId", async (req: Request<{ id: string; expenseId: string }>, res) => {
   res.json(await removeExpense(req.user!.sub, req.params.id, req.params.expenseId));
 });
+   router.get("/:id/labour-summary", async (req: WithId, res) => {
+     res.json(await labourSummary(req.user!.sub, req.params.id));
+   });
+   router.get("/:id/contractor-payments", async (req: WithId, res) => {
+     res.json(await listPayments(req.user!.sub, req.params.id));
+   });
+   router.post("/:id/contractor-payments", drawingUploadLimiter, uploadSingleFile, validate(addPaymentSchema), async (req: WithId, res) => {
+     res.status(201).json(await addPayment(req.user!.sub, req.params.id, req.body, req.file));
+   });
+   router.delete("/:id/contractor-payments/:paymentId", async (req: Request<{ id: string; paymentId: string }>, res) => {
+     res.json(await removePayment(req.user!.sub, req.params.id, req.params.paymentId));
+   });
 router.get("/:id", c.getOne);
 router.put("/:id", validate(updateProjectSchema), c.update);
 router.patch("/:id", validate(patchProjectSchema), c.patchProject);
