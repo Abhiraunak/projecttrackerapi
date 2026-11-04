@@ -2,6 +2,7 @@ import { prisma } from "../../lib/prisma.js";
 import { requirePermission } from "../../lib/projectAccess.js";
 import { requiredQty } from "../materialPlan/plan.js";
 import { materialCosts } from "./cost.js";
+import { purchaseTotalsByProject } from "../material-purchases/materialPurchases.service.js";
 
 /** What the BOQ's materials need, per material, for active items only */
 async function requiredByMaterial(projectIds: string[]) {
@@ -55,9 +56,12 @@ export async function getMaterialCost(userId: string, projectId: string) {
 /** For the project list and cards: material spent and expected per project, in one round of queries */
 export async function materialTotalsByProject(projectIds: string[]): Promise<Map<string, { spent: number; expected: number }>> {
   if (projectIds.length === 0) return new Map();
-  const costOf = await costInputs(projectIds);
+  const [costOf, purchases] = await Promise.all([costInputs(projectIds), purchaseTotalsByProject(projectIds)]);
   return new Map(projectIds.map((id) => {
     const { totals } = costOf(id);
-    return [id, { spent: totals.spent, expected: totals.expected }];
+    // Materials added in the simple Materials tab (quantity × rate) are money spent, on top of any stock received
+    const bought = purchases.get(id) ?? 0;
+    const round = (n: number) => Math.round(n * 100) / 100;
+    return [id, { spent: round(totals.spent + bought), expected: round(totals.expected + bought) }];
   }));
 }
