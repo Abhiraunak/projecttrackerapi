@@ -72,6 +72,11 @@ export type Attendance = Prisma.AttendanceModel
  */
 export type AttendanceWorker = Prisma.AttendanceWorkerModel
 /**
+ * Model LabourTeamMember
+ * 
+ */
+export type LabourTeamMember = Prisma.LabourTeamMemberModel
+/**
  * Model Drawing
  * 
  */
@@ -101,6 +106,17 @@ export type Vendor = Prisma.VendorModel
  * The stock log. Rows are only ever added, never edited: stock levels are worked out from it.
  */
 export type StockMovement = Prisma.StockMovementModel
+/**
+ * Model MaterialPurchase
+ * 
+ */
+export type MaterialPurchase = Prisma.MaterialPurchaseModel
+/**
+ * Model MaterialDelivery
+ * One delivery of a material: on what date how many arrived, and the bill (optional).
+ * 5000 bricks ordered can arrive as 500 + 1,500 + 1,000…
+ */
+export type MaterialDelivery = Prisma.MaterialDeliveryModel
 /**
  * Model BoqItem
  * One priced part of one of the project's BOQs, as last synced. Never deleted by a sync: an item that left
@@ -230,8 +246,3 @@ export type MaterialPayment = Prisma.MaterialPaymentModel
  * 
  */
 export type MaterialEstimate = Prisma.MaterialEstimateModel
-/**
- * Model MaterialPurchase
- * 
- */
-export type MaterialPurchase = Prisma.MaterialPurchaseModel

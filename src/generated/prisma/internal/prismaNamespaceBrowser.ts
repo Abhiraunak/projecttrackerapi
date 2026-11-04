@@ -57,12 +57,15 @@ export const ModelName = {
   Task: 'Task',
   Attendance: 'Attendance',
   AttendanceWorker: 'AttendanceWorker',
+  LabourTeamMember: 'LabourTeamMember',
   Drawing: 'Drawing',
   DrawingShare: 'DrawingShare',
   PushSubscription: 'PushSubscription',
   Material: 'Material',
   Vendor: 'Vendor',
   StockMovement: 'StockMovement',
+  MaterialPurchase: 'MaterialPurchase',
+  MaterialDelivery: 'MaterialDelivery',
   BoqItem: 'BoqItem',
   BoqItemMaterial: 'BoqItemMaterial',
   MaterialRecipe: 'MaterialRecipe',
@@ -86,8 +89,7 @@ export const ModelName = {
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
   MaterialPayment: 'MaterialPayment',
-  MaterialEstimate: 'MaterialEstimate',
-  MaterialPurchase: 'MaterialPurchase'
+  MaterialEstimate: 'MaterialEstimate'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -186,7 +188,10 @@ export const AttendanceScalarFieldEnum = {
   notes: 'notes',
   totalAmount: 'totalAmount',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  batchId: 'batchId',
+  batchLead: 'batchLead',
+  payMode: 'payMode'
 } as const
 
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
@@ -197,10 +202,29 @@ export const AttendanceWorkerScalarFieldEnum = {
   attendanceId: 'attendanceId',
   label: 'label',
   amount: 'amount',
-  position: 'position'
+  position: 'position',
+  memberId: 'memberId',
+  hours: 'hours',
+  otHours: 'otHours',
+  hourlyRate: 'hourlyRate'
 } as const
 
 export type AttendanceWorkerScalarFieldEnum = (typeof AttendanceWorkerScalarFieldEnum)[keyof typeof AttendanceWorkerScalarFieldEnum]
+
+
+export const LabourTeamMemberScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractorName: 'contractorName',
+  name: 'name',
+  dayRate: 'dayRate',
+  active: 'active',
+  position: 'position',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LabourTeamMemberScalarFieldEnum = (typeof LabourTeamMemberScalarFieldEnum)[keyof typeof LabourTeamMemberScalarFieldEnum]
 
 
 export const DrawingScalarFieldEnum = {
@@ -298,6 +322,43 @@ export const StockMovementScalarFieldEnum = {
 } as const
 
 export type StockMovementScalarFieldEnum = (typeof StockMovementScalarFieldEnum)[keyof typeof StockMovementScalarFieldEnum]
+
+
+export const MaterialPurchaseScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  section: 'section',
+  name: 'name',
+  unit: 'unit',
+  quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
+  date: 'date',
+  note: 'note',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type MaterialPurchaseScalarFieldEnum = (typeof MaterialPurchaseScalarFieldEnum)[keyof typeof MaterialPurchaseScalarFieldEnum]
+
+
+export const MaterialDeliveryScalarFieldEnum = {
+  id: 'id',
+  purchaseId: 'purchaseId',
+  projectId: 'projectId',
+  date: 'date',
+  quantity: 'quantity',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type MaterialDeliveryScalarFieldEnum = (typeof MaterialDeliveryScalarFieldEnum)[keyof typeof MaterialDeliveryScalarFieldEnum]
 
 
 export const BoqItemScalarFieldEnum = {
@@ -726,26 +787,6 @@ export const MaterialEstimateScalarFieldEnum = {
 } as const
 
 export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
-
-
-export const MaterialPurchaseScalarFieldEnum = {
-  id: 'id',
-  projectId: 'projectId',
-  name: 'name',
-  unit: 'unit',
-  quantity: 'quantity',
-  rate: 'rate',
-  amount: 'amount',
-  date: 'date',
-  note: 'note',
-  billId: 'billId',
-  billVersion: 'billVersion',
-  billFormat: 'billFormat',
-  addedById: 'addedById',
-  createdAt: 'createdAt'
-} as const
-
-export type MaterialPurchaseScalarFieldEnum = (typeof MaterialPurchaseScalarFieldEnum)[keyof typeof MaterialPurchaseScalarFieldEnum]
 
 
 export const SortOrder = {

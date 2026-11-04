@@ -308,6 +308,7 @@ export type ProjectWhereInput = {
   materialPayments?: Prisma.MaterialPaymentListRelationFilter
   materialEstimates?: Prisma.MaterialEstimateListRelationFilter
   materialPurchases?: Prisma.MaterialPurchaseListRelationFilter
+  labourTeam?: Prisma.LabourTeamMemberListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -347,6 +348,7 @@ export type ProjectOrderByWithRelationInput = {
   materialPayments?: Prisma.MaterialPaymentOrderByRelationAggregateInput
   materialEstimates?: Prisma.MaterialEstimateOrderByRelationAggregateInput
   materialPurchases?: Prisma.MaterialPurchaseOrderByRelationAggregateInput
+  labourTeam?: Prisma.LabourTeamMemberOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -389,6 +391,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   materialPayments?: Prisma.MaterialPaymentListRelationFilter
   materialEstimates?: Prisma.MaterialEstimateListRelationFilter
   materialPurchases?: Prisma.MaterialPurchaseListRelationFilter
+  labourTeam?: Prisma.LabourTeamMemberListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -465,6 +468,7 @@ export type ProjectCreateInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -503,6 +507,7 @@ export type ProjectUncheckedCreateInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -541,6 +546,7 @@ export type ProjectUpdateInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -579,6 +585,7 @@ export type ProjectUncheckedUpdateInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -806,6 +813,20 @@ export type ProjectUpdateOneRequiredWithoutAttendanceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutAttendanceInput, Prisma.ProjectUpdateWithoutAttendanceInput>, Prisma.ProjectUncheckedUpdateWithoutAttendanceInput>
 }
 
+export type ProjectCreateNestedOneWithoutLabourTeamInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLabourTeamInput, Prisma.ProjectUncheckedCreateWithoutLabourTeamInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLabourTeamInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutLabourTeamNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLabourTeamInput, Prisma.ProjectUncheckedCreateWithoutLabourTeamInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLabourTeamInput
+  upsert?: Prisma.ProjectUpsertWithoutLabourTeamInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutLabourTeamInput, Prisma.ProjectUpdateWithoutLabourTeamInput>, Prisma.ProjectUncheckedUpdateWithoutLabourTeamInput>
+}
+
 export type ProjectCreateNestedOneWithoutDrawingsInput = {
   create?: Prisma.XOR<Prisma.ProjectCreateWithoutDrawingsInput, Prisma.ProjectUncheckedCreateWithoutDrawingsInput>
   connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutDrawingsInput
@@ -834,6 +855,20 @@ export type ProjectUpdateOneRequiredWithoutStockMovementsNestedInput = {
   upsert?: Prisma.ProjectUpsertWithoutStockMovementsInput
   connect?: Prisma.ProjectWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutStockMovementsInput, Prisma.ProjectUpdateWithoutStockMovementsInput>, Prisma.ProjectUncheckedUpdateWithoutStockMovementsInput>
+}
+
+export type ProjectCreateNestedOneWithoutMaterialPurchasesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPurchasesInput, Prisma.ProjectUncheckedCreateWithoutMaterialPurchasesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutMaterialPurchasesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPurchasesInput, Prisma.ProjectUncheckedCreateWithoutMaterialPurchasesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutMaterialPurchasesInput
+  upsert?: Prisma.ProjectUpsertWithoutMaterialPurchasesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutMaterialPurchasesInput, Prisma.ProjectUpdateWithoutMaterialPurchasesInput>, Prisma.ProjectUncheckedUpdateWithoutMaterialPurchasesInput>
 }
 
 export type ProjectCreateNestedOneWithoutBoqItemsInput = {
@@ -1098,20 +1133,6 @@ export type ProjectUpdateOneRequiredWithoutMaterialEstimatesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutMaterialEstimatesInput, Prisma.ProjectUpdateWithoutMaterialEstimatesInput>, Prisma.ProjectUncheckedUpdateWithoutMaterialEstimatesInput>
 }
 
-export type ProjectCreateNestedOneWithoutMaterialPurchasesInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPurchasesInput, Prisma.ProjectUncheckedCreateWithoutMaterialPurchasesInput>
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutMaterialPurchasesInput
-  connect?: Prisma.ProjectWhereUniqueInput
-}
-
-export type ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPurchasesInput, Prisma.ProjectUncheckedCreateWithoutMaterialPurchasesInput>
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutMaterialPurchasesInput
-  upsert?: Prisma.ProjectUpsertWithoutMaterialPurchasesInput
-  connect?: Prisma.ProjectWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutMaterialPurchasesInput, Prisma.ProjectUpdateWithoutMaterialPurchasesInput>, Prisma.ProjectUncheckedUpdateWithoutMaterialPurchasesInput>
-}
-
 export type ProjectCreateWithoutOwnerInput = {
   id?: string
   title: string
@@ -1147,6 +1168,7 @@ export type ProjectCreateWithoutOwnerInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -1184,6 +1206,7 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -1265,6 +1288,7 @@ export type ProjectCreateWithoutTasksInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -1302,6 +1326,7 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -1355,6 +1380,7 @@ export type ProjectUpdateWithoutTasksInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -1392,6 +1418,7 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAttendanceInput = {
@@ -1429,6 +1456,7 @@ export type ProjectCreateWithoutAttendanceInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAttendanceInput = {
@@ -1466,6 +1494,7 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAttendanceInput = {
@@ -1519,6 +1548,7 @@ export type ProjectUpdateWithoutAttendanceInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAttendanceInput = {
@@ -1535,6 +1565,175 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutLabourTeamInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutLabourTeamInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutLabourTeamInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLabourTeamInput, Prisma.ProjectUncheckedCreateWithoutLabourTeamInput>
+}
+
+export type ProjectUpsertWithoutLabourTeamInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutLabourTeamInput, Prisma.ProjectUncheckedUpdateWithoutLabourTeamInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLabourTeamInput, Prisma.ProjectUncheckedCreateWithoutLabourTeamInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutLabourTeamInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutLabourTeamInput, Prisma.ProjectUncheckedUpdateWithoutLabourTeamInput>
+}
+
+export type ProjectUpdateWithoutLabourTeamInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
   boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
@@ -1593,6 +1792,7 @@ export type ProjectCreateWithoutDrawingsInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDrawingsInput = {
@@ -1630,6 +1830,7 @@ export type ProjectUncheckedCreateWithoutDrawingsInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDrawingsInput = {
@@ -1683,6 +1884,7 @@ export type ProjectUpdateWithoutDrawingsInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDrawingsInput = {
@@ -1720,6 +1922,7 @@ export type ProjectUncheckedUpdateWithoutDrawingsInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockMovementsInput = {
@@ -1757,6 +1960,7 @@ export type ProjectCreateWithoutStockMovementsInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockMovementsInput = {
@@ -1794,6 +1998,7 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockMovementsInput = {
@@ -1847,6 +2052,7 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
@@ -1884,2958 +2090,7 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutBoqItemsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutBoqItemsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutBoqItemsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqItemsInput, Prisma.ProjectUncheckedCreateWithoutBoqItemsInput>
-}
-
-export type ProjectUpsertWithoutBoqItemsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqItemsInput, Prisma.ProjectUncheckedUpdateWithoutBoqItemsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqItemsInput, Prisma.ProjectUncheckedCreateWithoutBoqItemsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutBoqItemsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqItemsInput, Prisma.ProjectUncheckedUpdateWithoutBoqItemsInput>
-}
-
-export type ProjectUpdateWithoutBoqItemsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutMaterialOrdersInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutMaterialOrdersInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedCreateWithoutMaterialOrdersInput>
-}
-
-export type ProjectUpsertWithoutMaterialOrdersInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedUpdateWithoutMaterialOrdersInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedCreateWithoutMaterialOrdersInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutMaterialOrdersInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedUpdateWithoutMaterialOrdersInput>
-}
-
-export type ProjectUpdateWithoutMaterialOrdersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutStockAlertsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutStockAlertsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutStockAlertsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutStockAlertsInput, Prisma.ProjectUncheckedCreateWithoutStockAlertsInput>
-}
-
-export type ProjectUpsertWithoutStockAlertsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutStockAlertsInput, Prisma.ProjectUncheckedUpdateWithoutStockAlertsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutStockAlertsInput, Prisma.ProjectUncheckedCreateWithoutStockAlertsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutStockAlertsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutStockAlertsInput, Prisma.ProjectUncheckedUpdateWithoutStockAlertsInput>
-}
-
-export type ProjectUpdateWithoutStockAlertsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutMaterialRequestsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutMaterialRequestsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedCreateWithoutMaterialRequestsInput>
-}
-
-export type ProjectUpsertWithoutMaterialRequestsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialRequestsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedCreateWithoutMaterialRequestsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutMaterialRequestsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialRequestsInput>
-}
-
-export type ProjectUpdateWithoutMaterialRequestsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutAuditLogInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutAuditLogInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutAuditLogInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
-}
-
-export type ProjectUpsertWithoutAuditLogInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutAuditLogInput, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutAuditLogInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutAuditLogInput, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
-}
-
-export type ProjectUpdateWithoutAuditLogInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutAuditLogInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutBoqsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutBoqsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutBoqsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqsInput, Prisma.ProjectUncheckedCreateWithoutBoqsInput>
-}
-
-export type ProjectUpsertWithoutBoqsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqsInput, Prisma.ProjectUncheckedUpdateWithoutBoqsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqsInput, Prisma.ProjectUncheckedCreateWithoutBoqsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutBoqsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqsInput, Prisma.ProjectUncheckedUpdateWithoutBoqsInput>
-}
-
-export type ProjectUpdateWithoutBoqsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutBoqsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutClientsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutClientsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutClientsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientsInput, Prisma.ProjectUncheckedCreateWithoutClientsInput>
-}
-
-export type ProjectUpsertWithoutClientsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientsInput, Prisma.ProjectUncheckedUpdateWithoutClientsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientsInput, Prisma.ProjectUncheckedCreateWithoutClientsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutClientsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientsInput, Prisma.ProjectUncheckedUpdateWithoutClientsInput>
-}
-
-export type ProjectUpdateWithoutClientsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutClientsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutInstalmentsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutInstalmentsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutInstalmentsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutInstalmentsInput, Prisma.ProjectUncheckedCreateWithoutInstalmentsInput>
-}
-
-export type ProjectUpsertWithoutInstalmentsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutInstalmentsInput, Prisma.ProjectUncheckedUpdateWithoutInstalmentsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutInstalmentsInput, Prisma.ProjectUncheckedCreateWithoutInstalmentsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutInstalmentsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutInstalmentsInput, Prisma.ProjectUncheckedUpdateWithoutInstalmentsInput>
-}
-
-export type ProjectUpdateWithoutInstalmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutPaymentProofsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutPaymentProofsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutPaymentProofsInput, Prisma.ProjectUncheckedCreateWithoutPaymentProofsInput>
-}
-
-export type ProjectUpsertWithoutPaymentProofsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPaymentProofsInput, Prisma.ProjectUncheckedUpdateWithoutPaymentProofsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutPaymentProofsInput, Prisma.ProjectUncheckedCreateWithoutPaymentProofsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutPaymentProofsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPaymentProofsInput, Prisma.ProjectUncheckedUpdateWithoutPaymentProofsInput>
-}
-
-export type ProjectUpdateWithoutPaymentProofsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutDelaysInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutDelaysInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutDelaysInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutDelaysInput, Prisma.ProjectUncheckedCreateWithoutDelaysInput>
-}
-
-export type ProjectUpsertWithoutDelaysInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutDelaysInput, Prisma.ProjectUncheckedUpdateWithoutDelaysInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutDelaysInput, Prisma.ProjectUncheckedCreateWithoutDelaysInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutDelaysInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutDelaysInput, Prisma.ProjectUncheckedUpdateWithoutDelaysInput>
-}
-
-export type ProjectUpdateWithoutDelaysInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutDelaysInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutPunchesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutPunchesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutPunchesInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
-}
-
-export type ProjectUpsertWithoutPunchesInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPunchesInput, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutPunchesInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPunchesInput, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
-}
-
-export type ProjectUpdateWithoutPunchesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutPunchesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutDeliveriesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutDeliveriesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutDeliveriesInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
-}
-
-export type ProjectUpsertWithoutDeliveriesInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutDeliveriesInput, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutDeliveriesInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutDeliveriesInput, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
-}
-
-export type ProjectUpdateWithoutDeliveriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutEquipmentOutInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutEquipmentOutInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentOutInput, Prisma.ProjectUncheckedCreateWithoutEquipmentOutInput>
-}
-
-export type ProjectCreateWithoutEquipmentInInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutEquipmentInInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutEquipmentInInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentInInput, Prisma.ProjectUncheckedCreateWithoutEquipmentInInput>
-}
-
-export type ProjectUpsertWithoutEquipmentOutInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentOutInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentOutInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentOutInput, Prisma.ProjectUncheckedCreateWithoutEquipmentOutInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutEquipmentOutInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentOutInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentOutInput>
-}
-
-export type ProjectUpdateWithoutEquipmentOutInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUpsertWithoutEquipmentInInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentInInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentInInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentInInput, Prisma.ProjectUncheckedCreateWithoutEquipmentInInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutEquipmentInInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentInInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentInInput>
-}
-
-export type ProjectUpdateWithoutEquipmentInInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutExpensesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutExpensesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutExpensesInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
-}
-
-export type ProjectUpsertWithoutExpensesInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutExpensesInput, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutExpensesInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutExpensesInput, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
-}
-
-export type ProjectUpdateWithoutExpensesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutExpensesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutContractorPaymentsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutContractorPaymentsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedCreateWithoutContractorPaymentsInput>
-}
-
-export type ProjectUpsertWithoutContractorPaymentsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutContractorPaymentsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedCreateWithoutContractorPaymentsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutContractorPaymentsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutContractorPaymentsInput>
-}
-
-export type ProjectUpdateWithoutContractorPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutMaterialPaymentsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutMaterialPaymentsInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedCreateWithoutMaterialPaymentsInput>
-}
-
-export type ProjectUpsertWithoutMaterialPaymentsInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialPaymentsInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedCreateWithoutMaterialPaymentsInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutMaterialPaymentsInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialPaymentsInput>
-}
-
-export type ProjectUpdateWithoutMaterialPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectCreateWithoutMaterialEstimatesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
-  id?: string
-  title: string
-  firmName?: string | null
-  status?: $Enums.ProjectStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: boolean
-  siteLat?: number | null
-  siteLng?: number | null
-  siteRadiusM?: number
-  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
-  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
-  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
-  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
-  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
-  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
-  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
-  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
-  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
-  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
-  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
-  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
-  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
-  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
-  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
-}
-
-export type ProjectCreateOrConnectWithoutMaterialEstimatesInput = {
-  where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedCreateWithoutMaterialEstimatesInput>
-}
-
-export type ProjectUpsertWithoutMaterialEstimatesInput = {
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedUpdateWithoutMaterialEstimatesInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedCreateWithoutMaterialEstimatesInput>
-  where?: Prisma.ProjectWhereInput
-}
-
-export type ProjectUpdateToOneWithWhereWithoutMaterialEstimatesInput = {
-  where?: Prisma.ProjectWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedUpdateWithoutMaterialEstimatesInput>
-}
-
-export type ProjectUpdateWithoutMaterialEstimatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
-}
-
-export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
-  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
-  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
-  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
-  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
-  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
-  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
-  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
-  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
-  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
-  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
-  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
-  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
-  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
-  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
-  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
-  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
-  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
-  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
-  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialPurchasesInput = {
@@ -4873,6 +2128,7 @@ export type ProjectCreateWithoutMaterialPurchasesInput = {
   contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
@@ -4910,6 +2166,7 @@ export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
   contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialPurchasesInput = {
@@ -4963,6 +2220,7 @@ export type ProjectUpdateWithoutMaterialPurchasesInput = {
   contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
@@ -5000,6 +2258,3031 @@ export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
   contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutBoqItemsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutBoqItemsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutBoqItemsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqItemsInput, Prisma.ProjectUncheckedCreateWithoutBoqItemsInput>
+}
+
+export type ProjectUpsertWithoutBoqItemsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqItemsInput, Prisma.ProjectUncheckedUpdateWithoutBoqItemsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqItemsInput, Prisma.ProjectUncheckedCreateWithoutBoqItemsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutBoqItemsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqItemsInput, Prisma.ProjectUncheckedUpdateWithoutBoqItemsInput>
+}
+
+export type ProjectUpdateWithoutBoqItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutMaterialOrdersInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutMaterialOrdersInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedCreateWithoutMaterialOrdersInput>
+}
+
+export type ProjectUpsertWithoutMaterialOrdersInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedUpdateWithoutMaterialOrdersInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedCreateWithoutMaterialOrdersInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutMaterialOrdersInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialOrdersInput, Prisma.ProjectUncheckedUpdateWithoutMaterialOrdersInput>
+}
+
+export type ProjectUpdateWithoutMaterialOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutStockAlertsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutStockAlertsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutStockAlertsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutStockAlertsInput, Prisma.ProjectUncheckedCreateWithoutStockAlertsInput>
+}
+
+export type ProjectUpsertWithoutStockAlertsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutStockAlertsInput, Prisma.ProjectUncheckedUpdateWithoutStockAlertsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutStockAlertsInput, Prisma.ProjectUncheckedCreateWithoutStockAlertsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutStockAlertsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutStockAlertsInput, Prisma.ProjectUncheckedUpdateWithoutStockAlertsInput>
+}
+
+export type ProjectUpdateWithoutStockAlertsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutMaterialRequestsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutMaterialRequestsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedCreateWithoutMaterialRequestsInput>
+}
+
+export type ProjectUpsertWithoutMaterialRequestsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialRequestsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedCreateWithoutMaterialRequestsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutMaterialRequestsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialRequestsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialRequestsInput>
+}
+
+export type ProjectUpdateWithoutMaterialRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutAuditLogInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutAuditLogInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutAuditLogInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
+}
+
+export type ProjectUpsertWithoutAuditLogInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutAuditLogInput, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuditLogInput, Prisma.ProjectUncheckedCreateWithoutAuditLogInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutAuditLogInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutAuditLogInput, Prisma.ProjectUncheckedUpdateWithoutAuditLogInput>
+}
+
+export type ProjectUpdateWithoutAuditLogInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutAuditLogInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutBoqsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutBoqsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutBoqsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqsInput, Prisma.ProjectUncheckedCreateWithoutBoqsInput>
+}
+
+export type ProjectUpsertWithoutBoqsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqsInput, Prisma.ProjectUncheckedUpdateWithoutBoqsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutBoqsInput, Prisma.ProjectUncheckedCreateWithoutBoqsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutBoqsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutBoqsInput, Prisma.ProjectUncheckedUpdateWithoutBoqsInput>
+}
+
+export type ProjectUpdateWithoutBoqsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutBoqsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutClientsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutClientsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutClientsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientsInput, Prisma.ProjectUncheckedCreateWithoutClientsInput>
+}
+
+export type ProjectUpsertWithoutClientsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientsInput, Prisma.ProjectUncheckedUpdateWithoutClientsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientsInput, Prisma.ProjectUncheckedCreateWithoutClientsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutClientsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientsInput, Prisma.ProjectUncheckedUpdateWithoutClientsInput>
+}
+
+export type ProjectUpdateWithoutClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutInstalmentsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutInstalmentsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutInstalmentsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutInstalmentsInput, Prisma.ProjectUncheckedCreateWithoutInstalmentsInput>
+}
+
+export type ProjectUpsertWithoutInstalmentsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutInstalmentsInput, Prisma.ProjectUncheckedUpdateWithoutInstalmentsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutInstalmentsInput, Prisma.ProjectUncheckedCreateWithoutInstalmentsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutInstalmentsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutInstalmentsInput, Prisma.ProjectUncheckedUpdateWithoutInstalmentsInput>
+}
+
+export type ProjectUpdateWithoutInstalmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutPaymentProofsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutPaymentProofsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPaymentProofsInput, Prisma.ProjectUncheckedCreateWithoutPaymentProofsInput>
+}
+
+export type ProjectUpsertWithoutPaymentProofsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPaymentProofsInput, Prisma.ProjectUncheckedUpdateWithoutPaymentProofsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPaymentProofsInput, Prisma.ProjectUncheckedCreateWithoutPaymentProofsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutPaymentProofsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPaymentProofsInput, Prisma.ProjectUncheckedUpdateWithoutPaymentProofsInput>
+}
+
+export type ProjectUpdateWithoutPaymentProofsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutDelaysInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutDelaysInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutDelaysInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDelaysInput, Prisma.ProjectUncheckedCreateWithoutDelaysInput>
+}
+
+export type ProjectUpsertWithoutDelaysInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutDelaysInput, Prisma.ProjectUncheckedUpdateWithoutDelaysInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDelaysInput, Prisma.ProjectUncheckedCreateWithoutDelaysInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutDelaysInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutDelaysInput, Prisma.ProjectUncheckedUpdateWithoutDelaysInput>
+}
+
+export type ProjectUpdateWithoutDelaysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutDelaysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutPunchesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutPunchesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutPunchesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
+}
+
+export type ProjectUpsertWithoutPunchesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPunchesInput, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPunchesInput, Prisma.ProjectUncheckedCreateWithoutPunchesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutPunchesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPunchesInput, Prisma.ProjectUncheckedUpdateWithoutPunchesInput>
+}
+
+export type ProjectUpdateWithoutPunchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutPunchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutDeliveriesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutDeliveriesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutDeliveriesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
+}
+
+export type ProjectUpsertWithoutDeliveriesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutDeliveriesInput, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutDeliveriesInput, Prisma.ProjectUncheckedCreateWithoutDeliveriesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutDeliveriesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutDeliveriesInput, Prisma.ProjectUncheckedUpdateWithoutDeliveriesInput>
+}
+
+export type ProjectUpdateWithoutDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutEquipmentOutInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutEquipmentOutInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentOutInput, Prisma.ProjectUncheckedCreateWithoutEquipmentOutInput>
+}
+
+export type ProjectCreateWithoutEquipmentInInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutEquipmentInInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutEquipmentInInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentInInput, Prisma.ProjectUncheckedCreateWithoutEquipmentInInput>
+}
+
+export type ProjectUpsertWithoutEquipmentOutInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentOutInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentOutInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentOutInput, Prisma.ProjectUncheckedCreateWithoutEquipmentOutInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutEquipmentOutInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentOutInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentOutInput>
+}
+
+export type ProjectUpdateWithoutEquipmentOutInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUpsertWithoutEquipmentInInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentInInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentInInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutEquipmentInInput, Prisma.ProjectUncheckedCreateWithoutEquipmentInInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutEquipmentInInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutEquipmentInInput, Prisma.ProjectUncheckedUpdateWithoutEquipmentInInput>
+}
+
+export type ProjectUpdateWithoutEquipmentInInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutExpensesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutExpensesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutExpensesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
+}
+
+export type ProjectUpsertWithoutExpensesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutExpensesInput, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutExpensesInput, Prisma.ProjectUncheckedCreateWithoutExpensesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutExpensesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutExpensesInput, Prisma.ProjectUncheckedUpdateWithoutExpensesInput>
+}
+
+export type ProjectUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutExpensesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutContractorPaymentsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutContractorPaymentsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedCreateWithoutContractorPaymentsInput>
+}
+
+export type ProjectUpsertWithoutContractorPaymentsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutContractorPaymentsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedCreateWithoutContractorPaymentsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutContractorPaymentsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutContractorPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutContractorPaymentsInput>
+}
+
+export type ProjectUpdateWithoutContractorPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutMaterialPaymentsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutMaterialPaymentsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedCreateWithoutMaterialPaymentsInput>
+}
+
+export type ProjectUpsertWithoutMaterialPaymentsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialPaymentsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedCreateWithoutMaterialPaymentsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutMaterialPaymentsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialPaymentsInput, Prisma.ProjectUncheckedUpdateWithoutMaterialPaymentsInput>
+}
+
+export type ProjectUpdateWithoutMaterialPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutMaterialEstimatesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutMaterialEstimatesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedCreateWithoutMaterialEstimatesInput>
+}
+
+export type ProjectUpsertWithoutMaterialEstimatesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedUpdateWithoutMaterialEstimatesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedCreateWithoutMaterialEstimatesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutMaterialEstimatesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMaterialEstimatesInput, Prisma.ProjectUncheckedUpdateWithoutMaterialEstimatesInput>
+}
+
+export type ProjectUpdateWithoutMaterialEstimatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyOwnerInput = {
@@ -5051,6 +5334,7 @@ export type ProjectUpdateWithoutOwnerInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -5088,6 +5372,7 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -5133,6 +5418,7 @@ export type ProjectCountOutputType = {
   materialPayments: number
   materialEstimates: number
   materialPurchases: number
+  labourTeam: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5159,6 +5445,7 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   materialPayments?: boolean | ProjectCountOutputTypeCountMaterialPaymentsArgs
   materialEstimates?: boolean | ProjectCountOutputTypeCountMaterialEstimatesArgs
   materialPurchases?: boolean | ProjectCountOutputTypeCountMaterialPurchasesArgs
+  labourTeam?: boolean | ProjectCountOutputTypeCountLabourTeamArgs
 }
 
 /**
@@ -5332,6 +5619,13 @@ export type ProjectCountOutputTypeCountMaterialPurchasesArgs<ExtArgs extends run
   where?: Prisma.MaterialPurchaseWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountLabourTeamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LabourTeamMemberWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5370,6 +5664,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   materialPayments?: boolean | Prisma.Project$materialPaymentsArgs<ExtArgs>
   materialEstimates?: boolean | Prisma.Project$materialEstimatesArgs<ExtArgs>
   materialPurchases?: boolean | Prisma.Project$materialPurchasesArgs<ExtArgs>
+  labourTeam?: boolean | Prisma.Project$labourTeamArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -5446,6 +5741,7 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   materialPayments?: boolean | Prisma.Project$materialPaymentsArgs<ExtArgs>
   materialEstimates?: boolean | Prisma.Project$materialEstimatesArgs<ExtArgs>
   materialPurchases?: boolean | Prisma.Project$materialPurchasesArgs<ExtArgs>
+  labourTeam?: boolean | Prisma.Project$labourTeamArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5482,6 +5778,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     materialPayments: Prisma.$MaterialPaymentPayload<ExtArgs>[]
     materialEstimates: Prisma.$MaterialEstimatePayload<ExtArgs>[]
     materialPurchases: Prisma.$MaterialPurchasePayload<ExtArgs>[]
+    labourTeam: Prisma.$LabourTeamMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5914,6 +6211,7 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   materialPayments<T extends Prisma.Project$materialPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$materialPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialEstimates<T extends Prisma.Project$materialEstimatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$materialEstimatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialEstimatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialPurchases<T extends Prisma.Project$materialPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$materialPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  labourTeam<T extends Prisma.Project$labourTeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$labourTeamArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabourTeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6905,6 +7203,30 @@ export type Project$materialPurchasesArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.MaterialPurchaseScalarFieldEnum | Prisma.MaterialPurchaseScalarFieldEnum[]
+}
+
+/**
+ * Project.labourTeam
+ */
+export type Project$labourTeamArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabourTeamMember
+   */
+  select?: Prisma.LabourTeamMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LabourTeamMember
+   */
+  omit?: Prisma.LabourTeamMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LabourTeamMemberInclude<ExtArgs> | null
+  where?: Prisma.LabourTeamMemberWhereInput
+  orderBy?: Prisma.LabourTeamMemberOrderByWithRelationInput | Prisma.LabourTeamMemberOrderByWithRelationInput[]
+  cursor?: Prisma.LabourTeamMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LabourTeamMemberScalarFieldEnum | Prisma.LabourTeamMemberScalarFieldEnum[]
 }
 
 /**

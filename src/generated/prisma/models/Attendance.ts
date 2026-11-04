@@ -48,6 +48,9 @@ export type AttendanceMinAggregateOutputType = {
   totalAmount: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
+  batchId: string | null
+  batchLead: boolean | null
+  payMode: string | null
 }
 
 export type AttendanceMaxAggregateOutputType = {
@@ -62,6 +65,9 @@ export type AttendanceMaxAggregateOutputType = {
   totalAmount: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
+  batchId: string | null
+  batchLead: boolean | null
+  payMode: string | null
 }
 
 export type AttendanceCountAggregateOutputType = {
@@ -76,6 +82,9 @@ export type AttendanceCountAggregateOutputType = {
   totalAmount: number
   createdAt: number
   updatedAt: number
+  batchId: number
+  batchLead: number
+  payMode: number
   _all: number
 }
 
@@ -102,6 +111,9 @@ export type AttendanceMinAggregateInputType = {
   totalAmount?: true
   createdAt?: true
   updatedAt?: true
+  batchId?: true
+  batchLead?: true
+  payMode?: true
 }
 
 export type AttendanceMaxAggregateInputType = {
@@ -116,6 +128,9 @@ export type AttendanceMaxAggregateInputType = {
   totalAmount?: true
   createdAt?: true
   updatedAt?: true
+  batchId?: true
+  batchLead?: true
+  payMode?: true
 }
 
 export type AttendanceCountAggregateInputType = {
@@ -130,6 +145,9 @@ export type AttendanceCountAggregateInputType = {
   totalAmount?: true
   createdAt?: true
   updatedAt?: true
+  batchId?: true
+  batchLead?: true
+  payMode?: true
   _all?: true
 }
 
@@ -231,6 +249,9 @@ export type AttendanceGroupByOutputType = {
   totalAmount: runtime.Decimal
   createdAt: Date
   updatedAt: Date
+  batchId: string | null
+  batchLead: boolean
+  payMode: string
   _count: AttendanceCountAggregateOutputType | null
   _avg: AttendanceAvgAggregateOutputType | null
   _sum: AttendanceSumAggregateOutputType | null
@@ -268,6 +289,9 @@ export type AttendanceWhereInput = {
   totalAmount?: Prisma.DecimalFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
+  batchId?: Prisma.StringNullableFilter<"Attendance"> | string | null
+  batchLead?: Prisma.BoolFilter<"Attendance"> | boolean
+  payMode?: Prisma.StringFilter<"Attendance"> | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   workers?: Prisma.AttendanceWorkerListRelationFilter
@@ -285,6 +309,9 @@ export type AttendanceOrderByWithRelationInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  batchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  batchLead?: Prisma.SortOrder
+  payMode?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   owner?: Prisma.UserOrderByWithRelationInput
   workers?: Prisma.AttendanceWorkerOrderByRelationAggregateInput
@@ -305,6 +332,9 @@ export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
   totalAmount?: Prisma.DecimalFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
+  batchId?: Prisma.StringNullableFilter<"Attendance"> | string | null
+  batchLead?: Prisma.BoolFilter<"Attendance"> | boolean
+  payMode?: Prisma.StringFilter<"Attendance"> | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   workers?: Prisma.AttendanceWorkerListRelationFilter
@@ -322,6 +352,9 @@ export type AttendanceOrderByWithAggregationInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  batchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  batchLead?: Prisma.SortOrder
+  payMode?: Prisma.SortOrder
   _count?: Prisma.AttendanceCountOrderByAggregateInput
   _avg?: Prisma.AttendanceAvgOrderByAggregateInput
   _max?: Prisma.AttendanceMaxOrderByAggregateInput
@@ -344,6 +377,9 @@ export type AttendanceScalarWhereWithAggregatesInput = {
   totalAmount?: Prisma.DecimalWithAggregatesFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Attendance"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+  batchId?: Prisma.StringNullableWithAggregatesFilter<"Attendance"> | string | null
+  batchLead?: Prisma.BoolWithAggregatesFilter<"Attendance"> | boolean
+  payMode?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
 }
 
 export type AttendanceCreateInput = {
@@ -356,6 +392,9 @@ export type AttendanceCreateInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
@@ -373,6 +412,9 @@ export type AttendanceUncheckedCreateInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
 
@@ -386,6 +428,9 @@ export type AttendanceUpdateInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
@@ -403,6 +448,9 @@ export type AttendanceUncheckedUpdateInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
 
@@ -418,6 +466,9 @@ export type AttendanceCreateManyInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
 }
 
 export type AttendanceUpdateManyMutationInput = {
@@ -430,6 +481,9 @@ export type AttendanceUpdateManyMutationInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AttendanceUncheckedUpdateManyInput = {
@@ -444,6 +498,9 @@ export type AttendanceUncheckedUpdateManyInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AttendanceListRelationFilter = {
@@ -468,6 +525,9 @@ export type AttendanceCountOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  batchId?: Prisma.SortOrder
+  batchLead?: Prisma.SortOrder
+  payMode?: Prisma.SortOrder
 }
 
 export type AttendanceAvgOrderByAggregateInput = {
@@ -487,6 +547,9 @@ export type AttendanceMaxOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  batchId?: Prisma.SortOrder
+  batchLead?: Prisma.SortOrder
+  payMode?: Prisma.SortOrder
 }
 
 export type AttendanceMinOrderByAggregateInput = {
@@ -501,6 +564,9 @@ export type AttendanceMinOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  batchId?: Prisma.SortOrder
+  batchLead?: Prisma.SortOrder
+  payMode?: Prisma.SortOrder
 }
 
 export type AttendanceSumOrderByAggregateInput = {
@@ -621,6 +687,9 @@ export type AttendanceCreateWithoutOwnerInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
 }
@@ -636,6 +705,9 @@ export type AttendanceUncheckedCreateWithoutOwnerInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
 
@@ -680,6 +752,9 @@ export type AttendanceScalarWhereInput = {
   totalAmount?: Prisma.DecimalFilter<"Attendance"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
+  batchId?: Prisma.StringNullableFilter<"Attendance"> | string | null
+  batchLead?: Prisma.BoolFilter<"Attendance"> | boolean
+  payMode?: Prisma.StringFilter<"Attendance"> | string
 }
 
 export type AttendanceCreateWithoutProjectInput = {
@@ -692,6 +767,9 @@ export type AttendanceCreateWithoutProjectInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
 }
@@ -707,6 +785,9 @@ export type AttendanceUncheckedCreateWithoutProjectInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
 
@@ -746,6 +827,9 @@ export type AttendanceCreateWithoutWorkersInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
 }
@@ -762,6 +846,9 @@ export type AttendanceUncheckedCreateWithoutWorkersInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
 }
 
 export type AttendanceCreateOrConnectWithoutWorkersInput = {
@@ -790,6 +877,9 @@ export type AttendanceUpdateWithoutWorkersInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
 }
@@ -806,6 +896,9 @@ export type AttendanceUncheckedUpdateWithoutWorkersInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AttendanceCreateManyOwnerInput = {
@@ -819,6 +912,9 @@ export type AttendanceCreateManyOwnerInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
 }
 
 export type AttendanceUpdateWithoutOwnerInput = {
@@ -831,6 +927,9 @@ export type AttendanceUpdateWithoutOwnerInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
 }
@@ -846,6 +945,9 @@ export type AttendanceUncheckedUpdateWithoutOwnerInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
 
@@ -860,6 +962,9 @@ export type AttendanceUncheckedUpdateManyWithoutOwnerInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AttendanceCreateManyProjectInput = {
@@ -873,6 +978,9 @@ export type AttendanceCreateManyProjectInput = {
   totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  batchId?: string | null
+  batchLead?: boolean
+  payMode?: string
 }
 
 export type AttendanceUpdateWithoutProjectInput = {
@@ -885,6 +993,9 @@ export type AttendanceUpdateWithoutProjectInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
 }
@@ -900,6 +1011,9 @@ export type AttendanceUncheckedUpdateWithoutProjectInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
 
@@ -914,6 +1028,9 @@ export type AttendanceUncheckedUpdateManyWithoutProjectInput = {
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  payMode?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -959,6 +1076,9 @@ export type AttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  batchId?: boolean
+  batchLead?: boolean
+  payMode?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   workers?: boolean | Prisma.Attendance$workersArgs<ExtArgs>
@@ -977,6 +1097,9 @@ export type AttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  batchId?: boolean
+  batchLead?: boolean
+  payMode?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attendance"]>
@@ -993,6 +1116,9 @@ export type AttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  batchId?: boolean
+  batchLead?: boolean
+  payMode?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attendance"]>
@@ -1009,9 +1135,12 @@ export type AttendanceSelectScalar = {
   totalAmount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  batchId?: boolean
+  batchLead?: boolean
+  payMode?: boolean
 }
 
-export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "ownerId" | "contractorName" | "trade" | "date" | "extras" | "notes" | "totalAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["attendance"]>
+export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "ownerId" | "contractorName" | "trade" | "date" | "extras" | "notes" | "totalAmount" | "createdAt" | "updatedAt" | "batchId" | "batchLead" | "payMode", ExtArgs["result"]["attendance"]>
 export type AttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1046,6 +1175,9 @@ export type $AttendancePayload<ExtArgs extends runtime.Types.Extensions.Internal
     totalAmount: runtime.Decimal
     createdAt: Date
     updatedAt: Date
+    batchId: string | null
+    batchLead: boolean
+    payMode: string
   }, ExtArgs["result"]["attendance"]>
   composites: {}
 }
@@ -1483,6 +1615,9 @@ export interface AttendanceFieldRefs {
   readonly totalAmount: Prisma.FieldRef<"Attendance", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"Attendance", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Attendance", 'DateTime'>
+  readonly batchId: Prisma.FieldRef<"Attendance", 'String'>
+  readonly batchLead: Prisma.FieldRef<"Attendance", 'Boolean'>
+  readonly payMode: Prisma.FieldRef<"Attendance", 'String'>
 }
     
 

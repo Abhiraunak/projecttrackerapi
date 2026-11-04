@@ -43,6 +43,7 @@ export type MaterialPurchaseSumAggregateOutputType = {
 export type MaterialPurchaseMinAggregateOutputType = {
   id: string | null
   projectId: string | null
+  section: string | null
   name: string | null
   unit: string | null
   quantity: runtime.Decimal | null
@@ -60,6 +61,7 @@ export type MaterialPurchaseMinAggregateOutputType = {
 export type MaterialPurchaseMaxAggregateOutputType = {
   id: string | null
   projectId: string | null
+  section: string | null
   name: string | null
   unit: string | null
   quantity: runtime.Decimal | null
@@ -77,6 +79,7 @@ export type MaterialPurchaseMaxAggregateOutputType = {
 export type MaterialPurchaseCountAggregateOutputType = {
   id: number
   projectId: number
+  section: number
   name: number
   unit: number
   quantity: number
@@ -110,6 +113,7 @@ export type MaterialPurchaseSumAggregateInputType = {
 export type MaterialPurchaseMinAggregateInputType = {
   id?: true
   projectId?: true
+  section?: true
   name?: true
   unit?: true
   quantity?: true
@@ -127,6 +131,7 @@ export type MaterialPurchaseMinAggregateInputType = {
 export type MaterialPurchaseMaxAggregateInputType = {
   id?: true
   projectId?: true
+  section?: true
   name?: true
   unit?: true
   quantity?: true
@@ -144,6 +149,7 @@ export type MaterialPurchaseMaxAggregateInputType = {
 export type MaterialPurchaseCountAggregateInputType = {
   id?: true
   projectId?: true
+  section?: true
   name?: true
   unit?: true
   quantity?: true
@@ -248,6 +254,7 @@ export type MaterialPurchaseGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type MaterialPurchaseGroupByOutputType = {
   id: string
   projectId: string
+  section: string
   name: string
   unit: string
   quantity: runtime.Decimal
@@ -288,6 +295,7 @@ export type MaterialPurchaseWhereInput = {
   NOT?: Prisma.MaterialPurchaseWhereInput | Prisma.MaterialPurchaseWhereInput[]
   id?: Prisma.StringFilter<"MaterialPurchase"> | string
   projectId?: Prisma.StringFilter<"MaterialPurchase"> | string
+  section?: Prisma.StringFilter<"MaterialPurchase"> | string
   name?: Prisma.StringFilter<"MaterialPurchase"> | string
   unit?: Prisma.StringFilter<"MaterialPurchase"> | string
   quantity?: Prisma.DecimalFilter<"MaterialPurchase"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -302,11 +310,13 @@ export type MaterialPurchaseWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"MaterialPurchase"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  deliveries?: Prisma.MaterialDeliveryListRelationFilter
 }
 
 export type MaterialPurchaseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
+  section?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -321,6 +331,7 @@ export type MaterialPurchaseOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   addedBy?: Prisma.UserOrderByWithRelationInput
+  deliveries?: Prisma.MaterialDeliveryOrderByRelationAggregateInput
 }
 
 export type MaterialPurchaseWhereUniqueInput = Prisma.AtLeast<{
@@ -329,6 +340,7 @@ export type MaterialPurchaseWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MaterialPurchaseWhereInput[]
   NOT?: Prisma.MaterialPurchaseWhereInput | Prisma.MaterialPurchaseWhereInput[]
   projectId?: Prisma.StringFilter<"MaterialPurchase"> | string
+  section?: Prisma.StringFilter<"MaterialPurchase"> | string
   name?: Prisma.StringFilter<"MaterialPurchase"> | string
   unit?: Prisma.StringFilter<"MaterialPurchase"> | string
   quantity?: Prisma.DecimalFilter<"MaterialPurchase"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -343,11 +355,13 @@ export type MaterialPurchaseWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"MaterialPurchase"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  deliveries?: Prisma.MaterialDeliveryListRelationFilter
 }, "id">
 
 export type MaterialPurchaseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
+  section?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -373,6 +387,7 @@ export type MaterialPurchaseScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MaterialPurchaseScalarWhereWithAggregatesInput | Prisma.MaterialPurchaseScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MaterialPurchase"> | string
   projectId?: Prisma.StringWithAggregatesFilter<"MaterialPurchase"> | string
+  section?: Prisma.StringWithAggregatesFilter<"MaterialPurchase"> | string
   name?: Prisma.StringWithAggregatesFilter<"MaterialPurchase"> | string
   unit?: Prisma.StringWithAggregatesFilter<"MaterialPurchase"> | string
   quantity?: Prisma.DecimalWithAggregatesFilter<"MaterialPurchase"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -389,6 +404,7 @@ export type MaterialPurchaseScalarWhereWithAggregatesInput = {
 
 export type MaterialPurchaseCreateInput = {
   id?: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -402,11 +418,13 @@ export type MaterialPurchaseCreateInput = {
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
+  deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateInput = {
   id?: string
   projectId: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -419,10 +437,12 @@ export type MaterialPurchaseUncheckedCreateInput = {
   billFormat?: string | null
   addedById: string
   createdAt?: Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -436,11 +456,13 @@ export type MaterialPurchaseUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
+  deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -453,11 +475,13 @@ export type MaterialPurchaseUncheckedUpdateInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseCreateManyInput = {
   id?: string
   projectId: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -474,6 +498,7 @@ export type MaterialPurchaseCreateManyInput = {
 
 export type MaterialPurchaseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -490,6 +515,7 @@ export type MaterialPurchaseUpdateManyMutationInput = {
 export type MaterialPurchaseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -517,6 +543,7 @@ export type MaterialPurchaseOrderByRelationAggregateInput = {
 export type MaterialPurchaseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
+  section?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -541,6 +568,7 @@ export type MaterialPurchaseAvgOrderByAggregateInput = {
 export type MaterialPurchaseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
+  section?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -558,6 +586,7 @@ export type MaterialPurchaseMaxOrderByAggregateInput = {
 export type MaterialPurchaseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
+  section?: Prisma.SortOrder
   name?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -577,6 +606,11 @@ export type MaterialPurchaseSumOrderByAggregateInput = {
   rate?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
+}
+
+export type MaterialPurchaseScalarRelationFilter = {
+  is?: Prisma.MaterialPurchaseWhereInput
+  isNot?: Prisma.MaterialPurchaseWhereInput
 }
 
 export type MaterialPurchaseCreateNestedManyWithoutAddedByInput = {
@@ -663,8 +697,23 @@ export type MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.MaterialPurchaseScalarWhereInput | Prisma.MaterialPurchaseScalarWhereInput[]
 }
 
+export type MaterialPurchaseCreateNestedOneWithoutDeliveriesInput = {
+  create?: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutDeliveriesInput, Prisma.MaterialPurchaseUncheckedCreateWithoutDeliveriesInput>
+  connectOrCreate?: Prisma.MaterialPurchaseCreateOrConnectWithoutDeliveriesInput
+  connect?: Prisma.MaterialPurchaseWhereUniqueInput
+}
+
+export type MaterialPurchaseUpdateOneRequiredWithoutDeliveriesNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutDeliveriesInput, Prisma.MaterialPurchaseUncheckedCreateWithoutDeliveriesInput>
+  connectOrCreate?: Prisma.MaterialPurchaseCreateOrConnectWithoutDeliveriesInput
+  upsert?: Prisma.MaterialPurchaseUpsertWithoutDeliveriesInput
+  connect?: Prisma.MaterialPurchaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialPurchaseUpdateToOneWithWhereWithoutDeliveriesInput, Prisma.MaterialPurchaseUpdateWithoutDeliveriesInput>, Prisma.MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput>
+}
+
 export type MaterialPurchaseCreateWithoutAddedByInput = {
   id?: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -677,11 +726,13 @@ export type MaterialPurchaseCreateWithoutAddedByInput = {
   billFormat?: string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
+  deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateWithoutAddedByInput = {
   id?: string
   projectId: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -693,6 +744,7 @@ export type MaterialPurchaseUncheckedCreateWithoutAddedByInput = {
   billVersion?: number | null
   billFormat?: string | null
   createdAt?: Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseCreateOrConnectWithoutAddedByInput = {
@@ -727,6 +779,7 @@ export type MaterialPurchaseScalarWhereInput = {
   NOT?: Prisma.MaterialPurchaseScalarWhereInput | Prisma.MaterialPurchaseScalarWhereInput[]
   id?: Prisma.StringFilter<"MaterialPurchase"> | string
   projectId?: Prisma.StringFilter<"MaterialPurchase"> | string
+  section?: Prisma.StringFilter<"MaterialPurchase"> | string
   name?: Prisma.StringFilter<"MaterialPurchase"> | string
   unit?: Prisma.StringFilter<"MaterialPurchase"> | string
   quantity?: Prisma.DecimalFilter<"MaterialPurchase"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -743,6 +796,7 @@ export type MaterialPurchaseScalarWhereInput = {
 
 export type MaterialPurchaseCreateWithoutProjectInput = {
   id?: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -755,10 +809,12 @@ export type MaterialPurchaseCreateWithoutProjectInput = {
   billFormat?: string | null
   createdAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
+  deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateWithoutProjectInput = {
   id?: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -771,6 +827,7 @@ export type MaterialPurchaseUncheckedCreateWithoutProjectInput = {
   billFormat?: string | null
   addedById: string
   createdAt?: Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseCreateOrConnectWithoutProjectInput = {
@@ -799,9 +856,98 @@ export type MaterialPurchaseUpdateManyWithWhereWithoutProjectInput = {
   data: Prisma.XOR<Prisma.MaterialPurchaseUpdateManyMutationInput, Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectInput>
 }
 
+export type MaterialPurchaseCreateWithoutDeliveriesInput = {
+  id?: string
+  section?: string
+  name: string
+  unit?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  date: Date | string
+  note?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
+  createdAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
+  addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
+}
+
+export type MaterialPurchaseUncheckedCreateWithoutDeliveriesInput = {
+  id?: string
+  projectId: string
+  section?: string
+  name: string
+  unit?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  date: Date | string
+  note?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
+  addedById: string
+  createdAt?: Date | string
+}
+
+export type MaterialPurchaseCreateOrConnectWithoutDeliveriesInput = {
+  where: Prisma.MaterialPurchaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutDeliveriesInput, Prisma.MaterialPurchaseUncheckedCreateWithoutDeliveriesInput>
+}
+
+export type MaterialPurchaseUpsertWithoutDeliveriesInput = {
+  update: Prisma.XOR<Prisma.MaterialPurchaseUpdateWithoutDeliveriesInput, Prisma.MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput>
+  create: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutDeliveriesInput, Prisma.MaterialPurchaseUncheckedCreateWithoutDeliveriesInput>
+  where?: Prisma.MaterialPurchaseWhereInput
+}
+
+export type MaterialPurchaseUpdateToOneWithWhereWithoutDeliveriesInput = {
+  where?: Prisma.MaterialPurchaseWhereInput
+  data: Prisma.XOR<Prisma.MaterialPurchaseUpdateWithoutDeliveriesInput, Prisma.MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput>
+}
+
+export type MaterialPurchaseUpdateWithoutDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
+  addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
+}
+
+export type MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type MaterialPurchaseCreateManyAddedByInput = {
   id?: string
   projectId: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -817,6 +963,7 @@ export type MaterialPurchaseCreateManyAddedByInput = {
 
 export type MaterialPurchaseUpdateWithoutAddedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -829,11 +976,13 @@ export type MaterialPurchaseUpdateWithoutAddedByInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
+  deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateWithoutAddedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -845,11 +994,13 @@ export type MaterialPurchaseUncheckedUpdateWithoutAddedByInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateManyWithoutAddedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -865,6 +1016,7 @@ export type MaterialPurchaseUncheckedUpdateManyWithoutAddedByInput = {
 
 export type MaterialPurchaseCreateManyProjectInput = {
   id?: string
+  section?: string
   name: string
   unit?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -881,6 +1033,7 @@ export type MaterialPurchaseCreateManyProjectInput = {
 
 export type MaterialPurchaseUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -893,10 +1046,12 @@ export type MaterialPurchaseUpdateWithoutProjectInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
+  deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -909,10 +1064,12 @@ export type MaterialPurchaseUncheckedUpdateWithoutProjectInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   unit?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -927,11 +1084,41 @@ export type MaterialPurchaseUncheckedUpdateManyWithoutProjectInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type MaterialPurchaseCountOutputType
+ */
+
+export type MaterialPurchaseCountOutputType = {
+  deliveries: number
+}
+
+export type MaterialPurchaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  deliveries?: boolean | MaterialPurchaseCountOutputTypeCountDeliveriesArgs
+}
+
+/**
+ * MaterialPurchaseCountOutputType without action
+ */
+export type MaterialPurchaseCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialPurchaseCountOutputType
+   */
+  select?: Prisma.MaterialPurchaseCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MaterialPurchaseCountOutputType without action
+ */
+export type MaterialPurchaseCountOutputTypeCountDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterialDeliveryWhereInput
+}
 
 
 export type MaterialPurchaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
+  section?: boolean
   name?: boolean
   unit?: boolean
   quantity?: boolean
@@ -946,11 +1133,14 @@ export type MaterialPurchaseSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  deliveries?: boolean | Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>
+  _count?: boolean | Prisma.MaterialPurchaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialPurchase"]>
 
 export type MaterialPurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
+  section?: boolean
   name?: boolean
   unit?: boolean
   quantity?: boolean
@@ -970,6 +1160,7 @@ export type MaterialPurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
 export type MaterialPurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
+  section?: boolean
   name?: boolean
   unit?: boolean
   quantity?: boolean
@@ -989,6 +1180,7 @@ export type MaterialPurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type MaterialPurchaseSelectScalar = {
   id?: boolean
   projectId?: boolean
+  section?: boolean
   name?: boolean
   unit?: boolean
   quantity?: boolean
@@ -1003,10 +1195,12 @@ export type MaterialPurchaseSelectScalar = {
   createdAt?: boolean
 }
 
-export type MaterialPurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "name" | "unit" | "quantity" | "rate" | "amount" | "date" | "note" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt", ExtArgs["result"]["materialPurchase"]>
+export type MaterialPurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "section" | "name" | "unit" | "quantity" | "rate" | "amount" | "date" | "note" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt", ExtArgs["result"]["materialPurchase"]>
 export type MaterialPurchaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  deliveries?: boolean | Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>
+  _count?: boolean | Prisma.MaterialPurchaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MaterialPurchaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -1022,10 +1216,12 @@ export type $MaterialPurchasePayload<ExtArgs extends runtime.Types.Extensions.In
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
     addedBy: Prisma.$UserPayload<ExtArgs>
+    deliveries: Prisma.$MaterialDeliveryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     projectId: string
+    section: string
     name: string
     unit: string
     quantity: runtime.Decimal
@@ -1434,6 +1630,7 @@ export interface Prisma__MaterialPurchaseClient<T, Null = never, ExtArgs extends
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   addedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  deliveries<T extends Prisma.MaterialPurchase$deliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1465,6 +1662,7 @@ export interface Prisma__MaterialPurchaseClient<T, Null = never, ExtArgs extends
 export interface MaterialPurchaseFieldRefs {
   readonly id: Prisma.FieldRef<"MaterialPurchase", 'String'>
   readonly projectId: Prisma.FieldRef<"MaterialPurchase", 'String'>
+  readonly section: Prisma.FieldRef<"MaterialPurchase", 'String'>
   readonly name: Prisma.FieldRef<"MaterialPurchase", 'String'>
   readonly unit: Prisma.FieldRef<"MaterialPurchase", 'String'>
   readonly quantity: Prisma.FieldRef<"MaterialPurchase", 'Decimal'>
@@ -1875,6 +2073,30 @@ export type MaterialPurchaseDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many MaterialPurchases to delete.
    */
   limit?: number
+}
+
+/**
+ * MaterialPurchase.deliveries
+ */
+export type MaterialPurchase$deliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialDelivery
+   */
+  select?: Prisma.MaterialDeliverySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MaterialDelivery
+   */
+  omit?: Prisma.MaterialDeliveryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterialDeliveryInclude<ExtArgs> | null
+  where?: Prisma.MaterialDeliveryWhereInput
+  orderBy?: Prisma.MaterialDeliveryOrderByWithRelationInput | Prisma.MaterialDeliveryOrderByWithRelationInput[]
+  cursor?: Prisma.MaterialDeliveryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterialDeliveryScalarFieldEnum | Prisma.MaterialDeliveryScalarFieldEnum[]
 }
 
 /**
