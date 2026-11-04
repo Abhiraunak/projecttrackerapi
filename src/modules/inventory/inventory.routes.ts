@@ -9,8 +9,8 @@ import { uploadSingleFile } from "../../middleware/uploadImage.js";
 import { addMaterialPayment, listMaterialPayments, removeMaterialPayment } from "../material-payments/materialPayments.service.js";
 import * as c from "./inventory.controller.js";
 import { estimateSchema } from "../estimates/estimates.schema.js";
-import { addPurchaseSchema, updatePurchaseSchema } from "../material-purchases/materialPurchases.schema.js";
-import { addPurchase, listPurchases, removePurchase, updatePurchase } from "../material-purchases/materialPurchases.service.js";
+import { addDeliverySchema, addPurchaseSchema, fromBoqSchema, updatePurchaseSchema } from "../material-purchases/materialPurchases.schema.js";
+import { addDelivery, addFromBoq, addPurchase, boqMaterials, listPurchases, removeDelivery, removePurchase, updatePurchase } from "../material-purchases/materialPurchases.service.js";
 import { addEstimate, listEstimates, removeEstimate, updateEstimate } from "../estimates/estimates.service.js";
 import { addMaterialPaymentSchema } from "../material-payments/materialPayments.js";
 
@@ -41,11 +41,27 @@ router.get("/projects/:projectId/material-purchases", requireAuth, async (req: R
 router.post("/projects/:projectId/material-purchases", requireAuth, writeLimiter, uploadSingleFile, validate(addPurchaseSchema), async (req: Request<{ projectId: string }>, res) => {
   res.status(201).json(await addPurchase(req.user!.sub, req.params.projectId, req.body, req.file));
 });
+// The BOQ's materials by sheet, to pick and add to the list (registered before /:purchaseId routes on purpose)
+router.get("/projects/:projectId/material-purchases/from-boq", requireAuth, async (req: Request<{ projectId: string }>, res) => {
+  res.json(await boqMaterials(req.user!.sub, req.params.projectId));
+});
+router.post("/projects/:projectId/material-purchases/from-boq", requireAuth, writeLimiter, validate(fromBoqSchema), async (req: Request<{ projectId: string }>, res) => {
+  res.status(201).json(await addFromBoq(req.user!.sub, req.params.projectId, req.body));
+});
 router.put("/projects/:projectId/material-purchases/:purchaseId", requireAuth, writeLimiter, uploadSingleFile, validate(updatePurchaseSchema), async (req: WithPurchase, res) => {
   res.json(await updatePurchase(req.user!.sub, req.params.projectId, req.params.purchaseId, req.body, req.file));
 });
 router.delete("/projects/:projectId/material-purchases/:purchaseId", requireAuth, async (req: WithPurchase, res) => {
   res.json(await removePurchase(req.user!.sub, req.params.projectId, req.params.purchaseId));
+});
+
+// Deliveries of one material: on what date how many arrived, with an optional bill
+type WithDelivery = Request<{ projectId: string; purchaseId: string; deliveryId: string }>;
+router.post("/projects/:projectId/material-purchases/:purchaseId/deliveries", requireAuth, writeLimiter, uploadSingleFile, validate(addDeliverySchema), async (req: WithPurchase, res) => {
+  res.status(201).json(await addDelivery(req.user!.sub, req.params.projectId, req.params.purchaseId, req.body, req.file));
+});
+router.delete("/projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId", requireAuth, async (req: WithDelivery, res) => {
+  res.json(await removeDelivery(req.user!.sub, req.params.projectId, req.params.purchaseId, req.params.deliveryId));
 });
 
 // Money paid to material vendors (with an optional receipt), and each vendor's bought / paid / still owed
