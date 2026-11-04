@@ -206,3 +206,8 @@ export type MaterialPayment = Prisma.MaterialPaymentModel
  * 
  */
 export type MaterialEstimate = Prisma.MaterialEstimateModel
+/**
+ * Model MaterialPurchase
+ * 
+ */
+export type MaterialPurchase = Prisma.MaterialPurchaseModel

@@ -93,6 +93,7 @@ model User {
   contractorPaymentsAdded ContractorPayment[] @relation("ContractorPaymentAddedBy")
   materialPaymentsAdded   MaterialPayment[]   @relation("MaterialPaymentAddedBy")
   materialEstimatesAdded  MaterialEstimate[]  @relation("MaterialEstimateAddedBy")
+  materialPurchasesAdded MaterialPurchase[] @relation("MaterialPurchaseAddedBy")
 }
 
 model RefreshToken {
@@ -152,6 +153,7 @@ model Project {
   contractorPayments ContractorPayment[]
   materialPayments   MaterialPayment[]
   materialEstimates  MaterialEstimate[]
+  materialPurchases MaterialPurchase[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -939,4 +941,26 @@ model MaterialEstimate {
   updatedAt      DateTime @updatedAt
 
   @@index([projectId, materialId])
+}
+
+model MaterialPurchase {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name        String // "Bricks", "Cement"…
+  unit        String   @default("") // "nos", "bags", "cft"… (optional)
+  quantity    Decimal  @db.Decimal(14, 3)
+  rate        Decimal  @db.Decimal(14, 2) // per unit
+  amount      Decimal  @db.Decimal(16, 2) // quantity × rate
+  date        DateTime @db.Date
+  note        String   @default("")
+  // The bill, stored on Cloudinary like expense bills; all empty when none was added
+  billId      String?
+  billVersion Int?
+  billFormat  String?
+  addedById   String
+  addedBy     User     @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@index([projectId, date])
 }

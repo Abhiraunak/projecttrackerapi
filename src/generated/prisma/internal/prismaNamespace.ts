@@ -432,7 +432,8 @@ export const ModelName = {
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
   MaterialPayment: 'MaterialPayment',
-  MaterialEstimate: 'MaterialEstimate'
+  MaterialEstimate: 'MaterialEstimate',
+  MaterialPurchase: 'MaterialPurchase'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -448,7 +449,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate"
+    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate" | "materialPurchase"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3116,6 +3117,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MaterialPurchase: {
+      payload: Prisma.$MaterialPurchasePayload<ExtArgs>
+      fields: Prisma.MaterialPurchaseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MaterialPurchaseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MaterialPurchaseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>
+        }
+        findFirst: {
+          args: Prisma.MaterialPurchaseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MaterialPurchaseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>
+        }
+        findMany: {
+          args: Prisma.MaterialPurchaseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>[]
+        }
+        create: {
+          args: Prisma.MaterialPurchaseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>
+        }
+        createMany: {
+          args: Prisma.MaterialPurchaseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MaterialPurchaseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>[]
+        }
+        delete: {
+          args: Prisma.MaterialPurchaseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>
+        }
+        update: {
+          args: Prisma.MaterialPurchaseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>
+        }
+        deleteMany: {
+          args: Prisma.MaterialPurchaseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MaterialPurchaseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MaterialPurchaseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>[]
+        }
+        upsert: {
+          args: Prisma.MaterialPurchaseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPurchasePayload>
+        }
+        aggregate: {
+          args: Prisma.MaterialPurchaseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterialPurchase>
+        }
+        groupBy: {
+          args: Prisma.MaterialPurchaseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialPurchaseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MaterialPurchaseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialPurchaseCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3777,6 +3852,26 @@ export const MaterialEstimateScalarFieldEnum = {
 export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
 
 
+export const MaterialPurchaseScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  unit: 'unit',
+  quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
+  date: 'date',
+  note: 'note',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat',
+  addedById: 'addedById',
+  createdAt: 'createdAt'
+} as const
+
+export type MaterialPurchaseScalarFieldEnum = (typeof MaterialPurchaseScalarFieldEnum)[keyof typeof MaterialPurchaseScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4304,6 +4399,7 @@ export type GlobalOmitConfig = {
   contractorPayment?: Prisma.ContractorPaymentOmit
   materialPayment?: Prisma.MaterialPaymentOmit
   materialEstimate?: Prisma.MaterialEstimateOmit
+  materialPurchase?: Prisma.MaterialPurchaseOmit
 }
 
 /* Types for Logging */
