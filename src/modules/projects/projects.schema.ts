@@ -34,7 +34,8 @@ export const updateProjectSchema = z.object({ body: z.object({ title, projectCos
 
 export const patchProjectSchema = z.object({
   body: z
-    .object({ title: title.optional(), firmName: firmName.optional(), projectCost: projectCost.optional(), status: statusEnum.optional() })
+    // No default here: leaving projectCost out must keep the saved cost, not clear it
+    .object({ title: title.optional(), firmName: firmName.optional(), projectCost: amount.nullable().optional(), status: statusEnum.optional() })
     .refine((b) => Object.keys(b).length > 0, "Nothing to update"),
 });
 
