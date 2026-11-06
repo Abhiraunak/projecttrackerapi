@@ -73,12 +73,15 @@ export const ModelName = {
     Task: 'Task',
     Attendance: 'Attendance',
     AttendanceWorker: 'AttendanceWorker',
+    LabourTeamMember: 'LabourTeamMember',
     Drawing: 'Drawing',
     DrawingShare: 'DrawingShare',
     PushSubscription: 'PushSubscription',
     Material: 'Material',
     Vendor: 'Vendor',
     StockMovement: 'StockMovement',
+    MaterialPurchase: 'MaterialPurchase',
+    MaterialDelivery: 'MaterialDelivery',
     BoqItem: 'BoqItem',
     BoqItemMaterial: 'BoqItemMaterial',
     MaterialRecipe: 'MaterialRecipe',
@@ -177,14 +180,32 @@ export const AttendanceScalarFieldEnum = {
     notes: 'notes',
     totalAmount: 'totalAmount',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    batchId: 'batchId',
+    batchLead: 'batchLead',
+    payMode: 'payMode'
 };
 export const AttendanceWorkerScalarFieldEnum = {
     id: 'id',
     attendanceId: 'attendanceId',
     label: 'label',
     amount: 'amount',
-    position: 'position'
+    position: 'position',
+    memberId: 'memberId',
+    hours: 'hours',
+    otHours: 'otHours',
+    hourlyRate: 'hourlyRate'
+};
+export const LabourTeamMemberScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    contractorName: 'contractorName',
+    name: 'name',
+    dayRate: 'dayRate',
+    active: 'active',
+    position: 'position',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const DrawingScalarFieldEnum = {
     id: 'id',
@@ -258,6 +279,35 @@ export const StockMovementScalarFieldEnum = {
     billId: 'billId',
     billVersion: 'billVersion',
     billFormat: 'billFormat'
+};
+export const MaterialPurchaseScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    section: 'section',
+    name: 'name',
+    unit: 'unit',
+    quantity: 'quantity',
+    rate: 'rate',
+    amount: 'amount',
+    date: 'date',
+    note: 'note',
+    billId: 'billId',
+    billVersion: 'billVersion',
+    billFormat: 'billFormat',
+    addedById: 'addedById',
+    createdAt: 'createdAt'
+};
+export const MaterialDeliveryScalarFieldEnum = {
+    id: 'id',
+    purchaseId: 'purchaseId',
+    projectId: 'projectId',
+    date: 'date',
+    quantity: 'quantity',
+    billId: 'billId',
+    billVersion: 'billVersion',
+    billFormat: 'billFormat',
+    addedById: 'addedById',
+    createdAt: 'createdAt'
 };
 export const BoqItemScalarFieldEnum = {
     id: 'id',
