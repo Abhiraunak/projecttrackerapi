@@ -64,11 +64,17 @@ const dto = (p: Row) => ({
   createdAt: p.createdAt,
 });
 
-/** What attendance says each contractor earned on this project, by trade */
-const earnedRows = async (projectId: string) =>
-  (
-    await prisma.attendance.groupBy({ by: ["trade", "contractorName"], where: { projectId }, _sum: { totalAmount: true } })
-  ).map((g) => ({ trade: g.trade, contractorName: g.contractorName, total: num(g._sum.totalAmount) }));
+/** What each contractor earned on this project, by trade: attendance, plus contract work measured (area × rate) */
+const earnedRows = async (projectId: string) => {
+  const [attendance, contract] = await Promise.all([
+    prisma.attendance.groupBy({ by: ["trade", "contractorName"], where: { projectId }, _sum: { totalAmount: true } }),
+    prisma.labourMeasure.groupBy({ by: ["trade", "contractorName"], where: { projectId }, _sum: { amount: true } }),
+  ]);
+  return [
+    ...attendance.map((g) => ({ trade: g.trade, contractorName: g.contractorName, total: num(g._sum.totalAmount) })),
+    ...contract.map((g) => ({ trade: g.trade, contractorName: g.contractorName, total: num(g._sum.amount) })),
+  ];
+};
 
 /** GET /projects/:id/contractor-payments: every payment (newest first), each contractor's ledger, and the totals */
 export async function listPayments(userId: string, projectId: string) {

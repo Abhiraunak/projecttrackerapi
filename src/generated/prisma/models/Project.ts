@@ -309,6 +309,8 @@ export type ProjectWhereInput = {
   materialEstimates?: Prisma.MaterialEstimateListRelationFilter
   materialPurchases?: Prisma.MaterialPurchaseListRelationFilter
   labourTeam?: Prisma.LabourTeamMemberListRelationFilter
+  labourMeasures?: Prisma.LabourMeasureListRelationFilter
+  labourWeeks?: Prisma.LabourWeekListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -349,6 +351,8 @@ export type ProjectOrderByWithRelationInput = {
   materialEstimates?: Prisma.MaterialEstimateOrderByRelationAggregateInput
   materialPurchases?: Prisma.MaterialPurchaseOrderByRelationAggregateInput
   labourTeam?: Prisma.LabourTeamMemberOrderByRelationAggregateInput
+  labourMeasures?: Prisma.LabourMeasureOrderByRelationAggregateInput
+  labourWeeks?: Prisma.LabourWeekOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -392,6 +396,8 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   materialEstimates?: Prisma.MaterialEstimateListRelationFilter
   materialPurchases?: Prisma.MaterialPurchaseListRelationFilter
   labourTeam?: Prisma.LabourTeamMemberListRelationFilter
+  labourMeasures?: Prisma.LabourMeasureListRelationFilter
+  labourWeeks?: Prisma.LabourWeekListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -469,6 +475,8 @@ export type ProjectCreateInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -508,6 +516,8 @@ export type ProjectUncheckedCreateInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -547,6 +557,8 @@ export type ProjectUpdateInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -586,6 +598,8 @@ export type ProjectUncheckedUpdateInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -825,6 +839,34 @@ export type ProjectUpdateOneRequiredWithoutLabourTeamNestedInput = {
   upsert?: Prisma.ProjectUpsertWithoutLabourTeamInput
   connect?: Prisma.ProjectWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutLabourTeamInput, Prisma.ProjectUpdateWithoutLabourTeamInput>, Prisma.ProjectUncheckedUpdateWithoutLabourTeamInput>
+}
+
+export type ProjectCreateNestedOneWithoutLabourMeasuresInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLabourMeasuresInput, Prisma.ProjectUncheckedCreateWithoutLabourMeasuresInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLabourMeasuresInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutLabourMeasuresNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLabourMeasuresInput, Prisma.ProjectUncheckedCreateWithoutLabourMeasuresInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLabourMeasuresInput
+  upsert?: Prisma.ProjectUpsertWithoutLabourMeasuresInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutLabourMeasuresInput, Prisma.ProjectUpdateWithoutLabourMeasuresInput>, Prisma.ProjectUncheckedUpdateWithoutLabourMeasuresInput>
+}
+
+export type ProjectCreateNestedOneWithoutLabourWeeksInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLabourWeeksInput, Prisma.ProjectUncheckedCreateWithoutLabourWeeksInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLabourWeeksInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutLabourWeeksNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLabourWeeksInput, Prisma.ProjectUncheckedCreateWithoutLabourWeeksInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLabourWeeksInput
+  upsert?: Prisma.ProjectUpsertWithoutLabourWeeksInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutLabourWeeksInput, Prisma.ProjectUpdateWithoutLabourWeeksInput>, Prisma.ProjectUncheckedUpdateWithoutLabourWeeksInput>
 }
 
 export type ProjectCreateNestedOneWithoutDrawingsInput = {
@@ -1169,6 +1211,8 @@ export type ProjectCreateWithoutOwnerInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -1207,6 +1251,8 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -1289,6 +1335,8 @@ export type ProjectCreateWithoutTasksInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -1327,6 +1375,8 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -1381,6 +1431,8 @@ export type ProjectUpdateWithoutTasksInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -1419,6 +1471,8 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAttendanceInput = {
@@ -1457,6 +1511,8 @@ export type ProjectCreateWithoutAttendanceInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAttendanceInput = {
@@ -1495,6 +1551,8 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAttendanceInput = {
@@ -1549,6 +1607,8 @@ export type ProjectUpdateWithoutAttendanceInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAttendanceInput = {
@@ -1587,6 +1647,8 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutLabourTeamInput = {
@@ -1625,6 +1687,8 @@ export type ProjectCreateWithoutLabourTeamInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutLabourTeamInput = {
@@ -1663,6 +1727,8 @@ export type ProjectUncheckedCreateWithoutLabourTeamInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutLabourTeamInput = {
@@ -1717,6 +1783,8 @@ export type ProjectUpdateWithoutLabourTeamInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
@@ -1755,6 +1823,360 @@ export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutLabourMeasuresInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutLabourMeasuresInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutLabourMeasuresInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLabourMeasuresInput, Prisma.ProjectUncheckedCreateWithoutLabourMeasuresInput>
+}
+
+export type ProjectUpsertWithoutLabourMeasuresInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutLabourMeasuresInput, Prisma.ProjectUncheckedUpdateWithoutLabourMeasuresInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLabourMeasuresInput, Prisma.ProjectUncheckedCreateWithoutLabourMeasuresInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutLabourMeasuresInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutLabourMeasuresInput, Prisma.ProjectUncheckedUpdateWithoutLabourMeasuresInput>
+}
+
+export type ProjectUpdateWithoutLabourMeasuresInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutLabourMeasuresInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutLabourWeeksInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutLabourWeeksInput = {
+  id?: string
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutLabourWeeksInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLabourWeeksInput, Prisma.ProjectUncheckedCreateWithoutLabourWeeksInput>
+}
+
+export type ProjectUpsertWithoutLabourWeeksInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutLabourWeeksInput, Prisma.ProjectUncheckedUpdateWithoutLabourWeeksInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLabourWeeksInput, Prisma.ProjectUncheckedCreateWithoutLabourWeeksInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutLabourWeeksInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutLabourWeeksInput, Prisma.ProjectUncheckedUpdateWithoutLabourWeeksInput>
+}
+
+export type ProjectUpdateWithoutLabourWeeksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutLabourWeeksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDrawingsInput = {
@@ -1793,6 +2215,8 @@ export type ProjectCreateWithoutDrawingsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDrawingsInput = {
@@ -1831,6 +2255,8 @@ export type ProjectUncheckedCreateWithoutDrawingsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDrawingsInput = {
@@ -1885,6 +2311,8 @@ export type ProjectUpdateWithoutDrawingsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDrawingsInput = {
@@ -1923,6 +2351,8 @@ export type ProjectUncheckedUpdateWithoutDrawingsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockMovementsInput = {
@@ -1961,6 +2391,8 @@ export type ProjectCreateWithoutStockMovementsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockMovementsInput = {
@@ -1999,6 +2431,8 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockMovementsInput = {
@@ -2053,6 +2487,8 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
@@ -2091,6 +2527,8 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialPurchasesInput = {
@@ -2129,6 +2567,8 @@ export type ProjectCreateWithoutMaterialPurchasesInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
@@ -2167,6 +2607,8 @@ export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialPurchasesInput = {
@@ -2221,6 +2663,8 @@ export type ProjectUpdateWithoutMaterialPurchasesInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
@@ -2259,6 +2703,8 @@ export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutBoqItemsInput = {
@@ -2297,6 +2743,8 @@ export type ProjectCreateWithoutBoqItemsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutBoqItemsInput = {
@@ -2335,6 +2783,8 @@ export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutBoqItemsInput = {
@@ -2389,6 +2839,8 @@ export type ProjectUpdateWithoutBoqItemsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
@@ -2427,6 +2879,8 @@ export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialOrdersInput = {
@@ -2465,6 +2919,8 @@ export type ProjectCreateWithoutMaterialOrdersInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
@@ -2503,6 +2959,8 @@ export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialOrdersInput = {
@@ -2557,6 +3015,8 @@ export type ProjectUpdateWithoutMaterialOrdersInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
@@ -2595,6 +3055,8 @@ export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutStockAlertsInput = {
@@ -2633,6 +3095,8 @@ export type ProjectCreateWithoutStockAlertsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutStockAlertsInput = {
@@ -2671,6 +3135,8 @@ export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutStockAlertsInput = {
@@ -2725,6 +3191,8 @@ export type ProjectUpdateWithoutStockAlertsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
@@ -2763,6 +3231,8 @@ export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialRequestsInput = {
@@ -2801,6 +3271,8 @@ export type ProjectCreateWithoutMaterialRequestsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
@@ -2839,6 +3311,8 @@ export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialRequestsInput = {
@@ -2893,6 +3367,8 @@ export type ProjectUpdateWithoutMaterialRequestsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
@@ -2931,6 +3407,8 @@ export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutAuditLogInput = {
@@ -2969,6 +3447,8 @@ export type ProjectCreateWithoutAuditLogInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutAuditLogInput = {
@@ -3007,6 +3487,8 @@ export type ProjectUncheckedCreateWithoutAuditLogInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutAuditLogInput = {
@@ -3061,6 +3543,8 @@ export type ProjectUpdateWithoutAuditLogInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutAuditLogInput = {
@@ -3099,6 +3583,8 @@ export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutBoqsInput = {
@@ -3137,6 +3623,8 @@ export type ProjectCreateWithoutBoqsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutBoqsInput = {
@@ -3175,6 +3663,8 @@ export type ProjectUncheckedCreateWithoutBoqsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutBoqsInput = {
@@ -3229,6 +3719,8 @@ export type ProjectUpdateWithoutBoqsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutBoqsInput = {
@@ -3267,6 +3759,8 @@ export type ProjectUncheckedUpdateWithoutBoqsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutClientsInput = {
@@ -3305,6 +3799,8 @@ export type ProjectCreateWithoutClientsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutClientsInput = {
@@ -3343,6 +3839,8 @@ export type ProjectUncheckedCreateWithoutClientsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutClientsInput = {
@@ -3397,6 +3895,8 @@ export type ProjectUpdateWithoutClientsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutClientsInput = {
@@ -3435,6 +3935,8 @@ export type ProjectUncheckedUpdateWithoutClientsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutInstalmentsInput = {
@@ -3473,6 +3975,8 @@ export type ProjectCreateWithoutInstalmentsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutInstalmentsInput = {
@@ -3511,6 +4015,8 @@ export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutInstalmentsInput = {
@@ -3565,6 +4071,8 @@ export type ProjectUpdateWithoutInstalmentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
@@ -3603,6 +4111,8 @@ export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutPaymentProofsInput = {
@@ -3641,6 +4151,8 @@ export type ProjectCreateWithoutPaymentProofsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
@@ -3679,6 +4191,8 @@ export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutPaymentProofsInput = {
@@ -3733,6 +4247,8 @@ export type ProjectUpdateWithoutPaymentProofsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
@@ -3771,6 +4287,8 @@ export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDelaysInput = {
@@ -3809,6 +4327,8 @@ export type ProjectCreateWithoutDelaysInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDelaysInput = {
@@ -3847,6 +4367,8 @@ export type ProjectUncheckedCreateWithoutDelaysInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDelaysInput = {
@@ -3901,6 +4423,8 @@ export type ProjectUpdateWithoutDelaysInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDelaysInput = {
@@ -3939,6 +4463,8 @@ export type ProjectUncheckedUpdateWithoutDelaysInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutPunchesInput = {
@@ -3977,6 +4503,8 @@ export type ProjectCreateWithoutPunchesInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutPunchesInput = {
@@ -4015,6 +4543,8 @@ export type ProjectUncheckedCreateWithoutPunchesInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutPunchesInput = {
@@ -4069,6 +4599,8 @@ export type ProjectUpdateWithoutPunchesInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutPunchesInput = {
@@ -4107,6 +4639,8 @@ export type ProjectUncheckedUpdateWithoutPunchesInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutDeliveriesInput = {
@@ -4145,6 +4679,8 @@ export type ProjectCreateWithoutDeliveriesInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutDeliveriesInput = {
@@ -4183,6 +4719,8 @@ export type ProjectUncheckedCreateWithoutDeliveriesInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutDeliveriesInput = {
@@ -4237,6 +4775,8 @@ export type ProjectUpdateWithoutDeliveriesInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
@@ -4275,6 +4815,8 @@ export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutEquipmentOutInput = {
@@ -4313,6 +4855,8 @@ export type ProjectCreateWithoutEquipmentOutInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
@@ -4351,6 +4895,8 @@ export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutEquipmentOutInput = {
@@ -4394,6 +4940,8 @@ export type ProjectCreateWithoutEquipmentInInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutEquipmentInInput = {
@@ -4432,6 +4980,8 @@ export type ProjectUncheckedCreateWithoutEquipmentInInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutEquipmentInInput = {
@@ -4486,6 +5036,8 @@ export type ProjectUpdateWithoutEquipmentOutInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
@@ -4524,6 +5076,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUpsertWithoutEquipmentInInput = {
@@ -4573,6 +5127,8 @@ export type ProjectUpdateWithoutEquipmentInInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
@@ -4611,6 +5167,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutExpensesInput = {
@@ -4649,6 +5207,8 @@ export type ProjectCreateWithoutExpensesInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutExpensesInput = {
@@ -4687,6 +5247,8 @@ export type ProjectUncheckedCreateWithoutExpensesInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutExpensesInput = {
@@ -4741,6 +5303,8 @@ export type ProjectUpdateWithoutExpensesInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutExpensesInput = {
@@ -4779,6 +5343,8 @@ export type ProjectUncheckedUpdateWithoutExpensesInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutContractorPaymentsInput = {
@@ -4817,6 +5383,8 @@ export type ProjectCreateWithoutContractorPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
@@ -4855,6 +5423,8 @@ export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutContractorPaymentsInput = {
@@ -4909,6 +5479,8 @@ export type ProjectUpdateWithoutContractorPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
@@ -4947,6 +5519,8 @@ export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialPaymentsInput = {
@@ -4985,6 +5559,8 @@ export type ProjectCreateWithoutMaterialPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
@@ -5023,6 +5599,8 @@ export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialPaymentsInput = {
@@ -5077,6 +5655,8 @@ export type ProjectUpdateWithoutMaterialPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
@@ -5115,6 +5695,8 @@ export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMaterialEstimatesInput = {
@@ -5153,6 +5735,8 @@ export type ProjectCreateWithoutMaterialEstimatesInput = {
   materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
@@ -5191,6 +5775,8 @@ export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMaterialEstimatesInput = {
@@ -5245,6 +5831,8 @@ export type ProjectUpdateWithoutMaterialEstimatesInput = {
   materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
@@ -5283,6 +5871,8 @@ export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
   materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyOwnerInput = {
@@ -5335,6 +5925,8 @@ export type ProjectUpdateWithoutOwnerInput = {
   materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -5373,6 +5965,8 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
   materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -5419,6 +6013,8 @@ export type ProjectCountOutputType = {
   materialEstimates: number
   materialPurchases: number
   labourTeam: number
+  labourMeasures: number
+  labourWeeks: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5446,6 +6042,8 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   materialEstimates?: boolean | ProjectCountOutputTypeCountMaterialEstimatesArgs
   materialPurchases?: boolean | ProjectCountOutputTypeCountMaterialPurchasesArgs
   labourTeam?: boolean | ProjectCountOutputTypeCountLabourTeamArgs
+  labourMeasures?: boolean | ProjectCountOutputTypeCountLabourMeasuresArgs
+  labourWeeks?: boolean | ProjectCountOutputTypeCountLabourWeeksArgs
 }
 
 /**
@@ -5626,6 +6224,20 @@ export type ProjectCountOutputTypeCountLabourTeamArgs<ExtArgs extends runtime.Ty
   where?: Prisma.LabourTeamMemberWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountLabourMeasuresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LabourMeasureWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountLabourWeeksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LabourWeekWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5665,6 +6277,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   materialEstimates?: boolean | Prisma.Project$materialEstimatesArgs<ExtArgs>
   materialPurchases?: boolean | Prisma.Project$materialPurchasesArgs<ExtArgs>
   labourTeam?: boolean | Prisma.Project$labourTeamArgs<ExtArgs>
+  labourMeasures?: boolean | Prisma.Project$labourMeasuresArgs<ExtArgs>
+  labourWeeks?: boolean | Prisma.Project$labourWeeksArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -5742,6 +6356,8 @@ export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   materialEstimates?: boolean | Prisma.Project$materialEstimatesArgs<ExtArgs>
   materialPurchases?: boolean | Prisma.Project$materialPurchasesArgs<ExtArgs>
   labourTeam?: boolean | Prisma.Project$labourTeamArgs<ExtArgs>
+  labourMeasures?: boolean | Prisma.Project$labourMeasuresArgs<ExtArgs>
+  labourWeeks?: boolean | Prisma.Project$labourWeeksArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5779,6 +6395,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     materialEstimates: Prisma.$MaterialEstimatePayload<ExtArgs>[]
     materialPurchases: Prisma.$MaterialPurchasePayload<ExtArgs>[]
     labourTeam: Prisma.$LabourTeamMemberPayload<ExtArgs>[]
+    labourMeasures: Prisma.$LabourMeasurePayload<ExtArgs>[]
+    labourWeeks: Prisma.$LabourWeekPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6212,6 +6830,8 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
   materialEstimates<T extends Prisma.Project$materialEstimatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$materialEstimatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialEstimatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialPurchases<T extends Prisma.Project$materialPurchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$materialPurchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   labourTeam<T extends Prisma.Project$labourTeamArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$labourTeamArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabourTeamMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  labourMeasures<T extends Prisma.Project$labourMeasuresArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$labourMeasuresArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabourMeasurePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  labourWeeks<T extends Prisma.Project$labourWeeksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$labourWeeksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabourWeekPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7227,6 +7847,54 @@ export type Project$labourTeamArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.LabourTeamMemberScalarFieldEnum | Prisma.LabourTeamMemberScalarFieldEnum[]
+}
+
+/**
+ * Project.labourMeasures
+ */
+export type Project$labourMeasuresArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabourMeasure
+   */
+  select?: Prisma.LabourMeasureSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LabourMeasure
+   */
+  omit?: Prisma.LabourMeasureOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LabourMeasureInclude<ExtArgs> | null
+  where?: Prisma.LabourMeasureWhereInput
+  orderBy?: Prisma.LabourMeasureOrderByWithRelationInput | Prisma.LabourMeasureOrderByWithRelationInput[]
+  cursor?: Prisma.LabourMeasureWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LabourMeasureScalarFieldEnum | Prisma.LabourMeasureScalarFieldEnum[]
+}
+
+/**
+ * Project.labourWeeks
+ */
+export type Project$labourWeeksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabourWeek
+   */
+  select?: Prisma.LabourWeekSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LabourWeek
+   */
+  omit?: Prisma.LabourWeekOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LabourWeekInclude<ExtArgs> | null
+  where?: Prisma.LabourWeekWhereInput
+  orderBy?: Prisma.LabourWeekOrderByWithRelationInput | Prisma.LabourWeekOrderByWithRelationInput[]
+  cursor?: Prisma.LabourWeekWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LabourWeekScalarFieldEnum | Prisma.LabourWeekScalarFieldEnum[]
 }
 
 /**

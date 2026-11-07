@@ -58,6 +58,8 @@ export const ModelName = {
   Attendance: 'Attendance',
   AttendanceWorker: 'AttendanceWorker',
   LabourTeamMember: 'LabourTeamMember',
+  LabourMeasure: 'LabourMeasure',
+  LabourWeek: 'LabourWeek',
   Drawing: 'Drawing',
   DrawingShare: 'DrawingShare',
   PushSubscription: 'PushSubscription',
@@ -225,6 +227,39 @@ export const LabourTeamMemberScalarFieldEnum = {
 } as const
 
 export type LabourTeamMemberScalarFieldEnum = (typeof LabourTeamMemberScalarFieldEnum)[keyof typeof LabourTeamMemberScalarFieldEnum]
+
+
+export const LabourMeasureScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  trade: 'trade',
+  contractorName: 'contractorName',
+  date: 'date',
+  work: 'work',
+  quantity: 'quantity',
+  unit: 'unit',
+  rate: 'rate',
+  amount: 'amount',
+  note: 'note',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourMeasureScalarFieldEnum = (typeof LabourMeasureScalarFieldEnum)[keyof typeof LabourMeasureScalarFieldEnum]
+
+
+export const LabourWeekScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  trade: 'trade',
+  contractorName: 'contractorName',
+  contractorKey: 'contractorKey',
+  weekStart: 'weekStart',
+  settledBy: 'settledBy',
+  settledAt: 'settledAt'
+} as const
+
+export type LabourWeekScalarFieldEnum = (typeof LabourWeekScalarFieldEnum)[keyof typeof LabourWeekScalarFieldEnum]
 
 
 export const DrawingScalarFieldEnum = {

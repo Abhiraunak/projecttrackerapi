@@ -404,6 +404,8 @@ export const ModelName = {
   Attendance: 'Attendance',
   AttendanceWorker: 'AttendanceWorker',
   LabourTeamMember: 'LabourTeamMember',
+  LabourMeasure: 'LabourMeasure',
+  LabourWeek: 'LabourWeek',
   Drawing: 'Drawing',
   DrawingShare: 'DrawingShare',
   PushSubscription: 'PushSubscription',
@@ -451,7 +453,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate"
+    modelProps: "user" | "refreshToken" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -970,6 +972,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.LabourTeamMemberCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.LabourTeamMemberCountAggregateOutputType> | number
+        }
+      }
+    }
+    LabourMeasure: {
+      payload: Prisma.$LabourMeasurePayload<ExtArgs>
+      fields: Prisma.LabourMeasureFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LabourMeasureFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LabourMeasureFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>
+        }
+        findFirst: {
+          args: Prisma.LabourMeasureFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LabourMeasureFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>
+        }
+        findMany: {
+          args: Prisma.LabourMeasureFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>[]
+        }
+        create: {
+          args: Prisma.LabourMeasureCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>
+        }
+        createMany: {
+          args: Prisma.LabourMeasureCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LabourMeasureCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>[]
+        }
+        delete: {
+          args: Prisma.LabourMeasureDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>
+        }
+        update: {
+          args: Prisma.LabourMeasureUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>
+        }
+        deleteMany: {
+          args: Prisma.LabourMeasureDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LabourMeasureUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LabourMeasureUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>[]
+        }
+        upsert: {
+          args: Prisma.LabourMeasureUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourMeasurePayload>
+        }
+        aggregate: {
+          args: Prisma.LabourMeasureAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLabourMeasure>
+        }
+        groupBy: {
+          args: Prisma.LabourMeasureGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourMeasureGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LabourMeasureCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourMeasureCountAggregateOutputType> | number
+        }
+      }
+    }
+    LabourWeek: {
+      payload: Prisma.$LabourWeekPayload<ExtArgs>
+      fields: Prisma.LabourWeekFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LabourWeekFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LabourWeekFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>
+        }
+        findFirst: {
+          args: Prisma.LabourWeekFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LabourWeekFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>
+        }
+        findMany: {
+          args: Prisma.LabourWeekFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>[]
+        }
+        create: {
+          args: Prisma.LabourWeekCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>
+        }
+        createMany: {
+          args: Prisma.LabourWeekCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LabourWeekCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>[]
+        }
+        delete: {
+          args: Prisma.LabourWeekDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>
+        }
+        update: {
+          args: Prisma.LabourWeekUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>
+        }
+        deleteMany: {
+          args: Prisma.LabourWeekDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LabourWeekUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LabourWeekUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>[]
+        }
+        upsert: {
+          args: Prisma.LabourWeekUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourWeekPayload>
+        }
+        aggregate: {
+          args: Prisma.LabourWeekAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLabourWeek>
+        }
+        groupBy: {
+          args: Prisma.LabourWeekGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourWeekGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LabourWeekCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourWeekCountAggregateOutputType> | number
         }
       }
     }
@@ -3499,6 +3649,39 @@ export const LabourTeamMemberScalarFieldEnum = {
 export type LabourTeamMemberScalarFieldEnum = (typeof LabourTeamMemberScalarFieldEnum)[keyof typeof LabourTeamMemberScalarFieldEnum]
 
 
+export const LabourMeasureScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  trade: 'trade',
+  contractorName: 'contractorName',
+  date: 'date',
+  work: 'work',
+  quantity: 'quantity',
+  unit: 'unit',
+  rate: 'rate',
+  amount: 'amount',
+  note: 'note',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourMeasureScalarFieldEnum = (typeof LabourMeasureScalarFieldEnum)[keyof typeof LabourMeasureScalarFieldEnum]
+
+
+export const LabourWeekScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  trade: 'trade',
+  contractorName: 'contractorName',
+  contractorKey: 'contractorKey',
+  weekStart: 'weekStart',
+  settledBy: 'settledBy',
+  settledAt: 'settledAt'
+} as const
+
+export type LabourWeekScalarFieldEnum = (typeof LabourWeekScalarFieldEnum)[keyof typeof LabourWeekScalarFieldEnum]
+
+
 export const DrawingScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
@@ -4561,6 +4744,8 @@ export type GlobalOmitConfig = {
   attendance?: Prisma.AttendanceOmit
   attendanceWorker?: Prisma.AttendanceWorkerOmit
   labourTeamMember?: Prisma.LabourTeamMemberOmit
+  labourMeasure?: Prisma.LabourMeasureOmit
+  labourWeek?: Prisma.LabourWeekOmit
   drawing?: Prisma.DrawingOmit
   drawingShare?: Prisma.DrawingShareOmit
   pushSubscription?: Prisma.PushSubscriptionOmit

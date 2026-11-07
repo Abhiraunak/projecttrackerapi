@@ -40,14 +40,16 @@ export async function list(req: Request, res: Response) {
   });
   const ids = projects.map((p) => p.id);
   // Total spend for each tile, the same sum as the project's Overview: labour (attendance), every expense, materials
-  const [materials, labourRows, expenseRows] = await Promise.all([
+  const [materials, labourRows, contractRows, expenseRows] = await Promise.all([
     materialTotalsByProject(ids),
     prisma.attendance.groupBy({ by: ["projectId"], where: { projectId: { in: ids } }, _sum: { totalAmount: true } }),
+    prisma.labourMeasure.groupBy({ by: ["projectId"], where: { projectId: { in: ids } }, _sum: { amount: true } }), // contract work
     prisma.expense.groupBy({ by: ["projectId"], where: { projectId: { in: ids } }, _sum: { amount: true } }),
   ]);
   const otherSpend = new Map<string, number>();
   const add = (id: string, v: { toNumber(): number } | null) => otherSpend.set(id, (otherSpend.get(id) ?? 0) + (v?.toNumber() ?? 0));
   for (const r of labourRows) add(r.projectId, r._sum.totalAmount);
+  for (const r of contractRows) add(r.projectId, r._sum.amount);
   for (const r of expenseRows) add(r.projectId, r._sum.amount);
   res.json({ projects: projects.map((p) => summaryDto(p, materials.get(p.id), otherSpend.get(p.id) ?? 0)) });
 }

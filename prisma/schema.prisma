@@ -156,6 +156,8 @@ model Project {
   materialEstimates  MaterialEstimate[]
   materialPurchases  MaterialPurchase[]
   labourTeam         LabourTeamMember[]
+  labourMeasures     LabourMeasure[]
+  labourWeeks        LabourWeek[]
 
   @@index([ownerId, status, updatedAt])
 }
@@ -234,6 +236,45 @@ model LabourTeamMember {
 
   @@unique([projectId, contractorName, name])
   @@index([projectId, contractorName, active])
+}
+
+/// Contract work (paid by measurement, not attendance): e.g. 420 sqft of floor tiles × ₹28 = ₹11,760 to the tile
+/// contractor. Measured each week; counts as earned on its date, like a day of attendance.
+model LabourMeasure {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  trade          String   @default("") // spelled as in attendance and payments
+  contractorName String
+  date           DateTime @db.Date
+  work           String // "Floor tiles, 2nd floor"
+  quantity       Decimal  @db.Decimal(14, 3)
+  unit           String   @default("sqft")
+  rate           Decimal  @db.Decimal(14, 2)
+  amount         Decimal  @db.Decimal(16, 2) // quantity × rate, worked out on the server
+  note           String   @default("")
+  addedBy        String // the name of who logged it
+  createdAt      DateTime @default(now())
+
+  @@index([projectId, date])
+  @@index([projectId, trade, contractorName])
+}
+
+/// A pay week (Monday to Sunday) settled for one contractor in one trade: its attendance and contract work are
+/// locked, and the next week starts fresh with only what was left unpaid carried over.
+model LabourWeek {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  trade          String   @default("")
+  contractorName String
+  contractorKey  String // "trade|name", lower case: matches whatever the spacing or case
+  weekStart      DateTime @db.Date // the Monday
+  settledBy      String
+  settledAt      DateTime @default(now())
+
+  @@unique([projectId, contractorKey, weekStart])
+  @@index([projectId, weekStart])
 }
 
 model Drawing {
@@ -401,8 +442,8 @@ model MaterialDelivery {
   projectId   String // the purchase's project, kept here for the permission check
   date        DateTime         @db.Date
   quantity    Decimal          @db.Decimal(14, 3) // in the material's unit
-  rate        Decimal          @db.Decimal(14, 2) @default(0) // per unit, what was actually paid for this delivery
-  amount      Decimal          @db.Decimal(16, 2) @default(0) // quantity × rate: actual spending
+  rate        Decimal          @default(0) @db.Decimal(14, 2) // per unit, what was actually paid for this delivery
+  amount      Decimal          @default(0) @db.Decimal(16, 2) // quantity × rate: actual spending
   billId      String?
   billVersion Int?
   billFormat  String?
