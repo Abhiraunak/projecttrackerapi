@@ -401,6 +401,8 @@ model MaterialDelivery {
   projectId   String // the purchase's project, kept here for the permission check
   date        DateTime         @db.Date
   quantity    Decimal          @db.Decimal(14, 3) // in the material's unit
+  rate        Decimal          @db.Decimal(14, 2) @default(0) // per unit, what was actually paid for this delivery
+  amount      Decimal          @db.Decimal(16, 2) @default(0) // quantity × rate: actual spending
   billId      String?
   billVersion Int?
   billFormat  String?
@@ -409,6 +411,7 @@ model MaterialDelivery {
   createdAt   DateTime         @default(now())
 
   @@index([purchaseId, date])
+  @@index([projectId])
 }
 
 /// One priced part of one of the project's BOQs, as last synced. Never deleted by a sync: an item that left
@@ -1012,4 +1015,3 @@ model MaterialEstimate {
 
   @@index([projectId, materialId])
 }
-

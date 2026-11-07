@@ -59,9 +59,10 @@ export async function materialTotalsByProject(projectIds: string[]): Promise<Map
   const [costOf, purchases] = await Promise.all([costInputs(projectIds), purchaseTotalsByProject(projectIds)]);
   return new Map(projectIds.map((id) => {
     const { totals } = costOf(id);
-    // Materials added in the simple Materials tab (quantity × rate) are money spent, on top of any stock received
-    const bought = purchases.get(id) ?? 0;
+    // The simple Materials tab: spent = what its deliveries actually cost (quantity × rate paid);
+    // expected = the preset cost of everything ordered (quantity × preset rate). Both on top of any stock received.
+    const bought = purchases.get(id) ?? { planned: 0, spent: 0 };
     const round = (n: number) => Math.round(n * 100) / 100;
-    return [id, { spent: round(totals.spent + bought), expected: round(totals.expected + bought) }];
+    return [id, { spent: round(totals.spent + bought.spent), expected: round(totals.expected + bought.planned) }];
   }));
 }

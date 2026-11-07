@@ -351,6 +351,8 @@ export const MaterialDeliveryScalarFieldEnum = {
   projectId: 'projectId',
   date: 'date',
   quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
   billId: 'billId',
   billVersion: 'billVersion',
   billFormat: 'billFormat',

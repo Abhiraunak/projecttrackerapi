@@ -29,11 +29,15 @@ export type AggregateMaterialDelivery = {
 
 export type MaterialDeliveryAvgAggregateOutputType = {
   quantity: runtime.Decimal | null
+  rate: runtime.Decimal | null
+  amount: runtime.Decimal | null
   billVersion: number | null
 }
 
 export type MaterialDeliverySumAggregateOutputType = {
   quantity: runtime.Decimal | null
+  rate: runtime.Decimal | null
+  amount: runtime.Decimal | null
   billVersion: number | null
 }
 
@@ -43,6 +47,8 @@ export type MaterialDeliveryMinAggregateOutputType = {
   projectId: string | null
   date: Date | null
   quantity: runtime.Decimal | null
+  rate: runtime.Decimal | null
+  amount: runtime.Decimal | null
   billId: string | null
   billVersion: number | null
   billFormat: string | null
@@ -56,6 +62,8 @@ export type MaterialDeliveryMaxAggregateOutputType = {
   projectId: string | null
   date: Date | null
   quantity: runtime.Decimal | null
+  rate: runtime.Decimal | null
+  amount: runtime.Decimal | null
   billId: string | null
   billVersion: number | null
   billFormat: string | null
@@ -69,6 +77,8 @@ export type MaterialDeliveryCountAggregateOutputType = {
   projectId: number
   date: number
   quantity: number
+  rate: number
+  amount: number
   billId: number
   billVersion: number
   billFormat: number
@@ -80,11 +90,15 @@ export type MaterialDeliveryCountAggregateOutputType = {
 
 export type MaterialDeliveryAvgAggregateInputType = {
   quantity?: true
+  rate?: true
+  amount?: true
   billVersion?: true
 }
 
 export type MaterialDeliverySumAggregateInputType = {
   quantity?: true
+  rate?: true
+  amount?: true
   billVersion?: true
 }
 
@@ -94,6 +108,8 @@ export type MaterialDeliveryMinAggregateInputType = {
   projectId?: true
   date?: true
   quantity?: true
+  rate?: true
+  amount?: true
   billId?: true
   billVersion?: true
   billFormat?: true
@@ -107,6 +123,8 @@ export type MaterialDeliveryMaxAggregateInputType = {
   projectId?: true
   date?: true
   quantity?: true
+  rate?: true
+  amount?: true
   billId?: true
   billVersion?: true
   billFormat?: true
@@ -120,6 +138,8 @@ export type MaterialDeliveryCountAggregateInputType = {
   projectId?: true
   date?: true
   quantity?: true
+  rate?: true
+  amount?: true
   billId?: true
   billVersion?: true
   billFormat?: true
@@ -220,6 +240,8 @@ export type MaterialDeliveryGroupByOutputType = {
   projectId: string
   date: Date
   quantity: runtime.Decimal
+  rate: runtime.Decimal
+  amount: runtime.Decimal
   billId: string | null
   billVersion: number | null
   billFormat: string | null
@@ -256,6 +278,8 @@ export type MaterialDeliveryWhereInput = {
   projectId?: Prisma.StringFilter<"MaterialDelivery"> | string
   date?: Prisma.DateTimeFilter<"MaterialDelivery"> | Date | string
   quantity?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
   billVersion?: Prisma.IntNullableFilter<"MaterialDelivery"> | number | null
   billFormat?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
@@ -271,6 +295,8 @@ export type MaterialDeliveryOrderByWithRelationInput = {
   projectId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billId?: Prisma.SortOrderInput | Prisma.SortOrder
   billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,6 +315,8 @@ export type MaterialDeliveryWhereUniqueInput = Prisma.AtLeast<{
   projectId?: Prisma.StringFilter<"MaterialDelivery"> | string
   date?: Prisma.DateTimeFilter<"MaterialDelivery"> | Date | string
   quantity?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
   billVersion?: Prisma.IntNullableFilter<"MaterialDelivery"> | number | null
   billFormat?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
@@ -304,6 +332,8 @@ export type MaterialDeliveryOrderByWithAggregationInput = {
   projectId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billId?: Prisma.SortOrderInput | Prisma.SortOrder
   billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -325,6 +355,8 @@ export type MaterialDeliveryScalarWhereWithAggregatesInput = {
   projectId?: Prisma.StringWithAggregatesFilter<"MaterialDelivery"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"MaterialDelivery"> | Date | string
   quantity?: Prisma.DecimalWithAggregatesFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalWithAggregatesFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalWithAggregatesFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.StringNullableWithAggregatesFilter<"MaterialDelivery"> | string | null
   billVersion?: Prisma.IntNullableWithAggregatesFilter<"MaterialDelivery"> | number | null
   billFormat?: Prisma.StringNullableWithAggregatesFilter<"MaterialDelivery"> | string | null
@@ -337,6 +369,8 @@ export type MaterialDeliveryCreateInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -351,6 +385,8 @@ export type MaterialDeliveryUncheckedCreateInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -363,6 +399,8 @@ export type MaterialDeliveryUpdateInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -377,6 +415,8 @@ export type MaterialDeliveryUncheckedUpdateInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -390,6 +430,8 @@ export type MaterialDeliveryCreateManyInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -402,6 +444,8 @@ export type MaterialDeliveryUpdateManyMutationInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -414,6 +458,8 @@ export type MaterialDeliveryUncheckedUpdateManyInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -437,6 +483,8 @@ export type MaterialDeliveryCountOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billId?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
@@ -446,6 +494,8 @@ export type MaterialDeliveryCountOrderByAggregateInput = {
 
 export type MaterialDeliveryAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
 }
 
@@ -455,6 +505,8 @@ export type MaterialDeliveryMaxOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billId?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
@@ -468,6 +520,8 @@ export type MaterialDeliveryMinOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   date?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billId?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
@@ -477,6 +531,8 @@ export type MaterialDeliveryMinOrderByAggregateInput = {
 
 export type MaterialDeliverySumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  rate?: Prisma.SortOrder
+  amount?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
 }
 
@@ -569,6 +625,8 @@ export type MaterialDeliveryCreateWithoutAddedByInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -582,6 +640,8 @@ export type MaterialDeliveryUncheckedCreateWithoutAddedByInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -623,6 +683,8 @@ export type MaterialDeliveryScalarWhereInput = {
   projectId?: Prisma.StringFilter<"MaterialDelivery"> | string
   date?: Prisma.DateTimeFilter<"MaterialDelivery"> | Date | string
   quantity?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFilter<"MaterialDelivery"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
   billVersion?: Prisma.IntNullableFilter<"MaterialDelivery"> | number | null
   billFormat?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
@@ -635,6 +697,8 @@ export type MaterialDeliveryCreateWithoutPurchaseInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -647,6 +711,8 @@ export type MaterialDeliveryUncheckedCreateWithoutPurchaseInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -686,6 +752,8 @@ export type MaterialDeliveryCreateManyAddedByInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -697,6 +765,8 @@ export type MaterialDeliveryUpdateWithoutAddedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -710,6 +780,8 @@ export type MaterialDeliveryUncheckedUpdateWithoutAddedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -722,6 +794,8 @@ export type MaterialDeliveryUncheckedUpdateManyWithoutAddedByInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -733,6 +807,8 @@ export type MaterialDeliveryCreateManyPurchaseInput = {
   projectId: string
   date: Date | string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
@@ -745,6 +821,8 @@ export type MaterialDeliveryUpdateWithoutPurchaseInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -757,6 +835,8 @@ export type MaterialDeliveryUncheckedUpdateWithoutPurchaseInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -769,6 +849,8 @@ export type MaterialDeliveryUncheckedUpdateManyWithoutPurchaseInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -784,6 +866,8 @@ export type MaterialDeliverySelect<ExtArgs extends runtime.Types.Extensions.Inte
   projectId?: boolean
   date?: boolean
   quantity?: boolean
+  rate?: boolean
+  amount?: boolean
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
@@ -799,6 +883,8 @@ export type MaterialDeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   projectId?: boolean
   date?: boolean
   quantity?: boolean
+  rate?: boolean
+  amount?: boolean
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
@@ -814,6 +900,8 @@ export type MaterialDeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   projectId?: boolean
   date?: boolean
   quantity?: boolean
+  rate?: boolean
+  amount?: boolean
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
@@ -829,6 +917,8 @@ export type MaterialDeliverySelectScalar = {
   projectId?: boolean
   date?: boolean
   quantity?: boolean
+  rate?: boolean
+  amount?: boolean
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
@@ -836,7 +926,7 @@ export type MaterialDeliverySelectScalar = {
   createdAt?: boolean
 }
 
-export type MaterialDeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "projectId" | "date" | "quantity" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt", ExtArgs["result"]["materialDelivery"]>
+export type MaterialDeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "projectId" | "date" | "quantity" | "rate" | "amount" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt", ExtArgs["result"]["materialDelivery"]>
 export type MaterialDeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   purchase?: boolean | Prisma.MaterialPurchaseDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -862,6 +952,8 @@ export type $MaterialDeliveryPayload<ExtArgs extends runtime.Types.Extensions.In
     projectId: string
     date: Date
     quantity: runtime.Decimal
+    rate: runtime.Decimal
+    amount: runtime.Decimal
     billId: string | null
     billVersion: number | null
     billFormat: string | null
@@ -1297,6 +1389,8 @@ export interface MaterialDeliveryFieldRefs {
   readonly projectId: Prisma.FieldRef<"MaterialDelivery", 'String'>
   readonly date: Prisma.FieldRef<"MaterialDelivery", 'DateTime'>
   readonly quantity: Prisma.FieldRef<"MaterialDelivery", 'Decimal'>
+  readonly rate: Prisma.FieldRef<"MaterialDelivery", 'Decimal'>
+  readonly amount: Prisma.FieldRef<"MaterialDelivery", 'Decimal'>
   readonly billId: Prisma.FieldRef<"MaterialDelivery", 'String'>
   readonly billVersion: Prisma.FieldRef<"MaterialDelivery", 'Int'>
   readonly billFormat: Prisma.FieldRef<"MaterialDelivery", 'String'>

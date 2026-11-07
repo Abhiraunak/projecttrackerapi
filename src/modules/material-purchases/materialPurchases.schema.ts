@@ -48,11 +48,12 @@ export const fromBoqSchema = z.object({
 
 export type FromBoq = z.infer<typeof fromBoqSchema>["body"];
 
-/** One delivery: the date, how many arrived (sent as a form because of the bill) */
+/** One delivery: the date, how many arrived and at what rate (sent as a form because of the bill) */
 export const addDeliverySchema = z.object({
   body: z.object({
     date: z.iso.date(),
     quantity: z.coerce.number().finite().positive("Enter how many arrived.").max(1_000_000_000),
+    rate: z.coerce.number().finite().min(0, "The rate can't be negative.").max(100_000_000),
   }),
 });
 

@@ -8,7 +8,7 @@ import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 import { requiredQty } from "../materialPlan/plan.js";
-import { amountOf, arrivalOf, boqLines, canonicalName, summarize } from "./materialPurchases.calc.js";
+import { amountOf, arrivalOf, boqLines, canonicalName, round2, spentOf, summarize } from "./materialPurchases.calc.js";
 import type { AddDelivery, AddPurchase, FromBoq, UpdatePurchase } from "./materialPurchases.schema.js";
 
 /*
@@ -38,12 +38,13 @@ const select = {
   addedBy: { select: { name: true, email: true } },
   deliveries: {
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
-    select: { id: true, date: true, quantity: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+    select: { id: true, date: true, quantity: true, rate: true, amount: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
   },
 } satisfies Prisma.MaterialPurchaseSelect; // not "as const": that makes orderBy a read-only array, which Prisma refuses
 
 type BillCols = { billId: string | null; billVersion: number | null; billFormat: string | null };
-type DeliveryRow = BillCols & { id: string; date: Date; quantity: { toNumber(): number }; addedBy: { name: string | null; email: string } };
+type Num = { toNumber(): number };
+type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; addedBy: { name: string | null; email: string } };
 
 const billOf = (p: BillCols) => ({
   billUrl:
@@ -53,7 +54,15 @@ const billOf = (p: BillCols) => ({
   billKind: p.billFormat ? kindOf(p.billFormat) : null,
 });
 
-const deliveryDto = (d: DeliveryRow) => ({ id: d.id, date: ymd(d.date), quantity: d.quantity.toNumber(), ...billOf(d), addedBy: d.addedBy.name || d.addedBy.email });
+const deliveryDto = (d: DeliveryRow) => ({
+  id: d.id,
+  date: ymd(d.date),
+  quantity: d.quantity.toNumber(),
+  rate: d.rate.toNumber(), // what was actually paid per unit
+  amount: d.amount.toNumber(), // quantity × rate
+  ...billOf(d),
+  addedBy: d.addedBy.name || d.addedBy.email,
+});
 
 type Row = {
   id: string;
@@ -81,14 +90,15 @@ const dto = (p: Row) => {
     name: p.name,
     unit: p.unit,
     quantity: p.quantity.toNumber(),
-    rate: p.rate.toNumber(),
-    amount: p.amount.toNumber(),
+    rate: p.rate.toNumber(), // the preset (planned) rate
+    amount: p.amount.toNumber(), // preset cost: quantity ordered × the preset rate
+    spent: spentOf(deliveries), // actual spending: every delivery's quantity × the rate paid
     date: ymd(p.date),
     note: p.note,
     ...billOf(p),
     addedBy: p.addedBy.name || p.addedBy.email,
     createdAt: p.createdAt,
-    // Deliveries: on what date how many arrived; the quantity above is what was ordered
+    // Deliveries: on what date how many arrived and at what rate; the quantity above is what was ordered
     deliveries,
     ...arrivalOf(p.quantity.toNumber(), deliveries),
   };
@@ -132,7 +142,8 @@ export async function listPurchases(userId: string, projectId: string) {
     knownSections(projectId),
   ]);
   const items = rows.map(dto);
-  return { items, ...summarize(items), names, sections };
+  // total = preset cost of everything ordered; spentTotal = what the deliveries actually cost
+  return { items, ...summarize(items), spentTotal: round2(items.reduce((s, i) => s + i.spent, 0)), names, sections };
 }
 
 /** POST /projects/:projectId/material-purchases */
@@ -237,11 +248,20 @@ export async function removePurchase(userId: string, projectId: string, purchase
   return { ok: true };
 }
 
-/** The material purchases' total per project, for the project cards, the hub and the Expenditure tab */
-export async function purchaseTotalsByProject(projectIds: string[]): Promise<Map<string, number>> {
+/**
+ * For the project cards, Overview and Expenditure: per project, the preset cost of the materials on the list
+ * (planned) and what their deliveries actually cost (spent).
+ */
+export async function purchaseTotalsByProject(projectIds: string[]): Promise<Map<string, { planned: number; spent: number }>> {
   if (projectIds.length === 0) return new Map();
-  const rows = await prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } });
-  return new Map(rows.map((r) => [r.projectId, r._sum.amount?.toNumber() ?? 0]));
+  const [planned, spent] = await Promise.all([
+    prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
+    prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
+  ]);
+  const out = new Map<string, { planned: number; spent: number }>(projectIds.map((id) => [id, { planned: 0, spent: 0 }]));
+  for (const r of planned) out.get(r.projectId)!.planned = r._sum.amount?.toNumber() ?? 0;
+  for (const r of spent) out.get(r.projectId)!.spent = r._sum.amount?.toNumber() ?? 0;
+  return out;
 }
 
 /* ------------------------------------------ from the BOQ ------------------------------------------ */
@@ -324,7 +344,7 @@ async function purchaseIn(projectId: string, purchaseId: string) {
   return p;
 }
 
-/** POST /projects/:projectId/material-purchases/:purchaseId/deliveries: on this date, this many arrived (bill optional) */
+/** POST /projects/:projectId/material-purchases/:purchaseId/deliveries: on this date, this many arrived at this rate (bill optional) */
 export async function addDelivery(userId: string, projectId: string, purchaseId: string, input: AddDelivery, file?: Express.Multer.File) {
   await requirePermission(userId, projectId, WRITE);
   checkDate(input.date);
@@ -333,7 +353,7 @@ export async function addDelivery(userId: string, projectId: string, purchaseId:
   try {
     await prisma.$transaction(async (tx) => {
       const created = await tx.materialDelivery.create({
-        data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, addedById: userId, ...bill },
+        data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, rate: input.rate, amount: amountOf(input.quantity, input.rate), addedById: userId, ...bill },
         select: { id: true },
       });
       await recordAudit(tx, {
@@ -342,7 +362,7 @@ export async function addDelivery(userId: string, projectId: string, purchaseId:
         action: "material_delivery.added",
         entityType: "project",
         entityId: created.id,
-        summary: `${input.quantity} ${purchase.unit} ${purchase.name} arrived on ${input.date}`.replace(/\s+/g, " "),
+        summary: `${input.quantity} ${purchase.unit} ${purchase.name} arrived on ${input.date} at ${input.rate} = ${amountOf(input.quantity, input.rate)}`.replace(/\s+/g, " "),
       });
     });
   } catch (err) {
