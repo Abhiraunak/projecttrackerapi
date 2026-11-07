@@ -46,6 +46,8 @@ export const ModelName = {
     Attendance: 'Attendance',
     AttendanceWorker: 'AttendanceWorker',
     LabourTeamMember: 'LabourTeamMember',
+    LabourMeasure: 'LabourMeasure',
+    LabourWeek: 'LabourWeek',
     Drawing: 'Drawing',
     DrawingShare: 'DrawingShare',
     PushSubscription: 'PushSubscription',
@@ -179,6 +181,31 @@ export const LabourTeamMemberScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
+export const LabourMeasureScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    trade: 'trade',
+    contractorName: 'contractorName',
+    date: 'date',
+    work: 'work',
+    quantity: 'quantity',
+    unit: 'unit',
+    rate: 'rate',
+    amount: 'amount',
+    note: 'note',
+    addedBy: 'addedBy',
+    createdAt: 'createdAt'
+};
+export const LabourWeekScalarFieldEnum = {
+    id: 'id',
+    projectId: 'projectId',
+    trade: 'trade',
+    contractorName: 'contractorName',
+    contractorKey: 'contractorKey',
+    weekStart: 'weekStart',
+    settledBy: 'settledBy',
+    settledAt: 'settledAt'
+};
 export const DrawingScalarFieldEnum = {
     id: 'id',
     ownerId: 'ownerId',
@@ -275,6 +302,8 @@ export const MaterialDeliveryScalarFieldEnum = {
     projectId: 'projectId',
     date: 'date',
     quantity: 'quantity',
+    rate: 'rate',
+    amount: 'amount',
     billId: 'billId',
     billVersion: 'billVersion',
     billFormat: 'billFormat',

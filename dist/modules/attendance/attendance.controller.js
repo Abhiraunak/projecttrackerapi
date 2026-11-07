@@ -4,6 +4,7 @@ import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { toDay } from "../../lib/dates.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
+import { assertWeeksOpen } from "../labour-weeks/labour-weeks.service.js";
 import { diffFields, hasChanges } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { attendanceDto, toDate } from "./attendance.mapper.js";
@@ -103,6 +104,7 @@ export async function create(req, res) {
     await requirePermission(userId, projectId, "attendance.write");
     const trade = await tradeFor(projectId, req.body.trade);
     checkHourly(payMode, workers);
+    await assertWeeksOpen(projectId, trade, contractorName, [date]); // a settled (paid) week can't change
     const rows = rowsOn(payMode, workers, undefined, await teamIds(payMode, projectId, contractorName, workers));
     if (rows.length === 0)
         throw new HttpError(400, "Enter the hours for at least one labourer.");
@@ -176,6 +178,7 @@ export async function createMany(req, res) {
     const empty = emptyDaysFor(payMode, workers, days, extras);
     if (empty.length)
         throw new HttpError(400, emptyDaysProblem(empty));
+    await assertWeeksOpen(projectId, trade, contractorName, days);
     const { entries, total } = buildDays(payMode, workers, days, extras, await teamIds(payMode, projectId, contractorName, workers));
     const batchId = entries.length > 1 ? randomUUID() : null;
     await prisma.$transaction(async (tx) => {
@@ -212,6 +215,8 @@ export async function updateBatch(req, res) {
     const empty = emptyDaysFor(payMode, workers, days, extras);
     if (empty.length)
         throw new HttpError(400, emptyDaysProblem(empty));
+    await assertWeeksOpen(lead.projectId, lead.trade, lead.contractorName, before.map((b) => toDay(b.date)));
+    await assertWeeksOpen(lead.projectId, trade, contractorName, days);
     const { entries, total } = buildDays(payMode, workers, days, extras, await teamIds(payMode, lead.projectId, contractorName, workers));
     const was = before.reduce((sum, b) => sum.plus(b.totalAmount), new Prisma.Decimal(0));
     const beforeDays = before.map((b) => toDay(b.date)).join(", ");
@@ -243,6 +248,7 @@ export async function removeBatch(req, res) {
     if (!lead)
         throw new HttpError(404, "These entries were not found. They may have been deleted.");
     await requirePermission(userId, lead.projectId, "project.manage");
+    await assertWeeksOpen(lead.projectId, lead.trade, lead.contractorName, before.map((b) => toDay(b.date)));
     const was = before.reduce((sum, b) => sum.plus(b.totalAmount), new Prisma.Decimal(0));
     await prisma.$transaction(async (tx) => {
         await tx.attendance.deleteMany({ where: { batchId } });
@@ -269,6 +275,8 @@ export async function update(req, res) {
     const trade = req.body.trade === undefined ? before.trade : await tradeFor(before.projectId, req.body.trade);
     const payMode = req.body.payMode ?? (before.payMode === "hourly" ? "hourly" : "amount");
     checkHourly(payMode, workers);
+    await assertWeeksOpen(before.projectId, before.trade, before.contractorName, [toDay(before.date)]);
+    await assertWeeksOpen(before.projectId, trade, contractorName, [date]);
     const rows = rowsOn(payMode, workers, undefined, await teamIds(payMode, before.projectId, contractorName, workers));
     if (rows.length === 0)
         throw new HttpError(400, "Enter the hours for at least one labourer.");
@@ -319,6 +327,7 @@ export async function remove(req, res) {
     if (!before)
         throw new HttpError(404, "Record not found");
     await requirePermission(userId, before.projectId, "project.manage");
+    await assertWeeksOpen(before.projectId, before.trade, before.contractorName, [toDay(before.date)]);
     await prisma.$transaction(async (tx) => {
         await tx.attendance.delete({ where: { id } }); // workers are removed by the database (onDelete: Cascade)
         // The batch's listed day was deleted: list the next one instead, so the rest of the batch doesn't vanish

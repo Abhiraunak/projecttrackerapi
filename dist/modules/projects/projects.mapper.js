@@ -36,7 +36,8 @@ export const projectDto = (p) => ({
     updatedAt: p.updatedAt,
     tasks: p.tasks.map(taskDto),
 });
-export function summaryDto(p, materials = { spent: 0, expected: 0 }) {
+/** labourAndExpenses: attendance cost plus every expense (labour, material, general) for this project */
+export function summaryDto(p, materials = { spent: 0, expected: 0 }, labourAndExpenses = 0) {
     const tasks = p.tasks.map(taskDto);
     const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
     const paid = tasks.reduce((s, t) => s + t.paid, 0);
@@ -53,6 +54,8 @@ export function summaryDto(p, materials = { spent: 0, expected: 0 }) {
         firmName: p.firmName,
         projectCost: p.projectCost?.toNumber() ?? null,
         spent: Math.round((paid + materials.spent) * 100) / 100, // labour paid + materials received, so a card can show what is left
+        // Everything spent on the project, as on its Overview: attendance + expenses + materials received
+        totalSpent: Math.round((labourAndExpenses + materials.spent) * 100) / 100,
         labourPaid: paid,
         materialSpent: materials.spent,
         materialExpected: materials.expected,

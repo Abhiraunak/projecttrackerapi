@@ -44,6 +44,11 @@ export function boqLines(needs, existing) {
         return { ...l, quantity, amount: amountOf(quantity, l.rate) };
     });
 }
+/**
+ * What a material has really cost: the deliveries' amounts (each quantity × the rate paid that day), against the
+ * preset amount (quantity ordered × the planned rate). 3,000 bricks at ₹8.20 = ₹24,600 spent of ₹42,500 planned.
+ */
+export const spentOf = (deliveries) => round2(deliveries.reduce((s, d) => s + d.amount, 0));
 /** 5,000 ordered, 3,000 arrived → 2,000 to come. More than ordered is allowed and shown as extra. */
 export function arrivalOf(ordered, deliveries) {
     const r3 = (n) => Math.round(n * 1000) / 1000;
