@@ -11,7 +11,7 @@ import { recordAudit } from "../audit/audit.service.js";
 import { attendanceDto, toDate } from "./attendance.mapper.js";
 import { emptyDaysFor, missingRates, repeatedNames, rowsOn, type DayRow, type PayMode, type PayWorker } from "./attendance.hourly.js";
 import { syncTeam } from "./attendance.team.js";
-import { listQuerySchema, tradesQuerySchema, type CreateBody, type CreateManyBody, type SetTradeBody, type UpdateBody } from "./atttendance.schema.js";
+import { createManyAttendanceSchema, listQuerySchema, tradesQuerySchema, type CreateBody, type CreateManyBody, type SetTradeBody, type UpdateBody } from "./atttendance.schema.js";
 import { canonicalTrade, DEFAULT_TRADES, tradeSummaries, usualTrade } from "./attendance.trades.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 
@@ -450,4 +450,187 @@ export async function setTrade(req: Request<unknown, unknown, SetTradeBody>, res
     return r.count;
   });
   res.json({ updated, trade });
+}
+
+/* ---------------------------------------------------------------------------------------------------------------
+ * Registers: one per contractor (team head). Every day of their attendance lives in one place; days in a week that
+ * was settled (paid) are kept but locked and left out of the sheet, so the sheet only ever shows what is still open.
+ * ------------------------------------------------------------------------------------------------------------- */
+
+const nameKeyOf = (s: string) => s.trim().replace(/\s+/g, " ").toLowerCase();
+const num = (d: { toNumber(): number } | null | undefined) => d?.toNumber() ?? 0;
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/** The Monday of a "YYYY-MM-DD" day's pay week */
+function mondayOf(ymd: string) {
+  const d = new Date(`${ymd}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
+  return d.toISOString().slice(0, 10);
+}
+const sundayOf = (monday: string) => {
+  const d = new Date(`${monday}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 6);
+  return d.toISOString().slice(0, 10);
+};
+
+/** Settled pay weeks of a project, as "trade|name@monday" keys (matching labour-weeks' contractorKey) */
+async function settledKeys(projectId: string) {
+  const rows = await prisma.labourWeek.findMany({ where: { projectId }, select: { contractorKey: true, weekStart: true } });
+  return new Set(rows.map((r) => `${r.contractorKey}@${r.weekStart.toISOString().slice(0, 10)}`));
+}
+const isSettled = (closed: Set<string>, trade: string, contractorName: string, date: string) =>
+  closed.has(`${nameKeyOf(trade)}|${nameKeyOf(contractorName)}@${mondayOf(date)}`);
+
+/**
+ * GET /attendance/registers?projectId=&q= : one row per contractor. Open days (not in a settled week) one by one;
+ * settled weeks as one line each; earned (attendance + contract work), paid and still to pay, as in the ledger.
+ */
+export async function registers(req: Request, res: Response) {
+  const userId = uid(req);
+  const projectId = String(req.query.projectId ?? "");
+  const q = nameKeyOf(String(req.query.q ?? "")).slice(0, 80);
+  if (!projectId) throw new HttpError(400, "projectId is required");
+  await requirePermission(userId, projectId, "attendance.view");
+
+  const [rows, measures, payments, closed] = await Promise.all([
+    prisma.attendance.findMany({ where: { projectId }, select: { date: true, trade: true, contractorName: true, totalAmount: true, createdAt: true }, orderBy: { date: "asc" } }),
+    prisma.labourMeasure.groupBy({ by: ["contractorName"], where: { projectId }, _sum: { amount: true } }),
+    prisma.contractorPayment.groupBy({ by: ["contractorName"], where: { projectId }, _sum: { amount: true } }),
+    settledKeys(projectId),
+  ]);
+
+  type Reg = { key: string; contractorName: string; open: Map<string, number>; settled: Map<string, number>; attendance: number; lastDate: string; lastSaved: number };
+  const regs = new Map<string, Reg>();
+  for (const r of rows) {
+    const key = nameKeyOf(r.contractorName);
+    let g = regs.get(key);
+    if (!g) regs.set(key, (g = { key, contractorName: r.contractorName.trim(), open: new Map(), settled: new Map(), attendance: 0, lastDate: "", lastSaved: 0 }));
+    const day = toDay(r.date);
+    const amount = num(r.totalAmount);
+    g.attendance += amount;
+    if (day >= g.lastDate) {
+      g.lastDate = day;
+      g.contractorName = r.contractorName.trim(); // the newest spelling
+    }
+    g.lastSaved = Math.max(g.lastSaved, r.createdAt.getTime());
+    if (isSettled(closed, r.trade, r.contractorName, day)) {
+      const w = mondayOf(day);
+      g.settled.set(w, (g.settled.get(w) ?? 0) + amount);
+    } else g.open.set(day, (g.open.get(day) ?? 0) + amount);
+  }
+  const sumBy = (list: { contractorName: string; _sum: { amount: { toNumber(): number } | null } }[]) => {
+    const m = new Map<string, number>();
+    for (const x of list) m.set(nameKeyOf(x.contractorName), (m.get(nameKeyOf(x.contractorName)) ?? 0) + num(x._sum.amount));
+    return m;
+  };
+  const contract = sumBy(measures);
+  const paid = sumBy(payments);
+
+  const items = [...regs.values()]
+    .filter((g) => !q || g.key.includes(q))
+    .map((g) => {
+      const earned = round2(g.attendance + (contract.get(g.key) ?? 0));
+      const p = round2(paid.get(g.key) ?? 0);
+      const openDays = [...g.open].map(([date, total]) => ({ date, total: round2(total) }));
+      return {
+        key: g.key,
+        contractorName: g.contractorName,
+        openDays,
+        openTotal: round2(openDays.reduce((s, d) => s + d.total, 0)),
+        settledWeeks: [...g.settled].map(([start, total]) => ({ start, end: sundayOf(start), total: round2(total) })),
+        earned,
+        paid: p,
+        toPay: round2(earned - p),
+        lastDate: g.lastDate,
+        lastSaved: g.lastSaved,
+      };
+    })
+    .sort((a, b) => b.lastSaved - a.lastSaved) // the one worked on last first
+    .map(({ lastSaved: _drop, ...rest }) => rest);
+  res.json({ items });
+}
+
+/**
+ * GET /attendance/sheet?projectId=&contractor= : the contractor's open days in full (labourers, hours, rates), to open
+ * as one sheet. Settled days are not included; their weeks come back as a short summary.
+ */
+export async function getSheet(req: Request, res: Response) {
+  const userId = uid(req);
+  const projectId = String(req.query.projectId ?? "");
+  const contractor = String(req.query.contractor ?? "").trim();
+  if (!projectId || !contractor || contractor.length > 120) throw new HttpError(400, "projectId and contractor are required");
+  await requirePermission(userId, projectId, "attendance.view");
+
+  const [rows, closed] = await Promise.all([
+    prisma.attendance.findMany({ where: { projectId, contractorName: { equals: contractor, mode: "insensitive" } }, include, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    settledKeys(projectId),
+  ]);
+  const open = rows.filter((r) => !isSettled(closed, r.trade, r.contractorName, toDay(r.date)));
+  const settled = rows.filter((r) => isSettled(closed, r.trade, r.contractorName, toDay(r.date)));
+  const weeks = new Map<string, number>();
+  for (const r of settled) weeks.set(mondayOf(toDay(r.date)), (weeks.get(mondayOf(toDay(r.date))) ?? 0) + num(r.totalAmount));
+
+  res.json({
+    contractorName: open.at(-1)?.contractorName ?? rows.at(-1)?.contractorName ?? contractor,
+    ids: open.map((r) => r.id),
+    // Shaped like days saved together, so the form opens it the same way
+    sheet: open.length ? batchDto("sheet", open) : null,
+    settledWeeks: [...weeks].map(([start, total]) => ({ start, end: sundayOf(start), total: round2(total) })),
+  });
+}
+
+/**
+ * PUT /attendance/sheet : save a contractor's sheet. The open days it was opened with (`replaceIds`) are replaced by
+ * the days as edited (a day added is created, a day taken out is deleted), all as one set of days saved together.
+ * Every replaced entry must be this project's and this contractor's, and no day may be in a settled week.
+ */
+export async function saveSheet(req: Request, res: Response) {
+  const userId = uid(req);
+  // Checked here rather than by the route: the same rules as "several days", plus the ids of the days being replaced
+  const parsed = createManyAttendanceSchema.safeParse({ body: req.body });
+  if (!parsed.success) throw new HttpError(400, parsed.error.issues[0]?.message ?? "Check the sheet and try again.");
+  const { projectId, contractorName, dates, workers, extras, notes, payMode } = parsed.data.body;
+  const raw = (req.body as { replaceIds?: unknown }).replaceIds;
+  const replaceIds = Array.isArray(raw) ? raw : [];
+  if (replaceIds.length > 500 || !replaceIds.every((id): id is string => typeof id === "string" && /^[A-Za-z0-9_-]{1,64}$/.test(id)))
+    throw new HttpError(400, "The sheet could not be read. Open it again.");
+  await requirePermission(userId, projectId, "attendance.write");
+
+  const before = await prisma.attendance.findMany({ where: { id: { in: replaceIds } } });
+  if (before.length !== replaceIds.length) throw new HttpError(409, "Some of these days were changed or deleted by someone else. Open the sheet again.");
+  const owner = nameKeyOf(contractorName);
+  if (before.some((b) => b.projectId !== projectId || nameKeyOf(b.contractorName) !== owner))
+    throw new HttpError(400, "These days belong to another contractor or project.");
+
+  const trade = before[0]?.trade ?? (await tradeFor(projectId, parsed.data.body.trade ?? ""));
+  const days = [...dates].sort();
+  checkHourly(payMode, workers);
+  const empty = emptyDaysFor(payMode, workers, days, extras);
+  if (empty.length) throw new HttpError(400, emptyDaysProblem(empty));
+  for (const b of before) await assertWeeksOpen(projectId, b.trade, b.contractorName, [toDay(b.date)]);
+  await assertWeeksOpen(projectId, trade, contractorName, days);
+
+  const { entries, total } = buildDays(payMode, workers, days, extras, await teamIds(payMode, projectId, contractorName, workers));
+  const batchId = entries.length > 1 ? randomUUID() : null;
+  const was = before.reduce((s, b) => s.plus(b.totalAmount), new Prisma.Decimal(0));
+
+  await prisma.$transaction(
+    async (tx) => {
+      if (before.length) await tx.attendance.deleteMany({ where: { id: { in: before.map((b) => b.id) } } });
+      await writeDays(tx, entries, { ownerId: before[0]?.ownerId ?? userId, projectId, contractorName, trade, extras, notes, payMode, batchId, createdAt: before[0]?.createdAt });
+      await recordAudit(tx, {
+        projectId,
+        actorId: userId,
+        action: before.length ? "attendance.updated" : "attendance.created",
+        entityType: "attendance",
+        entityId: batchId ?? entries[0]?.id ?? null,
+        summary: `Saved ${contractorName}'s sheet: ${days.length} open days (${days[0] ?? ""} to ${days.at(-1) ?? ""})`,
+        changes: { totalAmount: { from: was.toNumber(), to: total.toNumber() } },
+      });
+    },
+    { maxWait: 10_000, timeout: 30_000 }
+  );
+
+  const records = await prisma.attendance.findMany({ where: { id: { in: entries.map((e) => e.id) } }, include, orderBy: { date: "asc" } });
+  res.json({ attendance: records.map(attendanceDto), count: records.length, batchId });
 }
