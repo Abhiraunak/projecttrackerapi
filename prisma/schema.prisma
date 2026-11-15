@@ -95,6 +95,7 @@ model User {
   materialEstimatesAdded  MaterialEstimate[]  @relation("MaterialEstimateAddedBy")
   materialPurchasesAdded  MaterialPurchase[]  @relation("MaterialPurchaseAddedBy")
   materialDeliveriesAdded MaterialDelivery[]  @relation("MaterialDeliveryAddedBy")
+  passwordResets          PasswordReset[] // forgot password: the codes sent
 }
 
 model RefreshToken {
@@ -114,6 +115,23 @@ model RefreshToken {
   @@index([userId])
   @@index([familyId])
   @@index([expiresAt])
+}
+
+/// A 6-digit code sent by email to reset a password. Only hashes are stored: the code and the ticket never are.
+model PasswordReset {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codeHash        String // argon2 hash of the 6-digit code
+  expiresAt       DateTime // the code: 10 minutes
+  attempts        Int       @default(0) // wrong tries; at 5 the code is dead
+  ticketHash      String?   @unique // SHA-256 of the reset ticket given after the right code
+  ticketExpiresAt DateTime? // the ticket: 15 minutes
+  usedAt          DateTime? // the password was set, or the code was killed
+  ip              String?
+  createdAt       DateTime  @default(now())
+
+  @@index([userId, createdAt])
 }
 
 model Project {
@@ -427,10 +445,31 @@ model MaterialPurchase {
   addedById   String
   addedBy     User               @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
   deliveries  MaterialDelivery[] // what has arrived so far, and when
+  topUps      MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
   createdAt   DateTime           @default(now())
 
   @@index([projectId, date])
   @@index([projectId, section])
+}
+
+/// "+5,000 bricks on 8 Nov": added to an existing material instead of a second row. The material's quantity and
+/// preset cost are the totals; these rows are the history of what was added, and when.
+model MaterialTopUp {
+  id          String           @id @default(cuid())
+  purchaseId  String
+  purchase    MaterialPurchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  quantity    Decimal          @db.Decimal(14, 3)
+  rate        Decimal          @db.Decimal(14, 2) // preset rate of this lot
+  amount      Decimal          @db.Decimal(16, 2) // quantity × rate
+  date        DateTime         @db.Date
+  note        String           @default("")
+  billId      String?
+  billVersion Int?
+  billFormat  String?
+  addedBy     String // the name of who added it
+  createdAt   DateTime         @default(now())
+
+  @@index([purchaseId, date])
 }
 
 /// One delivery of a material: on what date how many arrived, and the bill (optional).

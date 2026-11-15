@@ -52,6 +52,11 @@ export type User = Prisma.UserModel
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
+ * Model PasswordReset
+ * A 6-digit code sent by email to reset a password. Only hashes are stored: the code and the ticket never are.
+ */
+export type PasswordReset = Prisma.PasswordResetModel
+/**
  * Model Project
  * 
  */
@@ -123,6 +128,12 @@ export type StockMovement = Prisma.StockMovementModel
  * 
  */
 export type MaterialPurchase = Prisma.MaterialPurchaseModel
+/**
+ * Model MaterialTopUp
+ * "+5,000 bricks on 8 Nov": added to an existing material instead of a second row. The material's quantity and
+ * preset cost are the totals; these rows are the history of what was added, and when.
+ */
+export type MaterialTopUp = Prisma.MaterialTopUpModel
 /**
  * Model MaterialDelivery
  * One delivery of a material: on what date how many arrived, and the bill (optional).

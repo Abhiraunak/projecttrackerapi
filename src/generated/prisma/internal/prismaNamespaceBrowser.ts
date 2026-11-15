@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
+  PasswordReset: 'PasswordReset',
   Project: 'Project',
   Task: 'Task',
   Attendance: 'Attendance',
@@ -67,6 +68,7 @@ export const ModelName = {
   Vendor: 'Vendor',
   StockMovement: 'StockMovement',
   MaterialPurchase: 'MaterialPurchase',
+  MaterialTopUp: 'MaterialTopUp',
   MaterialDelivery: 'MaterialDelivery',
   BoqItem: 'BoqItem',
   BoqItemMaterial: 'BoqItemMaterial',
@@ -139,6 +141,22 @@ export const RefreshTokenScalarFieldEnum = {
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const PasswordResetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  codeHash: 'codeHash',
+  expiresAt: 'expiresAt',
+  attempts: 'attempts',
+  ticketHash: 'ticketHash',
+  ticketExpiresAt: 'ticketExpiresAt',
+  usedAt: 'usedAt',
+  ip: 'ip',
+  createdAt: 'createdAt'
+} as const
+
+export type PasswordResetScalarFieldEnum = (typeof PasswordResetScalarFieldEnum)[keyof typeof PasswordResetScalarFieldEnum]
 
 
 export const ProjectScalarFieldEnum = {
@@ -378,6 +396,24 @@ export const MaterialPurchaseScalarFieldEnum = {
 } as const
 
 export type MaterialPurchaseScalarFieldEnum = (typeof MaterialPurchaseScalarFieldEnum)[keyof typeof MaterialPurchaseScalarFieldEnum]
+
+
+export const MaterialTopUpScalarFieldEnum = {
+  id: 'id',
+  purchaseId: 'purchaseId',
+  quantity: 'quantity',
+  rate: 'rate',
+  amount: 'amount',
+  date: 'date',
+  note: 'note',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type MaterialTopUpScalarFieldEnum = (typeof MaterialTopUpScalarFieldEnum)[keyof typeof MaterialTopUpScalarFieldEnum]
 
 
 export const MaterialDeliveryScalarFieldEnum = {

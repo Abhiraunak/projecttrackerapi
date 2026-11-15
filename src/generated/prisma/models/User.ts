@@ -233,6 +233,7 @@ export type UserWhereInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateListRelationFilter
   materialPurchasesAdded?: Prisma.MaterialPurchaseListRelationFilter
   materialDeliveriesAdded?: Prisma.MaterialDeliveryListRelationFilter
+  passwordResets?: Prisma.PasswordResetListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -275,6 +276,7 @@ export type UserOrderByWithRelationInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateOrderByRelationAggregateInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseOrderByRelationAggregateInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryOrderByRelationAggregateInput
+  passwordResets?: Prisma.PasswordResetOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -320,6 +322,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   materialEstimatesAdded?: Prisma.MaterialEstimateListRelationFilter
   materialPurchasesAdded?: Prisma.MaterialPurchaseListRelationFilter
   materialDeliveriesAdded?: Prisma.MaterialDeliveryListRelationFilter
+  passwordResets?: Prisma.PasswordResetListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -390,6 +393,7 @@ export type UserCreateInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -432,6 +436,7 @@ export type UserUncheckedCreateInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -474,6 +479,7 @@ export type UserUpdateInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -516,6 +522,7 @@ export type UserUncheckedUpdateInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -637,6 +644,20 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   upsert?: Prisma.UserUpsertWithoutRefreshTokensInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
+}
+
+export type UserCreateNestedOneWithoutPasswordResetsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPasswordResetsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetsInput
+  upsert?: Prisma.UserUpsertWithoutPasswordResetsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetsInput, Prisma.UserUpdateWithoutPasswordResetsInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetsInput>
 }
 
 export type UserCreateNestedOneWithoutProjectsInput = {
@@ -1110,6 +1131,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1151,6 +1173,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1208,6 +1231,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1221,6 +1245,191 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+  clientProjects?: Prisma.ProjectClientUncheckedUpdateManyWithoutUserNestedInput
+  proofsUploaded?: Prisma.PaymentProofUncheckedUpdateManyWithoutUploadedByNestedInput
+  proofsDecided?: Prisma.PaymentProofUncheckedUpdateManyWithoutDecidedByNestedInput
+  delaysRecorded?: Prisma.ProjectDelayUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutUserNestedInput
+  deliveriesReceived?: Prisma.DeliveryUncheckedUpdateManyWithoutReceivedByNestedInput
+  deliveriesDecided?: Prisma.DeliveryUncheckedUpdateManyWithoutDecidedByNestedInput
+  equipmentAdded?: Prisma.EquipmentUncheckedUpdateManyWithoutAddedByNestedInput
+  equipmentMoves?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutByNestedInput
+  expensesAdded?: Prisma.ExpenseUncheckedUpdateManyWithoutAddedByNestedInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutAddedByNestedInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutAddedByNestedInput
+  materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPasswordResetsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+  clientProjects?: Prisma.ProjectClientCreateNestedManyWithoutUserInput
+  proofsUploaded?: Prisma.PaymentProofCreateNestedManyWithoutUploadedByInput
+  proofsDecided?: Prisma.PaymentProofCreateNestedManyWithoutDecidedByInput
+  delaysRecorded?: Prisma.ProjectDelayCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutUserInput
+  deliveriesReceived?: Prisma.DeliveryCreateNestedManyWithoutReceivedByInput
+  deliveriesDecided?: Prisma.DeliveryCreateNestedManyWithoutDecidedByInput
+  equipmentAdded?: Prisma.EquipmentCreateNestedManyWithoutAddedByInput
+  equipmentMoves?: Prisma.EquipmentMoveCreateNestedManyWithoutByInput
+  expensesAdded?: Prisma.ExpenseCreateNestedManyWithoutAddedByInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentCreateNestedManyWithoutAddedByInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentCreateNestedManyWithoutAddedByInput
+  materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+}
+
+export type UserUncheckedCreateWithoutPasswordResetsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+  clientProjects?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutUserInput
+  proofsUploaded?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutUploadedByInput
+  proofsDecided?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutDecidedByInput
+  delaysRecorded?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutUserInput
+  deliveriesReceived?: Prisma.DeliveryUncheckedCreateNestedManyWithoutReceivedByInput
+  deliveriesDecided?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDecidedByInput
+  equipmentAdded?: Prisma.EquipmentUncheckedCreateNestedManyWithoutAddedByInput
+  equipmentMoves?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutByInput
+  expensesAdded?: Prisma.ExpenseUncheckedCreateNestedManyWithoutAddedByInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutAddedByInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutAddedByInput
+  materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+}
+
+export type UserCreateOrConnectWithoutPasswordResetsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+}
+
+export type UserUpsertWithoutPasswordResetsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetsInput, Prisma.UserUncheckedUpdateWithoutPasswordResetsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetsInput, Prisma.UserUncheckedCreateWithoutPasswordResetsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPasswordResetsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetsInput, Prisma.UserUncheckedUpdateWithoutPasswordResetsInput>
+}
+
+export type UserUpdateWithoutPasswordResetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+  clientProjects?: Prisma.ProjectClientUpdateManyWithoutUserNestedInput
+  proofsUploaded?: Prisma.PaymentProofUpdateManyWithoutUploadedByNestedInput
+  proofsDecided?: Prisma.PaymentProofUpdateManyWithoutDecidedByNestedInput
+  delaysRecorded?: Prisma.ProjectDelayUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutUserNestedInput
+  deliveriesReceived?: Prisma.DeliveryUpdateManyWithoutReceivedByNestedInput
+  deliveriesDecided?: Prisma.DeliveryUpdateManyWithoutDecidedByNestedInput
+  equipmentAdded?: Prisma.EquipmentUpdateManyWithoutAddedByNestedInput
+  equipmentMoves?: Prisma.EquipmentMoveUpdateManyWithoutByNestedInput
+  expensesAdded?: Prisma.ExpenseUpdateManyWithoutAddedByNestedInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentUpdateManyWithoutAddedByNestedInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentUpdateManyWithoutAddedByNestedInput
+  materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPasswordResetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
   drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
@@ -1290,6 +1499,7 @@ export type UserCreateWithoutProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProjectsInput = {
@@ -1331,6 +1541,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProjectsInput = {
@@ -1388,6 +1599,7 @@ export type UserUpdateWithoutProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -1429,6 +1641,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAttendanceInput = {
@@ -1470,6 +1683,7 @@ export type UserCreateWithoutAttendanceInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttendanceInput = {
@@ -1511,6 +1725,7 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttendanceInput = {
@@ -1568,6 +1783,7 @@ export type UserUpdateWithoutAttendanceInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendanceInput = {
@@ -1609,6 +1825,7 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDrawingsInput = {
@@ -1650,6 +1867,7 @@ export type UserCreateWithoutDrawingsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDrawingsInput = {
@@ -1691,6 +1909,7 @@ export type UserUncheckedCreateWithoutDrawingsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDrawingsInput = {
@@ -1748,6 +1967,7 @@ export type UserUpdateWithoutDrawingsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDrawingsInput = {
@@ -1789,6 +2009,7 @@ export type UserUncheckedUpdateWithoutDrawingsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDrawingSharesInput = {
@@ -1830,6 +2051,7 @@ export type UserCreateWithoutDrawingSharesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDrawingSharesInput = {
@@ -1871,6 +2093,7 @@ export type UserUncheckedCreateWithoutDrawingSharesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDrawingSharesInput = {
@@ -1928,6 +2151,7 @@ export type UserUpdateWithoutDrawingSharesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDrawingSharesInput = {
@@ -1969,6 +2193,7 @@ export type UserUncheckedUpdateWithoutDrawingSharesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPushSubscriptionsInput = {
@@ -2010,6 +2235,7 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -2051,6 +2277,7 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -2108,6 +2335,7 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -2149,6 +2377,7 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaterialsInput = {
@@ -2190,6 +2419,7 @@ export type UserCreateWithoutMaterialsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaterialsInput = {
@@ -2231,6 +2461,7 @@ export type UserUncheckedCreateWithoutMaterialsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaterialsInput = {
@@ -2288,6 +2519,7 @@ export type UserUpdateWithoutMaterialsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialsInput = {
@@ -2329,6 +2561,7 @@ export type UserUncheckedUpdateWithoutMaterialsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutVendorsInput = {
@@ -2370,6 +2603,7 @@ export type UserCreateWithoutVendorsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutVendorsInput = {
@@ -2411,6 +2645,7 @@ export type UserUncheckedCreateWithoutVendorsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutVendorsInput = {
@@ -2468,6 +2703,7 @@ export type UserUpdateWithoutVendorsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVendorsInput = {
@@ -2509,6 +2745,7 @@ export type UserUncheckedUpdateWithoutVendorsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStockMovementsInput = {
@@ -2550,6 +2787,7 @@ export type UserCreateWithoutStockMovementsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStockMovementsInput = {
@@ -2591,6 +2829,7 @@ export type UserUncheckedCreateWithoutStockMovementsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStockMovementsInput = {
@@ -2648,6 +2887,7 @@ export type UserUpdateWithoutStockMovementsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStockMovementsInput = {
@@ -2689,6 +2929,7 @@ export type UserUncheckedUpdateWithoutStockMovementsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaterialPurchasesAddedInput = {
@@ -2730,6 +2971,7 @@ export type UserCreateWithoutMaterialPurchasesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentCreateNestedManyWithoutAddedByInput
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaterialPurchasesAddedInput = {
@@ -2771,6 +3013,7 @@ export type UserUncheckedCreateWithoutMaterialPurchasesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutAddedByInput
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaterialPurchasesAddedInput = {
@@ -2828,6 +3071,7 @@ export type UserUpdateWithoutMaterialPurchasesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUpdateManyWithoutAddedByNestedInput
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialPurchasesAddedInput = {
@@ -2869,6 +3113,7 @@ export type UserUncheckedUpdateWithoutMaterialPurchasesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutAddedByNestedInput
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaterialDeliveriesAddedInput = {
@@ -2910,6 +3155,7 @@ export type UserCreateWithoutMaterialDeliveriesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentCreateNestedManyWithoutAddedByInput
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaterialDeliveriesAddedInput = {
@@ -2951,6 +3197,7 @@ export type UserUncheckedCreateWithoutMaterialDeliveriesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutAddedByInput
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaterialDeliveriesAddedInput = {
@@ -3008,6 +3255,7 @@ export type UserUpdateWithoutMaterialDeliveriesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUpdateManyWithoutAddedByNestedInput
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialDeliveriesAddedInput = {
@@ -3049,6 +3297,7 @@ export type UserUncheckedUpdateWithoutMaterialDeliveriesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutAddedByNestedInput
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaterialOrdersInput = {
@@ -3090,6 +3339,7 @@ export type UserCreateWithoutMaterialOrdersInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaterialOrdersInput = {
@@ -3131,6 +3381,7 @@ export type UserUncheckedCreateWithoutMaterialOrdersInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaterialOrdersInput = {
@@ -3188,6 +3439,7 @@ export type UserUpdateWithoutMaterialOrdersInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialOrdersInput = {
@@ -3229,6 +3481,7 @@ export type UserUncheckedUpdateWithoutMaterialOrdersInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRequestsMadeInput = {
@@ -3270,6 +3523,7 @@ export type UserCreateWithoutRequestsMadeInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestsMadeInput = {
@@ -3311,6 +3565,7 @@ export type UserUncheckedCreateWithoutRequestsMadeInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestsMadeInput = {
@@ -3357,6 +3612,7 @@ export type UserCreateWithoutRequestsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRequestsDecidedInput = {
@@ -3398,6 +3654,7 @@ export type UserUncheckedCreateWithoutRequestsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRequestsDecidedInput = {
@@ -3455,6 +3712,7 @@ export type UserUpdateWithoutRequestsMadeInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsMadeInput = {
@@ -3496,6 +3754,7 @@ export type UserUncheckedUpdateWithoutRequestsMadeInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutRequestsDecidedInput = {
@@ -3548,6 +3807,7 @@ export type UserUpdateWithoutRequestsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRequestsDecidedInput = {
@@ -3589,6 +3849,7 @@ export type UserUncheckedUpdateWithoutRequestsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditEntriesInput = {
@@ -3630,6 +3891,7 @@ export type UserCreateWithoutAuditEntriesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditEntriesInput = {
@@ -3671,6 +3933,7 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditEntriesInput = {
@@ -3728,6 +3991,7 @@ export type UserUpdateWithoutAuditEntriesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditEntriesInput = {
@@ -3769,6 +4033,7 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBoqsCreatedInput = {
@@ -3810,6 +4075,7 @@ export type UserCreateWithoutBoqsCreatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBoqsCreatedInput = {
@@ -3851,6 +4117,7 @@ export type UserUncheckedCreateWithoutBoqsCreatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBoqsCreatedInput = {
@@ -3897,6 +4164,7 @@ export type UserCreateWithoutBoqsUpdatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBoqsUpdatedInput = {
@@ -3938,6 +4206,7 @@ export type UserUncheckedCreateWithoutBoqsUpdatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBoqsUpdatedInput = {
@@ -3995,6 +4264,7 @@ export type UserUpdateWithoutBoqsCreatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBoqsCreatedInput = {
@@ -4036,6 +4306,7 @@ export type UserUncheckedUpdateWithoutBoqsCreatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutBoqsUpdatedInput = {
@@ -4088,6 +4359,7 @@ export type UserUpdateWithoutBoqsUpdatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBoqsUpdatedInput = {
@@ -4129,6 +4401,7 @@ export type UserUncheckedUpdateWithoutBoqsUpdatedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClientProjectsInput = {
@@ -4170,6 +4443,7 @@ export type UserCreateWithoutClientProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientProjectsInput = {
@@ -4211,6 +4485,7 @@ export type UserUncheckedCreateWithoutClientProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientProjectsInput = {
@@ -4268,6 +4543,7 @@ export type UserUpdateWithoutClientProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientProjectsInput = {
@@ -4309,6 +4585,7 @@ export type UserUncheckedUpdateWithoutClientProjectsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProofsUploadedInput = {
@@ -4350,6 +4627,7 @@ export type UserCreateWithoutProofsUploadedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProofsUploadedInput = {
@@ -4391,6 +4669,7 @@ export type UserUncheckedCreateWithoutProofsUploadedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProofsUploadedInput = {
@@ -4437,6 +4716,7 @@ export type UserCreateWithoutProofsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProofsDecidedInput = {
@@ -4478,6 +4758,7 @@ export type UserUncheckedCreateWithoutProofsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProofsDecidedInput = {
@@ -4535,6 +4816,7 @@ export type UserUpdateWithoutProofsUploadedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProofsUploadedInput = {
@@ -4576,6 +4858,7 @@ export type UserUncheckedUpdateWithoutProofsUploadedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutProofsDecidedInput = {
@@ -4628,6 +4911,7 @@ export type UserUpdateWithoutProofsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProofsDecidedInput = {
@@ -4669,6 +4953,7 @@ export type UserUncheckedUpdateWithoutProofsDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDelaysRecordedInput = {
@@ -4710,6 +4995,7 @@ export type UserCreateWithoutDelaysRecordedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDelaysRecordedInput = {
@@ -4751,6 +5037,7 @@ export type UserUncheckedCreateWithoutDelaysRecordedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDelaysRecordedInput = {
@@ -4808,6 +5095,7 @@ export type UserUpdateWithoutDelaysRecordedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDelaysRecordedInput = {
@@ -4849,6 +5137,7 @@ export type UserUncheckedUpdateWithoutDelaysRecordedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -4890,6 +5179,7 @@ export type UserCreateWithoutNotificationsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -4931,6 +5221,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -4988,6 +5279,7 @@ export type UserUpdateWithoutNotificationsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -5029,6 +5321,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPunchesInput = {
@@ -5070,6 +5363,7 @@ export type UserCreateWithoutPunchesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPunchesInput = {
@@ -5111,6 +5405,7 @@ export type UserUncheckedCreateWithoutPunchesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPunchesInput = {
@@ -5168,6 +5463,7 @@ export type UserUpdateWithoutPunchesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPunchesInput = {
@@ -5209,6 +5505,7 @@ export type UserUncheckedUpdateWithoutPunchesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDeliveriesReceivedInput = {
@@ -5250,6 +5547,7 @@ export type UserCreateWithoutDeliveriesReceivedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeliveriesReceivedInput = {
@@ -5291,6 +5589,7 @@ export type UserUncheckedCreateWithoutDeliveriesReceivedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeliveriesReceivedInput = {
@@ -5337,6 +5636,7 @@ export type UserCreateWithoutDeliveriesDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeliveriesDecidedInput = {
@@ -5378,6 +5678,7 @@ export type UserUncheckedCreateWithoutDeliveriesDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeliveriesDecidedInput = {
@@ -5435,6 +5736,7 @@ export type UserUpdateWithoutDeliveriesReceivedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeliveriesReceivedInput = {
@@ -5476,6 +5778,7 @@ export type UserUncheckedUpdateWithoutDeliveriesReceivedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDeliveriesDecidedInput = {
@@ -5528,6 +5831,7 @@ export type UserUpdateWithoutDeliveriesDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeliveriesDecidedInput = {
@@ -5569,6 +5873,7 @@ export type UserUncheckedUpdateWithoutDeliveriesDecidedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEquipmentAddedInput = {
@@ -5610,6 +5915,7 @@ export type UserCreateWithoutEquipmentAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEquipmentAddedInput = {
@@ -5651,6 +5957,7 @@ export type UserUncheckedCreateWithoutEquipmentAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEquipmentAddedInput = {
@@ -5708,6 +6015,7 @@ export type UserUpdateWithoutEquipmentAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEquipmentAddedInput = {
@@ -5749,6 +6057,7 @@ export type UserUncheckedUpdateWithoutEquipmentAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEquipmentMovesInput = {
@@ -5790,6 +6099,7 @@ export type UserCreateWithoutEquipmentMovesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEquipmentMovesInput = {
@@ -5831,6 +6141,7 @@ export type UserUncheckedCreateWithoutEquipmentMovesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEquipmentMovesInput = {
@@ -5888,6 +6199,7 @@ export type UserUpdateWithoutEquipmentMovesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEquipmentMovesInput = {
@@ -5929,6 +6241,7 @@ export type UserUncheckedUpdateWithoutEquipmentMovesInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExpensesAddedInput = {
@@ -5970,6 +6283,7 @@ export type UserCreateWithoutExpensesAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExpensesAddedInput = {
@@ -6011,6 +6325,7 @@ export type UserUncheckedCreateWithoutExpensesAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExpensesAddedInput = {
@@ -6068,6 +6383,7 @@ export type UserUpdateWithoutExpensesAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExpensesAddedInput = {
@@ -6109,6 +6425,7 @@ export type UserUncheckedUpdateWithoutExpensesAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutContractorPaymentsAddedInput = {
@@ -6150,6 +6467,7 @@ export type UserCreateWithoutContractorPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutContractorPaymentsAddedInput = {
@@ -6191,6 +6509,7 @@ export type UserUncheckedCreateWithoutContractorPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutContractorPaymentsAddedInput = {
@@ -6248,6 +6567,7 @@ export type UserUpdateWithoutContractorPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutContractorPaymentsAddedInput = {
@@ -6289,6 +6609,7 @@ export type UserUncheckedUpdateWithoutContractorPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaterialPaymentsAddedInput = {
@@ -6330,6 +6651,7 @@ export type UserCreateWithoutMaterialPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaterialPaymentsAddedInput = {
@@ -6371,6 +6693,7 @@ export type UserUncheckedCreateWithoutMaterialPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaterialPaymentsAddedInput = {
@@ -6428,6 +6751,7 @@ export type UserUpdateWithoutMaterialPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialPaymentsAddedInput = {
@@ -6469,6 +6793,7 @@ export type UserUncheckedUpdateWithoutMaterialPaymentsAddedInput = {
   materialEstimatesAdded?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMaterialEstimatesAddedInput = {
@@ -6510,6 +6835,7 @@ export type UserCreateWithoutMaterialEstimatesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMaterialEstimatesAddedInput = {
@@ -6551,6 +6877,7 @@ export type UserUncheckedCreateWithoutMaterialEstimatesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutAddedByInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMaterialEstimatesAddedInput = {
@@ -6608,6 +6935,7 @@ export type UserUpdateWithoutMaterialEstimatesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMaterialEstimatesAddedInput = {
@@ -6649,6 +6977,7 @@ export type UserUncheckedUpdateWithoutMaterialEstimatesAddedInput = {
   materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutAddedByNestedInput
   materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
   materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -6688,6 +7017,7 @@ export type UserCountOutputType = {
   materialEstimatesAdded: number
   materialPurchasesAdded: number
   materialDeliveriesAdded: number
+  passwordResets: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6722,6 +7052,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   materialEstimatesAdded?: boolean | UserCountOutputTypeCountMaterialEstimatesAddedArgs
   materialPurchasesAdded?: boolean | UserCountOutputTypeCountMaterialPurchasesAddedArgs
   materialDeliveriesAdded?: boolean | UserCountOutputTypeCountMaterialDeliveriesAddedArgs
+  passwordResets?: boolean | UserCountOutputTypeCountPasswordResetsArgs
 }
 
 /**
@@ -6951,6 +7282,13 @@ export type UserCountOutputTypeCountMaterialDeliveriesAddedArgs<ExtArgs extends 
   where?: Prisma.MaterialDeliveryWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPasswordResetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PasswordResetWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -6992,6 +7330,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   materialEstimatesAdded?: boolean | Prisma.User$materialEstimatesAddedArgs<ExtArgs>
   materialPurchasesAdded?: boolean | Prisma.User$materialPurchasesAddedArgs<ExtArgs>
   materialDeliveriesAdded?: boolean | Prisma.User$materialDeliveriesAddedArgs<ExtArgs>
+  passwordResets?: boolean | Prisma.User$passwordResetsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -7061,6 +7400,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   materialEstimatesAdded?: boolean | Prisma.User$materialEstimatesAddedArgs<ExtArgs>
   materialPurchasesAdded?: boolean | Prisma.User$materialPurchasesAddedArgs<ExtArgs>
   materialDeliveriesAdded?: boolean | Prisma.User$materialDeliveriesAddedArgs<ExtArgs>
+  passwordResets?: boolean | Prisma.User$passwordResetsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -7100,6 +7440,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     materialEstimatesAdded: Prisma.$MaterialEstimatePayload<ExtArgs>[]
     materialPurchasesAdded: Prisma.$MaterialPurchasePayload<ExtArgs>[]
     materialDeliveriesAdded: Prisma.$MaterialDeliveryPayload<ExtArgs>[]
+    passwordResets: Prisma.$PasswordResetPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7535,6 +7876,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   materialEstimatesAdded<T extends Prisma.User$materialEstimatesAddedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialEstimatesAddedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialEstimatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialPurchasesAdded<T extends Prisma.User$materialPurchasesAddedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialPurchasesAddedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   materialDeliveriesAdded<T extends Prisma.User$materialDeliveriesAddedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$materialDeliveriesAddedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResets<T extends Prisma.User$passwordResetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8706,6 +9048,30 @@ export type User$materialDeliveriesAddedArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   distinct?: Prisma.MaterialDeliveryScalarFieldEnum | Prisma.MaterialDeliveryScalarFieldEnum[]
+}
+
+/**
+ * User.passwordResets
+ */
+export type User$passwordResetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordReset
+   */
+  select?: Prisma.PasswordResetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordReset
+   */
+  omit?: Prisma.PasswordResetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetWhereInput
+  orderBy?: Prisma.PasswordResetOrderByWithRelationInput | Prisma.PasswordResetOrderByWithRelationInput[]
+  cursor?: Prisma.PasswordResetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PasswordResetScalarFieldEnum | Prisma.PasswordResetScalarFieldEnum[]
 }
 
 /**
