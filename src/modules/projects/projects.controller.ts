@@ -6,6 +6,7 @@ import { diffFields, hasChanges } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { materialTotalsByProject } from "../inventory/cost.service.js";
 import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
+import { spendByProject } from "./spend.service.js";
 import {
   statusEnum,
   type CreateBody,
@@ -39,19 +40,9 @@ export async function list(req: Request, res: Response) {
     take: 100,
   });
   const ids = projects.map((p) => p.id);
-  // Total spend for each tile, the same sum as the project's Overview: labour (attendance), every expense, materials
-  const [materials, labourRows, contractRows, expenseRows] = await Promise.all([
-    materialTotalsByProject(ids),
-    prisma.attendance.groupBy({ by: ["projectId"], where: { projectId: { in: ids } }, _sum: { totalAmount: true } }),
-    prisma.labourMeasure.groupBy({ by: ["projectId"], where: { projectId: { in: ids } }, _sum: { amount: true } }), // contract work
-    prisma.expense.groupBy({ by: ["projectId"], where: { projectId: { in: ids } }, _sum: { amount: true } }),
-  ]);
-  const otherSpend = new Map<string, number>();
-  const add = (id: string, v: { toNumber(): number } | null) => otherSpend.set(id, (otherSpend.get(id) ?? 0) + (v?.toNumber() ?? 0));
-  for (const r of labourRows) add(r.projectId, r._sum.totalAmount);
-  for (const r of contractRows) add(r.projectId, r._sum.amount);
-  for (const r of expenseRows) add(r.projectId, r._sum.amount);
-  res.json({ projects: projects.map((p) => summaryDto(p, materials.get(p.id), otherSpend.get(p.id) ?? 0)) });
+  // Total spend for each tile: the same sum as the project's Overview
+  const spend = await spendByProject(ids);
+  res.json({ projects: projects.map((p) => summaryDto(p, spend.get(p.id))) });
 }
 
 export async function create(req: Request<unknown, unknown, CreateBody>, res: Response) {
@@ -175,3 +166,4 @@ export async function patchTask(req: Request<{ id: string; taskId: string }, unk
   });
   res.json({ task: taskDto(task) });
 }
+/** Every project: access is company-wide, so anyone allowed to view projects sees all of them */

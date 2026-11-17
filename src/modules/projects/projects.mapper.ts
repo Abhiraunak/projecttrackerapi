@@ -1,5 +1,6 @@
 import type { Project, Task } from "../../generated/prisma/client.js";
 import type { TaskBody } from "./projects.schema.js";
+import type { ProjectSpend } from "./spend.service.js";
 
 type ProjectWithTasks = Project & { tasks: Task[] };
 
@@ -45,18 +46,10 @@ export const projectDto = (p: ProjectWithTasks) => ({
   tasks: p.tasks.map(taskDto),
 });
 
-/** Lightweight shape for the project cards */
-/** Material totals for one project (from materialTotalsByProject); none yet means zero */
-export interface MaterialTotals {
-  spent: number;
-  expected: number;
-}
-
-/** labourAndExpenses: attendance cost plus every expense (labour, material, general) for this project */
-export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, materials: MaterialTotals = { spent: 0, expected: 0 }, labourAndExpenses = 0) {
+/** Lightweight shape for the project cards; `spend` from spendByProject (none yet means zero) */
+export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, spend?: ProjectSpend) {
   const tasks = p.tasks.map(taskDto);
   const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
-  const paid = tasks.reduce((s, t) => s + t.paid, 0);
   const progress =
     budget > 0
       ? tasks.reduce((s, t) => s + t.stipulated * t.progress, 0) / budget
@@ -65,23 +58,25 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
         : 0;
   const starts = tasks.map((t) => t.startDate).sort();
   const ends = tasks.map((t) => t.endDate).sort();
+  const total = spend?.total ?? 0;
 
   return {
     id: p.id,
     title: p.title,
     firmName: p.firmName,
     projectCost: p.projectCost?.toNumber() ?? null,
-    spent: Math.round((paid + materials.spent) * 100) / 100, // labour paid + materials received, so a card can show what is left
-    // Everything spent on the project, as on its Overview: attendance + expenses + materials received
-    totalSpent: Math.round((labourAndExpenses + materials.spent) * 100) / 100,
-    labourPaid: paid,
-    materialSpent: materials.spent,
-    materialExpected: materials.expected,
+    // Everything spent, exactly as on the project's Overview: labour (attendance + contract work), material
+    // deliveries, equipment hire and General expenses. `spent` and `totalSpent` are the same (older screens read either).
+    spent: total,
+    totalSpent: total,
+    labourPaid: spend?.labour.paid ?? 0, // paid to contractors so far
+    materialSpent: spend?.material.total ?? 0,
+    materialExpected: spend?.material.planned ?? 0,
     status: p.status,
     taskCount: tasks.length,
     attendanceCount: p._count?.attendance ?? 0,
     budget,
-    paid,
+    paid: spend?.labour.paid ?? 0,
     progress: Math.round(progress),
     startDate: starts[0] ?? null,
     endDate: ends.length > 0 ? ends[ends.length - 1]! : null,
