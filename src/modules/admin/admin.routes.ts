@@ -10,6 +10,7 @@ const router = Router();
 router.use(requireAuth, adminOnly);
 
 router.get("/users", c.users);
+router.get("/access-log", c.log);
 router.put("/users/:id/access", validate(updateAccessSchema), c.setAccess);
 
 export default router;
