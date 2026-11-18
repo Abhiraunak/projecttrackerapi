@@ -14,6 +14,9 @@ router.get("/month", getMonth); // month sheet (labourers × days, hours, OT, to
 router.patch("/trade", validate(setTradeSchema), c.setTrade); // give a contractor's entries a trade in one go
 router.post("/", validate(createAttendanceSchema), c.create);
 router.post("/bulk", validate(createManyAttendanceSchema), c.createMany); // several days at once
+router.get("/registers", c.registers); // one row per contractor: open days, settled weeks, still to pay
+router.get("/sheet", c.getSheet); // a contractor's open (unsettled) days, to open as one sheet
+router.put("/sheet", c.saveSheet); // save that sheet (replaces its open days); checked inside, ids included
 router.put("/bulk/:batchId", validate(createManyAttendanceSchema), c.updateBatch); // edit days saved together, in one go
 router.delete("/bulk/:batchId", c.removeBatch); // delete days saved together
 router.put("/:id", validate(updateAttendanceSchema), c.update);

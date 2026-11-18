@@ -8,8 +8,8 @@ import { dayKeyIn } from "../punches/punch.calc.js";
 import { addDays, lineKey, measureAmount, monthLines, weekLines, weekStartOf, weeksOf, ymdOf } from "./labour-weeks.calc.js";
 /*
  * The labour pay week (Monday to Sunday), contract work measurements, the month for every contractor, and labour
- * search. Seeing needs "View attendance"; logging work needs "Enter attendance"; settling a week, reopening one and
- * deleting a measurement need "Create and edit projects".
+ * search. Seeing needs "attendance.view"; everything else (logging work, paying, settling and reopening a week)
+ * needs "attendance.write". Both come with the Labour tick on the admin page.
  */
 const day = (ymd) => new Date(`${ymd}T00:00:00Z`);
 const num = (d) => d?.toNumber() ?? 0;
@@ -62,7 +62,7 @@ export async function weekView(userId, projectId, anyDay) {
 }
 /** POST /projects/:id/labour/week/settle: close one contractor's week. Attendance and contract work in it are locked. */
 export async function settleWeek(userId, projectId, input) {
-    await requirePermission(userId, projectId, "project.manage");
+    await requirePermission(userId, projectId, "attendance.write");
     const start = weekStartOf(input.start);
     if (start > today())
         throw new HttpError(400, "That week hasn't started yet.");
@@ -88,7 +88,7 @@ export async function settleWeek(userId, projectId, input) {
 }
 /** DELETE /projects/:id/labour/week/settle: reopen a settled week, to correct its attendance */
 export async function reopenWeek(userId, projectId, input) {
-    await requirePermission(userId, projectId, "project.manage");
+    await requirePermission(userId, projectId, "attendance.write");
     const start = weekStartOf(input.start);
     const contractorKey = lineKey(input.trade, input.contractorName);
     await prisma.$transaction(async (tx) => {
@@ -217,7 +217,7 @@ export async function updateMeasure(userId, projectId, measureId, input) {
     return { measure: measureDto(row) };
 }
 export async function removeMeasure(userId, projectId, measureId) {
-    await requirePermission(userId, projectId, "project.manage");
+    await requirePermission(userId, projectId, "attendance.write");
     const before = await prisma.labourMeasure.findFirst({ where: { id: measureId, projectId } });
     if (!before)
         throw new HttpError(404, "That measurement was not found.");

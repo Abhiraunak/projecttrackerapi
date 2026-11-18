@@ -5,8 +5,7 @@ import { createProjectSchema, updateProjectSchema, patchProjectSchema, patchTask
 import * as c from "./projects.controller.js";
 import { announceAfter } from "../../lib/live.js";
 import { projectHub } from "./hub.service.js";
-import { projectProgress } from "./progress.service.js";
-import { projectMaterials } from "../inventory/materialSheet.service.js";
+import { projectSpend } from "./spend.service.js";
 import rateLimit from "express-rate-limit";
 import { HttpError } from "../../lib/error.js";
 import { uploadSingleFile } from "../../middleware/uploadImage.js";
@@ -27,17 +26,13 @@ router.use(requireAuth);
 router.use(announceAfter((req) => req.path.split("/")[1] || null));
 router.get("/", c.list);
 router.post("/", validate(createProjectSchema), c.create);
+// What the project has spent: labour, materials, general (the Overview and the Expenditure tab)
+router.get("/:id/spend", async (req, res) => {
+    res.json(await projectSpend(req.user.sub, req.params.id));
+});
 // The project hub: everything about one project in a single request
 router.get("/:id/hub", async (req, res) => {
     res.json(await projectHub(req.user.sub, req.params.id));
-});
-// Phase 2: the Progress page
-router.get("/:id/progress", async (req, res) => {
-    res.json(await projectProgress(req.user.sub, req.params.id));
-});
-// Phase 3: material tiles and sheets
-router.get("/:id/materials", async (req, res) => {
-    res.json(await projectMaterials(req.user.sub, req.params.id));
 });
 // Phase 4: drawings by project and number
 router.get("/:id/drawings", async (req, res) => {

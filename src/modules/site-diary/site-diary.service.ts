@@ -198,14 +198,14 @@ export async function saveReport(userId: string, body: ReportBody) {
             await tx.siteReportArrival.delete({ where: { id: old.id } });
         }
 
-        await recordAudit(tx, {
-            projectId: project.id,
-            actorId: userId,
-            action: existing ? "diary.updated" : "diary.submitted",
-            entityType: "site_report",
-            entityId: report.id,
-            summary: `${existing ? "Changed" : "Sent"} the site diary for ${body.date}: ${body.teams.length} ${body.teams.length === 1 ? "team" : "teams"}, ${body.arrivals.length} material arrived`,
-        });
+        // await recordAudit(tx, {
+        //     projectId: project.id,
+        //     actorId: userId,
+        //     action: existing ? "diary.updated" : "diary.submitted",
+        //     entityType: "site_report",
+        //     entityId: report.id,
+        //     summary: `${existing ? "Changed" : "Sent"} the site diary for ${body.date}: ${body.teams.length} ${body.teams.length === 1 ? "team" : "teams"}, ${body.arrivals.length} material arrived`,
+        // });
         return tx.siteReport.findUniqueOrThrow({ where: { id: report.id }, include: reportInclude });
     });
 
@@ -430,14 +430,14 @@ export async function priceArrival(userId: string, arrivalId: string, rate: numb
             });
             await tx.siteReportArrival.update({ where: { id: a.id }, data: { deliveryId: d.id, purchaseId: linkTo } });
         }
-        await recordAudit(tx, {
-            projectId: a.report.projectId,
-            actorId: userId,
-            action: "diary.priced",
-            entityType: "material_delivery",
-            entityId: a.id,
-            summary: `Priced ${quantity} ${a.unit} ${a.name} from the site diary at ₹${rate.toLocaleString("en-IN")}: ₹${amount.toLocaleString("en-IN")}`,
-        });
+        // await recordAudit(tx, {
+        //     projectId: a.report.projectId,
+        //     actorId: userId,
+        //     action: "diary.priced",
+        //     entityType: "material_delivery",
+        //     entityId: a.id,
+        //     summary: `Priced ${quantity} ${a.unit} ${a.name} from the site diary at ₹${rate.toLocaleString("en-IN")}: ₹${amount.toLocaleString("en-IN")}`,
+        // });
         return { amount };
     });
 }

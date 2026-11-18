@@ -44,11 +44,7 @@ export async function adminOverview(userId, period) {
         prisma.boq.groupBy({ by: ["status"], _count: { _all: true }, _sum: { grandTotal: true } }),
         // Materials the plans use that have no standard rate: their budget shows ₹0
         prisma.material.count({ where: { rate: 0, itemMaterials: { some: { item: { active: true } } } } }),
-        prisma.auditLog.findMany({
-            orderBy: { createdAt: "desc" },
-            take: 6,
-            select: { id: true, actorEmail: true, summary: true, action: true, createdAt: true, project: { select: { title: true } } },
-        }),
+        Promise.resolve([]),
         // Payments clients sent that nobody has checked yet
         prisma.paymentProof.findMany({ where: { status: "PENDING" }, select: { amount: true, createdAt: true }, orderBy: { createdAt: "asc" } }),
     ]);

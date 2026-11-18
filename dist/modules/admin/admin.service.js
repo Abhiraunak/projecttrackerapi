@@ -3,9 +3,10 @@ import { HttpError } from "../../lib/error.js";
 import { PERMISSIONS, isPermission } from "../../lib/permissions.js";
 import { diffFields } from "../audit/audit.diff.js";
 import { recordAudit } from "../audit/audit.service.js";
-const USER_COLUMNS = { id: true, email: true, role: true, permissions: true, createdAt: true };
+const USER_COLUMNS = { id: true, name: true, email: true, role: true, permissions: true, createdAt: true };
 const userDto = (u) => ({
     id: u.id,
+    name: u.name,
     email: u.email,
     isAdmin: u.role === "ADMIN",
     permissions: u.permissions.filter(isPermission),
@@ -53,5 +54,26 @@ export async function updateAccess(actorId, userId, { isAdmin, permissions }) {
         });
         return userDto(updated);
     });
+}
+/**
+ * The admin page's "Recent access changes": the newest access changes across the company, newest first.
+ * The page turns each before/after permission list into "gave Labour, took away BOQ".
+ */
+export async function accessLog(limit) {
+    const rows = await prisma.auditLog.findMany({
+        // projectId null first: the (projectId, createdAt) index finds the newest company-wide entries fast
+        where: { projectId: null, action: "user.access_changed" },
+        orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+        take: limit,
+        select: { id: true, entityId: true, summary: true, changes: true, actorEmail: true, createdAt: true, actor: { select: { name: true } } },
+    });
+    return rows.map((r) => ({
+        id: r.id,
+        userId: r.entityId,
+        summary: r.summary,
+        changes: r.changes,
+        actor: r.actor?.name || r.actorEmail,
+        createdAt: r.createdAt.toISOString(),
+    }));
 }
 //# sourceMappingURL=admin.service.js.map

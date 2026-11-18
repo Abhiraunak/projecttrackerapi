@@ -34,6 +34,7 @@ import notificationRoutes from './modules/notifications/notifications.routes.js'
 // import deliveryRoutes from './modules/deliveries/delivery.routes.js';
 // import punchRoutes from './modules/punches/punch.routes.js';
 import equipmentRoutes from './modules/equipment/equipment.routes.js';
+import siteDiaryRoutes from './modules/site-diary/site-diary.routes.js';
 const app = express();
 app.set('trust proxy', 1); // behind Nginx/ALB/Render etc., so rate limiting sees real IPs
 app.disable('x-powered-by');
@@ -71,6 +72,7 @@ app.use('/api/v1/notifications', notificationRoutes);
 // app.use('/api/v1/deliveries', deliveryRoutes);   // delivery check-in
 // app.use('/api/v1/punches', punchRoutes);         // staff punch in / out
 app.use('/api/v1/equipment', equipmentRoutes); // Phase 6: equipment register
+app.use('/api/v1/site-diary', siteDiaryRoutes); // site engineer's daily report (DPR) and the manager's review
 app.use(notFound);
 app.use(errorHandler); // must be last
 // The server is started in server.ts (it also starts the alert sweep, payment reminders and session clean-up)

@@ -1,24 +1,12 @@
 import { prisma } from "../../lib/prisma.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
-import { hasChanges } from "./audit.diff.js";
 /**
  * Writes one audit entry. Pass the transaction (`tx`) the change itself runs in,
  * so the change and its record are saved together or not at all.
  */
-export async function recordAudit(db, input) {
-    const actor = await db.user.findUnique({ where: { id: input.actorId }, select: { email: true } });
-    await db.auditLog.create({
-        data: {
-            projectId: input.projectId,
-            actorId: input.actorId,
-            actorEmail: actor?.email ?? "unknown",
-            action: input.action,
-            entityType: input.entityType,
-            entityId: input.entityId ?? null,
-            summary: input.summary,
-            changes: input.changes && hasChanges(input.changes) ? input.changes : undefined,
-        },
-    });
+export async function recordAudit(_db, _input) {
+    // Audit is switched off for now. Restore the db.auditLog.create(...) call when we start using it.
+    return;
 }
 /** One project's history: who changed what on it, newest first */
 export async function listAudit(userId, projectId, query) {
