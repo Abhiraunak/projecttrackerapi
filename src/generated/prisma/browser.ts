@@ -245,3 +245,23 @@ export type MaterialPayment = Prisma.MaterialPaymentModel
  * 
  */
 export type MaterialEstimate = Prisma.MaterialEstimateModel
+/**
+ * Model SiteReport
+ * One engineer's report for one project on one day. Saved on submit; changed until the day after, then locked.
+ */
+export type SiteReport = Prisma.SiteReportModel
+/**
+ * Model SiteReportTeam
+ * One team's day, a row of the DPR: "Hablu team, 3 mistri 2 labour, 9 to 6, P"
+ */
+export type SiteReportTeam = Prisma.SiteReportTeamModel
+/**
+ * Model SiteReportArrival
+ * Material that arrived at site: "1 trip sand", with photos taken in the app's camera
+ */
+export type SiteReportArrival = Prisma.SiteReportArrivalModel
+/**
+ * Model SiteReportPhoto
+ * 
+ */
+export type SiteReportPhoto = Prisma.SiteReportPhotoModel

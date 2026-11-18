@@ -96,6 +96,7 @@ model User {
   materialPurchasesAdded  MaterialPurchase[]  @relation("MaterialPurchaseAddedBy")
   materialDeliveriesAdded MaterialDelivery[]  @relation("MaterialDeliveryAddedBy")
   passwordResets          PasswordReset[] // forgot password: the codes sent
+  siteReports             SiteReport[]        @relation("SiteReportBy") // site diary
 }
 
 model RefreshToken {
@@ -176,6 +177,7 @@ model Project {
   labourTeam         LabourTeamMember[]
   labourMeasures     LabourMeasure[]
   labourWeeks        LabourWeek[]
+  siteReports        SiteReport[] // site diary
 
   @@index([ownerId, status, updatedAt])
 }
@@ -427,26 +429,27 @@ model StockMovement {
 }
 
 model MaterialPurchase {
-  id          String             @id @default(cuid())
-  projectId   String
-  project     Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  section     String             @default("") // the heading it is listed under: "Flooring", "Concrete"… (optional)
-  name        String // "Bricks", "Cement"…
-  unit        String             @default("") // "nos", "bags", "cft"… (optional)
-  quantity    Decimal            @db.Decimal(14, 3)
-  rate        Decimal            @db.Decimal(14, 2) // per unit
-  amount      Decimal            @db.Decimal(16, 2) // quantity × rate
-  date        DateTime           @db.Date
-  note        String             @default("")
+  id           String              @id @default(cuid())
+  projectId    String
+  project      Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  section      String              @default("") // the heading it is listed under: "Flooring", "Concrete"… (optional)
+  name         String // "Bricks", "Cement"…
+  unit         String              @default("") // "nos", "bags", "cft"… (optional)
+  quantity     Decimal             @db.Decimal(14, 3)
+  rate         Decimal             @db.Decimal(14, 2) // per unit
+  amount       Decimal             @db.Decimal(16, 2) // quantity × rate
+  date         DateTime            @db.Date
+  note         String              @default("")
   // The bill, stored on Cloudinary like expense bills; all empty when none was added
-  billId      String?
-  billVersion Int?
-  billFormat  String?
-  addedById   String
-  addedBy     User               @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
-  deliveries  MaterialDelivery[] // what has arrived so far, and when
-  topUps      MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
-  createdAt   DateTime           @default(now())
+  billId       String?
+  billVersion  Int?
+  billFormat   String?
+  addedById    String
+  addedBy      User                @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
+  deliveries   MaterialDelivery[] // what has arrived so far, and when
+  topUps       MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
+  siteArrivals SiteReportArrival[] // logged as arrived in the site diary
+  createdAt    DateTime            @default(now())
 
   @@index([projectId, date])
   @@index([projectId, section])
@@ -475,20 +478,22 @@ model MaterialTopUp {
 /// One delivery of a material: on what date how many arrived, and the bill (optional).
 /// 5000 bricks ordered can arrive as 500 + 1,500 + 1,000…
 model MaterialDelivery {
-  id          String           @id @default(cuid())
+  id          String             @id @default(cuid())
   purchaseId  String
-  purchase    MaterialPurchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  purchase    MaterialPurchase   @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
   projectId   String // the purchase's project, kept here for the permission check
-  date        DateTime         @db.Date
-  quantity    Decimal          @db.Decimal(14, 3) // in the material's unit
-  rate        Decimal          @default(0) @db.Decimal(14, 2) // per unit, what was actually paid for this delivery
-  amount      Decimal          @default(0) @db.Decimal(16, 2) // quantity × rate: actual spending
+  date        DateTime           @db.Date
+  quantity    Decimal            @db.Decimal(14, 3) // in the material's unit
+  rate        Decimal            @default(0) @db.Decimal(14, 2) // per unit, what was actually paid for this delivery
+  amount      Decimal            @default(0) @db.Decimal(16, 2) // quantity × rate: actual spending
   billId      String?
   billVersion Int?
   billFormat  String?
   addedById   String
-  addedBy     User             @relation("MaterialDeliveryAddedBy", fields: [addedById], references: [id])
-  createdAt   DateTime         @default(now())
+  addedBy     User               @relation("MaterialDeliveryAddedBy", fields: [addedById], references: [id])
+  ratePending Boolean            @default(false) // from the site diary: arrived, the manager hasn't added the rate yet
+  siteArrival SiteReportArrival?
+  createdAt   DateTime           @default(now())
 
   @@index([purchaseId, date])
   @@index([projectId])
@@ -1094,4 +1099,90 @@ model MaterialEstimate {
   updatedAt      DateTime @updatedAt
 
   @@index([projectId, materialId])
+}
+
+// ---------------------------------------- Site diary (daily progress report) ----------------------------------------
+
+/// One engineer's report for one project on one day. Saved on submit; changed until the day after, then locked.
+model SiteReport {
+  id          String              @id @default(cuid())
+  projectId   String
+  project     Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date        DateTime            @db.Date
+  engineerId  String
+  engineer    User                @relation("SiteReportBy", fields: [engineerId], references: [id], onDelete: Restrict)
+  note        String              @default("") // anything else about the day
+  // Where the phone was when the report was submitted (none when location was off or refused)
+  lat         Float?
+  lng         Float?
+  accuracyM   Float?
+  // Worked out on the server against the project's site; never sent to the engineer
+  distanceM   Int?
+  outsideSite Boolean             @default(false)
+  submittedAt DateTime            @default(now())
+  teams       SiteReportTeam[]
+  arrivals    SiteReportArrival[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  @@unique([projectId, date, engineerId])
+  @@index([projectId, date])
+}
+
+/// One team's day, a row of the DPR: "Hablu team, 3 mistri 2 labour, 9 to 6, P"
+model SiteReportTeam {
+  id             String     @id @default(cuid())
+  reportId       String
+  report         SiteReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  contractorName String
+  mistri         Int        @default(0)
+  labour         Int        @default(0)
+  inTime         String     @default("") // "09:00"
+  outTime        String     @default("")
+  present        Boolean    @default(true)
+  otHours        Decimal    @default(0) @db.Decimal(6, 2)
+  workDone       String     @default("")
+  materialUsed   String     @default("")
+  remarks        String     @default("")
+  position       Int        @default(0)
+  attendanceId   String? // set once the manager has added it to Labour attendance
+}
+
+/// Material that arrived at site: "1 trip sand", with photos taken in the app's camera
+model SiteReportArrival {
+  id         String            @id @default(cuid())
+  reportId   String
+  report     SiteReport        @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  clientKey  String // made by the phone, so a resend after a lost connection never adds it twice
+  purchaseId String? // the project's material it is; empty when it isn't in the list yet
+  purchase   MaterialPurchase? @relation(fields: [purchaseId], references: [id], onDelete: SetNull)
+  name       String
+  quantity   Decimal           @db.Decimal(14, 3)
+  unit       String            @default("")
+  note       String            @default("")
+  position   Int               @default(0)
+  deliveryId String?           @unique // the delivery it created in Materials (rate pending until the manager adds it)
+  delivery   MaterialDelivery? @relation(fields: [deliveryId], references: [id], onDelete: SetNull)
+  photos     SiteReportPhoto[]
+
+  @@unique([reportId, clientKey])
+}
+
+model SiteReportPhoto {
+  id          String            @id @default(cuid())
+  arrivalId   String
+  arrival     SiteReportArrival @relation(fields: [arrivalId], references: [id], onDelete: Cascade)
+  clientKey   String
+  publicId    String            @unique
+  version     Int
+  format      String
+  takenAt     DateTime // when the phone took it
+  lat         Float?
+  lng         Float?
+  accuracyM   Float?
+  distanceM   Int? // from the site; never sent to the engineer
+  outsideSite Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+
+  @@unique([arrivalId, clientKey])
 }

@@ -312,6 +312,7 @@ export type MaterialPurchaseWhereInput = {
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   deliveries?: Prisma.MaterialDeliveryListRelationFilter
   topUps?: Prisma.MaterialTopUpListRelationFilter
+  siteArrivals?: Prisma.SiteReportArrivalListRelationFilter
 }
 
 export type MaterialPurchaseOrderByWithRelationInput = {
@@ -334,6 +335,7 @@ export type MaterialPurchaseOrderByWithRelationInput = {
   addedBy?: Prisma.UserOrderByWithRelationInput
   deliveries?: Prisma.MaterialDeliveryOrderByRelationAggregateInput
   topUps?: Prisma.MaterialTopUpOrderByRelationAggregateInput
+  siteArrivals?: Prisma.SiteReportArrivalOrderByRelationAggregateInput
 }
 
 export type MaterialPurchaseWhereUniqueInput = Prisma.AtLeast<{
@@ -359,6 +361,7 @@ export type MaterialPurchaseWhereUniqueInput = Prisma.AtLeast<{
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   deliveries?: Prisma.MaterialDeliveryListRelationFilter
   topUps?: Prisma.MaterialTopUpListRelationFilter
+  siteArrivals?: Prisma.SiteReportArrivalListRelationFilter
 }, "id">
 
 export type MaterialPurchaseOrderByWithAggregationInput = {
@@ -423,6 +426,7 @@ export type MaterialPurchaseCreateInput = {
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateInput = {
@@ -443,6 +447,7 @@ export type MaterialPurchaseUncheckedCreateInput = {
   createdAt?: Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUpdateInput = {
@@ -463,6 +468,7 @@ export type MaterialPurchaseUpdateInput = {
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateInput = {
@@ -483,6 +489,7 @@ export type MaterialPurchaseUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseCreateManyInput = {
@@ -620,6 +627,11 @@ export type MaterialPurchaseScalarRelationFilter = {
   isNot?: Prisma.MaterialPurchaseWhereInput
 }
 
+export type MaterialPurchaseNullableScalarRelationFilter = {
+  is?: Prisma.MaterialPurchaseWhereInput | null
+  isNot?: Prisma.MaterialPurchaseWhereInput | null
+}
+
 export type MaterialPurchaseCreateNestedManyWithoutAddedByInput = {
   create?: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutAddedByInput, Prisma.MaterialPurchaseUncheckedCreateWithoutAddedByInput> | Prisma.MaterialPurchaseCreateWithoutAddedByInput[] | Prisma.MaterialPurchaseUncheckedCreateWithoutAddedByInput[]
   connectOrCreate?: Prisma.MaterialPurchaseCreateOrConnectWithoutAddedByInput | Prisma.MaterialPurchaseCreateOrConnectWithoutAddedByInput[]
@@ -732,6 +744,22 @@ export type MaterialPurchaseUpdateOneRequiredWithoutDeliveriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialPurchaseUpdateToOneWithWhereWithoutDeliveriesInput, Prisma.MaterialPurchaseUpdateWithoutDeliveriesInput>, Prisma.MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput>
 }
 
+export type MaterialPurchaseCreateNestedOneWithoutSiteArrivalsInput = {
+  create?: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUncheckedCreateWithoutSiteArrivalsInput>
+  connectOrCreate?: Prisma.MaterialPurchaseCreateOrConnectWithoutSiteArrivalsInput
+  connect?: Prisma.MaterialPurchaseWhereUniqueInput
+}
+
+export type MaterialPurchaseUpdateOneWithoutSiteArrivalsNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUncheckedCreateWithoutSiteArrivalsInput>
+  connectOrCreate?: Prisma.MaterialPurchaseCreateOrConnectWithoutSiteArrivalsInput
+  upsert?: Prisma.MaterialPurchaseUpsertWithoutSiteArrivalsInput
+  disconnect?: Prisma.MaterialPurchaseWhereInput | boolean
+  delete?: Prisma.MaterialPurchaseWhereInput | boolean
+  connect?: Prisma.MaterialPurchaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialPurchaseUpdateToOneWithWhereWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUpdateWithoutSiteArrivalsInput>, Prisma.MaterialPurchaseUncheckedUpdateWithoutSiteArrivalsInput>
+}
+
 export type MaterialPurchaseCreateWithoutAddedByInput = {
   id?: string
   section?: string
@@ -749,6 +777,7 @@ export type MaterialPurchaseCreateWithoutAddedByInput = {
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateWithoutAddedByInput = {
@@ -768,6 +797,7 @@ export type MaterialPurchaseUncheckedCreateWithoutAddedByInput = {
   createdAt?: Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseCreateOrConnectWithoutAddedByInput = {
@@ -834,6 +864,7 @@ export type MaterialPurchaseCreateWithoutProjectInput = {
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateWithoutProjectInput = {
@@ -853,6 +884,7 @@ export type MaterialPurchaseUncheckedCreateWithoutProjectInput = {
   createdAt?: Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseCreateOrConnectWithoutProjectInput = {
@@ -898,6 +930,7 @@ export type MaterialPurchaseCreateWithoutTopUpsInput = {
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateWithoutTopUpsInput = {
@@ -917,6 +950,7 @@ export type MaterialPurchaseUncheckedCreateWithoutTopUpsInput = {
   addedById: string
   createdAt?: Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseCreateOrConnectWithoutTopUpsInput = {
@@ -952,6 +986,7 @@ export type MaterialPurchaseUpdateWithoutTopUpsInput = {
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateWithoutTopUpsInput = {
@@ -971,6 +1006,7 @@ export type MaterialPurchaseUncheckedUpdateWithoutTopUpsInput = {
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseCreateWithoutDeliveriesInput = {
@@ -990,6 +1026,7 @@ export type MaterialPurchaseCreateWithoutDeliveriesInput = {
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseUncheckedCreateWithoutDeliveriesInput = {
@@ -1009,6 +1046,7 @@ export type MaterialPurchaseUncheckedCreateWithoutDeliveriesInput = {
   addedById: string
   createdAt?: Date | string
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
 }
 
 export type MaterialPurchaseCreateOrConnectWithoutDeliveriesInput = {
@@ -1044,6 +1082,7 @@ export type MaterialPurchaseUpdateWithoutDeliveriesInput = {
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput = {
@@ -1062,6 +1101,103 @@ export type MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
+}
+
+export type MaterialPurchaseCreateWithoutSiteArrivalsInput = {
+  id?: string
+  section?: string
+  name: string
+  unit?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  date: Date | string
+  note?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
+  createdAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
+  addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
+  deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
+  topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
+}
+
+export type MaterialPurchaseUncheckedCreateWithoutSiteArrivalsInput = {
+  id?: string
+  projectId: string
+  section?: string
+  name: string
+  unit?: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  date: Date | string
+  note?: string
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
+  addedById: string
+  createdAt?: Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
+  topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
+}
+
+export type MaterialPurchaseCreateOrConnectWithoutSiteArrivalsInput = {
+  where: Prisma.MaterialPurchaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUncheckedCreateWithoutSiteArrivalsInput>
+}
+
+export type MaterialPurchaseUpsertWithoutSiteArrivalsInput = {
+  update: Prisma.XOR<Prisma.MaterialPurchaseUpdateWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUncheckedUpdateWithoutSiteArrivalsInput>
+  create: Prisma.XOR<Prisma.MaterialPurchaseCreateWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUncheckedCreateWithoutSiteArrivalsInput>
+  where?: Prisma.MaterialPurchaseWhereInput
+}
+
+export type MaterialPurchaseUpdateToOneWithWhereWithoutSiteArrivalsInput = {
+  where?: Prisma.MaterialPurchaseWhereInput
+  data: Prisma.XOR<Prisma.MaterialPurchaseUpdateWithoutSiteArrivalsInput, Prisma.MaterialPurchaseUncheckedUpdateWithoutSiteArrivalsInput>
+}
+
+export type MaterialPurchaseUpdateWithoutSiteArrivalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
+  addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
+  deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
+  topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
+}
+
+export type MaterialPurchaseUncheckedUpdateWithoutSiteArrivalsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  section?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
@@ -1099,6 +1235,7 @@ export type MaterialPurchaseUpdateWithoutAddedByInput = {
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateWithoutAddedByInput = {
@@ -1118,6 +1255,7 @@ export type MaterialPurchaseUncheckedUpdateWithoutAddedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateManyWithoutAddedByInput = {
@@ -1171,6 +1309,7 @@ export type MaterialPurchaseUpdateWithoutProjectInput = {
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateWithoutProjectInput = {
@@ -1190,6 +1329,7 @@ export type MaterialPurchaseUncheckedUpdateWithoutProjectInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
+  siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
 }
 
 export type MaterialPurchaseUncheckedUpdateManyWithoutProjectInput = {
@@ -1217,11 +1357,13 @@ export type MaterialPurchaseUncheckedUpdateManyWithoutProjectInput = {
 export type MaterialPurchaseCountOutputType = {
   deliveries: number
   topUps: number
+  siteArrivals: number
 }
 
 export type MaterialPurchaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   deliveries?: boolean | MaterialPurchaseCountOutputTypeCountDeliveriesArgs
   topUps?: boolean | MaterialPurchaseCountOutputTypeCountTopUpsArgs
+  siteArrivals?: boolean | MaterialPurchaseCountOutputTypeCountSiteArrivalsArgs
 }
 
 /**
@@ -1248,6 +1390,13 @@ export type MaterialPurchaseCountOutputTypeCountTopUpsArgs<ExtArgs extends runti
   where?: Prisma.MaterialTopUpWhereInput
 }
 
+/**
+ * MaterialPurchaseCountOutputType without action
+ */
+export type MaterialPurchaseCountOutputTypeCountSiteArrivalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SiteReportArrivalWhereInput
+}
+
 
 export type MaterialPurchaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1269,6 +1418,7 @@ export type MaterialPurchaseSelect<ExtArgs extends runtime.Types.Extensions.Inte
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   deliveries?: boolean | Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>
   topUps?: boolean | Prisma.MaterialPurchase$topUpsArgs<ExtArgs>
+  siteArrivals?: boolean | Prisma.MaterialPurchase$siteArrivalsArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialPurchaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialPurchase"]>
 
@@ -1336,6 +1486,7 @@ export type MaterialPurchaseInclude<ExtArgs extends runtime.Types.Extensions.Int
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   deliveries?: boolean | Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>
   topUps?: boolean | Prisma.MaterialPurchase$topUpsArgs<ExtArgs>
+  siteArrivals?: boolean | Prisma.MaterialPurchase$siteArrivalsArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialPurchaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MaterialPurchaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1354,6 +1505,7 @@ export type $MaterialPurchasePayload<ExtArgs extends runtime.Types.Extensions.In
     addedBy: Prisma.$UserPayload<ExtArgs>
     deliveries: Prisma.$MaterialDeliveryPayload<ExtArgs>[]
     topUps: Prisma.$MaterialTopUpPayload<ExtArgs>[]
+    siteArrivals: Prisma.$SiteReportArrivalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1769,6 +1921,7 @@ export interface Prisma__MaterialPurchaseClient<T, Null = never, ExtArgs extends
   addedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   deliveries<T extends Prisma.MaterialPurchase$deliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   topUps<T extends Prisma.MaterialPurchase$topUpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialPurchase$topUpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialTopUpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  siteArrivals<T extends Prisma.MaterialPurchase$siteArrivalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialPurchase$siteArrivalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SiteReportArrivalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2259,6 +2412,30 @@ export type MaterialPurchase$topUpsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.MaterialTopUpScalarFieldEnum | Prisma.MaterialTopUpScalarFieldEnum[]
+}
+
+/**
+ * MaterialPurchase.siteArrivals
+ */
+export type MaterialPurchase$siteArrivalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SiteReportArrival
+   */
+  select?: Prisma.SiteReportArrivalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SiteReportArrival
+   */
+  omit?: Prisma.SiteReportArrivalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SiteReportArrivalInclude<ExtArgs> | null
+  where?: Prisma.SiteReportArrivalWhereInput
+  orderBy?: Prisma.SiteReportArrivalOrderByWithRelationInput | Prisma.SiteReportArrivalOrderByWithRelationInput[]
+  cursor?: Prisma.SiteReportArrivalWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SiteReportArrivalScalarFieldEnum | Prisma.SiteReportArrivalScalarFieldEnum[]
 }
 
 /**

@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.10.0
- * Query Engine version: 0edf323efd1d98336f3f0a68684b56f689b900d3
+ * Prisma Client JS version: 7.10.1
+ * Query Engine version: d1b3f377ca835d73fd50954a5e22128b9ebdd6b8
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.10.0",
-  engine: "0edf323efd1d98336f3f0a68684b56f689b900d3"
+  client: "7.10.1",
+  engine: "d1b3f377ca835d73fd50954a5e22128b9ebdd6b8"
 }
 
 /**
@@ -439,7 +439,11 @@ export const ModelName = {
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
   MaterialPayment: 'MaterialPayment',
-  MaterialEstimate: 'MaterialEstimate'
+  MaterialEstimate: 'MaterialEstimate',
+  SiteReport: 'SiteReport',
+  SiteReportTeam: 'SiteReportTeam',
+  SiteReportArrival: 'SiteReportArrival',
+  SiteReportPhoto: 'SiteReportPhoto'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -455,7 +459,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate"
+    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3641,6 +3645,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    SiteReport: {
+      payload: Prisma.$SiteReportPayload<ExtArgs>
+      fields: Prisma.SiteReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SiteReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SiteReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>
+        }
+        findFirst: {
+          args: Prisma.SiteReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SiteReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>
+        }
+        findMany: {
+          args: Prisma.SiteReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>[]
+        }
+        create: {
+          args: Prisma.SiteReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>
+        }
+        createMany: {
+          args: Prisma.SiteReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SiteReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>[]
+        }
+        delete: {
+          args: Prisma.SiteReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>
+        }
+        update: {
+          args: Prisma.SiteReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.SiteReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SiteReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SiteReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.SiteReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPayload>
+        }
+        aggregate: {
+          args: Prisma.SiteReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSiteReport>
+        }
+        groupBy: {
+          args: Prisma.SiteReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SiteReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportCountAggregateOutputType> | number
+        }
+      }
+    }
+    SiteReportTeam: {
+      payload: Prisma.$SiteReportTeamPayload<ExtArgs>
+      fields: Prisma.SiteReportTeamFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SiteReportTeamFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SiteReportTeamFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>
+        }
+        findFirst: {
+          args: Prisma.SiteReportTeamFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SiteReportTeamFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>
+        }
+        findMany: {
+          args: Prisma.SiteReportTeamFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>[]
+        }
+        create: {
+          args: Prisma.SiteReportTeamCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>
+        }
+        createMany: {
+          args: Prisma.SiteReportTeamCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SiteReportTeamCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>[]
+        }
+        delete: {
+          args: Prisma.SiteReportTeamDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>
+        }
+        update: {
+          args: Prisma.SiteReportTeamUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>
+        }
+        deleteMany: {
+          args: Prisma.SiteReportTeamDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SiteReportTeamUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SiteReportTeamUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>[]
+        }
+        upsert: {
+          args: Prisma.SiteReportTeamUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportTeamPayload>
+        }
+        aggregate: {
+          args: Prisma.SiteReportTeamAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSiteReportTeam>
+        }
+        groupBy: {
+          args: Prisma.SiteReportTeamGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportTeamGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SiteReportTeamCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportTeamCountAggregateOutputType> | number
+        }
+      }
+    }
+    SiteReportArrival: {
+      payload: Prisma.$SiteReportArrivalPayload<ExtArgs>
+      fields: Prisma.SiteReportArrivalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SiteReportArrivalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SiteReportArrivalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>
+        }
+        findFirst: {
+          args: Prisma.SiteReportArrivalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SiteReportArrivalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>
+        }
+        findMany: {
+          args: Prisma.SiteReportArrivalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>[]
+        }
+        create: {
+          args: Prisma.SiteReportArrivalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>
+        }
+        createMany: {
+          args: Prisma.SiteReportArrivalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SiteReportArrivalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>[]
+        }
+        delete: {
+          args: Prisma.SiteReportArrivalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>
+        }
+        update: {
+          args: Prisma.SiteReportArrivalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>
+        }
+        deleteMany: {
+          args: Prisma.SiteReportArrivalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SiteReportArrivalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SiteReportArrivalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>[]
+        }
+        upsert: {
+          args: Prisma.SiteReportArrivalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportArrivalPayload>
+        }
+        aggregate: {
+          args: Prisma.SiteReportArrivalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSiteReportArrival>
+        }
+        groupBy: {
+          args: Prisma.SiteReportArrivalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportArrivalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SiteReportArrivalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportArrivalCountAggregateOutputType> | number
+        }
+      }
+    }
+    SiteReportPhoto: {
+      payload: Prisma.$SiteReportPhotoPayload<ExtArgs>
+      fields: Prisma.SiteReportPhotoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SiteReportPhotoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SiteReportPhotoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>
+        }
+        findFirst: {
+          args: Prisma.SiteReportPhotoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SiteReportPhotoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>
+        }
+        findMany: {
+          args: Prisma.SiteReportPhotoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>[]
+        }
+        create: {
+          args: Prisma.SiteReportPhotoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>
+        }
+        createMany: {
+          args: Prisma.SiteReportPhotoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SiteReportPhotoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>[]
+        }
+        delete: {
+          args: Prisma.SiteReportPhotoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>
+        }
+        update: {
+          args: Prisma.SiteReportPhotoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>
+        }
+        deleteMany: {
+          args: Prisma.SiteReportPhotoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SiteReportPhotoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SiteReportPhotoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>[]
+        }
+        upsert: {
+          args: Prisma.SiteReportPhotoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SiteReportPhotoPayload>
+        }
+        aggregate: {
+          args: Prisma.SiteReportPhotoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSiteReportPhoto>
+        }
+        groupBy: {
+          args: Prisma.SiteReportPhotoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportPhotoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SiteReportPhotoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SiteReportPhotoCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3996,6 +4296,7 @@ export const MaterialDeliveryScalarFieldEnum = {
   billVersion: 'billVersion',
   billFormat: 'billFormat',
   addedById: 'addedById',
+  ratePending: 'ratePending',
   createdAt: 'createdAt'
 } as const
 
@@ -4428,6 +4729,80 @@ export const MaterialEstimateScalarFieldEnum = {
 } as const
 
 export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
+
+
+export const SiteReportScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  date: 'date',
+  engineerId: 'engineerId',
+  note: 'note',
+  lat: 'lat',
+  lng: 'lng',
+  accuracyM: 'accuracyM',
+  distanceM: 'distanceM',
+  outsideSite: 'outsideSite',
+  submittedAt: 'submittedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SiteReportScalarFieldEnum = (typeof SiteReportScalarFieldEnum)[keyof typeof SiteReportScalarFieldEnum]
+
+
+export const SiteReportTeamScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  contractorName: 'contractorName',
+  mistri: 'mistri',
+  labour: 'labour',
+  inTime: 'inTime',
+  outTime: 'outTime',
+  present: 'present',
+  otHours: 'otHours',
+  workDone: 'workDone',
+  materialUsed: 'materialUsed',
+  remarks: 'remarks',
+  position: 'position',
+  attendanceId: 'attendanceId'
+} as const
+
+export type SiteReportTeamScalarFieldEnum = (typeof SiteReportTeamScalarFieldEnum)[keyof typeof SiteReportTeamScalarFieldEnum]
+
+
+export const SiteReportArrivalScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  clientKey: 'clientKey',
+  purchaseId: 'purchaseId',
+  name: 'name',
+  quantity: 'quantity',
+  unit: 'unit',
+  note: 'note',
+  position: 'position',
+  deliveryId: 'deliveryId'
+} as const
+
+export type SiteReportArrivalScalarFieldEnum = (typeof SiteReportArrivalScalarFieldEnum)[keyof typeof SiteReportArrivalScalarFieldEnum]
+
+
+export const SiteReportPhotoScalarFieldEnum = {
+  id: 'id',
+  arrivalId: 'arrivalId',
+  clientKey: 'clientKey',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  takenAt: 'takenAt',
+  lat: 'lat',
+  lng: 'lng',
+  accuracyM: 'accuracyM',
+  distanceM: 'distanceM',
+  outsideSite: 'outsideSite',
+  createdAt: 'createdAt'
+} as const
+
+export type SiteReportPhotoScalarFieldEnum = (typeof SiteReportPhotoScalarFieldEnum)[keyof typeof SiteReportPhotoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -4964,6 +5339,10 @@ export type GlobalOmitConfig = {
   contractorPayment?: Prisma.ContractorPaymentOmit
   materialPayment?: Prisma.MaterialPaymentOmit
   materialEstimate?: Prisma.MaterialEstimateOmit
+  siteReport?: Prisma.SiteReportOmit
+  siteReportTeam?: Prisma.SiteReportTeamOmit
+  siteReportArrival?: Prisma.SiteReportArrivalOmit
+  siteReportPhoto?: Prisma.SiteReportPhotoOmit
 }
 
 /* Types for Logging */

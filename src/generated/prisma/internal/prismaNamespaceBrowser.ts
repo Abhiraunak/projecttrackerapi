@@ -93,7 +93,11 @@ export const ModelName = {
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
   MaterialPayment: 'MaterialPayment',
-  MaterialEstimate: 'MaterialEstimate'
+  MaterialEstimate: 'MaterialEstimate',
+  SiteReport: 'SiteReport',
+  SiteReportTeam: 'SiteReportTeam',
+  SiteReportArrival: 'SiteReportArrival',
+  SiteReportPhoto: 'SiteReportPhoto'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -428,6 +432,7 @@ export const MaterialDeliveryScalarFieldEnum = {
   billVersion: 'billVersion',
   billFormat: 'billFormat',
   addedById: 'addedById',
+  ratePending: 'ratePending',
   createdAt: 'createdAt'
 } as const
 
@@ -860,6 +865,80 @@ export const MaterialEstimateScalarFieldEnum = {
 } as const
 
 export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
+
+
+export const SiteReportScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  date: 'date',
+  engineerId: 'engineerId',
+  note: 'note',
+  lat: 'lat',
+  lng: 'lng',
+  accuracyM: 'accuracyM',
+  distanceM: 'distanceM',
+  outsideSite: 'outsideSite',
+  submittedAt: 'submittedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SiteReportScalarFieldEnum = (typeof SiteReportScalarFieldEnum)[keyof typeof SiteReportScalarFieldEnum]
+
+
+export const SiteReportTeamScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  contractorName: 'contractorName',
+  mistri: 'mistri',
+  labour: 'labour',
+  inTime: 'inTime',
+  outTime: 'outTime',
+  present: 'present',
+  otHours: 'otHours',
+  workDone: 'workDone',
+  materialUsed: 'materialUsed',
+  remarks: 'remarks',
+  position: 'position',
+  attendanceId: 'attendanceId'
+} as const
+
+export type SiteReportTeamScalarFieldEnum = (typeof SiteReportTeamScalarFieldEnum)[keyof typeof SiteReportTeamScalarFieldEnum]
+
+
+export const SiteReportArrivalScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  clientKey: 'clientKey',
+  purchaseId: 'purchaseId',
+  name: 'name',
+  quantity: 'quantity',
+  unit: 'unit',
+  note: 'note',
+  position: 'position',
+  deliveryId: 'deliveryId'
+} as const
+
+export type SiteReportArrivalScalarFieldEnum = (typeof SiteReportArrivalScalarFieldEnum)[keyof typeof SiteReportArrivalScalarFieldEnum]
+
+
+export const SiteReportPhotoScalarFieldEnum = {
+  id: 'id',
+  arrivalId: 'arrivalId',
+  clientKey: 'clientKey',
+  publicId: 'publicId',
+  version: 'version',
+  format: 'format',
+  takenAt: 'takenAt',
+  lat: 'lat',
+  lng: 'lng',
+  accuracyM: 'accuracyM',
+  distanceM: 'distanceM',
+  outsideSite: 'outsideSite',
+  createdAt: 'createdAt'
+} as const
+
+export type SiteReportPhotoScalarFieldEnum = (typeof SiteReportPhotoScalarFieldEnum)[keyof typeof SiteReportPhotoScalarFieldEnum]
 
 
 export const SortOrder = {

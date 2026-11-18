@@ -38,13 +38,17 @@ const select = {
   addedBy: { select: { name: true, email: true } },
   deliveries: {
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
-    select: { id: true, date: true, quantity: true, rate: true, amount: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+    select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+  },
+  topUps: {
+    orderBy: [{ date: "asc" }, { createdAt: "asc" }],
+    select: { id: true, date: true, quantity: true, rate: true, amount: true, note: true, billId: true, billVersion: true, billFormat: true, addedBy: true },
   },
 } satisfies Prisma.MaterialPurchaseSelect; // not "as const": that makes orderBy a read-only array, which Prisma refuses
 
 type BillCols = { billId: string | null; billVersion: number | null; billFormat: string | null };
 type Num = { toNumber(): number };
-type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; addedBy: { name: string | null; email: string } };
+type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; ratePending?: boolean; addedBy: { name: string | null; email: string } };
 
 const billOf = (p: BillCols) => ({
   billUrl:
@@ -60,6 +64,7 @@ const deliveryDto = (d: DeliveryRow) => ({
   quantity: d.quantity.toNumber(),
   rate: d.rate.toNumber(), // what was actually paid per unit
   amount: d.amount.toNumber(), // quantity × rate
+  ratePending: d.ratePending ?? false, // from the site diary: arrived, the manager hasn't added the rate yet
   ...billOf(d),
   addedBy: d.addedBy.name || d.addedBy.email,
 });
@@ -80,10 +85,23 @@ type Row = {
   createdAt: Date;
   addedBy: { name: string | null; email: string };
   deliveries: DeliveryRow[];
+  topUps: (BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; note: string; addedBy: string })[];
 };
 
 const dto = (p: Row) => {
   const deliveries = p.deliveries.map(deliveryDto);
+  // More added later, oldest first: "+5,000 on 8 Nov". The quantity is the total of the first lot and these.
+  const additions = p.topUps.map((t) => ({
+    id: t.id,
+    date: ymd(t.date),
+    quantity: t.quantity.toNumber(),
+    rate: t.rate.toNumber(),
+    amount: t.amount.toNumber(),
+    note: t.note,
+    ...billOf(t),
+    addedBy: t.addedBy,
+  }));
+  const added = round2(additions.reduce((s, a) => s + a.quantity, 0));
   return {
     id: p.id,
     section: p.section,
@@ -100,6 +118,8 @@ const dto = (p: Row) => {
     createdAt: p.createdAt,
     // Deliveries: on what date how many arrived and at what rate; the quantity above is what was ordered
     deliveries,
+    firstQuantity: round2(p.quantity.toNumber() - added), // the first lot, on `date`
+    additions,
     ...arrivalOf(p.quantity.toNumber(), deliveries),
   };
 };
@@ -146,11 +166,20 @@ export async function listPurchases(userId: string, projectId: string) {
   return { items, ...summarize(items), spentTotal: round2(items.reduce((s, i) => s + i.spent, 0)), names, sections };
 }
 
-/** POST /projects/:projectId/material-purchases */
+/**
+ * POST /projects/:projectId/material-purchases. A material already on the list (same name, whatever the case or
+ * spacing) is not added twice: the quantity is added to it, with the date, as "+5,000 on 8 Nov".
+ */
 export async function addPurchase(userId: string, projectId: string, input: AddPurchase, file?: Express.Multer.File) {
   await requirePermission(userId, projectId, WRITE);
   checkDate(input.date);
   const name = canonicalName(input.name, (await knownNames(projectId)).map((n) => n.name));
+  const existing = await prisma.materialPurchase.findFirst({
+    where: { projectId, name: { equals: name, mode: "insensitive" } },
+    orderBy: { createdAt: "asc" },
+    select: { id: true, name: true, unit: true, quantity: true, amount: true },
+  });
+  if (existing) return addMore(userId, projectId, existing, input, file);
   const section = canonicalName(input.section, await knownSections(projectId));
   const amount = amountOf(input.quantity, input.rate);
   const bill = await storeBill(file);
@@ -174,6 +203,55 @@ export async function addPurchase(userId: string, projectId: string, input: AddP
     return { purchase: dto(row) };
   } catch (err) {
     if (bill) await dropBill(bill); // never leave an orphan bill behind
+    throw err;
+  }
+}
+
+/** More of a material already on the list: the total grows, and the addition is kept with its date */
+async function addMore(
+  userId: string,
+  projectId: string,
+  existing: { id: string; name: string; unit: string; quantity: Num; amount: Num },
+  input: AddPurchase,
+  file?: Express.Multer.File
+) {
+  if (existing.unit && input.unit && existing.unit.toLowerCase() !== input.unit.toLowerCase())
+    throw new HttpError(400, `${existing.name} is counted in ${existing.unit}. Enter the quantity in ${existing.unit} to add it.`);
+  const lot = amountOf(input.quantity, input.rate);
+  const quantity = round2(existing.quantity.toNumber() + input.quantity);
+  const amount = round2(existing.amount.toNumber() + lot);
+  const rate = quantity > 0 ? round2(amount / quantity) : input.rate; // the preset rate becomes the average if lots differ
+  const who = await prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } });
+  const bill = await storeBill(file);
+
+  try {
+    const row = await prisma.$transaction(async (tx) => {
+      await tx.materialTopUp.create({
+        data: {
+          purchaseId: existing.id,
+          quantity: input.quantity,
+          rate: input.rate,
+          amount: lot,
+          date: new Date(`${input.date}T00:00:00Z`),
+          note: input.note,
+          addedBy: who?.name || who?.email || "Someone",
+          ...bill,
+        },
+      });
+      const updated = await tx.materialPurchase.update({ where: { id: existing.id }, data: { quantity, amount, rate }, select });
+      await recordAudit(tx, {
+        projectId,
+        actorId: userId,
+        action: "material_purchase.added_more",
+        entityType: "project",
+        entityId: existing.id,
+        summary: `Added ${input.quantity} ${existing.unit || input.unit || ""} more ${existing.name} on ${input.date}, now ${quantity}`.replace(/\s+/g, " "),
+      });
+      return updated;
+    });
+    return { purchase: dto(row), addedTo: { name: existing.name, quantity: input.quantity, total: quantity } };
+  } catch (err) {
+    if (bill) await dropBill(bill);
     throw err;
   }
 }
@@ -230,7 +308,7 @@ export async function updatePurchase(userId: string, projectId: string, purchase
 /** DELETE /projects/:projectId/material-purchases/:purchaseId */
 export async function removePurchase(userId: string, projectId: string, purchaseId: string) {
   await requirePermission(userId, projectId, WRITE);
-  const before = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, include: { deliveries: { select: { billId: true, billFormat: true } } } });
+  const before = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, include: { deliveries: { select: { billId: true, billFormat: true } }, topUps: { select: { billId: true, billFormat: true } } } });
   if (!before) throw new HttpError(404, "That entry is no longer there.");
   await prisma.$transaction(async (tx) => {
     await tx.materialPurchase.delete({ where: { id: purchaseId } }); // its deliveries go with it
@@ -245,6 +323,7 @@ export async function removePurchase(userId: string, projectId: string, purchase
   });
   await dropBill(before);
   for (const d of before.deliveries) await dropBill(d);
+  for (const t of before.topUps) await dropBill(t);
   return { ok: true };
 }
 

@@ -30,6 +30,9 @@ export const PERMISSIONS = [
   "boq.use",
   "equipment.view", // Phase 6: see the equipment register and what is at each site
   "equipment.manage", // add equipment, move it between the yard and sites, write it off
+  "expenses.manage", // the General section: add, edit and delete the project's expenses
+  "diary.write", // site engineer: fill the site diary (daily report, material arrived with photos) on their phone
+  "diary.review", // manager: read site diaries, set the site location, add teams to attendance, price arrivals
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
