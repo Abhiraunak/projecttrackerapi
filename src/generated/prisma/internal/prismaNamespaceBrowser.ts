@@ -215,7 +215,8 @@ export const AttendanceScalarFieldEnum = {
   updatedAt: 'updatedAt',
   batchId: 'batchId',
   batchLead: 'batchLead',
-  payMode: 'payMode'
+  payMode: 'payMode',
+  taskId: 'taskId'
 } as const
 
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]

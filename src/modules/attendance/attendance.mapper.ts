@@ -14,6 +14,7 @@ export const attendanceDto = (a: Row) => ({
   project: a.project,
   contractorName: a.contractorName,
   trade: a.trade,
+  taskId: a.taskId ?? null, // the work item; null = General
   date: day(a.date),
   workers: a.workers.map((w) => ({
     id: w.id,

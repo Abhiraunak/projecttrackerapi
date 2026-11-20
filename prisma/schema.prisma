@@ -183,21 +183,22 @@ model Project {
 }
 
 model Task {
-  id             String   @id @default(cuid())
+  id             String       @id @default(cuid())
   projectId      String
-  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project        Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   work           String
   area           Float
   contractorRate Float
   inHouseRate    Float
-  stipulated     Decimal  @db.Decimal(14, 2)
-  paid           Decimal  @default(0) @db.Decimal(14, 2)
-  progress       Int      @default(0)
-  startDate      DateTime @db.Date
-  endDate        DateTime @db.Date
-  position       Int      @default(0)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  stipulated     Decimal      @db.Decimal(14, 2)
+  paid           Decimal      @default(0) @db.Decimal(14, 2)
+  progress       Int          @default(0)
+  startDate      DateTime     @db.Date
+  endDate        DateTime     @db.Date
+  position       Int          @default(0)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  attendance     Attendance[] // days marked for this work item   <-- NEW
 
   @@index([projectId, position])
 }
@@ -209,19 +210,23 @@ model Attendance {
   ownerId        String
   owner          User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   contractorName String
-  trade          String             @default("") // the trade or team: "Civil", "Tiles", "Fabrication"… empty: not set yet
+  trade          String             @default("")
   date           DateTime           @db.Date
   extras         Decimal            @default(0) @db.Decimal(14, 2)
   notes          String             @default("")
-  totalAmount    Decimal            @db.Decimal(14, 2) // always computed on the server
+  totalAmount    Decimal            @db.Decimal(14, 2)
   workers        AttendanceWorker[]
   createdAt      DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
   batchId        String?
   batchLead      Boolean            @default(false)
   payMode        String             @default("amount")
+  // The work item these days were for (Flooring, Plastering…); null = General.   <-- NEW
+  taskId         String? // <-- NEW
+  task           Task?              @relation(fields: [taskId], references: [id], onDelete: SetNull) // <-- NEW
 
   @@index([batchId])
+  @@index([projectId, taskId]) // <-- NEW
   @@index([ownerId, createdAt(sort: Desc)])
   @@index([projectId, createdAt(sort: Desc)])
   @@index([projectId, trade, date])

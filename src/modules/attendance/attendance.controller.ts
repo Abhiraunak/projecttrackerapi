@@ -11,7 +11,7 @@ import { recordAudit } from "../audit/audit.service.js";
 import { attendanceDto, toDate } from "./attendance.mapper.js";
 import { emptyDaysFor, missingRates, repeatedNames, rowsOn, type DayRow, type PayMode, type PayWorker } from "./attendance.hourly.js";
 import { syncTeam } from "./attendance.team.js";
-import { createManyAttendanceSchema, listQuerySchema, tradesQuerySchema, type CreateBody, type CreateManyBody, type SetTradeBody, type UpdateBody } from "./atttendance.schema.js";
+import { createManyAttendanceSchema, listQuerySchema, tradesQuerySchema, type AddWorkItemBody, type CreateBody, type CreateManyBody, type SetTradeBody, type UpdateBody } from "./atttendance.schema.js";
 import { canonicalTrade, DEFAULT_TRADES, tradeSummaries, usualTrade } from "./attendance.trades.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 
@@ -27,6 +27,14 @@ async function tradeFor(projectId: string, raw: string) {
   if (!raw.trim()) return "";
   const used = await prisma.attendance.findMany({ where: { projectId, trade: { not: "" } }, distinct: ["trade"], select: { trade: true } });
   return canonicalTrade(raw, [...used.map((u) => u.trade), ...DEFAULT_TRADES]);
+}
+
+/** The work item the days are for: one of this project's work items, or null for General */
+async function taskFor(projectId: string, taskId: string | null | undefined) {
+  if (!taskId) return null;
+  const task = await prisma.task.findFirst({ where: { id: taskId, projectId }, select: { id: true } });
+  if (!task) throw new HttpError(400, "That work item isn't in this project any more. Pick the work item again.");
+  return task.id;
 }
 
 /** The client's total is never trusted: it is recomputed from the amounts (exact decimal maths) */
@@ -119,6 +127,7 @@ export async function create(req: Request<unknown, unknown, CreateBody>, res: Re
   const { projectId, contractorName, date, workers, extras, notes, payMode } = req.body;
   await requirePermission(userId, projectId, "attendance.write");
   const trade = await tradeFor(projectId, req.body.trade);
+  const taskId = await taskFor(projectId, req.body.taskId);
   checkHourly(payMode, workers);
   await assertWeeksOpen(projectId, trade, contractorName, [date]); // a settled (paid) week can't change
   const rows = rowsOn(payMode, workers, undefined, await teamIds(payMode, projectId, contractorName, workers));
@@ -131,6 +140,7 @@ export async function create(req: Request<unknown, unknown, CreateBody>, res: Re
         projectId,
         contractorName,
         trade,
+        taskId,
         date: toDate(date),
         extras,
         notes,
@@ -175,7 +185,7 @@ function buildDays(mode: PayMode, workers: CreateManyBody["workers"], days: stri
 async function writeDays(
   tx: Prisma.TransactionClient,
   entries: ReturnType<typeof buildDays>["entries"],
-  fields: { ownerId: string; projectId: string; contractorName: string; trade: string; extras: number; notes: string; payMode: PayMode; batchId: string | null; createdAt?: Date }
+  fields: { ownerId: string; projectId: string; contractorName: string; trade: string; taskId: string | null; extras: number; notes: string; payMode: PayMode; batchId: string | null; createdAt?: Date }
 ) {
   const { batchId, ...rest } = fields;
   await tx.attendance.createMany({
@@ -198,6 +208,7 @@ export async function createMany(req: Request<unknown, unknown, CreateManyBody>,
   const { projectId, contractorName, dates, workers, extras, notes, payMode } = req.body;
   await requirePermission(userId, projectId, "attendance.write");
   const trade = await tradeFor(projectId, req.body.trade);
+  const taskId = await taskFor(projectId, req.body.taskId);
 
   const days = [...dates].sort();
   checkHourly(payMode, workers);
@@ -210,7 +221,7 @@ export async function createMany(req: Request<unknown, unknown, CreateManyBody>,
 
   await prisma.$transaction(
     async (tx) => {
-      await writeDays(tx, entries, { ownerId: userId, projectId, contractorName, trade, extras, notes, payMode, batchId });
+      await writeDays(tx, entries, { ownerId: userId, projectId, contractorName, trade, taskId, extras, notes, payMode, batchId });
       await recordAudit(tx, {
         projectId,
         actorId: userId,
@@ -242,6 +253,7 @@ export async function updateBatch(req: Request<{ batchId: string }, unknown, Cre
   if (!lead) throw new HttpError(404, "These entries were not found. They may have been deleted.");
   await requirePermission(userId, lead.projectId, "attendance.write");
   const trade = await tradeFor(lead.projectId, req.body.trade);
+  const taskId = req.body.taskId === undefined ? lead.taskId : await taskFor(lead.projectId, req.body.taskId);
 
   const days = [...dates].sort();
   checkHourly(payMode, workers);
@@ -257,7 +269,7 @@ export async function updateBatch(req: Request<{ batchId: string }, unknown, Cre
   await prisma.$transaction(
     async (tx) => {
       await tx.attendance.deleteMany({ where: { batchId } }); // their labourers go with them (onDelete: Cascade)
-      await writeDays(tx, entries, { ownerId: lead.ownerId, projectId: lead.projectId, contractorName, trade, extras, notes, payMode, batchId, createdAt: lead.createdAt });
+      await writeDays(tx, entries, { ownerId: lead.ownerId, projectId: lead.projectId, contractorName, trade, taskId, extras, notes, payMode, batchId, createdAt: lead.createdAt });
       await recordAudit(tx, {
         projectId: lead.projectId,
         actorId: userId,
@@ -313,6 +325,7 @@ export async function update(req: Request<{ id: string }, unknown, UpdateBody>, 
   if (!before) throw new HttpError(404, "Record not found");
   await requirePermission(userId, before.projectId, "attendance.write");
   const trade = req.body.trade === undefined ? before.trade : await tradeFor(before.projectId, req.body.trade);
+  const taskId = req.body.taskId === undefined ? before.taskId : await taskFor(before.projectId, req.body.taskId);
   const payMode: PayMode = req.body.payMode ?? (before.payMode === "hourly" ? "hourly" : "amount");
   checkHourly(payMode, workers);
   await assertWeeksOpen(before.projectId, before.trade, before.contractorName, [toDay(before.date)]);
@@ -327,6 +340,7 @@ export async function update(req: Request<{ id: string }, unknown, UpdateBody>, 
       data: {
         contractorName,
         trade,
+        taskId,
         date: toDate(date),
         extras,
         notes,
@@ -482,8 +496,10 @@ const isSettled = (closed: Set<string>, trade: string, contractorName: string, d
   closed.has(`${nameKeyOf(trade)}|${nameKeyOf(contractorName)}@${mondayOf(date)}`);
 
 /**
- * GET /attendance/registers?projectId=&q= : one row per contractor. Open days (not in a settled week) one by one;
- * settled weeks as one line each; earned (attendance + contract work), paid and still to pay, as in the ledger.
+ * GET /attendance/registers?projectId=&q= : one row per contractor and work item (taskId null = General). Open days
+ * (not in a settled week) one by one; settled weeks as one line each; `workTotal` = this work item's attendance.
+ * Earned (attendance + contract work), paid and still to pay stay the contractor's as a whole, as in the ledger:
+ * payments are made to the contractor, not per work item.
  */
 export async function registers(req: Request, res: Response) {
   const userId = uid(req);
@@ -493,21 +509,40 @@ export async function registers(req: Request, res: Response) {
   await requirePermission(userId, projectId, "attendance.view");
 
   const [rows, measures, payments, closed] = await Promise.all([
-    prisma.attendance.findMany({ where: { projectId }, select: { date: true, trade: true, contractorName: true, totalAmount: true, createdAt: true }, orderBy: { date: "asc" } }),
+    prisma.attendance.findMany({
+      where: { projectId },
+      select: { date: true, trade: true, contractorName: true, totalAmount: true, createdAt: true, taskId: true, task: { select: { work: true } } },
+      orderBy: { date: "asc" },
+    }),
     prisma.labourMeasure.groupBy({ by: ["contractorName"], where: { projectId }, _sum: { amount: true } }),
     prisma.contractorPayment.groupBy({ by: ["contractorName"], where: { projectId }, _sum: { amount: true } }),
     settledKeys(projectId),
   ]);
 
-  type Reg = { key: string; contractorName: string; open: Map<string, number>; settled: Map<string, number>; attendance: number; lastDate: string; lastSaved: number };
+  type Reg = {
+    key: string;
+    person: string; // the contractor's key, for their earned / paid / to pay
+    contractorName: string;
+    taskId: string | null;
+    work: string; // the work item's name; "" = General
+    open: Map<string, number>;
+    settled: Map<string, number>;
+    attendance: number; // this contractor, this work item
+    lastDate: string;
+    lastSaved: number;
+  };
   const regs = new Map<string, Reg>();
+  const allAttendance = new Map<string, number>(); // each contractor's attendance over every work item
   for (const r of rows) {
-    const key = nameKeyOf(r.contractorName);
+    const person = nameKeyOf(r.contractorName);
+    const key = `${person}|${r.taskId ?? ""}`;
     let g = regs.get(key);
-    if (!g) regs.set(key, (g = { key, contractorName: r.contractorName.trim(), open: new Map(), settled: new Map(), attendance: 0, lastDate: "", lastSaved: 0 }));
+    if (!g)
+      regs.set(key, (g = { key, person, contractorName: r.contractorName.trim(), taskId: r.taskId, work: r.task?.work ?? "", open: new Map(), settled: new Map(), attendance: 0, lastDate: "", lastSaved: 0 }));
     const day = toDay(r.date);
     const amount = num(r.totalAmount);
     g.attendance += amount;
+    allAttendance.set(person, (allAttendance.get(person) ?? 0) + amount);
     if (day >= g.lastDate) {
       g.lastDate = day;
       g.contractorName = r.contractorName.trim(); // the newest spelling
@@ -527,14 +562,17 @@ export async function registers(req: Request, res: Response) {
   const paid = sumBy(payments);
 
   const items = [...regs.values()]
-    .filter((g) => !q || g.key.includes(q))
+    .filter((g) => !q || g.person.includes(q) || nameKeyOf(g.work || "general").includes(q))
     .map((g) => {
-      const earned = round2(g.attendance + (contract.get(g.key) ?? 0));
-      const p = round2(paid.get(g.key) ?? 0);
+      const earned = round2((allAttendance.get(g.person) ?? 0) + (contract.get(g.person) ?? 0));
+      const p = round2(paid.get(g.person) ?? 0);
       const openDays = [...g.open].map(([date, total]) => ({ date, total: round2(total) }));
       return {
         key: g.key,
         contractorName: g.contractorName,
+        taskId: g.taskId,
+        work: g.work,
+        workTotal: round2(g.attendance),
         openDays,
         openTotal: round2(openDays.reduce((s, d) => s + d.total, 0)),
         settledWeeks: [...g.settled].map(([start, total]) => ({ start, end: sundayOf(start), total: round2(total) })),
@@ -560,9 +598,12 @@ export async function getSheet(req: Request, res: Response) {
   const contractor = String(req.query.contractor ?? "").trim();
   if (!projectId || !contractor || contractor.length > 120) throw new HttpError(400, "projectId and contractor are required");
   await requirePermission(userId, projectId, "attendance.view");
+  // ?task=<id>: only that work item's days; ?task=general: days with no work item; left out: every day (older screens)
+  const rawTask = req.query.task === undefined ? undefined : String(req.query.task).slice(0, 64);
+  const byTask: Prisma.AttendanceWhereInput = rawTask === undefined ? {} : { taskId: rawTask === "general" || rawTask === "" ? null : rawTask };
 
   const [rows, closed] = await Promise.all([
-    prisma.attendance.findMany({ where: { projectId, contractorName: { equals: contractor, mode: "insensitive" } }, include, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
+    prisma.attendance.findMany({ where: { projectId, contractorName: { equals: contractor, mode: "insensitive" }, ...byTask }, include, orderBy: [{ date: "asc" }, { createdAt: "asc" }] }),
     settledKeys(projectId),
   ]);
   const open = rows.filter((r) => !isSettled(closed, r.trade, r.contractorName, toDay(r.date)));
@@ -570,8 +611,13 @@ export async function getSheet(req: Request, res: Response) {
   const weeks = new Map<string, number>();
   for (const r of settled) weeks.set(mondayOf(toDay(r.date)), (weeks.get(mondayOf(toDay(r.date))) ?? 0) + num(r.totalAmount));
 
+  // The work item the sheet is for, so the form shows it on top (null = General; left out when ?task wasn't asked)
+  const taskId = rawTask === undefined ? undefined : (byTask.taskId as string | null);
+  const work = taskId ? ((await prisma.task.findFirst({ where: { id: taskId, projectId }, select: { work: true } }))?.work ?? "") : "";
+
   res.json({
     contractorName: open.at(-1)?.contractorName ?? rows.at(-1)?.contractorName ?? contractor,
+    ...(taskId === undefined ? {} : { taskId, work }),
     ids: open.map((r) => r.id),
     // Shaped like days saved together, so the form opens it the same way
     sheet: open.length ? batchDto("sheet", open) : null,
@@ -603,6 +649,8 @@ export async function saveSheet(req: Request, res: Response) {
     throw new HttpError(400, "These days belong to another contractor or project.");
 
   const trade = before[0]?.trade ?? (await tradeFor(projectId, parsed.data.body.trade ?? ""));
+  // The sheet stays on its work item unless the form sends another one
+  const taskId = parsed.data.body.taskId === undefined ? (before[0]?.taskId ?? null) : await taskFor(projectId, parsed.data.body.taskId);
   const days = [...dates].sort();
   checkHourly(payMode, workers);
   const empty = emptyDaysFor(payMode, workers, days, extras);
@@ -617,7 +665,7 @@ export async function saveSheet(req: Request, res: Response) {
   await prisma.$transaction(
     async (tx) => {
       if (before.length) await tx.attendance.deleteMany({ where: { id: { in: before.map((b) => b.id) } } });
-      await writeDays(tx, entries, { ownerId: before[0]?.ownerId ?? userId, projectId, contractorName, trade, extras, notes, payMode, batchId, createdAt: before[0]?.createdAt });
+      await writeDays(tx, entries, { ownerId: before[0]?.ownerId ?? userId, projectId, contractorName, trade, taskId, extras, notes, payMode, batchId, createdAt: before[0]?.createdAt });
       await recordAudit(tx, {
         projectId,
         actorId: userId,
@@ -633,4 +681,66 @@ export async function saveSheet(req: Request, res: Response) {
 
   const records = await prisma.attendance.findMany({ where: { id: { in: entries.map((e) => e.id) } }, include, orderBy: { date: "asc" } });
   res.json({ attendance: records.map(attendanceDto), count: records.length, batchId });
+}
+
+/* ------------------------------------------- work items ------------------------------------------- */
+
+/**
+ * GET /attendance/work-items?projectId= : the project's work items (the same list as the Overview), each with the
+ * attendance marked under it so far, plus General (days with no work item). The Mark attendance tab picks from these;
+ * Rate comparison shows each one's actual labour against its rates.
+ */
+export async function workItems(req: Request, res: Response) {
+  const userId = uid(req);
+  const projectId = String(req.query.projectId ?? "");
+  if (!projectId || projectId.length > 64) throw new HttpError(400, "projectId is required");
+  await requirePermission(userId, projectId, "attendance.view");
+
+  const [tasks, sums] = await Promise.all([
+    prisma.task.findMany({ where: { projectId }, orderBy: { position: "asc" }, select: { id: true, work: true } }),
+    prisma.attendance.groupBy({ by: ["taskId"], where: { projectId }, _sum: { totalAmount: true }, _count: { _all: true } }),
+  ]);
+  const total = (taskId: string | null) => round2(num(sums.find((x) => x.taskId === taskId)?._sum.totalAmount));
+  const days = (taskId: string | null) => sums.find((x) => x.taskId === taskId)?._count._all ?? 0;
+  res.json({
+    items: tasks.map((t) => ({ id: t.id, work: t.work, total: total(t.id), days: days(t.id) })),
+    general: { total: total(null), days: days(null) },
+  });
+}
+
+/**
+ * POST /attendance/work-items : add a work item by name only, from the Mark attendance tab. It is a normal work item of
+ * the project (area and rates 0, today to 30 days on), so it shows on the Overview and in Rate comparison too, where the
+ * rest can be filled in. The same name again (any capitals) gives back the one already there.
+ */
+export async function addWorkItem(req: Request<unknown, unknown, AddWorkItemBody>, res: Response) {
+  const userId = uid(req);
+  const { projectId } = req.body;
+  const work = req.body.work.replace(/\s+/g, " ").trim();
+  await requirePermission(userId, projectId, "attendance.write");
+
+  const same = await prisma.task.findFirst({ where: { projectId, work: { equals: work, mode: "insensitive" } }, select: { id: true, work: true } });
+  if (same) {
+    res.json({ item: same, created: false });
+    return;
+  }
+  const last = await prisma.task.findFirst({ where: { projectId }, orderBy: { position: "desc" }, select: { position: true } });
+  const start = new Date(`${toDay(new Date())}T00:00:00.000Z`);
+  const end = new Date(start.getTime() + 30 * 864e5);
+  const item = await prisma.$transaction(async (tx) => {
+    const created = await tx.task.create({
+      data: { projectId, work, area: 0, contractorRate: 0, inHouseRate: 0, stipulated: 0, startDate: start, endDate: end, position: (last?.position ?? -1) + 1 },
+      select: { id: true, work: true },
+    });
+    await recordAudit(tx, {
+      projectId,
+      actorId: userId,
+      action: "task.created",
+      entityType: "task",
+      entityId: created.id,
+      summary: `Added work item "${work}" from attendance`,
+    });
+    return created;
+  });
+  res.status(201).json({ item, created: true });
 }
