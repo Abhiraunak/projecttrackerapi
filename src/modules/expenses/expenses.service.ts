@@ -4,7 +4,6 @@ import { requirePermission } from "../../lib/projectAccess.js";
 import { deleteDrawingFile, drawingUrls, uploadDrawingFile } from "../../lib/cloudinary.js";
 import { detectFileType } from "../../lib/fileType.js";
 import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
-import { recordAudit } from "../audit/audit.service.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 import type { AddExpense } from "./expenses.schema.js";
 
@@ -57,20 +56,9 @@ export async function addExpense(userId: string, projectId: string, input: AddEx
   }
 
   try {
-    const row = await prisma.$transaction(async (tx) => {
-      const created = await tx.expense.create({
-        data: { projectId, date: new Date(`${input.date}T00:00:00Z`), amount: input.amount, purpose: input.purpose, remark: input.remark, addedById: userId, ...bill },
-        select,
-      });
-      await recordAudit(tx, {
-        projectId,
-        actorId: userId,
-        action: "expense.added",
-        entityType: "project",
-        entityId: created.id,
-        summary: `Added expenditure of ${input.amount} on ${input.date}: ${input.purpose}`,
-      });
-      return created;
+    const row = await prisma.expense.create({
+      data: { projectId, date: new Date(`${input.date}T00:00:00Z`), amount: input.amount, purpose: input.purpose, remark: input.remark, addedById: userId, ...bill },
+      select,
     });
     return { expense: dto(row) };
   } catch (err) {
@@ -82,19 +70,9 @@ export async function addExpense(userId: string, projectId: string, input: AddEx
 /** DELETE /projects/:id/expenses/:expenseId */
 export async function removeExpense(userId: string, projectId: string, expenseId: string) {
   await requirePermission(userId, projectId, "project.manage");
-  const before = await prisma.expense.findFirst({ where: { id: expenseId, projectId } });
+  const before = await prisma.expense.findFirst({ where: { id: expenseId, projectId }, select: { billId: true, billFormat: true } });
   if (!before) throw new HttpError(404, "Entry not found");
-  await prisma.$transaction(async (tx) => {
-    await tx.expense.delete({ where: { id: expenseId } });
-    await recordAudit(tx, {
-      projectId,
-      actorId: userId,
-      action: "expense.deleted",
-      entityType: "project",
-      entityId: expenseId,
-      summary: `Deleted expenditure of ${before.amount.toNumber()} on ${ymd(before.date)}: ${before.purpose}`,
-    });
-  });
+  await prisma.expense.delete({ where: { id: expenseId } });
   if (before.billId && before.billFormat) await deleteDrawingFile(before.billId, kindOf(before.billFormat));
   return { ok: true };
 }

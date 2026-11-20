@@ -7,24 +7,24 @@ import type { AuditEntity, AuditQuery } from "./audit.schema.js";
 
 type Db = Prisma.TransactionClient | typeof prisma;
 
-// export interface AuditInput {
-//   projectId: string | null; // null for company-wide changes, like who may do what
-//   actorId: string;
-//   action: string; // "requirement.order_updated"
-//   entityType: AuditEntity;
-//   entityId?: string | null;
-//   summary: string; // a sentence people can read
-//   changes?: Changes;
-// }
+export interface AuditInput {
+  projectId: string | null; // null for company-wide changes, like who may do what
+  actorId: string;
+  action: string; // "requirement.order_updated"
+  entityType: AuditEntity;
+  entityId?: string | null;
+  summary: string; // a sentence people can read
+  changes?: Changes;
+}
 
 /**
  * Writes one audit entry. Pass the transaction (`tx`) the change itself runs in,
  * so the change and its record are saved together or not at all.
  */
-// // export async function recordAudit(_db: Db, _input: AuditInput): Promise<void> {
-//   // Audit is switched off for now. Restore the db.auditLog.create(...) call when we start using it.
-//   return;
-// }
+export async function recordAudit(_db: Db, _input: AuditInput): Promise<void> {
+  // Audit is switched off for now. Restore the db.auditLog.create(...) call when we start using it.
+  return;
+}
 
 /** One project's history: who changed what on it, newest first */
 export async function listAudit(userId: string, projectId: string, query: AuditQuery) {
