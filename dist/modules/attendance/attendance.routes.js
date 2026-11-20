@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
-import { createAttendanceSchema, createManyAttendanceSchema, setTradeSchema, updateAttendanceSchema } from "./atttendance.schema.js";
+import { addWorkItemSchema, createAttendanceSchema, createManyAttendanceSchema, setTradeSchema, updateAttendanceSchema } from "./atttendance.schema.js";
 import * as c from "./attendance.controller.js";
 import { getMonth, getTeam, saveTeam } from "./attendance.team.js";
 const router = Router();
@@ -14,6 +14,8 @@ router.get("/month", getMonth); // month sheet (labourers × days, hours, OT, to
 router.patch("/trade", validate(setTradeSchema), c.setTrade); // give a contractor's entries a trade in one go
 router.post("/", validate(createAttendanceSchema), c.create);
 router.post("/bulk", validate(createManyAttendanceSchema), c.createMany); // several days at once
+router.get("/work-items", c.workItems); // the work items to mark attendance under, with what each has so far
+router.post("/work-items", validate(addWorkItemSchema), c.addWorkItem); // add one by name only
 router.get("/registers", c.registers); // one row per contractor: open days, settled weeks, still to pay
 router.get("/sheet", c.getSheet); // a contractor's open (unsettled) days, to open as one sheet
 router.put("/sheet", c.saveSheet); // save that sheet (replaces its open days); checked inside, ids included

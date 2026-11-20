@@ -8,8 +8,8 @@ import { uploadSingleFile } from "../../middleware/uploadImage.js";
 import { addMaterialPayment, listMaterialPayments, removeMaterialPayment } from "../material-payments/materialPayments.service.js";
 import * as c from "./inventory.controller.js";
 import { estimateSchema } from "../estimates/estimates.schema.js";
-import { addDeliverySchema, addPurchaseSchema, fromBoqSchema, updatePurchaseSchema } from "../material-purchases/materialPurchases.schema.js";
-import { addDelivery, addFromBoq, addPurchase, boqMaterials, listPurchases, removeDelivery, removePurchase, updatePurchase } from "../material-purchases/materialPurchases.service.js";
+import { addDeliverySchema, addPurchaseSchema, updatePurchaseSchema } from "../material-purchases/materialPurchases.schema.js";
+import { addDelivery, addPurchase, listPurchases, removeDelivery, removePurchase, updatePurchase } from "../material-purchases/materialPurchases.service.js";
 import { addEstimate, listEstimates, removeEstimate, updateEstimate } from "../estimates/estimates.service.js";
 import { addMaterialPaymentSchema } from "../material-payments/materialPayments.js";
 // Mounted at /api/v1, so auth is added per route (a router-wide requireAuth would also block /auth/login)
@@ -31,13 +31,7 @@ router.get("/projects/:projectId/material-purchases", requireAuth, async (req, r
 router.post("/projects/:projectId/material-purchases", requireAuth, writeLimiter, uploadSingleFile, validate(addPurchaseSchema), async (req, res) => {
     res.status(201).json(await addPurchase(req.user.sub, req.params.projectId, req.body, req.file));
 });
-// The BOQ's materials by sheet, to pick and add to the list (registered before /:purchaseId routes on purpose)
-router.get("/projects/:projectId/material-purchases/from-boq", requireAuth, async (req, res) => {
-    res.json(await boqMaterials(req.user.sub, req.params.projectId));
-});
-router.post("/projects/:projectId/material-purchases/from-boq", requireAuth, writeLimiter, validate(fromBoqSchema), async (req, res) => {
-    res.status(201).json(await addFromBoq(req.user.sub, req.params.projectId, req.body));
-});
+// (The old "from BOQ" routes are gone: Materials › From estimate uses materialPurchases.routes.ts instead)
 router.put("/projects/:projectId/material-purchases/:purchaseId", requireAuth, writeLimiter, uploadSingleFile, validate(updatePurchaseSchema), async (req, res) => {
     res.json(await updatePurchase(req.user.sub, req.params.projectId, req.params.purchaseId, req.body, req.file));
 });

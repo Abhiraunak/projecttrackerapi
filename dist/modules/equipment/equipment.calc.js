@@ -101,25 +101,62 @@ export function lastCondition(moves, place) {
     const latest = arrivals[arrivals.length - 1]; // undefined when nothing has arrived there
     return latest?.condition ?? null;
 }
+/** The rate in force on a day: the latest change on or before it, else the rate it was hired at */
+export function rateOn(terms, ymd) {
+    let best = null;
+    for (const r of terms.rates ?? [])
+        if (r.from <= ymd && (!best || r.from >= best.from))
+            best = r;
+    return best ? best.rate : terms.rate;
+}
 /**
  * Unit-days at each place, and the hire charges they cost, within an optional date range.
  * A piece counts from the day it arrives up to the day before it leaves; one still there counts up to and including
- * `today`. A month's rate is spread over 30 days, as hire firms usually bill.
+ * `today`. A month's rate is spread over 30 days, as hire firms usually bill. Each day is charged at the rate in
+ * force that day (rate changes), and one-off amounts dated inside the range are added to their place.
  */
 export function useByPlace(moves, terms, today, range) {
     const lo = range?.from ? dayNo(range.from) : -Infinity;
     const hi = (range?.to ? Math.min(dayNo(range.to), dayNo(today)) : dayNo(today)) + 1; // exclusive
-    const perDay = terms.ownership === "hired" && terms.rate ? (terms.per === "month" ? terms.rate / 30 : terms.rate) : 0;
+    const hired = terms.ownership === "hired";
+    const perDay = (rate) => (hired && rate ? (terms.per === "month" ? rate / 30 : rate) : 0);
+    // The rate's steps as day numbers: [day it starts, rate per day], oldest first
+    const steps = [...(terms.rates ?? [])]
+        .map((r) => ({ day: dayNo(r.from), perDay: perDay(r.rate) }))
+        .sort((a, b) => a.day - b.day);
+    const basePerDay = perDay(terms.rate);
+    /** Rupees for one unit over the days [a, b): split wherever the rate changes */
+    const costOver = (a, b) => {
+        let total = 0;
+        let at = a;
+        let rate = basePerDay;
+        for (const s of steps) {
+            if (s.day <= at) {
+                rate = s.perDay;
+                continue;
+            }
+            if (s.day >= b)
+                break;
+            total += (s.day - at) * rate;
+            at = s.day;
+            rate = s.perDay;
+        }
+        return total + (b - at) * rate;
+    };
     const qty = new Map();
     const since = new Map(); // the day the current quantity began
     const use = new Map();
+    const charge = new Map();
     const count = (place, until) => {
         const q = qty.get(place) ?? 0;
         const from = since.get(place);
         if (q > 0 && from !== undefined) {
-            const days = Math.max(0, Math.min(until, hi) - Math.max(from, lo));
-            if (days > 0)
-                use.set(place, (use.get(place) ?? 0) + q * days);
+            const a = Math.max(from, lo);
+            const b = Math.min(until, hi);
+            if (b > a) {
+                use.set(place, (use.get(place) ?? 0) + q * (b - a));
+                charge.set(place, (charge.get(place) ?? 0) + q * costOver(a, b));
+            }
         }
     };
     for (const m of inOrder(moves)) {
@@ -132,9 +169,16 @@ export function useByPlace(moves, terms, today, range) {
     }
     for (const place of qty.keys())
         count(place, hi);
+    // One-off amounts (hired items only), dated inside the range
+    if (hired)
+        for (const x of terms.amounts ?? []) {
+            const d = dayNo(x.date);
+            if (d >= lo && d < hi)
+                charge.set(x.place, (charge.get(x.place) ?? 0) + x.amount);
+        }
     const out = new Map();
-    for (const [place, unitDays] of use)
-        out.set(place, { unitDays: round(unitDays), charge: round(unitDays * perDay) });
+    for (const place of new Set([...use.keys(), ...charge.keys()]))
+        out.set(place, { unitDays: round(use.get(place) ?? 0), charge: round(charge.get(place) ?? 0) });
     return out;
 }
 /* ------------------------------------------- categories ------------------------------------------- */

@@ -6,8 +6,7 @@ import { detectFileType } from "../../lib/fileType.js";
 import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
-import { requiredQty } from "../materialPlan/plan.js";
-import { amountOf, arrivalOf, boqLines, canonicalName, round2, spentOf, summarize } from "./materialPurchases.calc.js";
+import { amountOf, arrivalOf, canonicalName, round2, spentOf, summarize } from "./materialPurchases.calc.js";
 /*
  * The simple Materials tab: materials bought for the project, each with a quantity, a rate and (optionally) the bill.
  * Seeing them needs "View materials"; adding, changing or deleting needs "Receive stock".
@@ -306,72 +305,6 @@ export async function purchaseTotalsByProject(projectIds) {
     for (const r of spent)
         out.get(r.projectId).spent = r._sum.amount?.toNumber() ?? 0;
     return out;
-}
-/* ------------------------------------------ from the BOQ ------------------------------------------ */
-const BOQ = "BOQ"; // the section for items on a sheet without a name
-/**
- * GET /projects/:projectId/material-purchases/from-boq: the materials the project's BOQ items need, by BOQ sheet,
- * with the standard rate and the amount, each marked when it is already on the list. Nothing is saved.
- */
-export async function boqMaterials(userId, projectId) {
-    await requirePermission(userId, projectId, VIEW);
-    const [items, existing] = await Promise.all([
-        prisma.boqItem.findMany({
-            where: { projectId, active: true },
-            orderBy: [{ position: "asc" }, { createdAt: "asc" }],
-            select: {
-                sheetName: true,
-                quantity: true,
-                materials: {
-                    orderBy: { position: "asc" },
-                    select: { perUnit: true, wastagePercent: true, material: { select: { id: true, name: true, unit: true, rate: true } } },
-                },
-            },
-        }),
-        prisma.materialPurchase.findMany({ where: { projectId }, select: { section: true, name: true } }),
-    ]);
-    const needs = items.flatMap((i) => i.materials.map((m) => ({
-        section: i.sheetName.trim() || BOQ,
-        materialId: m.material.id,
-        name: m.material.name,
-        unit: m.material.unit,
-        rate: m.material.rate.toNumber(),
-        quantity: requiredQty(i.quantity.toNumber(), { perUnit: m.perUnit.toNumber(), wastagePercent: m.wastagePercent.toNumber() }),
-    })));
-    return { lines: boqLines(needs, existing), boqItems: items.length };
-}
-/** POST /projects/:projectId/material-purchases/from-boq: adds the picked lines to the list, all on one date */
-export async function addFromBoq(userId, projectId, input) {
-    await requirePermission(userId, projectId, WRITE);
-    checkDate(input.date);
-    const [names, sections] = await Promise.all([knownNames(projectId), knownSections(projectId)]);
-    const knownName = names.map((n) => n.name);
-    const date = new Date(`${input.date}T00:00:00Z`);
-    const rows = input.lines.map((l) => ({
-        projectId,
-        section: canonicalName(l.section, sections),
-        name: canonicalName(l.name, knownName),
-        unit: l.unit,
-        quantity: l.quantity,
-        rate: l.rate,
-        amount: amountOf(l.quantity, l.rate),
-        date,
-        note: "From BOQ",
-        addedById: userId,
-    }));
-    const total = Math.round(rows.reduce((s, r) => s + r.amount, 0) * 100) / 100;
-    await prisma.$transaction(async (tx) => {
-        await tx.materialPurchase.createMany({ data: rows });
-        await recordAudit(tx, {
-            projectId,
-            actorId: userId,
-            action: "material_purchase.from_boq",
-            entityType: "project",
-            entityId: projectId,
-            summary: `Added ${rows.length} ${rows.length === 1 ? "material" : "materials"} from the BOQ (${total})`,
-        });
-    });
-    return { added: rows.length, total };
 }
 /* ------------------------------------------- deliveries ------------------------------------------- */
 async function purchaseIn(projectId, purchaseId) {

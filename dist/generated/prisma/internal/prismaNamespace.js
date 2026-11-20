@@ -105,6 +105,7 @@ export const ModelName = {
     DeliveryLine: 'DeliveryLine',
     DeliveryPhoto: 'DeliveryPhoto',
     Equipment: 'Equipment',
+    EquipmentHireChange: 'EquipmentHireChange',
     EquipmentMove: 'EquipmentMove',
     Expense: 'Expense',
     ContractorPayment: 'ContractorPayment',
@@ -203,7 +204,8 @@ export const AttendanceScalarFieldEnum = {
     updatedAt: 'updatedAt',
     batchId: 'batchId',
     batchLead: 'batchLead',
-    payMode: 'payMode'
+    payMode: 'payMode',
+    taskId: 'taskId'
 };
 export const AttendanceWorkerScalarFieldEnum = {
     id: 'id',
@@ -633,6 +635,18 @@ export const EquipmentScalarFieldEnum = {
     addedById: 'addedById',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
+};
+export const EquipmentHireChangeScalarFieldEnum = {
+    id: 'id',
+    equipmentId: 'equipmentId',
+    kind: 'kind',
+    date: 'date',
+    rate: 'rate',
+    amount: 'amount',
+    projectId: 'projectId',
+    note: 'note',
+    addedBy: 'addedBy',
+    createdAt: 'createdAt'
 };
 export const EquipmentMoveScalarFieldEnum = {
     id: 'id',

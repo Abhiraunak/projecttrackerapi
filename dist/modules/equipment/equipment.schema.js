@@ -72,4 +72,29 @@ export const moveSchema = z.object({
         note: z.string().trim().max(300).default(""),
     }),
 });
+/**
+ * A change to what a hired item costs: a new rate from a date, or a one-off amount (+ extra, − credit) charged to a
+ * site. Logged like a delivery in Materials.
+ */
+export const hireChangeSchema = z.object({
+    body: z.discriminatedUnion("kind", [
+        z.object({
+            kind: z.literal("rate"),
+            date: z.iso.date(),
+            rate: z.number().finite().positive("Enter the new rate.").max(100_000_000),
+            note: z.string().trim().max(300).default(""),
+        }),
+        z.object({
+            kind: z.literal("amount"),
+            date: z.iso.date(),
+            amount: z
+                .number()
+                .finite()
+                .refine((v) => v !== 0, "Enter an amount, like 2000 or -500.")
+                .refine((v) => Math.abs(v) <= 100_000_000, "That amount is too large."),
+            projectId: z.string().min(1, "Pick the site it is charged to.").max(64),
+            note: z.string().trim().max(300).default(""),
+        }),
+    ]),
+});
 //# sourceMappingURL=equipment.schema.js.map

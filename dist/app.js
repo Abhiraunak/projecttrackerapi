@@ -16,22 +16,16 @@ import drawingRoutes from './modules/drawings/drawings.routes.js';
 import userRoutes from './modules/users/users.routes.js';
 import { env } from './config/env.js';
 import { requireCsrfHeader } from './middleware/csrf.js';
-import catalogRoutes from './modules/materials/catalog.routes.js';
-import inventoryRoutes from './modules/inventory/inventory.routes.js';
+import materialPurchaseRoutes from './modules/material-purchases/materialPurchases.routes.js';
 import boqRoutes from './modules/boqs/boqs.routes.js';
 import { jsonBody } from './middleware/jsonBody.js';
 import auditRoutes from './modules/audit/audit.routes.js';
 import pushRoutes from './modules/push/push.routes.js';
 import accessRoutes from './modules/access/access.routes.js';
 import adminRoutes from './modules/admin/admin.routes.js';
-import materialPlanRoutes from './modules/materialPlan/plan.routes.js';
-import orderRoutes from './modules/orders/orders.routes.js';
-import alertRoutes from './modules/alerts/alerts.routes.js';
-import requestRoutes from './modules/requests/requests.routes.js';
 import dashboardRoutes from './modules/dashboard/dashboard.routes.js';
 import clientRoutes from './modules/client/client.routes.js';
 import notificationRoutes from './modules/notifications/notifications.routes.js';
-// import deliveryRoutes from './modules/deliveries/delivery.routes.js';
 // import punchRoutes from './modules/punches/punch.routes.js';
 import equipmentRoutes from './modules/equipment/equipment.routes.js';
 import siteDiaryRoutes from './modules/site-diary/site-diary.routes.js';
@@ -50,26 +44,22 @@ app.use(cookieParser());
 app.use(hpp());
 app.use(compression());
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+// Which build is live: compare "commit" with `git log -1` after a deploy
+app.get('/api/v1/version', (_req, res) => res.json({ commit: process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.RENDER_GIT_COMMIT ?? 'local' }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 app.use('/api/v1/drawings', drawingRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/materials', catalogRoutes);
-app.use('/api/v1', inventoryRoutes);
+app.use('/api/v1', materialPurchaseRoutes); // the workspace Materials section (materials and their deliveries)
 app.use('/api/v1', auditRoutes);
 app.use('/api/v1/boqs', boqRoutes);
 app.use('/api/v1/push', pushRoutes);
 app.use('/api/v1', accessRoutes); // GET /me/access
 app.use('/api/v1/admin', adminRoutes); // admin page
-app.use('/api/v1', materialPlanRoutes);
-app.use('/api/v1', orderRoutes);
-app.use('/api/v1', alertRoutes);
-app.use('/api/v1', requestRoutes);
 app.use('/api/v1', dashboardRoutes);
 app.use('/api/v1', clientRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
-// app.use('/api/v1/deliveries', deliveryRoutes);   // delivery check-in
 // app.use('/api/v1/punches', punchRoutes);         // staff punch in / out
 app.use('/api/v1/equipment', equipmentRoutes); // Phase 6: equipment register
 app.use('/api/v1/site-diary', siteDiaryRoutes); // site engineer's daily report (DPR) and the manager's review

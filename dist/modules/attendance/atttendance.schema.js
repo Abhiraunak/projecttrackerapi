@@ -9,10 +9,13 @@ const worker = z.object({
     dayRate: amount.optional(),
     hours: hours.optional(),
     otHours: hours.optional(),
+    extra: amount.optional(), // paid hourly or by day: rupees on top that day (a bonus, food, extra work)
 });
 const fields = {
     contractorName: z.string().trim().min(1).max(120),
     trade: z.string().trim().max(40).default(""), // "Civil", "Tiles"…; empty: not set
+    // The work item these days were for (one of the project's work items); null = General. Left out on an edit: kept.
+    taskId: z.string().trim().max(64).nullable().optional(),
     date: z.iso.date(), // "YYYY-MM-DD"
     workers: z.array(worker).min(1).max(100),
     extras: amount.default(0),
@@ -32,6 +35,8 @@ const bulkWorker = worker.extend({
     amounts: z.record(z.iso.date(), amount).optional(), // paid by amount: rupees by day
     hoursByDay: z.record(z.iso.date(), hours).optional(), // paid hourly: hours by day
     otByDay: z.record(z.iso.date(), hours).optional(), // paid hourly: overtime by day
+    rateByDay: z.record(z.iso.date(), amount).optional(), // paid hourly: a different day rate on some days (rate changed)
+    extraByDay: z.record(z.iso.date(), amount).optional(), // paid hourly: rupees on top on some days
 });
 export const createManyAttendanceSchema = z.object({
     body: z
@@ -48,7 +53,7 @@ export const createManyAttendanceSchema = z.object({
         .superRefine((body, ctx) => {
         const chosen = new Set(body.dates);
         body.workers.forEach((w, i) => {
-            for (const field of ["amounts", "hoursByDay", "otByDay"]) {
+            for (const field of ["amounts", "hoursByDay", "otByDay", "rateByDay", "extraByDay"]) {
                 for (const day of Object.keys(w[field] ?? {})) {
                     if (!chosen.has(day))
                         ctx.addIssue({ code: "custom", path: ["workers", i, field, day], message: `${day} is not one of the chosen days` });
@@ -84,4 +89,8 @@ export const setTradeSchema = z.object({
     }),
 });
 export const tradesQuerySchema = z.object({ projectId: z.string().min(1).max(64) });
+/** POST /attendance/work-items: add a work item by name only, from the Mark attendance tab */
+export const addWorkItemSchema = z.object({
+    body: z.object({ projectId: z.string().min(1).max(64), work: z.string().trim().min(1, "Enter a name").max(80) }),
+});
 //# sourceMappingURL=atttendance.schema.js.map
