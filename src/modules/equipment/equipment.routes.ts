@@ -1,15 +1,14 @@
 import { Router, type Request } from "express";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
-import { requireFeature } from "../../lib/features.js";
-import { createEquipmentSchema, moveSchema, updateEquipmentSchema } from "./equipment.schema.js";
-import { addMove, createEquipment, getEquipment, listEquipment, undoMove, updateEquipment } from "./equipment.service.js";
+import { createEquipmentSchema, hireChangeSchema, moveSchema, updateEquipmentSchema } from "./equipment.schema.js";
+import { addHireChange, addMove, createEquipment, getEquipment, listEquipment, removeHireChange, undoMove, updateEquipment } from "./equipment.service.js";
 
-/** Routes with an id in the path: the ids are always there (req.params is otherwise a loose dictionary) */
+/** The equipment register. Mounted at /api/v1/equipment. */
+/** Routes under /:id: the id is always there (req.params is otherwise a loose dictionary) */
 type WithId = Request<{ id: string }>;
 type WithMove = Request<{ id: string; moveId: string }>;
 
-/** Phase 6: the equipment register. Mounted at /api/v1/equipment. */
 const router = Router();
 router.use(requireAuth);
 
@@ -25,11 +24,19 @@ router.get("/:id", async (req: WithId, res) => {
 router.patch("/:id", validate(updateEquipmentSchema), async (req: WithId, res) => {
   res.json(await updateEquipment(req.user!.sub, req.params.id, req.body));
 });
-router.post("/:id/moves", validate(moveSchema), async (req: WithId, res) => {
+router.post("/:id/moves", validate(moveSchema), async (req: WithMove, res) => {
   res.status(201).json(await addMove(req.user!.sub, req.params.id, req.body));
 });
 router.delete("/:id/moves/:moveId", async (req: WithMove, res) => {
   res.json(await undoMove(req.user!.sub, req.params.id, req.params.moveId));
+});
+
+// A hired item's cost changed: a new rate from a date, or a one-off amount (+ / −) charged to a site
+router.post("/:id/hire-changes", validate(hireChangeSchema), async (req: WithId, res) => {
+  res.status(201).json(await addHireChange(req.user!.sub, req.params.id, req.body));
+});
+router.delete("/:id/hire-changes/:changeId", async (req: Request<{ id: string; changeId: string }>, res) => {
+  res.json(await removeHireChange(req.user!.sub, req.params.id, req.params.changeId));
 });
 
 export default router;

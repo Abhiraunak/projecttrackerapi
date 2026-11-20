@@ -8,6 +8,7 @@ import {
   checkMove,
   lastCondition,
   onSiteSince,
+  rateOn,
   stockByPlace,
   totalOf,
   useByPlace,
@@ -16,7 +17,7 @@ import {
   type Move,
   type MoveKind,
 } from "./equipment.calc.js";
-import type { CreateEquipment, MoveInput, UpdateEquipment } from "./equipment.schema.js";
+import type { CreateEquipment, HireChangeInput, MoveInput, UpdateEquipment } from "./equipment.schema.js";
 
 /*
  * Phase 6: the equipment register. Every change of quantity is a move; "how many where" is always worked out from
@@ -48,6 +49,8 @@ const itemSelect = {
   marketValueOn: true,
   retired: true,
   updatedAt: true,
+  // Rate changes and one-off amounts: every hire figure below takes them into account
+  hireChanges: { select: { kind: true, date: true, rate: true, amount: true, projectId: true } },
 } satisfies Prisma.EquipmentSelect;
 type ItemRow = Prisma.EquipmentGetPayload<{ select: typeof itemSelect }>;
 
@@ -74,7 +77,15 @@ const toMove = (m: MoveRow): Move => ({
   condition: m.condition,
 });
 
-const termsOf = (i: ItemRow): HireTerms => ({ ownership: i.ownership === "hired" ? "hired" : "owned", rate: num(i.hireRate), per: i.hirePer === "month" ? "month" : "day" });
+const termsOf = (i: ItemRow): HireTerms => ({
+  ownership: i.ownership === "hired" ? "hired" : "owned",
+  rate: num(i.hireRate),
+  per: i.hirePer === "month" ? "month" : "day",
+  rates: i.hireChanges.filter((c) => c.kind === "rate" && c.rate !== null).map((c) => ({ from: ymd(c.date), rate: c.rate!.toNumber() })),
+  amounts: i.hireChanges
+    .filter((c) => c.kind === "amount" && c.amount !== null && c.projectId)
+    .map((c) => ({ date: ymd(c.date), place: c.projectId!, amount: c.amount!.toNumber() })),
+});
 
 /** Our running number as people read it: 7 → "EQ-0007" */
 export const equipmentNo = (serialNo: number) => `EQ-${String(serialNo).padStart(4, "0")}`;
@@ -90,6 +101,8 @@ const itemDto = (i: ItemRow) => ({
   ownership: i.ownership as "owned" | "hired",
   hireRate: num(i.hireRate),
   hirePer: i.hirePer as "day" | "month",
+  /** The rate in force today, after any rate changes (hired items); the same as hireRate when there were none */
+  rateNow: rateOn(termsOf(i), today()),
   supplier: i.supplier,
   serviceDue: i.serviceDue ? ymd(i.serviceDue) : null,
   notes: i.notes,
@@ -154,7 +167,12 @@ export async function getEquipment(userId: string, id: string) {
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
   });
   const moves = rows.map(toMove);
-  const names = await projectNames(rows.flatMap((m) => [m.fromProjectId ?? "", m.toProjectId ?? ""]));
+  const changes = await prisma.equipmentHireChange.findMany({
+    where: { equipmentId: id },
+    select: { id: true, kind: true, date: true, rate: true, amount: true, projectId: true, note: true, addedBy: true, createdAt: true },
+    orderBy: [{ date: "desc" }, { createdAt: "desc" }],
+  });
+  const names = await projectNames([...rows.flatMap((m) => [m.fromProjectId ?? "", m.toProjectId ?? ""]), ...changes.map((c) => c.projectId ?? "")]);
   const at = stockByPlace(moves);
   const day = today();
   const use = useByPlace(moves, termsOf(item), day);
@@ -174,6 +192,18 @@ export async function getEquipment(userId: string, id: string) {
         chargeThisMonth: month.get(place)?.charge ?? 0,
       }))
       .sort((a, b) => b.charge - a.charge || b.unitDays - a.unitDays),
+    /** Rate changes and one-off amounts, newest first */
+    hireChanges: changes.map((c) => ({
+      id: c.id,
+      kind: c.kind as "rate" | "amount",
+      date: ymd(c.date),
+      rate: num(c.rate),
+      amount: num(c.amount),
+      site: c.projectId ? { projectId: c.projectId, title: names.get(c.projectId) ?? "Removed project" } : null,
+      note: c.note,
+      by: c.addedBy,
+      createdAt: c.createdAt,
+    })),
     history: rows.map((m) => ({
       id: m.id,
       kind: m.kind as MoveKind,
@@ -325,15 +355,17 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
   const before = await prisma.equipment.findUnique({ where: { id }, select: itemSelect });
   if (!before) throw new HttpError(404, "Equipment not found");
   const { serviceDue, ...rest } = input;
-  // A new market value is dated today; sending the same value again keeps its old date
-  const valueChanged = rest.marketValue !== undefined && rest.marketValue !== num(before.marketValue);
-  await prisma.equipment.update({
-    where: { id },
-    data: {
-      ...rest,
-      ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}),
-      ...(valueChanged ? { marketValueOn: rest.marketValue === null ? null : asDate(today()) } : {}),
-    },
+  await prisma.$transaction(async (tx) => {
+    // A new market value is dated today; sending the same value again keeps its old date
+    const valueChanged = rest.marketValue !== undefined && rest.marketValue !== num(before.marketValue);
+    await tx.equipment.update({
+      where: { id },
+      data: {
+        ...rest,
+        ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}),
+        ...(valueChanged ? { marketValueOn: rest.marketValue === null ? null : asDate(today()) } : {}),
+      },
+    });
   });
   return { id };
 }
@@ -386,11 +418,44 @@ export async function addMove(userId: string, id: string, input: MoveInput) {
 export async function undoMove(userId: string, id: string, moveId: string) {
   await requireCan(userId, "equipment.manage");
   await prisma.$transaction(async (tx) => {
-    const rows = await tx.equipmentMove.findMany({ where: { equipmentId: id }, select: { id: true }, orderBy: [{ date: "desc" }, { createdAt: "desc" }] });
+    const rows = await tx.equipmentMove.findMany({ where: { equipmentId: id }, select: { ...moveSelect, note: true }, orderBy: [{ date: "desc" }, { createdAt: "desc" }] });
     const latest = rows[0];
     if (!latest || latest.id !== moveId) throw new HttpError(400, "Only the latest move can be undone. Record a move back instead.");
     if (rows.length === 1) throw new HttpError(400, "This is how the item was added. Write it off instead, or edit its details.");
     await tx.equipmentMove.delete({ where: { id: moveId } });
   }, serial);
+  return { ok: true };
+}
+
+/* ------------------------------------------- hire changes ------------------------------------------- */
+
+/**
+ * POST /equipment/:id/hire-changes: a hired item's cost changed. Either a new rate from a date (every day from then on
+ * is charged at it), or a one-off amount (+ extra, − credit) charged to one site. Hire figures everywhere follow.
+ */
+export async function addHireChange(userId: string, id: string, input: HireChangeInput) {
+  await requireCan(userId, "equipment.manage");
+  if (input.date > today()) throw new HttpError(400, "The date can't be in the future.");
+  const item = await prisma.equipment.findUnique({ where: { id }, select: { ownership: true } });
+  if (!item) throw new HttpError(404, "Equipment not found");
+  if (item.ownership !== "hired") throw new HttpError(400, "Only hired equipment has a hire rate to change.");
+  if (input.kind === "amount") await assertProject(prisma, input.projectId);
+  const who = await prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } });
+
+  return prisma.equipmentHireChange.create({
+    data:
+      input.kind === "rate"
+        ? { equipmentId: id, kind: "rate", date: asDate(input.date), rate: input.rate, note: input.note, addedBy: who?.name || who?.email || "Someone" }
+        : { equipmentId: id, kind: "amount", date: asDate(input.date), amount: input.amount, projectId: input.projectId, note: input.note, addedBy: who?.name || who?.email || "Someone" },
+    select: { id: true },
+  });
+}
+
+/** DELETE /equipment/:id/hire-changes/:changeId: remove a rate change or amount logged by mistake */
+export async function removeHireChange(userId: string, id: string, changeId: string) {
+  await requireCan(userId, "equipment.manage");
+  const row = await prisma.equipmentHireChange.findFirst({ where: { id: changeId, equipmentId: id }, select: { id: true } });
+  if (!row) throw new HttpError(404, "That change was already removed.");
+  await prisma.equipmentHireChange.delete({ where: { id: row.id } });
   return { ok: true };
 }

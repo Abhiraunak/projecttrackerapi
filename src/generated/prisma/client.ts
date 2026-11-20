@@ -245,6 +245,14 @@ export type DeliveryPhoto = Prisma.DeliveryPhotoModel
  */
 export type Equipment = Prisma.EquipmentModel
 /**
+ * Model EquipmentHireChange
+ * *
+ *  * A change to what a hired item costs, logged like a delivery:
+ *  * - "rate": from `date` on, the hire rate is `rate` (per unit, per day or month as the item is hired);
+ *  * - "amount": a one-off `amount` (+ extra, − credit) on `date`, charged to the site `projectId`.
+ */
+export type EquipmentHireChange = Prisma.EquipmentHireChangeModel
+/**
  * Model EquipmentMove
  * 
  */

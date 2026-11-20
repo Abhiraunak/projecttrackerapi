@@ -122,8 +122,19 @@ export function lastCondition(moves: readonly Move[], place: string | null): str
 
 export interface HireTerms {
   ownership: "owned" | "hired";
-  rate: number | null; // per unit, per day or per month
+  rate: number | null; // per unit, per day or per month: the rate it was hired at
   per: "day" | "month";
+  /** Rate changes: from `from` on, the rate is `rate` (same unit and period). Any order. */
+  rates?: { from: string; rate: number }[];
+  /** One-off amounts (+ extra, − credit) on a date, charged to a place (a project id) */
+  amounts?: { date: string; place: string; amount: number }[];
+}
+
+/** The rate in force on a day: the latest change on or before it, else the rate it was hired at */
+export function rateOn(terms: HireTerms, ymd: string): number | null {
+  let best: { from: string; rate: number } | null = null;
+  for (const r of terms.rates ?? []) if (r.from <= ymd && (!best || r.from >= best.from)) best = r;
+  return best ? best.rate : terms.rate;
 }
 
 export interface PlaceUse {
@@ -136,22 +147,51 @@ export interface PlaceUse {
 /**
  * Unit-days at each place, and the hire charges they cost, within an optional date range.
  * A piece counts from the day it arrives up to the day before it leaves; one still there counts up to and including
- * `today`. A month's rate is spread over 30 days, as hire firms usually bill.
+ * `today`. A month's rate is spread over 30 days, as hire firms usually bill. Each day is charged at the rate in
+ * force that day (rate changes), and one-off amounts dated inside the range are added to their place.
  */
 export function useByPlace(moves: readonly Move[], terms: HireTerms, today: string, range?: { from?: string; to?: string }): Map<string, PlaceUse> {
   const lo = range?.from ? dayNo(range.from) : -Infinity;
   const hi = (range?.to ? Math.min(dayNo(range.to), dayNo(today)) : dayNo(today)) + 1; // exclusive
-  const perDay = terms.ownership === "hired" && terms.rate ? (terms.per === "month" ? terms.rate / 30 : terms.rate) : 0;
+  const hired = terms.ownership === "hired";
+  const perDay = (rate: number | null) => (hired && rate ? (terms.per === "month" ? rate / 30 : rate) : 0);
+  // The rate's steps as day numbers: [day it starts, rate per day], oldest first
+  const steps = [...(terms.rates ?? [])]
+    .map((r) => ({ day: dayNo(r.from), perDay: perDay(r.rate) }))
+    .sort((a, b) => a.day - b.day);
+  const basePerDay = perDay(terms.rate);
+  /** Rupees for one unit over the days [a, b): split wherever the rate changes */
+  const costOver = (a: number, b: number) => {
+    let total = 0;
+    let at = a;
+    let rate = basePerDay;
+    for (const s of steps) {
+      if (s.day <= at) {
+        rate = s.perDay;
+        continue;
+      }
+      if (s.day >= b) break;
+      total += (s.day - at) * rate;
+      at = s.day;
+      rate = s.perDay;
+    }
+    return total + (b - at) * rate;
+  };
 
   const qty = new Map<string, number>();
   const since = new Map<string, number>(); // the day the current quantity began
   const use = new Map<string, number>();
+  const charge = new Map<string, number>();
   const count = (place: string, until: number) => {
     const q = qty.get(place) ?? 0;
     const from = since.get(place);
     if (q > 0 && from !== undefined) {
-      const days = Math.max(0, Math.min(until, hi) - Math.max(from, lo));
-      if (days > 0) use.set(place, (use.get(place) ?? 0) + q * days);
+      const a = Math.max(from, lo);
+      const b = Math.min(until, hi);
+      if (b > a) {
+        use.set(place, (use.get(place) ?? 0) + q * (b - a));
+        charge.set(place, (charge.get(place) ?? 0) + q * costOver(a, b));
+      }
     }
   };
 
@@ -165,8 +205,15 @@ export function useByPlace(moves: readonly Move[], terms: HireTerms, today: stri
   }
   for (const place of qty.keys()) count(place, hi);
 
+  // One-off amounts (hired items only), dated inside the range
+  if (hired)
+    for (const x of terms.amounts ?? []) {
+      const d = dayNo(x.date);
+      if (d >= lo && d < hi) charge.set(x.place, (charge.get(x.place) ?? 0) + x.amount);
+    }
+
   const out = new Map<string, PlaceUse>();
-  for (const [place, unitDays] of use) out.set(place, { unitDays: round(unitDays), charge: round(unitDays * perDay) });
+  for (const place of new Set([...use.keys(), ...charge.keys()])) out.set(place, { unitDays: round(use.get(place) ?? 0), charge: round(charge.get(place) ?? 0) });
   return out;
 }
 

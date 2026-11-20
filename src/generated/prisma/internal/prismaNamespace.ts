@@ -435,6 +435,7 @@ export const ModelName = {
   DeliveryLine: 'DeliveryLine',
   DeliveryPhoto: 'DeliveryPhoto',
   Equipment: 'Equipment',
+  EquipmentHireChange: 'EquipmentHireChange',
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
@@ -459,7 +460,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto"
+    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3275,6 +3276,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EquipmentHireChange: {
+      payload: Prisma.$EquipmentHireChangePayload<ExtArgs>
+      fields: Prisma.EquipmentHireChangeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EquipmentHireChangeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EquipmentHireChangeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>
+        }
+        findFirst: {
+          args: Prisma.EquipmentHireChangeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EquipmentHireChangeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>
+        }
+        findMany: {
+          args: Prisma.EquipmentHireChangeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>[]
+        }
+        create: {
+          args: Prisma.EquipmentHireChangeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>
+        }
+        createMany: {
+          args: Prisma.EquipmentHireChangeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EquipmentHireChangeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>[]
+        }
+        delete: {
+          args: Prisma.EquipmentHireChangeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>
+        }
+        update: {
+          args: Prisma.EquipmentHireChangeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>
+        }
+        deleteMany: {
+          args: Prisma.EquipmentHireChangeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EquipmentHireChangeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EquipmentHireChangeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>[]
+        }
+        upsert: {
+          args: Prisma.EquipmentHireChangeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EquipmentHireChangePayload>
+        }
+        aggregate: {
+          args: Prisma.EquipmentHireChangeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEquipmentHireChange>
+        }
+        groupBy: {
+          args: Prisma.EquipmentHireChangeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EquipmentHireChangeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EquipmentHireChangeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EquipmentHireChangeCountAggregateOutputType> | number
+        }
+      }
+    }
     EquipmentMove: {
       payload: Prisma.$EquipmentMovePayload<ExtArgs>
       fields: Prisma.EquipmentMoveFieldRefs
@@ -4643,6 +4718,22 @@ export const EquipmentScalarFieldEnum = {
 export type EquipmentScalarFieldEnum = (typeof EquipmentScalarFieldEnum)[keyof typeof EquipmentScalarFieldEnum]
 
 
+export const EquipmentHireChangeScalarFieldEnum = {
+  id: 'id',
+  equipmentId: 'equipmentId',
+  kind: 'kind',
+  date: 'date',
+  rate: 'rate',
+  amount: 'amount',
+  projectId: 'projectId',
+  note: 'note',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type EquipmentHireChangeScalarFieldEnum = (typeof EquipmentHireChangeScalarFieldEnum)[keyof typeof EquipmentHireChangeScalarFieldEnum]
+
+
 export const EquipmentMoveScalarFieldEnum = {
   id: 'id',
   equipmentId: 'equipmentId',
@@ -5335,6 +5426,7 @@ export type GlobalOmitConfig = {
   deliveryLine?: Prisma.DeliveryLineOmit
   deliveryPhoto?: Prisma.DeliveryPhotoOmit
   equipment?: Prisma.EquipmentOmit
+  equipmentHireChange?: Prisma.EquipmentHireChangeOmit
   equipmentMove?: Prisma.EquipmentMoveOmit
   expense?: Prisma.ExpenseOmit
   contractorPayment?: Prisma.ContractorPaymentOmit

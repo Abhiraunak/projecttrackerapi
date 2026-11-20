@@ -89,6 +89,7 @@ export const ModelName = {
   DeliveryLine: 'DeliveryLine',
   DeliveryPhoto: 'DeliveryPhoto',
   Equipment: 'Equipment',
+  EquipmentHireChange: 'EquipmentHireChange',
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
@@ -777,6 +778,22 @@ export const EquipmentScalarFieldEnum = {
 } as const
 
 export type EquipmentScalarFieldEnum = (typeof EquipmentScalarFieldEnum)[keyof typeof EquipmentScalarFieldEnum]
+
+
+export const EquipmentHireChangeScalarFieldEnum = {
+  id: 'id',
+  equipmentId: 'equipmentId',
+  kind: 'kind',
+  date: 'date',
+  rate: 'rate',
+  amount: 'amount',
+  projectId: 'projectId',
+  note: 'note',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type EquipmentHireChangeScalarFieldEnum = (typeof EquipmentHireChangeScalarFieldEnum)[keyof typeof EquipmentHireChangeScalarFieldEnum]
 
 
 export const EquipmentMoveScalarFieldEnum = {

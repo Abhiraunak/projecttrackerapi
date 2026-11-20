@@ -136,48 +136,49 @@ model PasswordReset {
 }
 
 model Project {
-  id                 String              @id @default(cuid())
-  title              String
-  firmName           String? // the firm or client name on the project tile (optional, so old rows need nothing)
-  status             ProjectStatus       @default(ONGOING)
-  ownerId            String
-  owner              User                @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  tasks              Task[]
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  projectCost        Decimal?            @db.Decimal(14, 2)
-  attendance         Attendance[]
-  stockMovements     StockMovement[]
-  boqs               Boq[]
-  boqItems           BoqItem[]
-  materialOrders     MaterialOrder[]
-  stockAlerts        StockAlert[]
-  materialRequests   MaterialRequest[]
-  auditLog           AuditLog[]
+  id                   String                @id @default(cuid())
+  title                String
+  firmName             String? // the firm or client name on the project tile (optional, so old rows need nothing)
+  status               ProjectStatus         @default(ONGOING)
+  ownerId              String
+  owner                User                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tasks                Task[]
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  projectCost          Decimal?              @db.Decimal(14, 2)
+  attendance           Attendance[]
+  stockMovements       StockMovement[]
+  boqs                 Boq[]
+  boqItems             BoqItem[]
+  materialOrders       MaterialOrder[]
+  stockAlerts          StockAlert[]
+  materialRequests     MaterialRequest[]
+  auditLog             AuditLog[]
   // Client portal
-  advanceOverride    Boolean             @default(false) // admin let work start before the advance was paid
-  clients            ProjectClient[]
-  instalments        PaymentInstalment[]
-  paymentProofs      PaymentProof[]
-  delays             ProjectDelay[]
+  advanceOverride      Boolean               @default(false) // admin let work start before the advance was paid
+  clients              ProjectClient[]
+  instalments          PaymentInstalment[]
+  paymentProofs        PaymentProof[]
+  delays               ProjectDelay[]
   // Staff attendance: where the site is, so each punch can be checked against it (optional)
-  siteLat            Float?
-  siteLng            Float?
-  siteRadiusM        Int                 @default(200)
-  punches            StaffPunch[]
-  deliveries         Delivery[]
-  drawings           Drawing[] // Phase 4
-  equipmentIn        EquipmentMove[]     @relation("EquipmentMoveTo") // Phase 6
-  equipmentOut       EquipmentMove[]     @relation("EquipmentMoveFrom")
-  expenses           Expense[] // daily expenditure
-  contractorPayments ContractorPayment[]
-  materialPayments   MaterialPayment[]
-  materialEstimates  MaterialEstimate[]
-  materialPurchases  MaterialPurchase[]
-  labourTeam         LabourTeamMember[]
-  labourMeasures     LabourMeasure[]
-  labourWeeks        LabourWeek[]
-  siteReports        SiteReport[] // site diary
+  siteLat              Float?
+  siteLng              Float?
+  siteRadiusM          Int                   @default(200)
+  punches              StaffPunch[]
+  deliveries           Delivery[]
+  drawings             Drawing[] // Phase 4
+  equipmentIn          EquipmentMove[]       @relation("EquipmentMoveTo")
+  equipmentOut         EquipmentMove[]       @relation("EquipmentMoveFrom")
+  equipmentHireChanges EquipmentHireChange[] // NEW: one-off hire amounts charged to this site
+  expenses             Expense[] // daily expenditure
+  contractorPayments   ContractorPayment[]
+  materialPayments     MaterialPayment[]
+  materialEstimates    MaterialEstimate[]
+  materialPurchases    MaterialPurchase[]
+  labourTeam           LabourTeamMember[]
+  labourMeasures       LabourMeasure[]
+  labourWeeks          LabourWeek[]
+  siteReports          SiteReport[] // site diary
 
   @@index([ownerId, status, updatedAt])
 }
@@ -975,29 +976,53 @@ model DeliveryPhoto {
 // ---------------------------------------------------------------------------------------------------------------
 
 model Equipment {
-  id            String          @id @default(cuid())
-  serialNo      Int             @unique @default(autoincrement()) // EQ-0001…
+  id            String                @id @default(cuid())
+  serialNo      Int                   @unique @default(autoincrement()) // EQ-0001…
   name          String // "Steel plates 2×1 ft", "Concrete mixer"
-  category      String          @default("other") // "shuttering" | "scaffolding" | "machinery" | "tools" | "other"
-  unit          String          @default("nos") // nos, sets, sq m, rft
+  category      String                @default("other") // "shuttering" | "scaffolding" | "machinery" | "tools" | "other"
+  unit          String                @default("nos") // nos, sets, sq m, rft
   code          String? // tag or serial number, for machines
-  ownership     String          @default("owned") // "owned" | "hired"
-  hireRate      Decimal?        @db.Decimal(12, 2) // per unit, per hirePer (hired items)
-  hirePer       String          @default("day") // "day" | "month"
+  ownership     String                @default("owned") // "owned" | "hired"
+  hireRate      Decimal?              @db.Decimal(12, 2) // per unit, per hirePer (hired items)
+  hirePer       String                @default("day") // "day" | "month"
   supplier      String? // who it is hired or bought from
-  unitCost      Decimal?        @db.Decimal(14, 2) // cost of one unit
-  marketValue   Decimal?        @db.Decimal(14, 2) // what one unit is worth today
-  marketValueOn DateTime?       @db.Date // when that value was last set
-  serviceDue    DateTime?       @db.Date // machines: next service
-  notes         String          @default("")
-  retired       Boolean         @default(false) // nothing left and not used any more: hidden from pickers
+  unitCost      Decimal?              @db.Decimal(14, 2) // cost of one unit
+  marketValue   Decimal?              @db.Decimal(14, 2) // what one unit is worth today
+  marketValueOn DateTime?             @db.Date // when that value was last set
+  serviceDue    DateTime?             @db.Date // machines: next service
+  notes         String                @default("")
+  retired       Boolean               @default(false) // nothing left and not used any more: hidden from pickers
   addedById     String
-  addedBy       User            @relation("EquipmentAddedBy", fields: [addedById], references: [id])
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+  addedBy       User                  @relation("EquipmentAddedBy", fields: [addedById], references: [id])
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
   moves         EquipmentMove[]
+  hireChanges   EquipmentHireChange[] // NEW: hired items: rate changes and one-off amounts
 
   @@index([category, retired])
+}
+
+/**
+ * A change to what a hired item costs, logged like a delivery:
+ * - "rate": from `date` on, the hire rate is `rate` (per unit, per day or month as the item is hired);
+ * - "amount": a one-off `amount` (+ extra, − credit) on `date`, charged to the site `projectId`.
+ */
+model EquipmentHireChange {
+  id          String    @id @default(cuid())
+  equipmentId String
+  equipment   Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  kind        String // "rate" | "amount"
+  date        DateTime  @db.Date
+  rate        Decimal?  @db.Decimal(12, 2) // kind "rate"
+  amount      Decimal?  @db.Decimal(14, 2) // kind "amount": below 0 takes off
+  projectId   String? // kind "amount": the site it is charged to
+  project     Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  note        String    @default("")
+  addedBy     String // the name of who logged it
+  createdAt   DateTime  @default(now())
+
+  @@index([equipmentId, date])
+  @@index([projectId])
 }
 
 model EquipmentMove {

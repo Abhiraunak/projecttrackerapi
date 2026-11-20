@@ -342,6 +342,7 @@ export type EquipmentWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   moves?: Prisma.EquipmentMoveListRelationFilter
+  hireChanges?: Prisma.EquipmentHireChangeListRelationFilter
 }
 
 export type EquipmentOrderByWithRelationInput = {
@@ -366,6 +367,7 @@ export type EquipmentOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   addedBy?: Prisma.UserOrderByWithRelationInput
   moves?: Prisma.EquipmentMoveOrderByRelationAggregateInput
+  hireChanges?: Prisma.EquipmentHireChangeOrderByRelationAggregateInput
 }
 
 export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
@@ -393,6 +395,7 @@ export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   moves?: Prisma.EquipmentMoveListRelationFilter
+  hireChanges?: Prisma.EquipmentHireChangeListRelationFilter
 }, "id" | "serialNo">
 
 export type EquipmentOrderByWithAggregationInput = {
@@ -468,6 +471,7 @@ export type EquipmentCreateInput = {
   updatedAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutEquipmentAddedInput
   moves?: Prisma.EquipmentMoveCreateNestedManyWithoutEquipmentInput
+  hireChanges?: Prisma.EquipmentHireChangeCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateInput = {
@@ -491,6 +495,7 @@ export type EquipmentUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   moves?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutEquipmentInput
+  hireChanges?: Prisma.EquipmentHireChangeUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUpdateInput = {
@@ -513,6 +518,7 @@ export type EquipmentUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutEquipmentAddedNestedInput
   moves?: Prisma.EquipmentMoveUpdateManyWithoutEquipmentNestedInput
+  hireChanges?: Prisma.EquipmentHireChangeUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateInput = {
@@ -536,6 +542,7 @@ export type EquipmentUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   moves?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutEquipmentNestedInput
+  hireChanges?: Prisma.EquipmentHireChangeUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateManyInput = {
@@ -739,6 +746,20 @@ export type EquipmentUncheckedUpdateManyWithoutAddedByNestedInput = {
   deleteMany?: Prisma.EquipmentScalarWhereInput | Prisma.EquipmentScalarWhereInput[]
 }
 
+export type EquipmentCreateNestedOneWithoutHireChangesInput = {
+  create?: Prisma.XOR<Prisma.EquipmentCreateWithoutHireChangesInput, Prisma.EquipmentUncheckedCreateWithoutHireChangesInput>
+  connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutHireChangesInput
+  connect?: Prisma.EquipmentWhereUniqueInput
+}
+
+export type EquipmentUpdateOneRequiredWithoutHireChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.EquipmentCreateWithoutHireChangesInput, Prisma.EquipmentUncheckedCreateWithoutHireChangesInput>
+  connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutHireChangesInput
+  upsert?: Prisma.EquipmentUpsertWithoutHireChangesInput
+  connect?: Prisma.EquipmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EquipmentUpdateToOneWithWhereWithoutHireChangesInput, Prisma.EquipmentUpdateWithoutHireChangesInput>, Prisma.EquipmentUncheckedUpdateWithoutHireChangesInput>
+}
+
 export type EquipmentCreateNestedOneWithoutMovesInput = {
   create?: Prisma.XOR<Prisma.EquipmentCreateWithoutMovesInput, Prisma.EquipmentUncheckedCreateWithoutMovesInput>
   connectOrCreate?: Prisma.EquipmentCreateOrConnectWithoutMovesInput
@@ -773,6 +794,7 @@ export type EquipmentCreateWithoutAddedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   moves?: Prisma.EquipmentMoveCreateNestedManyWithoutEquipmentInput
+  hireChanges?: Prisma.EquipmentHireChangeCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutAddedByInput = {
@@ -795,6 +817,7 @@ export type EquipmentUncheckedCreateWithoutAddedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   moves?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutEquipmentInput
+  hireChanges?: Prisma.EquipmentHireChangeUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutAddedByInput = {
@@ -848,6 +871,113 @@ export type EquipmentScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
 }
 
+export type EquipmentCreateWithoutHireChangesInput = {
+  id?: string
+  serialNo?: number
+  name: string
+  category?: string
+  unit?: string
+  code?: string | null
+  ownership?: string
+  hireRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hirePer?: string
+  supplier?: string | null
+  unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValueOn?: Date | string | null
+  serviceDue?: Date | string | null
+  notes?: string
+  retired?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  addedBy: Prisma.UserCreateNestedOneWithoutEquipmentAddedInput
+  moves?: Prisma.EquipmentMoveCreateNestedManyWithoutEquipmentInput
+}
+
+export type EquipmentUncheckedCreateWithoutHireChangesInput = {
+  id?: string
+  serialNo?: number
+  name: string
+  category?: string
+  unit?: string
+  code?: string | null
+  ownership?: string
+  hireRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hirePer?: string
+  supplier?: string | null
+  unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValueOn?: Date | string | null
+  serviceDue?: Date | string | null
+  notes?: string
+  retired?: boolean
+  addedById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  moves?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutEquipmentInput
+}
+
+export type EquipmentCreateOrConnectWithoutHireChangesInput = {
+  where: Prisma.EquipmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.EquipmentCreateWithoutHireChangesInput, Prisma.EquipmentUncheckedCreateWithoutHireChangesInput>
+}
+
+export type EquipmentUpsertWithoutHireChangesInput = {
+  update: Prisma.XOR<Prisma.EquipmentUpdateWithoutHireChangesInput, Prisma.EquipmentUncheckedUpdateWithoutHireChangesInput>
+  create: Prisma.XOR<Prisma.EquipmentCreateWithoutHireChangesInput, Prisma.EquipmentUncheckedCreateWithoutHireChangesInput>
+  where?: Prisma.EquipmentWhereInput
+}
+
+export type EquipmentUpdateToOneWithWhereWithoutHireChangesInput = {
+  where?: Prisma.EquipmentWhereInput
+  data: Prisma.XOR<Prisma.EquipmentUpdateWithoutHireChangesInput, Prisma.EquipmentUncheckedUpdateWithoutHireChangesInput>
+}
+
+export type EquipmentUpdateWithoutHireChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownership?: Prisma.StringFieldUpdateOperationsInput | string
+  hireRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hirePer?: Prisma.StringFieldUpdateOperationsInput | string
+  supplier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  addedBy?: Prisma.UserUpdateOneRequiredWithoutEquipmentAddedNestedInput
+  moves?: Prisma.EquipmentMoveUpdateManyWithoutEquipmentNestedInput
+}
+
+export type EquipmentUncheckedUpdateWithoutHireChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownership?: Prisma.StringFieldUpdateOperationsInput | string
+  hireRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  hirePer?: Prisma.StringFieldUpdateOperationsInput | string
+  supplier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  moves?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutEquipmentNestedInput
+}
+
 export type EquipmentCreateWithoutMovesInput = {
   id?: string
   serialNo?: number
@@ -868,6 +998,7 @@ export type EquipmentCreateWithoutMovesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutEquipmentAddedInput
+  hireChanges?: Prisma.EquipmentHireChangeCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentUncheckedCreateWithoutMovesInput = {
@@ -890,6 +1021,7 @@ export type EquipmentUncheckedCreateWithoutMovesInput = {
   addedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  hireChanges?: Prisma.EquipmentHireChangeUncheckedCreateNestedManyWithoutEquipmentInput
 }
 
 export type EquipmentCreateOrConnectWithoutMovesInput = {
@@ -927,6 +1059,7 @@ export type EquipmentUpdateWithoutMovesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutEquipmentAddedNestedInput
+  hireChanges?: Prisma.EquipmentHireChangeUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutMovesInput = {
@@ -949,6 +1082,7 @@ export type EquipmentUncheckedUpdateWithoutMovesInput = {
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hireChanges?: Prisma.EquipmentHireChangeUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentCreateManyAddedByInput = {
@@ -991,6 +1125,7 @@ export type EquipmentUpdateWithoutAddedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   moves?: Prisma.EquipmentMoveUpdateManyWithoutEquipmentNestedInput
+  hireChanges?: Prisma.EquipmentHireChangeUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateWithoutAddedByInput = {
@@ -1013,6 +1148,7 @@ export type EquipmentUncheckedUpdateWithoutAddedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   moves?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutEquipmentNestedInput
+  hireChanges?: Prisma.EquipmentHireChangeUncheckedUpdateManyWithoutEquipmentNestedInput
 }
 
 export type EquipmentUncheckedUpdateManyWithoutAddedByInput = {
@@ -1043,10 +1179,12 @@ export type EquipmentUncheckedUpdateManyWithoutAddedByInput = {
 
 export type EquipmentCountOutputType = {
   moves: number
+  hireChanges: number
 }
 
 export type EquipmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   moves?: boolean | EquipmentCountOutputTypeCountMovesArgs
+  hireChanges?: boolean | EquipmentCountOutputTypeCountHireChangesArgs
 }
 
 /**
@@ -1064,6 +1202,13 @@ export type EquipmentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
  */
 export type EquipmentCountOutputTypeCountMovesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.EquipmentMoveWhereInput
+}
+
+/**
+ * EquipmentCountOutputType without action
+ */
+export type EquipmentCountOutputTypeCountHireChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EquipmentHireChangeWhereInput
 }
 
 
@@ -1089,6 +1234,7 @@ export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   moves?: boolean | Prisma.Equipment$movesArgs<ExtArgs>
+  hireChanges?: boolean | Prisma.Equipment$hireChangesArgs<ExtArgs>
   _count?: boolean | Prisma.EquipmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["equipment"]>
 
@@ -1164,6 +1310,7 @@ export type EquipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type EquipmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   moves?: boolean | Prisma.Equipment$movesArgs<ExtArgs>
+  hireChanges?: boolean | Prisma.Equipment$hireChangesArgs<ExtArgs>
   _count?: boolean | Prisma.EquipmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EquipmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1178,6 +1325,7 @@ export type $EquipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     addedBy: Prisma.$UserPayload<ExtArgs>
     moves: Prisma.$EquipmentMovePayload<ExtArgs>[]
+    hireChanges: Prisma.$EquipmentHireChangePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1595,6 +1743,7 @@ export interface Prisma__EquipmentClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   addedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   moves<T extends Prisma.Equipment$movesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$movesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentMovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  hireChanges<T extends Prisma.Equipment$hireChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Equipment$hireChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EquipmentHireChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2065,6 +2214,30 @@ export type Equipment$movesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.EquipmentMoveScalarFieldEnum | Prisma.EquipmentMoveScalarFieldEnum[]
+}
+
+/**
+ * Equipment.hireChanges
+ */
+export type Equipment$hireChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EquipmentHireChange
+   */
+  select?: Prisma.EquipmentHireChangeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EquipmentHireChange
+   */
+  omit?: Prisma.EquipmentHireChangeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EquipmentHireChangeInclude<ExtArgs> | null
+  where?: Prisma.EquipmentHireChangeWhereInput
+  orderBy?: Prisma.EquipmentHireChangeOrderByWithRelationInput | Prisma.EquipmentHireChangeOrderByWithRelationInput[]
+  cursor?: Prisma.EquipmentHireChangeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EquipmentHireChangeScalarFieldEnum | Prisma.EquipmentHireChangeScalarFieldEnum[]
 }
 
 /**
