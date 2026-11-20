@@ -27,26 +27,7 @@ export const updatePurchaseSchema = z.object({
 export type AddPurchase = z.infer<typeof addPurchaseSchema>["body"];
 export type UpdatePurchase = z.infer<typeof updatePurchaseSchema>["body"];
 
-/** Bringing the BOQ's materials in: the lines picked (as shown, quantity and rate may have been changed) */
-export const fromBoqSchema = z.object({
-  body: z.object({
-    date: z.iso.date(),
-    lines: z
-      .array(
-        z.object({
-          section: fields.section,
-          name: fields.name,
-          unit: fields.unit,
-          quantity: z.number().finite().positive("Each quantity must be above zero.").max(1_000_000_000),
-          rate: z.number().finite().min(0).max(100_000_000),
-        })
-      )
-      .min(1, "Pick at least one material.")
-      .max(500),
-  }),
-});
 
-export type FromBoq = z.infer<typeof fromBoqSchema>["body"];
 
 /** One delivery: the date, how many arrived and at what rate (sent as a form because of the bill) */
 export const addDeliverySchema = z.object({
@@ -58,3 +39,12 @@ export const addDeliverySchema = z.object({
 });
 
 export type AddDelivery = z.infer<typeof addDeliverySchema>["body"];
+
+/** Lines of a Material estimate (BOQ) to bring into Materials: the estimate and the ids of its priced lines */
+export const importFromEstimateSchema = z.object({
+  body: z.object({
+    boqId: z.string().min(1).max(64),
+    partIds: z.array(z.string().min(1).max(64)).min(1, "Pick at least one line of the estimate.").max(1000),
+  }),
+});
+export type ImportFromEstimate = z.infer<typeof importFromEstimateSchema>["body"];
