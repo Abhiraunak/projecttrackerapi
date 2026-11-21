@@ -23,15 +23,12 @@ const ymd = (d: Date) => d.toISOString().slice(0, 10);
 const dayOf = (m: { date: Date | null; createdAt: Date }) => (m.date ? ymd(m.date) : dayKeyIn(m.createdAt));
 const kindOf = (format: string) => (format === "pdf" ? "pdf" : "image") as "pdf" | "image";
 
-/** Each need's section: the BOQ item's section, or what a hand-added need is for */
+/** Each need's section: the BOQ item's section (the old hand-added estimates are gone: MaterialEstimate is now the
+ * simple Material estimate section, which has no material needs here) */
 async function sectionsOfNeeds(projectId: string) {
-  const [items, estimates] = await Promise.all([
-    prisma.boqItem.findMany({ where: { projectId }, select: { id: true, sheetName: true }, orderBy: { createdAt: "asc" } }),
-    prisma.materialEstimate.findMany({ where: { projectId }, select: { id: true, title: true } }),
-  ]);
+  const items = await prisma.boqItem.findMany({ where: { projectId }, select: { id: true, sheetName: true }, orderBy: { createdAt: "asc" } });
   const of = new Map<string, string>();
   for (const i of items) of.set(i.id, i.sheetName.trim() || "BOQ");
-  for (const e of estimates) of.set(`est:${e.id}`, e.title.trim() || ADDED_BY_HAND);
   const order = [...new Set(items.map((i) => i.sheetName.trim() || "BOQ"))];
   return { of, order };
 }
