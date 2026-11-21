@@ -48,6 +48,8 @@ export type ProjectMinAggregateOutputType = {
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  startDate: Date | null
+  endDate: Date | null
   projectCost: runtime.Decimal | null
   advanceOverride: boolean | null
   siteLat: number | null
@@ -63,6 +65,8 @@ export type ProjectMaxAggregateOutputType = {
   ownerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  startDate: Date | null
+  endDate: Date | null
   projectCost: runtime.Decimal | null
   advanceOverride: boolean | null
   siteLat: number | null
@@ -78,6 +82,8 @@ export type ProjectCountAggregateOutputType = {
   ownerId: number
   createdAt: number
   updatedAt: number
+  startDate: number
+  endDate: number
   projectCost: number
   advanceOverride: number
   siteLat: number
@@ -109,6 +115,8 @@ export type ProjectMinAggregateInputType = {
   ownerId?: true
   createdAt?: true
   updatedAt?: true
+  startDate?: true
+  endDate?: true
   projectCost?: true
   advanceOverride?: true
   siteLat?: true
@@ -124,6 +132,8 @@ export type ProjectMaxAggregateInputType = {
   ownerId?: true
   createdAt?: true
   updatedAt?: true
+  startDate?: true
+  endDate?: true
   projectCost?: true
   advanceOverride?: true
   siteLat?: true
@@ -139,6 +149,8 @@ export type ProjectCountAggregateInputType = {
   ownerId?: true
   createdAt?: true
   updatedAt?: true
+  startDate?: true
+  endDate?: true
   projectCost?: true
   advanceOverride?: true
   siteLat?: true
@@ -241,6 +253,8 @@ export type ProjectGroupByOutputType = {
   ownerId: string
   createdAt: Date
   updatedAt: Date
+  startDate: Date | null
+  endDate: Date | null
   projectCost: runtime.Decimal | null
   advanceOverride: boolean
   siteLat: number | null
@@ -279,6 +293,8 @@ export type ProjectWhereInput = {
   ownerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   projectCost?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFilter<"Project"> | boolean
   siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
@@ -323,6 +339,8 @@ export type ProjectOrderByWithRelationInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   projectCost?: Prisma.SortOrderInput | Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
   siteLat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -370,6 +388,8 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   ownerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   projectCost?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFilter<"Project"> | boolean
   siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
@@ -414,6 +434,8 @@ export type ProjectOrderByWithAggregationInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  startDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   projectCost?: Prisma.SortOrderInput | Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
   siteLat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -437,6 +459,8 @@ export type ProjectScalarWhereWithAggregatesInput = {
   ownerId?: Prisma.StringWithAggregatesFilter<"Project"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
+  startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
   projectCost?: Prisma.DecimalNullableWithAggregatesFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   siteLat?: Prisma.FloatNullableWithAggregatesFilter<"Project"> | number | null
@@ -451,6 +475,8 @@ export type ProjectCreateInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -495,6 +521,8 @@ export type ProjectUncheckedCreateInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -537,6 +565,8 @@ export type ProjectUpdateInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -581,6 +611,8 @@ export type ProjectUncheckedUpdateInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -624,6 +656,8 @@ export type ProjectCreateManyInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -638,6 +672,8 @@ export type ProjectUpdateManyMutationInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -653,6 +689,8 @@ export type ProjectUncheckedUpdateManyInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -678,6 +716,8 @@ export type ProjectCountOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
   siteLat?: Prisma.SortOrder
@@ -700,6 +740,8 @@ export type ProjectMaxOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
   siteLat?: Prisma.SortOrder
@@ -715,6 +757,8 @@ export type ProjectMinOrderByAggregateInput = {
   ownerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   advanceOverride?: Prisma.SortOrder
   siteLat?: Prisma.SortOrder
@@ -1218,6 +1262,8 @@ export type ProjectCreateWithoutOwnerInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1260,6 +1306,8 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1332,6 +1380,8 @@ export type ProjectScalarWhereInput = {
   ownerId?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
   projectCost?: Prisma.DecimalNullableFilter<"Project"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFilter<"Project"> | boolean
   siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
@@ -1346,6 +1396,8 @@ export type ProjectCreateWithoutTasksInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1389,6 +1441,8 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1446,6 +1500,8 @@ export type ProjectUpdateWithoutTasksInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1489,6 +1545,8 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1530,6 +1588,8 @@ export type ProjectCreateWithoutAttendanceInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1573,6 +1633,8 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1630,6 +1692,8 @@ export type ProjectUpdateWithoutAttendanceInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1673,6 +1737,8 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1714,6 +1780,8 @@ export type ProjectCreateWithoutLabourTeamInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1757,6 +1825,8 @@ export type ProjectUncheckedCreateWithoutLabourTeamInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1814,6 +1884,8 @@ export type ProjectUpdateWithoutLabourTeamInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1857,6 +1929,8 @@ export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1898,6 +1972,8 @@ export type ProjectCreateWithoutLabourMeasuresInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1941,6 +2017,8 @@ export type ProjectUncheckedCreateWithoutLabourMeasuresInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -1998,6 +2076,8 @@ export type ProjectUpdateWithoutLabourMeasuresInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2041,6 +2121,8 @@ export type ProjectUncheckedUpdateWithoutLabourMeasuresInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2082,6 +2164,8 @@ export type ProjectCreateWithoutLabourWeeksInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2125,6 +2209,8 @@ export type ProjectUncheckedCreateWithoutLabourWeeksInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2182,6 +2268,8 @@ export type ProjectUpdateWithoutLabourWeeksInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2225,6 +2313,8 @@ export type ProjectUncheckedUpdateWithoutLabourWeeksInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2266,6 +2356,8 @@ export type ProjectCreateWithoutDrawingsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2309,6 +2401,8 @@ export type ProjectUncheckedCreateWithoutDrawingsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2366,6 +2460,8 @@ export type ProjectUpdateWithoutDrawingsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2409,6 +2505,8 @@ export type ProjectUncheckedUpdateWithoutDrawingsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2450,6 +2548,8 @@ export type ProjectCreateWithoutStockMovementsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2493,6 +2593,8 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2550,6 +2652,8 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2593,6 +2697,8 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2634,6 +2740,8 @@ export type ProjectCreateWithoutMaterialPurchasesInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2677,6 +2785,8 @@ export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2734,6 +2844,8 @@ export type ProjectUpdateWithoutMaterialPurchasesInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2777,6 +2889,8 @@ export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2818,6 +2932,8 @@ export type ProjectCreateWithoutBoqItemsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2861,6 +2977,8 @@ export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -2918,6 +3036,8 @@ export type ProjectUpdateWithoutBoqItemsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2961,6 +3081,8 @@ export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3002,6 +3124,8 @@ export type ProjectCreateWithoutMaterialOrdersInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3045,6 +3169,8 @@ export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3102,6 +3228,8 @@ export type ProjectUpdateWithoutMaterialOrdersInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3145,6 +3273,8 @@ export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3186,6 +3316,8 @@ export type ProjectCreateWithoutStockAlertsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3229,6 +3361,8 @@ export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3286,6 +3420,8 @@ export type ProjectUpdateWithoutStockAlertsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3329,6 +3465,8 @@ export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3370,6 +3508,8 @@ export type ProjectCreateWithoutMaterialRequestsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3413,6 +3553,8 @@ export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3470,6 +3612,8 @@ export type ProjectUpdateWithoutMaterialRequestsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3513,6 +3657,8 @@ export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3554,6 +3700,8 @@ export type ProjectCreateWithoutAuditLogInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3597,6 +3745,8 @@ export type ProjectUncheckedCreateWithoutAuditLogInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3654,6 +3804,8 @@ export type ProjectUpdateWithoutAuditLogInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3697,6 +3849,8 @@ export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3738,6 +3892,8 @@ export type ProjectCreateWithoutBoqsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3781,6 +3937,8 @@ export type ProjectUncheckedCreateWithoutBoqsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3838,6 +3996,8 @@ export type ProjectUpdateWithoutBoqsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3881,6 +4041,8 @@ export type ProjectUncheckedUpdateWithoutBoqsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -3922,6 +4084,8 @@ export type ProjectCreateWithoutClientsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -3965,6 +4129,8 @@ export type ProjectUncheckedCreateWithoutClientsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4022,6 +4188,8 @@ export type ProjectUpdateWithoutClientsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4065,6 +4233,8 @@ export type ProjectUncheckedUpdateWithoutClientsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4106,6 +4276,8 @@ export type ProjectCreateWithoutInstalmentsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4149,6 +4321,8 @@ export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4206,6 +4380,8 @@ export type ProjectUpdateWithoutInstalmentsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4249,6 +4425,8 @@ export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4290,6 +4468,8 @@ export type ProjectCreateWithoutPaymentProofsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4333,6 +4513,8 @@ export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4390,6 +4572,8 @@ export type ProjectUpdateWithoutPaymentProofsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4433,6 +4617,8 @@ export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4474,6 +4660,8 @@ export type ProjectCreateWithoutDelaysInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4517,6 +4705,8 @@ export type ProjectUncheckedCreateWithoutDelaysInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4574,6 +4764,8 @@ export type ProjectUpdateWithoutDelaysInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4617,6 +4809,8 @@ export type ProjectUncheckedUpdateWithoutDelaysInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4658,6 +4852,8 @@ export type ProjectCreateWithoutPunchesInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4701,6 +4897,8 @@ export type ProjectUncheckedCreateWithoutPunchesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4758,6 +4956,8 @@ export type ProjectUpdateWithoutPunchesInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4801,6 +5001,8 @@ export type ProjectUncheckedUpdateWithoutPunchesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4842,6 +5044,8 @@ export type ProjectCreateWithoutDeliveriesInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4885,6 +5089,8 @@ export type ProjectUncheckedCreateWithoutDeliveriesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -4942,6 +5148,8 @@ export type ProjectUpdateWithoutDeliveriesInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -4985,6 +5193,8 @@ export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5026,6 +5236,8 @@ export type ProjectCreateWithoutEquipmentHireChangesInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5069,6 +5281,8 @@ export type ProjectUncheckedCreateWithoutEquipmentHireChangesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5126,6 +5340,8 @@ export type ProjectUpdateWithoutEquipmentHireChangesInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5169,6 +5385,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentHireChangesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5210,6 +5428,8 @@ export type ProjectCreateWithoutEquipmentOutInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5253,6 +5473,8 @@ export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5299,6 +5521,8 @@ export type ProjectCreateWithoutEquipmentInInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5342,6 +5566,8 @@ export type ProjectUncheckedCreateWithoutEquipmentInInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5399,6 +5625,8 @@ export type ProjectUpdateWithoutEquipmentOutInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5442,6 +5670,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5494,6 +5724,8 @@ export type ProjectUpdateWithoutEquipmentInInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5537,6 +5769,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5578,6 +5812,8 @@ export type ProjectCreateWithoutExpensesInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5621,6 +5857,8 @@ export type ProjectUncheckedCreateWithoutExpensesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5678,6 +5916,8 @@ export type ProjectUpdateWithoutExpensesInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5721,6 +5961,8 @@ export type ProjectUncheckedUpdateWithoutExpensesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5762,6 +6004,8 @@ export type ProjectCreateWithoutContractorPaymentsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5805,6 +6049,8 @@ export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5862,6 +6108,8 @@ export type ProjectUpdateWithoutContractorPaymentsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5905,6 +6153,8 @@ export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -5946,6 +6196,8 @@ export type ProjectCreateWithoutMaterialPaymentsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -5989,6 +6241,8 @@ export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -6046,6 +6300,8 @@ export type ProjectUpdateWithoutMaterialPaymentsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6089,6 +6345,8 @@ export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6130,6 +6388,8 @@ export type ProjectCreateWithoutMaterialEstimatesInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -6173,6 +6433,8 @@ export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -6230,6 +6492,8 @@ export type ProjectUpdateWithoutMaterialEstimatesInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6273,6 +6537,8 @@ export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6314,6 +6580,8 @@ export type ProjectCreateWithoutSiteReportsInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -6357,6 +6625,8 @@ export type ProjectUncheckedCreateWithoutSiteReportsInput = {
   ownerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -6414,6 +6684,8 @@ export type ProjectUpdateWithoutSiteReportsInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6457,6 +6729,8 @@ export type ProjectUncheckedUpdateWithoutSiteReportsInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6498,6 +6772,8 @@ export type ProjectCreateManyOwnerInput = {
   status?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
   projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: boolean
   siteLat?: number | null
@@ -6512,6 +6788,8 @@ export type ProjectUpdateWithoutOwnerInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6554,6 +6832,8 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6596,6 +6876,8 @@ export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -6885,6 +7167,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  startDate?: boolean
+  endDate?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
   siteLat?: boolean
@@ -6930,6 +7214,8 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  startDate?: boolean
+  endDate?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
   siteLat?: boolean
@@ -6946,6 +7232,8 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  startDate?: boolean
+  endDate?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
   siteLat?: boolean
@@ -6962,6 +7250,8 @@ export type ProjectSelectScalar = {
   ownerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  startDate?: boolean
+  endDate?: boolean
   projectCost?: boolean
   advanceOverride?: boolean
   siteLat?: boolean
@@ -6969,7 +7259,7 @@ export type ProjectSelectScalar = {
   siteRadiusM?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "firmName" | "status" | "ownerId" | "createdAt" | "updatedAt" | "projectCost" | "advanceOverride" | "siteLat" | "siteLng" | "siteRadiusM", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "firmName" | "status" | "ownerId" | "createdAt" | "updatedAt" | "startDate" | "endDate" | "projectCost" | "advanceOverride" | "siteLat" | "siteLng" | "siteRadiusM", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
@@ -7050,6 +7340,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     ownerId: string
     createdAt: Date
     updatedAt: Date
+    startDate: Date | null
+    endDate: Date | null
     projectCost: runtime.Decimal | null
     advanceOverride: boolean
     siteLat: number | null
@@ -7514,6 +7806,8 @@ export interface ProjectFieldRefs {
   readonly ownerId: Prisma.FieldRef<"Project", 'String'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Project", 'DateTime'>
+  readonly startDate: Prisma.FieldRef<"Project", 'DateTime'>
+  readonly endDate: Prisma.FieldRef<"Project", 'DateTime'>
   readonly projectCost: Prisma.FieldRef<"Project", 'Decimal'>
   readonly advanceOverride: Prisma.FieldRef<"Project", 'Boolean'>
   readonly siteLat: Prisma.FieldRef<"Project", 'Float'>

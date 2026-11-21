@@ -78,7 +78,19 @@ export async function patchProject(req: Request<{ id: string }, unknown, PatchPr
   const { id } = req.params;
   await requirePermission(uid(req), id, "project.manage");
 
-  const project = await prisma.project.update({ where: { id }, data: req.body, include: withTasks });
+  // Dates arrive as "2026-11-21" (or null to clear); everything else is saved as sent
+  const { startDate, endDate, ...rest } = req.body;
+  const day = (v: string | null) => (v ? new Date(`${v}T00:00:00Z`) : null);
+  const current = startDate !== undefined && endDate !== undefined ? null : await prisma.project.findUnique({ where: { id }, select: { startDate: true, endDate: true } });
+  const start = startDate !== undefined ? startDate : (current?.startDate?.toISOString().slice(0, 10) ?? null);
+  const end = endDate !== undefined ? endDate : (current?.endDate?.toISOString().slice(0, 10) ?? null);
+  if (start && end && end < start) throw new HttpError(400, "The finish date can't be before the start date.");
+
+  const project = await prisma.project.update({
+    where: { id },
+    data: { ...rest, ...(startDate !== undefined ? { startDate: day(startDate) } : {}), ...(endDate !== undefined ? { endDate: day(endDate) } : {}) },
+    include: withTasks,
+  });
   res.json({ project: projectDto(project) });
 }
 

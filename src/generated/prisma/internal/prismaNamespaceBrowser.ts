@@ -172,6 +172,8 @@ export const ProjectScalarFieldEnum = {
   ownerId: 'ownerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  startDate: 'startDate',
+  endDate: 'endDate',
   projectCost: 'projectCost',
   advanceOverride: 'advanceOverride',
   siteLat: 'siteLat',

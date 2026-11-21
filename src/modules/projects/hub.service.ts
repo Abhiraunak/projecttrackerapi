@@ -7,7 +7,7 @@ import { spendByProject } from "./spend.service.js";
 import { equipmentHeadline } from "../equipment/equipment.service.js";
 import { dayKeyIn, dayRange } from "../punches/punch.calc.js";
 import { taskDto } from "./projects.mapper.js";
-import { labourFigures, moneyFigures, overallProgress, scheduleFigures } from "./hub.calc.js";
+import { labourFigures, moneyFigures, overallProgress, rateFigures, scheduleFigures } from "./hub.calc.js";
 
 const num = (v: { toNumber(): number } | null | undefined) => v?.toNumber() ?? 0;
 const DAY = 86_400_000;
@@ -33,7 +33,7 @@ export async function projectHub(userId: string, projectId: string) {
 
   const project = await prisma.project.findUnique({
     where: { id: projectId },
-    select: { id: true, title: true, firmName: true, status: true, projectCost: true, updatedAt: true, tasks: { orderBy: { position: "asc" } } },
+    select: { id: true, title: true, firmName: true, status: true, projectCost: true, startDate: true, endDate: true, updatedAt: true, tasks: { orderBy: { position: "asc" } } },
   });
   if (!project) throw new HttpError(404, "Project not found");
 
@@ -74,6 +74,8 @@ export async function projectHub(userId: string, projectId: string) {
 
   const tasks = project.tasks.map(taskDto);
   const labour = labourFigures(tasks);
+  const ymd = (d: Date | null) => (d ? d.toISOString().slice(0, 10) : null);
+  const own = { start: ymd(project.startDate), end: ymd(project.endDate) };
 
   return {
     project: {
@@ -82,11 +84,15 @@ export async function projectHub(userId: string, projectId: string) {
       firmName: project.firmName,
       status: project.status,
       updatedAt: project.updatedAt,
+      startDate: own.start, // set on Edit project; null = from the work items
+      endDate: own.end,
     },
-    progress: { percent: overallProgress(tasks), items: tasks.length, ...scheduleFigures(tasks, today) },
+    progress: { percent: overallProgress(tasks), items: tasks.length, ...scheduleFigures(tasks, today, own) },
     // Spent = labour + material deliveries + equipment hire + General expenses: the same sum as GET /spend
     money: moneyFigures(project.projectCost?.toNumber() ?? null, labour.agreed, (spend?.labour.total ?? 0) + (spend?.equipment ?? 0) + (spend?.general ?? 0), spend?.material.total ?? 0),
     labour,
+    // Contractor vs in-house for the work items that have both rates
+    rates: rateFigures(tasks),
     // The Materials tab's own figures: what the deliveries cost, and the preset cost of everything ordered
     materials: can("materials.view") && spend ? { spent: spend.material.deliveries, expected: spend.material.planned, openAlerts: 0, pendingRequests: 0 } : null, // the old stock alerts and requests are gone
     boqs: boqs

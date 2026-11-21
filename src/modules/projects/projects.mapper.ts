@@ -40,6 +40,8 @@ export const projectDto = (p: ProjectWithTasks) => ({
   title: p.title,
   firmName: p.firmName,
   projectCost: p.projectCost?.toNumber() ?? null,
+  startDate: p.startDate ? p.startDate.toISOString().slice(0, 10) : null, // set on Edit project
+  endDate: p.endDate ? p.endDate.toISOString().slice(0, 10) : null,
   status: p.status,
   createdAt: p.createdAt,
   updatedAt: p.updatedAt,
@@ -47,6 +49,8 @@ export const projectDto = (p: ProjectWithTasks) => ({
 });
 
 /** Lightweight shape for the project cards; `spend` from spendByProject (none yet means zero) */
+const own = (d: Date | null | undefined) => (d ? d.toISOString().slice(0, 10) : null);
+
 export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, spend?: ProjectSpend) {
   const tasks = p.tasks.map(taskDto);
   const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
@@ -69,17 +73,20 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
     // deliveries, equipment hire and General expenses. `spent` and `totalSpent` are the same (older screens read either).
     spent: total,
     totalSpent: total,
-    labourPaid: spend?.labour.paid ?? 0, // paid to contractors so far
-    materialSpent: spend?.material.total ?? 0,
-    materialExpected: spend?.material.planned ?? 0,
+    labourPaid: spend?.labour?.paid ?? 0, // paid to contractors so far
+    materialSpent: spend?.material?.total ?? 0,
+    materialExpected: spend?.material?.planned ?? 0,
     status: p.status,
     taskCount: tasks.length,
     attendanceCount: p._count?.attendance ?? 0,
     budget,
-    paid: spend?.labour.paid ?? 0,
+    paid: spend?.labour?.paid ?? 0,
     progress: Math.round(progress),
-    startDate: starts[0] ?? null,
-    endDate: ends.length > 0 ? ends[ends.length - 1]! : null,
+    // The project's own dates when set on Edit project, otherwise the work items'
+    startDate: own(p.startDate) ?? starts[0] ?? null,
+    endDate: own(p.endDate) ?? (ends.length > 0 ? ends[ends.length - 1]! : null),
+    ownStartDate: own(p.startDate), // what Edit project shows (null = not set)
+    ownEndDate: own(p.endDate),
     updatedAt: p.updatedAt,
   };
 }

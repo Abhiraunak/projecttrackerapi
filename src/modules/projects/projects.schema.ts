@@ -35,8 +35,17 @@ export const updateProjectSchema = z.object({ body: z.object({ title, projectCos
 export const patchProjectSchema = z.object({
   body: z
     // No default here: leaving projectCost out must keep the saved cost, not clear it
-    .object({ title: title.optional(), firmName: firmName.optional(), projectCost: amount.nullable().optional(), status: statusEnum.optional() })
-    .refine((b) => Object.keys(b).length > 0, "Nothing to update"),
+    .object({
+      title: title.optional(),
+      firmName: firmName.optional(),
+      projectCost: amount.nullable().optional(),
+      status: statusEnum.optional(),
+      // The project's own dates; null clears them (then the work items' dates are used)
+      startDate: z.iso.date().nullable().optional(),
+      endDate: z.iso.date().nullable().optional(),
+    })
+    .refine((b) => Object.keys(b).length > 0, "Nothing to update")
+    .refine((b) => !b.startDate || !b.endDate || b.endDate >= b.startDate, { message: "The finish date can't be before the start date.", path: ["endDate"] }),
 });
 
 export const patchTaskSchema = z.object({
