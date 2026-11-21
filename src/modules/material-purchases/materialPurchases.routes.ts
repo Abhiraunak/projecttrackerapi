@@ -3,9 +3,9 @@ import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
 import { uploadSingleFile } from "../../middleware/uploadImage.js";
-import { addDeliverySchema, addPurchaseSchema, importFromEstimateSchema, updatePurchaseSchema } from "./materialPurchases.schema.js";
+import { addDeliverySchema, addPurchaseSchema, archiveDeliverySchema, importFromEstimateSchema, updateDeliverySchema, updatePurchaseSchema } from "./materialPurchases.schema.js";
 import { estimateLines, importFromEstimate } from "./materialPurchases.estimate.js";
-import { addDelivery, addPurchase, listPurchases, removeDelivery, removePurchase, updatePurchase } from "./materialPurchases.service.js";
+import { addDelivery, addPurchase, archiveDelivery, listPurchases, removeDelivery, removePurchase, updateDelivery, updatePurchase } from "./materialPurchases.service.js";
 
 /*
  * The workspace's Materials section: materials bought (quantity × rate, an optional bill; the same name again adds
@@ -42,6 +42,14 @@ router.delete("/projects/:projectId/material-purchases/:purchaseId", requireAuth
 // Deliveries of one material: on what date how many arrived, at what rate, with an optional bill
 router.post("/projects/:projectId/material-purchases/:purchaseId/deliveries", requireAuth, writeLimiter, uploadSingleFile, validate(addDeliverySchema), async (req: WithPurchase, res) => {
     res.status(201).json(await addDelivery(req.user!.sub, req.params.projectId, req.params.purchaseId, req.body, req.file));
+});
+// Correct a delivery (date, how many, rate or amount)
+router.put("/projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId", requireAuth, writeLimiter, validate(updateDeliverySchema), async (req: WithDelivery, res) => {
+    res.json(await updateDelivery(req.user!.sub, req.params.projectId, req.params.purchaseId, req.params.deliveryId, req.body));
+});
+// Archive it (it stops counting) or restore it; only an archived delivery can be deleted
+router.post("/projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId/archive", requireAuth, writeLimiter, validate(archiveDeliverySchema), async (req: WithDelivery, res) => {
+    res.json(await archiveDelivery(req.user!.sub, req.params.projectId, req.params.purchaseId, req.params.deliveryId, req.body.archived));
 });
 router.delete("/projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId", requireAuth, async (req: WithDelivery, res) => {
     res.json(await removeDelivery(req.user!.sub, req.params.projectId, req.params.purchaseId, req.params.deliveryId));

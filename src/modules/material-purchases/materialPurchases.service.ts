@@ -37,7 +37,7 @@ const select = {
   addedBy: { select: { name: true, email: true } },
   deliveries: {
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
-    select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+    select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, archivedAt: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
   },
   topUps: {
     orderBy: [{ date: "asc" }, { createdAt: "asc" }],
@@ -47,7 +47,7 @@ const select = {
 
 type BillCols = { billId: string | null; billVersion: number | null; billFormat: string | null };
 type Num = { toNumber(): number };
-type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; ratePending?: boolean; addedBy: { name: string | null; email: string } };
+type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; ratePending?: boolean; archivedAt?: Date | null; addedBy: { name: string | null; email: string } };
 
 const billOf = (p: BillCols) => ({
   billUrl:
@@ -63,7 +63,8 @@ const deliveryDto = (d: DeliveryRow) => ({
   quantity: d.quantity.toNumber(),
   rate: d.rate.toNumber(), // what was actually paid per unit
   amount: d.amount.toNumber(), // quantity × rate
-  ratePending: d.ratePending ?? false, // from the site diary: arrived, the manager hasn't added the rate yet
+  ratePending: d.ratePending ?? false, // no rate or amount yet ("Not set"): from the site diary, or logged without one
+  archivedAt: d.archivedAt ? d.archivedAt.toISOString() : null,
   ...billOf(d),
   addedBy: d.addedBy.name || d.addedBy.email,
 });
@@ -88,7 +89,10 @@ type Row = {
 };
 
 const dto = (p: Row) => {
-  const deliveries = p.deliveries.map(deliveryDto);
+  // Archived deliveries are kept aside: they count nowhere until restored, and only they can be deleted
+  const all = p.deliveries.map(deliveryDto);
+  const deliveries = all.filter((d) => !d.archivedAt);
+  const archived = all.filter((d) => d.archivedAt);
   // More added later, oldest first: "+5,000 on 8 Nov". The quantity is the total of the first lot and these.
   const additions = p.topUps.map((t) => ({
     id: t.id,
@@ -117,6 +121,7 @@ const dto = (p: Row) => {
     createdAt: p.createdAt,
     // Deliveries: on what date how many arrived and at what rate; the quantity above is what was ordered
     deliveries,
+    archived,
     firstQuantity: round2(p.quantity.toNumber() - added), // the first lot, on `date`
     additions,
     ...arrivalOf(p.quantity.toNumber(), deliveries),
@@ -334,7 +339,7 @@ export async function purchaseTotalsByProject(projectIds: string[]): Promise<Map
   if (projectIds.length === 0) return new Map();
   const [planned, spent] = await Promise.all([
     prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
-    prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
+    prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds }, archivedAt: null }, _sum: { amount: true } }),
   ]);
   const out = new Map<string, { planned: number; spent: number }>(projectIds.map((id) => [id, { planned: 0, spent: 0 }]));
   for (const r of planned) out.get(r.projectId)!.planned = r._sum.amount?.toNumber() ?? 0;
@@ -350,16 +355,38 @@ async function purchaseIn(projectId: string, purchaseId: string) {
   return p;
 }
 
+/**
+ * What a delivery cost, from what was typed: the amount if given (the rate then follows from it), else quantity × rate,
+ * else nothing yet ("Not set": ratePending, counts ₹0 until edited).
+ */
+function costOf(input: AddDelivery) {
+  if (input.amount !== undefined) {
+    const rate = input.rate ?? Math.round((input.amount / input.quantity) * 100) / 100;
+    return { rate, amount: round2(input.amount), ratePending: false };
+  }
+  if (input.rate !== undefined) return { rate: input.rate, amount: amountOf(input.quantity, input.rate), ratePending: false };
+  return { rate: 0, amount: 0, ratePending: true };
+}
+
+async function deliveryIn(purchaseId: string, deliveryId: string) {
+  const d = await prisma.materialDelivery.findFirst({ where: { id: deliveryId, purchaseId } });
+  if (!d) throw new HttpError(404, "That delivery is no longer there.");
+  return d;
+}
+
+const purchaseNow = async (purchaseId: string) => ({ purchase: dto(await prisma.materialPurchase.findUniqueOrThrow({ where: { id: purchaseId }, select })) });
+
 /** POST /projects/:projectId/material-purchases/:purchaseId/deliveries: on this date, this many arrived at this rate (bill optional) */
 export async function addDelivery(userId: string, projectId: string, purchaseId: string, input: AddDelivery, file?: Express.Multer.File) {
   await requirePermission(userId, projectId, WRITE);
   checkDate(input.date);
   const purchase = await purchaseIn(projectId, purchaseId);
   const bill = await storeBill(file);
+  const cost = costOf(input);
   try {
     await prisma.$transaction(async (tx) => {
       const created = await tx.materialDelivery.create({
-        data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, rate: input.rate, amount: amountOf(input.quantity, input.rate), addedById: userId, ...bill },
+        data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...cost, addedById: userId, ...bill },
         select: { id: true },
       });
       await recordAudit(tx, {
@@ -368,7 +395,7 @@ export async function addDelivery(userId: string, projectId: string, purchaseId:
         action: "material_delivery.added",
         entityType: "project",
         entityId: created.id,
-        summary: `${input.quantity} ${purchase.unit} ${purchase.name} arrived on ${input.date} at ${input.rate} = ${amountOf(input.quantity, input.rate)}`.replace(/\s+/g, " "),
+        summary: `${input.quantity} ${purchase.unit} ${purchase.name} arrived on ${input.date}${cost.ratePending ? "" : ` = ${cost.amount}`}`.replace(/\s+/g, " "),
       });
     });
   } catch (err) {
@@ -379,12 +406,34 @@ export async function addDelivery(userId: string, projectId: string, purchaseId:
   return { purchase: dto(row) };
 }
 
-/** DELETE /projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId */
+/** PUT /projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId: correct the date, how many, rate or amount */
+export async function updateDelivery(userId: string, projectId: string, purchaseId: string, deliveryId: string, input: AddDelivery) {
+  await requirePermission(userId, projectId, WRITE);
+  checkDate(input.date);
+  await purchaseIn(projectId, purchaseId);
+  await deliveryIn(purchaseId, deliveryId);
+  await prisma.materialDelivery.update({
+    where: { id: deliveryId },
+    data: { date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...costOf(input) },
+  });
+  return purchaseNow(purchaseId);
+}
+
+/** POST …/deliveries/:deliveryId/archive: archive (stops counting in arrived and spent) or restore */
+export async function archiveDelivery(userId: string, projectId: string, purchaseId: string, deliveryId: string, archived: boolean) {
+  await requirePermission(userId, projectId, WRITE);
+  await purchaseIn(projectId, purchaseId);
+  await deliveryIn(purchaseId, deliveryId);
+  await prisma.materialDelivery.update({ where: { id: deliveryId }, data: { archivedAt: archived ? new Date() : null } });
+  return purchaseNow(purchaseId);
+}
+
+/** DELETE /projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId: only an archived delivery */
 export async function removeDelivery(userId: string, projectId: string, purchaseId: string, deliveryId: string) {
   await requirePermission(userId, projectId, WRITE);
   const purchase = await purchaseIn(projectId, purchaseId);
-  const before = await prisma.materialDelivery.findFirst({ where: { id: deliveryId, purchaseId } });
-  if (!before) throw new HttpError(404, "That delivery is no longer there.");
+  const before = await deliveryIn(purchaseId, deliveryId);
+  if (!before.archivedAt) throw new HttpError(400, "Archive the delivery first; it can be deleted from Archived.");
   await prisma.$transaction(async (tx) => {
     await tx.materialDelivery.delete({ where: { id: deliveryId } });
     await recordAudit(tx, {

@@ -437,6 +437,7 @@ export const MaterialDeliveryScalarFieldEnum = {
   billFormat: 'billFormat',
   addedById: 'addedById',
   ratePending: 'ratePending',
+  archivedAt: 'archivedAt',
   createdAt: 'createdAt'
 } as const
 

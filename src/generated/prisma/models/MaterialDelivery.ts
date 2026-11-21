@@ -54,6 +54,7 @@ export type MaterialDeliveryMinAggregateOutputType = {
   billFormat: string | null
   addedById: string | null
   ratePending: boolean | null
+  archivedAt: Date | null
   createdAt: Date | null
 }
 
@@ -70,6 +71,7 @@ export type MaterialDeliveryMaxAggregateOutputType = {
   billFormat: string | null
   addedById: string | null
   ratePending: boolean | null
+  archivedAt: Date | null
   createdAt: Date | null
 }
 
@@ -86,6 +88,7 @@ export type MaterialDeliveryCountAggregateOutputType = {
   billFormat: number
   addedById: number
   ratePending: number
+  archivedAt: number
   createdAt: number
   _all: number
 }
@@ -118,6 +121,7 @@ export type MaterialDeliveryMinAggregateInputType = {
   billFormat?: true
   addedById?: true
   ratePending?: true
+  archivedAt?: true
   createdAt?: true
 }
 
@@ -134,6 +138,7 @@ export type MaterialDeliveryMaxAggregateInputType = {
   billFormat?: true
   addedById?: true
   ratePending?: true
+  archivedAt?: true
   createdAt?: true
 }
 
@@ -150,6 +155,7 @@ export type MaterialDeliveryCountAggregateInputType = {
   billFormat?: true
   addedById?: true
   ratePending?: true
+  archivedAt?: true
   createdAt?: true
   _all?: true
 }
@@ -253,6 +259,7 @@ export type MaterialDeliveryGroupByOutputType = {
   billFormat: string | null
   addedById: string
   ratePending: boolean
+  archivedAt: Date | null
   createdAt: Date
   _count: MaterialDeliveryCountAggregateOutputType | null
   _avg: MaterialDeliveryAvgAggregateOutputType | null
@@ -292,6 +299,7 @@ export type MaterialDeliveryWhereInput = {
   billFormat?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
   addedById?: Prisma.StringFilter<"MaterialDelivery"> | string
   ratePending?: Prisma.BoolFilter<"MaterialDelivery"> | boolean
+  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialDelivery"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MaterialDelivery"> | Date | string
   purchase?: Prisma.XOR<Prisma.MaterialPurchaseScalarRelationFilter, Prisma.MaterialPurchaseWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -311,6 +319,7 @@ export type MaterialDeliveryOrderByWithRelationInput = {
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   ratePending?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   purchase?: Prisma.MaterialPurchaseOrderByWithRelationInput
   addedBy?: Prisma.UserOrderByWithRelationInput
@@ -333,6 +342,7 @@ export type MaterialDeliveryWhereUniqueInput = Prisma.AtLeast<{
   billFormat?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
   addedById?: Prisma.StringFilter<"MaterialDelivery"> | string
   ratePending?: Prisma.BoolFilter<"MaterialDelivery"> | boolean
+  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialDelivery"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MaterialDelivery"> | Date | string
   purchase?: Prisma.XOR<Prisma.MaterialPurchaseScalarRelationFilter, Prisma.MaterialPurchaseWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -352,6 +362,7 @@ export type MaterialDeliveryOrderByWithAggregationInput = {
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   ratePending?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.MaterialDeliveryCountOrderByAggregateInput
   _avg?: Prisma.MaterialDeliveryAvgOrderByAggregateInput
@@ -376,6 +387,7 @@ export type MaterialDeliveryScalarWhereWithAggregatesInput = {
   billFormat?: Prisma.StringNullableWithAggregatesFilter<"MaterialDelivery"> | string | null
   addedById?: Prisma.StringWithAggregatesFilter<"MaterialDelivery"> | string
   ratePending?: Prisma.BoolWithAggregatesFilter<"MaterialDelivery"> | boolean
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MaterialDelivery"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MaterialDelivery"> | Date | string
 }
 
@@ -390,6 +402,7 @@ export type MaterialDeliveryCreateInput = {
   billVersion?: number | null
   billFormat?: string | null
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   purchase: Prisma.MaterialPurchaseCreateNestedOneWithoutDeliveriesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialDeliveriesAddedInput
@@ -409,6 +422,7 @@ export type MaterialDeliveryUncheckedCreateInput = {
   billFormat?: string | null
   addedById: string
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   siteArrival?: Prisma.SiteReportArrivalUncheckedCreateNestedOneWithoutDeliveryInput
 }
@@ -424,6 +438,7 @@ export type MaterialDeliveryUpdateInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.MaterialPurchaseUpdateOneRequiredWithoutDeliveriesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialDeliveriesAddedNestedInput
@@ -443,6 +458,7 @@ export type MaterialDeliveryUncheckedUpdateInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   siteArrival?: Prisma.SiteReportArrivalUncheckedUpdateOneWithoutDeliveryNestedInput
 }
@@ -460,6 +476,7 @@ export type MaterialDeliveryCreateManyInput = {
   billFormat?: string | null
   addedById: string
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -474,6 +491,7 @@ export type MaterialDeliveryUpdateManyMutationInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -490,6 +508,7 @@ export type MaterialDeliveryUncheckedUpdateManyInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -516,6 +535,7 @@ export type MaterialDeliveryCountOrderByAggregateInput = {
   billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   ratePending?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -539,6 +559,7 @@ export type MaterialDeliveryMaxOrderByAggregateInput = {
   billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   ratePending?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -555,6 +576,7 @@ export type MaterialDeliveryMinOrderByAggregateInput = {
   billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   ratePending?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -681,6 +703,7 @@ export type MaterialDeliveryCreateWithoutAddedByInput = {
   billVersion?: number | null
   billFormat?: string | null
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   purchase: Prisma.MaterialPurchaseCreateNestedOneWithoutDeliveriesInput
   siteArrival?: Prisma.SiteReportArrivalCreateNestedOneWithoutDeliveryInput
@@ -698,6 +721,7 @@ export type MaterialDeliveryUncheckedCreateWithoutAddedByInput = {
   billVersion?: number | null
   billFormat?: string | null
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   siteArrival?: Prisma.SiteReportArrivalUncheckedCreateNestedOneWithoutDeliveryInput
 }
@@ -744,6 +768,7 @@ export type MaterialDeliveryScalarWhereInput = {
   billFormat?: Prisma.StringNullableFilter<"MaterialDelivery"> | string | null
   addedById?: Prisma.StringFilter<"MaterialDelivery"> | string
   ratePending?: Prisma.BoolFilter<"MaterialDelivery"> | boolean
+  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialDelivery"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"MaterialDelivery"> | Date | string
 }
 
@@ -758,6 +783,7 @@ export type MaterialDeliveryCreateWithoutPurchaseInput = {
   billVersion?: number | null
   billFormat?: string | null
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialDeliveriesAddedInput
   siteArrival?: Prisma.SiteReportArrivalCreateNestedOneWithoutDeliveryInput
@@ -775,6 +801,7 @@ export type MaterialDeliveryUncheckedCreateWithoutPurchaseInput = {
   billFormat?: string | null
   addedById: string
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   siteArrival?: Prisma.SiteReportArrivalUncheckedCreateNestedOneWithoutDeliveryInput
 }
@@ -816,6 +843,7 @@ export type MaterialDeliveryCreateWithoutSiteArrivalInput = {
   billVersion?: number | null
   billFormat?: string | null
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   purchase: Prisma.MaterialPurchaseCreateNestedOneWithoutDeliveriesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialDeliveriesAddedInput
@@ -834,6 +862,7 @@ export type MaterialDeliveryUncheckedCreateWithoutSiteArrivalInput = {
   billFormat?: string | null
   addedById: string
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -864,6 +893,7 @@ export type MaterialDeliveryUpdateWithoutSiteArrivalInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.MaterialPurchaseUpdateOneRequiredWithoutDeliveriesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialDeliveriesAddedNestedInput
@@ -882,6 +912,7 @@ export type MaterialDeliveryUncheckedUpdateWithoutSiteArrivalInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -897,6 +928,7 @@ export type MaterialDeliveryCreateManyAddedByInput = {
   billVersion?: number | null
   billFormat?: string | null
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -911,6 +943,7 @@ export type MaterialDeliveryUpdateWithoutAddedByInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.MaterialPurchaseUpdateOneRequiredWithoutDeliveriesNestedInput
   siteArrival?: Prisma.SiteReportArrivalUpdateOneWithoutDeliveryNestedInput
@@ -928,6 +961,7 @@ export type MaterialDeliveryUncheckedUpdateWithoutAddedByInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   siteArrival?: Prisma.SiteReportArrivalUncheckedUpdateOneWithoutDeliveryNestedInput
 }
@@ -944,6 +978,7 @@ export type MaterialDeliveryUncheckedUpdateManyWithoutAddedByInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -959,6 +994,7 @@ export type MaterialDeliveryCreateManyPurchaseInput = {
   billFormat?: string | null
   addedById: string
   ratePending?: boolean
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -973,6 +1009,7 @@ export type MaterialDeliveryUpdateWithoutPurchaseInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialDeliveriesAddedNestedInput
   siteArrival?: Prisma.SiteReportArrivalUpdateOneWithoutDeliveryNestedInput
@@ -990,6 +1027,7 @@ export type MaterialDeliveryUncheckedUpdateWithoutPurchaseInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   siteArrival?: Prisma.SiteReportArrivalUncheckedUpdateOneWithoutDeliveryNestedInput
 }
@@ -1006,6 +1044,7 @@ export type MaterialDeliveryUncheckedUpdateManyWithoutPurchaseInput = {
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   ratePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1024,6 +1063,7 @@ export type MaterialDeliverySelect<ExtArgs extends runtime.Types.Extensions.Inte
   billFormat?: boolean
   addedById?: boolean
   ratePending?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   purchase?: boolean | Prisma.MaterialPurchaseDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1043,6 +1083,7 @@ export type MaterialDeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   billFormat?: boolean
   addedById?: boolean
   ratePending?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   purchase?: boolean | Prisma.MaterialPurchaseDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1061,6 +1102,7 @@ export type MaterialDeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   billFormat?: boolean
   addedById?: boolean
   ratePending?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   purchase?: boolean | Prisma.MaterialPurchaseDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1079,10 +1121,11 @@ export type MaterialDeliverySelectScalar = {
   billFormat?: boolean
   addedById?: boolean
   ratePending?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
 }
 
-export type MaterialDeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "projectId" | "date" | "quantity" | "rate" | "amount" | "billId" | "billVersion" | "billFormat" | "addedById" | "ratePending" | "createdAt", ExtArgs["result"]["materialDelivery"]>
+export type MaterialDeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "projectId" | "date" | "quantity" | "rate" | "amount" | "billId" | "billVersion" | "billFormat" | "addedById" | "ratePending" | "archivedAt" | "createdAt", ExtArgs["result"]["materialDelivery"]>
 export type MaterialDeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   purchase?: boolean | Prisma.MaterialPurchaseDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1117,6 +1160,7 @@ export type $MaterialDeliveryPayload<ExtArgs extends runtime.Types.Extensions.In
     billFormat: string | null
     addedById: string
     ratePending: boolean
+    archivedAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["materialDelivery"]>
   composites: {}
@@ -1556,6 +1600,7 @@ export interface MaterialDeliveryFieldRefs {
   readonly billFormat: Prisma.FieldRef<"MaterialDelivery", 'String'>
   readonly addedById: Prisma.FieldRef<"MaterialDelivery", 'String'>
   readonly ratePending: Prisma.FieldRef<"MaterialDelivery", 'Boolean'>
+  readonly archivedAt: Prisma.FieldRef<"MaterialDelivery", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"MaterialDelivery", 'DateTime'>
 }
     
