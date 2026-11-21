@@ -47,6 +47,7 @@ const itemSelect = {
   unitCost: true,
   marketValue: true,
   marketValueOn: true,
+  purchasedOn: true,
   retired: true,
   updatedAt: true,
   // Rate changes and one-off amounts: every hire figure below takes them into account
@@ -109,6 +110,7 @@ const itemDto = (i: ItemRow) => ({
   unitCost: num(i.unitCost), // per unit
   marketValue: num(i.marketValue), // per unit
   marketValueOn: i.marketValueOn ? ymd(i.marketValueOn) : null,
+  purchasedOn: i.purchasedOn ? ymd(i.purchasedOn) : null,
   retired: i.retired,
   updatedAt: i.updatedAt,
 });
@@ -333,11 +335,12 @@ export async function createEquipment(userId: string, input: CreateEquipment) {
   if (input.date > today()) throw new HttpError(400, "The date can't be in the future.");
   return prisma.$transaction(async (tx) => {
     await assertProject(tx, input.to);
-    const { quantity, to, date, serviceDue, ...details } = input;
+    const { quantity, to, date, serviceDue, purchasedOn, ...details } = input;
     const item = await tx.equipment.create({
       data: {
         ...details,
         serviceDue: serviceDue ? asDate(serviceDue) : null,
+        purchasedOn: purchasedOn ? asDate(purchasedOn) : null,
         marketValueOn: details.marketValue !== null ? asDate(today()) : null, // valued today
         addedById: userId,
       },
@@ -354,7 +357,7 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
   await requireCan(userId, "equipment.manage");
   const before = await prisma.equipment.findUnique({ where: { id }, select: itemSelect });
   if (!before) throw new HttpError(404, "Equipment not found");
-  const { serviceDue, ...rest } = input;
+  const { serviceDue, purchasedOn, ...rest } = input;
   await prisma.$transaction(async (tx) => {
     // A new market value is dated today; sending the same value again keeps its old date
     const valueChanged = rest.marketValue !== undefined && rest.marketValue !== num(before.marketValue);
@@ -363,11 +366,24 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
       data: {
         ...rest,
         ...(serviceDue !== undefined ? { serviceDue: serviceDue ? asDate(serviceDue) : null } : {}),
+        ...(purchasedOn !== undefined ? { purchasedOn: purchasedOn ? asDate(purchasedOn) : null } : {}),
         ...(valueChanged ? { marketValueOn: rest.marketValue === null ? null : asDate(today()) } : {}),
       },
     });
   });
   return { id };
+}
+
+/**
+ * DELETE /equipment/:id: remove an item added by mistake, with its moves and hire changes (they cascade). Its hire
+ * stops counting on every project. Items that are worn out or sold should be written off instead, to keep the history.
+ */
+export async function deleteEquipment(userId: string, id: string) {
+  await requireCan(userId, "equipment.manage");
+  const item = await prisma.equipment.findUnique({ where: { id }, select: { id: true } });
+  if (!item) throw new HttpError(404, "That equipment was already deleted.");
+  await prisma.equipment.delete({ where: { id } });
+  return { ok: true };
 }
 
 /** POST /equipment/:id/moves: bring more in, move between places, or write some off */

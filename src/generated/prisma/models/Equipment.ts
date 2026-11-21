@@ -54,6 +54,7 @@ export type EquipmentMinAggregateOutputType = {
   unitCost: runtime.Decimal | null
   marketValue: runtime.Decimal | null
   marketValueOn: Date | null
+  purchasedOn: Date | null
   serviceDue: Date | null
   notes: string | null
   retired: boolean | null
@@ -76,6 +77,7 @@ export type EquipmentMaxAggregateOutputType = {
   unitCost: runtime.Decimal | null
   marketValue: runtime.Decimal | null
   marketValueOn: Date | null
+  purchasedOn: Date | null
   serviceDue: Date | null
   notes: string | null
   retired: boolean | null
@@ -98,6 +100,7 @@ export type EquipmentCountAggregateOutputType = {
   unitCost: number
   marketValue: number
   marketValueOn: number
+  purchasedOn: number
   serviceDue: number
   notes: number
   retired: number
@@ -136,6 +139,7 @@ export type EquipmentMinAggregateInputType = {
   unitCost?: true
   marketValue?: true
   marketValueOn?: true
+  purchasedOn?: true
   serviceDue?: true
   notes?: true
   retired?: true
@@ -158,6 +162,7 @@ export type EquipmentMaxAggregateInputType = {
   unitCost?: true
   marketValue?: true
   marketValueOn?: true
+  purchasedOn?: true
   serviceDue?: true
   notes?: true
   retired?: true
@@ -180,6 +185,7 @@ export type EquipmentCountAggregateInputType = {
   unitCost?: true
   marketValue?: true
   marketValueOn?: true
+  purchasedOn?: true
   serviceDue?: true
   notes?: true
   retired?: true
@@ -289,6 +295,7 @@ export type EquipmentGroupByOutputType = {
   unitCost: runtime.Decimal | null
   marketValue: runtime.Decimal | null
   marketValueOn: Date | null
+  purchasedOn: Date | null
   serviceDue: Date | null
   notes: string
   retired: boolean
@@ -334,6 +341,7 @@ export type EquipmentWhereInput = {
   unitCost?: Prisma.DecimalNullableFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.DecimalNullableFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
+  purchasedOn?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   serviceDue?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringFilter<"Equipment"> | string
   retired?: Prisma.BoolFilter<"Equipment"> | boolean
@@ -359,6 +367,7 @@ export type EquipmentOrderByWithRelationInput = {
   unitCost?: Prisma.SortOrderInput | Prisma.SortOrder
   marketValue?: Prisma.SortOrderInput | Prisma.SortOrder
   marketValueOn?: Prisma.SortOrderInput | Prisma.SortOrder
+  purchasedOn?: Prisma.SortOrderInput | Prisma.SortOrder
   serviceDue?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
@@ -387,6 +396,7 @@ export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
   unitCost?: Prisma.DecimalNullableFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.DecimalNullableFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
+  purchasedOn?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   serviceDue?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringFilter<"Equipment"> | string
   retired?: Prisma.BoolFilter<"Equipment"> | boolean
@@ -412,6 +422,7 @@ export type EquipmentOrderByWithAggregationInput = {
   unitCost?: Prisma.SortOrderInput | Prisma.SortOrder
   marketValue?: Prisma.SortOrderInput | Prisma.SortOrder
   marketValueOn?: Prisma.SortOrderInput | Prisma.SortOrder
+  purchasedOn?: Prisma.SortOrderInput | Prisma.SortOrder
   serviceDue?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
@@ -442,6 +453,7 @@ export type EquipmentScalarWhereWithAggregatesInput = {
   unitCost?: Prisma.DecimalNullableWithAggregatesFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.DecimalNullableWithAggregatesFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.DateTimeNullableWithAggregatesFilter<"Equipment"> | Date | string | null
+  purchasedOn?: Prisma.DateTimeNullableWithAggregatesFilter<"Equipment"> | Date | string | null
   serviceDue?: Prisma.DateTimeNullableWithAggregatesFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringWithAggregatesFilter<"Equipment"> | string
   retired?: Prisma.BoolWithAggregatesFilter<"Equipment"> | boolean
@@ -464,6 +476,7 @@ export type EquipmentCreateInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -488,6 +501,7 @@ export type EquipmentUncheckedCreateInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -511,6 +525,7 @@ export type EquipmentUpdateInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -535,6 +550,7 @@ export type EquipmentUncheckedUpdateInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -559,6 +575,7 @@ export type EquipmentCreateManyInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -580,6 +597,7 @@ export type EquipmentUpdateManyMutationInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -601,6 +619,7 @@ export type EquipmentUncheckedUpdateManyInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -633,6 +652,7 @@ export type EquipmentCountOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   marketValue?: Prisma.SortOrder
   marketValueOn?: Prisma.SortOrder
+  purchasedOn?: Prisma.SortOrder
   serviceDue?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
@@ -662,6 +682,7 @@ export type EquipmentMaxOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   marketValue?: Prisma.SortOrder
   marketValueOn?: Prisma.SortOrder
+  purchasedOn?: Prisma.SortOrder
   serviceDue?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
@@ -684,6 +705,7 @@ export type EquipmentMinOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   marketValue?: Prisma.SortOrder
   marketValueOn?: Prisma.SortOrder
+  purchasedOn?: Prisma.SortOrder
   serviceDue?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
@@ -788,6 +810,7 @@ export type EquipmentCreateWithoutAddedByInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -811,6 +834,7 @@ export type EquipmentUncheckedCreateWithoutAddedByInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -863,6 +887,7 @@ export type EquipmentScalarWhereInput = {
   unitCost?: Prisma.DecimalNullableFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.DecimalNullableFilter<"Equipment"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
+  purchasedOn?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   serviceDue?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringFilter<"Equipment"> | string
   retired?: Prisma.BoolFilter<"Equipment"> | boolean
@@ -885,6 +910,7 @@ export type EquipmentCreateWithoutHireChangesInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -908,6 +934,7 @@ export type EquipmentUncheckedCreateWithoutHireChangesInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -946,6 +973,7 @@ export type EquipmentUpdateWithoutHireChangesInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -969,6 +997,7 @@ export type EquipmentUncheckedUpdateWithoutHireChangesInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -992,6 +1021,7 @@ export type EquipmentCreateWithoutMovesInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -1015,6 +1045,7 @@ export type EquipmentUncheckedCreateWithoutMovesInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -1053,6 +1084,7 @@ export type EquipmentUpdateWithoutMovesInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1076,6 +1108,7 @@ export type EquipmentUncheckedUpdateWithoutMovesInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1099,6 +1132,7 @@ export type EquipmentCreateManyAddedByInput = {
   unitCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Date | string | null
+  purchasedOn?: Date | string | null
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
@@ -1119,6 +1153,7 @@ export type EquipmentUpdateWithoutAddedByInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1142,6 +1177,7 @@ export type EquipmentUncheckedUpdateWithoutAddedByInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1165,6 +1201,7 @@ export type EquipmentUncheckedUpdateManyWithoutAddedByInput = {
   unitCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   marketValueOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  purchasedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1226,6 +1263,7 @@ export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   unitCost?: boolean
   marketValue?: boolean
   marketValueOn?: boolean
+  purchasedOn?: boolean
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
@@ -1252,6 +1290,7 @@ export type EquipmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   unitCost?: boolean
   marketValue?: boolean
   marketValueOn?: boolean
+  purchasedOn?: boolean
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
@@ -1275,6 +1314,7 @@ export type EquipmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   unitCost?: boolean
   marketValue?: boolean
   marketValueOn?: boolean
+  purchasedOn?: boolean
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
@@ -1298,6 +1338,7 @@ export type EquipmentSelectScalar = {
   unitCost?: boolean
   marketValue?: boolean
   marketValueOn?: boolean
+  purchasedOn?: boolean
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
@@ -1306,7 +1347,7 @@ export type EquipmentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type EquipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serialNo" | "name" | "category" | "unit" | "code" | "ownership" | "hireRate" | "hirePer" | "supplier" | "unitCost" | "marketValue" | "marketValueOn" | "serviceDue" | "notes" | "retired" | "addedById" | "createdAt" | "updatedAt", ExtArgs["result"]["equipment"]>
+export type EquipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serialNo" | "name" | "category" | "unit" | "code" | "ownership" | "hireRate" | "hirePer" | "supplier" | "unitCost" | "marketValue" | "marketValueOn" | "purchasedOn" | "serviceDue" | "notes" | "retired" | "addedById" | "createdAt" | "updatedAt", ExtArgs["result"]["equipment"]>
 export type EquipmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   moves?: boolean | Prisma.Equipment$movesArgs<ExtArgs>
@@ -1341,6 +1382,7 @@ export type $EquipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     unitCost: runtime.Decimal | null
     marketValue: runtime.Decimal | null
     marketValueOn: Date | null
+    purchasedOn: Date | null
     serviceDue: Date | null
     notes: string
     retired: boolean
@@ -1786,6 +1828,7 @@ export interface EquipmentFieldRefs {
   readonly unitCost: Prisma.FieldRef<"Equipment", 'Decimal'>
   readonly marketValue: Prisma.FieldRef<"Equipment", 'Decimal'>
   readonly marketValueOn: Prisma.FieldRef<"Equipment", 'DateTime'>
+  readonly purchasedOn: Prisma.FieldRef<"Equipment", 'DateTime'>
   readonly serviceDue: Prisma.FieldRef<"Equipment", 'DateTime'>
   readonly notes: Prisma.FieldRef<"Equipment", 'String'>
   readonly retired: Prisma.FieldRef<"Equipment", 'Boolean'>

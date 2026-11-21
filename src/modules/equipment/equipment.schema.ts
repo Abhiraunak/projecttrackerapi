@@ -25,6 +25,7 @@ const details = {
   notes: z.string().trim().max(1000).default(""),
   unitCost: money.nullish().transform((v) => v ?? null), // per unit
   marketValue: money.nullish().transform((v) => v ?? null), // per unit, today
+  purchasedOn: z.iso.date().nullish().transform((v) => v ?? null), // date of purchase
 };
 
 /** New item: its details, and how many arrive where (the yard, or straight at a site) */
@@ -59,6 +60,7 @@ const changes = {
   notes: z.string().trim().max(1000),
   unitCost: money.nullable(),
   marketValue: money.nullable(),
+  purchasedOn: z.iso.date().nullable(),
   retired: z.boolean(),
 };
 

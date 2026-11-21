@@ -771,6 +771,7 @@ export const EquipmentScalarFieldEnum = {
   unitCost: 'unitCost',
   marketValue: 'marketValue',
   marketValueOn: 'marketValueOn',
+  purchasedOn: 'purchasedOn',
   serviceDue: 'serviceDue',
   notes: 'notes',
   retired: 'retired',

@@ -991,6 +991,7 @@ model Equipment {
   unitCost      Decimal?              @db.Decimal(14, 2) // cost of one unit
   marketValue   Decimal?              @db.Decimal(14, 2) // what one unit is worth today
   marketValueOn DateTime?             @db.Date // when that value was last set
+  purchasedOn   DateTime?             @db.Date // date of purchase
   serviceDue    DateTime?             @db.Date // machines: next service
   notes         String                @default("")
   retired       Boolean               @default(false) // nothing left and not used any more: hidden from pickers
