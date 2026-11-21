@@ -68,7 +68,7 @@ app.use('/api/v1/notifications', notificationRoutes);
 // app.use('/api/v1/punches', punchRoutes);         // staff punch in / out
 app.use('/api/v1/equipment', equipmentRoutes);   // Phase 6: equipment register
 app.use('/api/v1/site-diary', siteDiaryRoutes);  // site engineer's daily report (DPR) and the manager's review
-app.use('/api/v1', materialEstimateRoutes); // the workspace Material estimate
+app.use('/api/v1', materialEstimateRoutes); // the simple Material estimate section
 app.use('/api/v1', labourSimpleRoutes); // the simple Labour section
 
 app.use(notFound);

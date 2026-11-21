@@ -17,15 +17,21 @@ function searchFilter(q) {
     return { OR: [{ title: contains }, { subtitle: contains }, { boqNumber: contains }] };
 }
 /** The dashboard: one page of BOQs (newest change first) and the figures for its summary cards */
+/**
+ * projectId = "none": only BOQs made on the BOQ page (no project), as the top-bar BOQ page shows them;
+ * a project id: only that project's (its Material estimate); left out: every BOQ.
+ * The counts at the top follow the same choice, so they add up to what is listed.
+ */
 export async function listBoqs({ q, status, projectId, page, pageSize }) {
-    const where = { ...searchFilter(q), ...(status ? { status } : {}), ...(projectId ? { projectId } : {}) };
+    const scope = projectId === "none" ? { projectId: null } : projectId ? { projectId } : {};
+    const where = { ...scope, ...searchFilter(q), ...(status ? { status } : {}) };
     const [rows, total, sum, drafts, finals, recent] = await prisma.$transaction([
         prisma.boq.findMany({ where, include: boqInclude, orderBy: [{ updatedAt: "desc" }, { id: "desc" }], skip: (page - 1) * pageSize, take: pageSize }),
         prisma.boq.count({ where }),
-        prisma.boq.aggregate({ _sum: { grandTotal: true }, _count: { _all: true } }),
-        prisma.boq.count({ where: { status: "DRAFT" } }),
-        prisma.boq.count({ where: { status: "FINAL" } }),
-        prisma.boq.count({ where: { updatedAt: { gte: new Date(Date.now() - WEEK_MS) } } }),
+        prisma.boq.aggregate({ where: scope, _sum: { grandTotal: true }, _count: { _all: true } }),
+        prisma.boq.count({ where: { ...scope, status: "DRAFT" } }),
+        prisma.boq.count({ where: { ...scope, status: "FINAL" } }),
+        prisma.boq.count({ where: { ...scope, updatedAt: { gte: new Date(Date.now() - WEEK_MS) } } }),
     ]);
     return {
         items: rows.map(boqSummaryDto),

@@ -20,7 +20,19 @@ export function labourFigures(tasks) {
     const gap = round2(earned - paid);
     return { agreed, paid, earned, due: Math.max(0, gap), paidAhead: Math.max(0, -gap) };
 }
-/** The project's money: the budget is the project cost when set, otherwise the work items' total */
+/** A work item can be compared once it has an area and both rates */
+export const comparable = (t) => t.area > 0 && t.contractorRate > 0 && t.inHouseRate > 0;
+/**
+ * Contractor vs in-house, the same sum as the Project page: area × rate for each way of doing the work.
+ * `saving` is what doing it in-house saves (negative: the contractor is cheaper).
+ */
+export function rateFigures(tasks) {
+    const rows = tasks.filter(comparable);
+    const contractor = round2(sum(rows, (t) => t.area * t.contractorRate));
+    const inHouse = round2(sum(rows, (t) => t.area * t.inHouseRate));
+    return { compared: rows.length, missing: tasks.length - rows.length, contractor, inHouse, saving: round2(contractor - inHouse) };
+}
+/** The project's money. `labourPaid` now carries labour + general spending (attendance, contract work, expenses) and `materialSpent` the deliveries, both from spendByProject; the budget is the project cost when set, otherwise the work items' total */
 export function moneyFigures(projectCost, agreed, labourPaid, materialSpent) {
     const budget = projectCost ?? agreed;
     const spent = round2(labourPaid + materialSpent);
@@ -37,11 +49,17 @@ export function moneyFigures(projectCost, agreed, labourPaid, materialSpent) {
 const DAY = 86_400_000;
 const daysBetween = (from, to) => Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / DAY);
 /** First start and last end of the work items, days left to the end, and whether the end has passed with work left */
-export function scheduleFigures(tasks, today) {
-    if (tasks.length === 0)
+/**
+ * The project's dates: its own start and finish when set on Edit project, otherwise the earliest work item start
+ * and the latest work item finish.
+ */
+export function scheduleFigures(tasks, today, own = { start: null, end: null }) {
+    const start = own.start ?? (tasks.length ? tasks.map((t) => t.startDate).sort()[0] : null);
+    const end = own.end ?? (tasks.length ? tasks.map((t) => t.endDate).sort().at(-1) : null);
+    if (!start && !end)
         return { start: null, end: null, daysLeft: null, late: false };
-    const start = tasks.map((t) => t.startDate).sort()[0];
-    const end = tasks.map((t) => t.endDate).sort().at(-1);
+    if (!end)
+        return { start, end: null, daysLeft: null, late: false };
     const daysLeft = daysBetween(today, end);
     return { start, end, daysLeft, late: daysLeft < 0 && overallProgress(tasks) < 100 };
 }

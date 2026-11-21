@@ -20,14 +20,28 @@ export const updatePurchaseSchema = z.object({
             .transform((v) => v === "true"),
     }),
 });
-/** One delivery: the date, how many arrived and at what rate (sent as a form because of the bill) */
-export const addDeliverySchema = z.object({
-    body: z.object({
-        date: z.iso.date(),
-        quantity: z.coerce.number().finite().positive("Enter how many arrived.").max(1_000_000_000),
-        rate: z.coerce.number().finite().min(0, "The rate can't be negative.").max(100_000_000),
-    }),
+/** A number from a form that may be left empty: "" (or nothing) means not given */
+const optionalNumber = (max, negative) => z.preprocess((v) => (v === "" || v === null || v === undefined ? undefined : v), z.coerce.number().finite().min(0, negative).max(max).optional());
+/**
+ * One delivery: the date, how many arrived, and what it cost: the rate, the amount, both or neither (the bill isn't in
+ * yet: saved as "not set", counting nothing until it is edited). Sent as a form because of the bill.
+ */
+const deliveryFields = {
+    date: z.iso.date(),
+    quantity: z.coerce.number().finite().positive("Enter how many arrived.").max(1_000_000_000),
+    rate: optionalNumber(100_000_000, "The rate can't be negative."),
+    amount: optionalNumber(10_000_000_000, "The amount can't be negative."),
+};
+export const addDeliverySchema = z.object({ body: z.object(deliveryFields) });
+export const updateDeliverySchema = z.object({ body: z.object(deliveryFields) });
+/** Archive a material (it leaves the list and stops counting) or restore it */
+export const archivePurchaseSchema = z.object({ body: z.object({ archived: z.boolean() }) });
+/** Delete several archived materials at once */
+export const deletePurchasesSchema = z.object({
+    body: z.object({ ids: z.array(z.string().min(1).max(64)).min(1, "Pick at least one material.").max(500) }),
 });
+/** Archive (it stops counting) or restore a delivery */
+export const archiveDeliverySchema = z.object({ body: z.object({ archived: z.boolean() }) });
 /** Lines of a Material estimate (BOQ) to bring into Materials: the estimate and the ids of its priced lines */
 export const importFromEstimateSchema = z.object({
     body: z.object({

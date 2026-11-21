@@ -3,7 +3,6 @@ import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { prisma } from './lib/prisma.js';
 import { purgeExpiredSessions } from './lib/session.js';
-// import { ensureAdminAccount } from './lib/adminBootstrap.js';
 import { startAlertSweep } from './modules/alerts/alerts.service.js';
 import { startPaymentReminders } from './modules/client/client.notify.js';
 // Create the admin account from ADMIN_EMAIL / ADMIN_PASSWORD if needed. A failure is logged, not fatal:

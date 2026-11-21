@@ -29,10 +29,11 @@ const select = {
     billVersion: true,
     billFormat: true,
     createdAt: true,
+    archivedAt: true,
     addedBy: { select: { name: true, email: true } },
     deliveries: {
         orderBy: [{ date: "desc" }, { createdAt: "desc" }],
-        select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+        select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, archivedAt: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
     },
     topUps: {
         orderBy: [{ date: "asc" }, { createdAt: "asc" }],
@@ -51,12 +52,16 @@ const deliveryDto = (d) => ({
     quantity: d.quantity.toNumber(),
     rate: d.rate.toNumber(), // what was actually paid per unit
     amount: d.amount.toNumber(), // quantity × rate
-    ratePending: d.ratePending ?? false, // from the site diary: arrived, the manager hasn't added the rate yet
+    ratePending: d.ratePending ?? false, // no rate or amount yet ("Not set"): from the site diary, or logged without one
+    archivedAt: d.archivedAt ? d.archivedAt.toISOString() : null,
     ...billOf(d),
     addedBy: d.addedBy.name || d.addedBy.email,
 });
 const dto = (p) => {
-    const deliveries = p.deliveries.map(deliveryDto);
+    // Archived deliveries are kept aside: they count nowhere until restored, and only they can be deleted
+    const all = p.deliveries.map(deliveryDto);
+    const deliveries = all.filter((d) => !d.archivedAt);
+    const archived = all.filter((d) => d.archivedAt);
     // More added later, oldest first: "+5,000 on 8 Nov". The quantity is the total of the first lot and these.
     const additions = p.topUps.map((t) => ({
         id: t.id,
@@ -83,8 +88,10 @@ const dto = (p) => {
         ...billOf(p),
         addedBy: p.addedBy.name || p.addedBy.email,
         createdAt: p.createdAt,
+        archivedAt: p.archivedAt ? p.archivedAt.toISOString() : null,
         // Deliveries: on what date how many arrived and at what rate; the quantity above is what was ordered
         deliveries,
+        archived,
         firstQuantity: round2(p.quantity.toNumber() - added), // the first lot, on `date`
         additions,
         ...arrivalOf(p.quantity.toNumber(), deliveries),
@@ -124,9 +131,12 @@ export async function listPurchases(userId, projectId) {
         knownNames(projectId),
         knownSections(projectId),
     ]);
-    const items = rows.map(dto);
+    const all = rows.map(dto);
+    // Archived materials are listed apart and count nowhere until restored
+    const items = all.filter((i) => !i.archivedAt);
+    const archived = all.filter((i) => i.archivedAt);
     // total = preset cost of everything ordered; spentTotal = what the deliveries actually cost
-    return { items, ...summarize(items), spentTotal: round2(items.reduce((s, i) => s + i.spent, 0)), names, sections };
+    return { items, archived, ...summarize(items), spentTotal: round2(items.reduce((s, i) => s + i.spent, 0)), names, sections };
 }
 /**
  * POST /projects/:projectId/material-purchases. A material already on the list (same name, whatever the case or
@@ -137,7 +147,7 @@ export async function addPurchase(userId, projectId, input, file) {
     checkDate(input.date);
     const name = canonicalName(input.name, (await knownNames(projectId)).map((n) => n.name));
     const existing = await prisma.materialPurchase.findFirst({
-        where: { projectId, name: { equals: name, mode: "insensitive" } },
+        where: { projectId, archivedAt: null, name: { equals: name, mode: "insensitive" } }, // an archived one isn't added to
         orderBy: { createdAt: "asc" },
         select: { id: true, name: true, unit: true, quantity: true, amount: true },
     });
@@ -264,12 +274,51 @@ export async function updatePurchase(userId, projectId, purchaseId, input, file)
         throw err;
     }
 }
-/** DELETE /projects/:projectId/material-purchases/:purchaseId */
+/** POST …/material-purchases/:purchaseId/archive: archive (off the list, counted nowhere, deliveries kept) or restore */
+export async function archivePurchase(userId, projectId, purchaseId, archived) {
+    await requirePermission(userId, projectId, WRITE);
+    const found = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, select: { id: true } });
+    if (!found)
+        throw new HttpError(404, "That material is no longer there.");
+    const row = await prisma.materialPurchase.update({ where: { id: purchaseId }, data: { archivedAt: archived ? new Date() : null }, select });
+    return { purchase: dto(row) };
+}
+const billsOf = { billId: true, billFormat: true };
+/**
+ * POST …/material-purchases/bulk-delete: delete several archived materials for good, with their deliveries and
+ * additions (they cascade). All or nothing: every id must be an archived material of this project, and the rows go in
+ * one transaction, so a failure leaves the database exactly as it was. The bill files are removed only after that.
+ */
+export async function removePurchases(userId, projectId, ids) {
+    await requirePermission(userId, projectId, WRITE);
+    const unique = [...new Set(ids)];
+    const rows = await prisma.materialPurchase.findMany({
+        where: { id: { in: unique }, projectId },
+        select: { id: true, archivedAt: true, ...billsOf, deliveries: { select: billsOf }, topUps: { select: billsOf } },
+    });
+    if (rows.length !== unique.length)
+        throw new HttpError(404, "Some of those materials are no longer there. Refresh and try again.");
+    if (rows.some((r) => !r.archivedAt))
+        throw new HttpError(400, "Only archived materials can be deleted. Archive them first.");
+    await prisma.$transaction(async (tx) => {
+        // archivedAt is checked again inside the transaction: nothing restored a moment ago is deleted
+        const gone = await tx.materialPurchase.deleteMany({ where: { id: { in: unique }, projectId, archivedAt: { not: null } } });
+        if (gone.count !== unique.length)
+            throw new HttpError(409, "Some of those materials changed just now. Nothing was deleted; refresh and try again.");
+    });
+    // Files last, once the rows are surely gone; a file that fails to delete never brings a row back
+    const bills = rows.flatMap((r) => [r, ...r.deliveries, ...r.topUps]);
+    await Promise.allSettled(bills.map((b) => dropBill(b)));
+    return { deleted: unique.length };
+}
+/** DELETE /projects/:projectId/material-purchases/:purchaseId: one archived material */
 export async function removePurchase(userId, projectId, purchaseId) {
     await requirePermission(userId, projectId, WRITE);
     const before = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, include: { deliveries: { select: { billId: true, billFormat: true } }, topUps: { select: { billId: true, billFormat: true } } } });
     if (!before)
         throw new HttpError(404, "That entry is no longer there.");
+    if (!before.archivedAt)
+        throw new HttpError(400, "Archive the material first; it can be deleted from Archived materials.");
     await prisma.$transaction(async (tx) => {
         await tx.materialPurchase.delete({ where: { id: purchaseId } }); // its deliveries go with it
         await recordAudit(tx, {
@@ -296,8 +345,8 @@ export async function purchaseTotalsByProject(projectIds) {
     if (projectIds.length === 0)
         return new Map();
     const [planned, spent] = await Promise.all([
-        prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
-        prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
+        prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds }, archivedAt: null }, _sum: { amount: true } }),
+        prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds }, archivedAt: null, purchase: { archivedAt: null } }, _sum: { amount: true } }),
     ]);
     const out = new Map(projectIds.map((id) => [id, { planned: 0, spent: 0 }]));
     for (const r of planned)
@@ -307,22 +356,45 @@ export async function purchaseTotalsByProject(projectIds) {
     return out;
 }
 /* ------------------------------------------- deliveries ------------------------------------------- */
-async function purchaseIn(projectId, purchaseId) {
-    const p = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, select: { id: true, name: true, unit: true } });
+async function purchaseIn(projectId, purchaseId, { active = false } = {}) {
+    const p = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, select: { id: true, name: true, unit: true, archivedAt: true } });
     if (!p)
         throw new HttpError(404, "That material is no longer on the list.");
+    if (active && p.archivedAt)
+        throw new HttpError(400, `${p.name} is archived. Restore it to add or change deliveries.`);
     return p;
 }
+/**
+ * What a delivery cost, from what was typed: the amount if given (the rate then follows from it), else quantity × rate,
+ * else nothing yet ("Not set": ratePending, counts ₹0 until edited).
+ */
+function costOf(input) {
+    if (input.amount !== undefined) {
+        const rate = input.rate ?? Math.round((input.amount / input.quantity) * 100) / 100;
+        return { rate, amount: round2(input.amount), ratePending: false };
+    }
+    if (input.rate !== undefined)
+        return { rate: input.rate, amount: amountOf(input.quantity, input.rate), ratePending: false };
+    return { rate: 0, amount: 0, ratePending: true };
+}
+async function deliveryIn(purchaseId, deliveryId) {
+    const d = await prisma.materialDelivery.findFirst({ where: { id: deliveryId, purchaseId } });
+    if (!d)
+        throw new HttpError(404, "That delivery is no longer there.");
+    return d;
+}
+const purchaseNow = async (purchaseId) => ({ purchase: dto(await prisma.materialPurchase.findUniqueOrThrow({ where: { id: purchaseId }, select })) });
 /** POST /projects/:projectId/material-purchases/:purchaseId/deliveries: on this date, this many arrived at this rate (bill optional) */
 export async function addDelivery(userId, projectId, purchaseId, input, file) {
     await requirePermission(userId, projectId, WRITE);
     checkDate(input.date);
-    const purchase = await purchaseIn(projectId, purchaseId);
+    const purchase = await purchaseIn(projectId, purchaseId, { active: true });
     const bill = await storeBill(file);
+    const cost = costOf(input);
     try {
         await prisma.$transaction(async (tx) => {
             const created = await tx.materialDelivery.create({
-                data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, rate: input.rate, amount: amountOf(input.quantity, input.rate), addedById: userId, ...bill },
+                data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...cost, addedById: userId, ...bill },
                 select: { id: true },
             });
             await recordAudit(tx, {
@@ -331,7 +403,7 @@ export async function addDelivery(userId, projectId, purchaseId, input, file) {
                 action: "material_delivery.added",
                 entityType: "project",
                 entityId: created.id,
-                summary: `${input.quantity} ${purchase.unit} ${purchase.name} arrived on ${input.date} at ${input.rate} = ${amountOf(input.quantity, input.rate)}`.replace(/\s+/g, " "),
+                summary: `${input.quantity} ${purchase.unit} ${purchase.name} arrived on ${input.date}${cost.ratePending ? "" : ` = ${cost.amount}`}`.replace(/\s+/g, " "),
             });
         });
     }
@@ -343,13 +415,33 @@ export async function addDelivery(userId, projectId, purchaseId, input, file) {
     const row = await prisma.materialPurchase.findUniqueOrThrow({ where: { id: purchaseId }, select });
     return { purchase: dto(row) };
 }
-/** DELETE /projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId */
+/** PUT /projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId: correct the date, how many, rate or amount */
+export async function updateDelivery(userId, projectId, purchaseId, deliveryId, input) {
+    await requirePermission(userId, projectId, WRITE);
+    checkDate(input.date);
+    await purchaseIn(projectId, purchaseId, { active: true });
+    await deliveryIn(purchaseId, deliveryId);
+    await prisma.materialDelivery.update({
+        where: { id: deliveryId },
+        data: { date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...costOf(input) },
+    });
+    return purchaseNow(purchaseId);
+}
+/** POST …/deliveries/:deliveryId/archive: archive (stops counting in arrived and spent) or restore */
+export async function archiveDelivery(userId, projectId, purchaseId, deliveryId, archived) {
+    await requirePermission(userId, projectId, WRITE);
+    await purchaseIn(projectId, purchaseId);
+    await deliveryIn(purchaseId, deliveryId);
+    await prisma.materialDelivery.update({ where: { id: deliveryId }, data: { archivedAt: archived ? new Date() : null } });
+    return purchaseNow(purchaseId);
+}
+/** DELETE /projects/:projectId/material-purchases/:purchaseId/deliveries/:deliveryId: only an archived delivery */
 export async function removeDelivery(userId, projectId, purchaseId, deliveryId) {
     await requirePermission(userId, projectId, WRITE);
     const purchase = await purchaseIn(projectId, purchaseId);
-    const before = await prisma.materialDelivery.findFirst({ where: { id: deliveryId, purchaseId } });
-    if (!before)
-        throw new HttpError(404, "That delivery is no longer there.");
+    const before = await deliveryIn(purchaseId, deliveryId);
+    if (!before.archivedAt)
+        throw new HttpError(400, "Archive the delivery first; it can be deleted from Archived.");
     await prisma.$transaction(async (tx) => {
         await tx.materialDelivery.delete({ where: { id: deliveryId } });
         await recordAudit(tx, {
