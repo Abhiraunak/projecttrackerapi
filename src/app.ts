@@ -30,6 +30,7 @@ import notificationRoutes from './modules/notifications/notifications.routes.js'
 import equipmentRoutes from './modules/equipment/equipment.routes.js';
 import siteDiaryRoutes from './modules/site-diary/site-diary.routes.js';
 import materialEstimateRoutes from './modules/material-estimates/materialEstimates.routes.js';
+import labourSimpleRoutes from './modules/labour-simple/labourSimple.routes.js';
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1/equipment', equipmentRoutes);   // Phase 6: equipment register
 app.use('/api/v1/site-diary', siteDiaryRoutes);  // site engineer's daily report (DPR) and the manager's review
 app.use('/api/v1', materialEstimateRoutes); // the workspace Material estimate
+app.use('/api/v1', labourSimpleRoutes); // the simple Labour section
 
 app.use(notFound);
 app.use(errorHandler);   // must be last
