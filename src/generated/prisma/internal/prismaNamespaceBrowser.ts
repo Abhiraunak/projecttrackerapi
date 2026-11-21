@@ -400,7 +400,8 @@ export const MaterialPurchaseScalarFieldEnum = {
   billVersion: 'billVersion',
   billFormat: 'billFormat',
   addedById: 'addedById',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  archivedAt: 'archivedAt'
 } as const
 
 export type MaterialPurchaseScalarFieldEnum = (typeof MaterialPurchaseScalarFieldEnum)[keyof typeof MaterialPurchaseScalarFieldEnum]

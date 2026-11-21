@@ -458,6 +458,7 @@ model MaterialPurchase {
   topUps       MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
   siteArrivals SiteReportArrival[] // logged as arrived in the site diary
   createdAt    DateTime            @default(now())
+  archivedAt   DateTime? // archived: off the list and counted nowhere; only archived materials can be deleted
 
   @@index([projectId, date])
   @@index([projectId, section])

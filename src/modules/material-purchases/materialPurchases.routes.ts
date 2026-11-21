@@ -3,9 +3,9 @@ import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
 import { uploadSingleFile } from "../../middleware/uploadImage.js";
-import { addDeliverySchema, addPurchaseSchema, archiveDeliverySchema, importFromEstimateSchema, updateDeliverySchema, updatePurchaseSchema } from "./materialPurchases.schema.js";
+import { addDeliverySchema, addPurchaseSchema, archiveDeliverySchema, archivePurchaseSchema, deletePurchasesSchema, importFromEstimateSchema, updateDeliverySchema, updatePurchaseSchema } from "./materialPurchases.schema.js";
 import { estimateLines, importFromEstimate } from "./materialPurchases.estimate.js";
-import { addDelivery, addPurchase, archiveDelivery, listPurchases, removeDelivery, removePurchase, updateDelivery, updatePurchase } from "./materialPurchases.service.js";
+import { addDelivery, addPurchase, archiveDelivery, archivePurchase, listPurchases, removeDelivery, removePurchase, removePurchases, updateDelivery, updatePurchase } from "./materialPurchases.service.js";
 
 /*
  * The workspace's Materials section: materials bought (quantity × rate, an optional bill; the same name again adds
@@ -31,6 +31,14 @@ router.get("/projects/:projectId/material-purchases/estimate", requireAuth, asyn
 });
 router.post("/projects/:projectId/material-purchases/from-estimate", requireAuth, writeLimiter, validate(importFromEstimateSchema), async (req: WithProject, res) => {
     res.status(201).json(await importFromEstimate(req.user!.sub, req.params.projectId, req.body));
+});
+// Delete several archived materials at once, all or nothing (before /:purchaseId, so "bulk-delete" isn't read as an id)
+router.post("/projects/:projectId/material-purchases/bulk-delete", requireAuth, writeLimiter, validate(deletePurchasesSchema), async (req: WithProject, res) => {
+    res.json(await removePurchases(req.user!.sub, req.params.projectId, req.body.ids));
+});
+// Archive a material (it leaves the list and stops counting) or restore it
+router.post("/projects/:projectId/material-purchases/:purchaseId/archive", requireAuth, writeLimiter, validate(archivePurchaseSchema), async (req: WithPurchase, res) => {
+    res.json(await archivePurchase(req.user!.sub, req.params.projectId, req.params.purchaseId, req.body.archived));
 });
 router.put("/projects/:projectId/material-purchases/:purchaseId", requireAuth, writeLimiter, uploadSingleFile, validate(updatePurchaseSchema), async (req: WithPurchase, res) => {
     res.json(await updatePurchase(req.user!.sub, req.params.projectId, req.params.purchaseId, req.body, req.file));

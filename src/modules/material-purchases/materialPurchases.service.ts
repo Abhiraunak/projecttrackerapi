@@ -34,6 +34,7 @@ const select = {
   billVersion: true,
   billFormat: true,
   createdAt: true,
+  archivedAt: true,
   addedBy: { select: { name: true, email: true } },
   deliveries: {
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
@@ -83,6 +84,7 @@ type Row = {
   billVersion: number | null;
   billFormat: string | null;
   createdAt: Date;
+  archivedAt?: Date | null;
   addedBy: { name: string | null; email: string };
   deliveries: DeliveryRow[];
   topUps: (BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; note: string; addedBy: string })[];
@@ -119,6 +121,7 @@ const dto = (p: Row) => {
     ...billOf(p),
     addedBy: p.addedBy.name || p.addedBy.email,
     createdAt: p.createdAt,
+    archivedAt: p.archivedAt ? p.archivedAt.toISOString() : null,
     // Deliveries: on what date how many arrived and at what rate; the quantity above is what was ordered
     deliveries,
     archived,
@@ -165,9 +168,12 @@ export async function listPurchases(userId: string, projectId: string) {
     knownNames(projectId),
     knownSections(projectId),
   ]);
-  const items = rows.map(dto);
+  const all = rows.map(dto);
+  // Archived materials are listed apart and count nowhere until restored
+  const items = all.filter((i) => !i.archivedAt);
+  const archived = all.filter((i) => i.archivedAt);
   // total = preset cost of everything ordered; spentTotal = what the deliveries actually cost
-  return { items, ...summarize(items), spentTotal: round2(items.reduce((s, i) => s + i.spent, 0)), names, sections };
+  return { items, archived, ...summarize(items), spentTotal: round2(items.reduce((s, i) => s + i.spent, 0)), names, sections };
 }
 
 /**
@@ -179,7 +185,7 @@ export async function addPurchase(userId: string, projectId: string, input: AddP
   checkDate(input.date);
   const name = canonicalName(input.name, (await knownNames(projectId)).map((n) => n.name));
   const existing = await prisma.materialPurchase.findFirst({
-    where: { projectId, name: { equals: name, mode: "insensitive" } },
+    where: { projectId, archivedAt: null, name: { equals: name, mode: "insensitive" } }, // an archived one isn't added to
     orderBy: { createdAt: "asc" },
     select: { id: true, name: true, unit: true, quantity: true, amount: true },
   });
@@ -309,11 +315,50 @@ export async function updatePurchase(userId: string, projectId: string, purchase
   }
 }
 
-/** DELETE /projects/:projectId/material-purchases/:purchaseId */
+/** POST …/material-purchases/:purchaseId/archive: archive (off the list, counted nowhere, deliveries kept) or restore */
+export async function archivePurchase(userId: string, projectId: string, purchaseId: string, archived: boolean) {
+  await requirePermission(userId, projectId, WRITE);
+  const found = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, select: { id: true } });
+  if (!found) throw new HttpError(404, "That material is no longer there.");
+  const row = await prisma.materialPurchase.update({ where: { id: purchaseId }, data: { archivedAt: archived ? new Date() : null }, select });
+  return { purchase: dto(row) };
+}
+
+const billsOf = { billId: true, billFormat: true } as const;
+
+/**
+ * POST …/material-purchases/bulk-delete: delete several archived materials for good, with their deliveries and
+ * additions (they cascade). All or nothing: every id must be an archived material of this project, and the rows go in
+ * one transaction, so a failure leaves the database exactly as it was. The bill files are removed only after that.
+ */
+export async function removePurchases(userId: string, projectId: string, ids: string[]) {
+  await requirePermission(userId, projectId, WRITE);
+  const unique = [...new Set(ids)];
+  const rows = await prisma.materialPurchase.findMany({
+    where: { id: { in: unique }, projectId },
+    select: { id: true, archivedAt: true, ...billsOf, deliveries: { select: billsOf }, topUps: { select: billsOf } },
+  });
+  if (rows.length !== unique.length) throw new HttpError(404, "Some of those materials are no longer there. Refresh and try again.");
+  if (rows.some((r) => !r.archivedAt)) throw new HttpError(400, "Only archived materials can be deleted. Archive them first.");
+
+  await prisma.$transaction(async (tx) => {
+    // archivedAt is checked again inside the transaction: nothing restored a moment ago is deleted
+    const gone = await tx.materialPurchase.deleteMany({ where: { id: { in: unique }, projectId, archivedAt: { not: null } } });
+    if (gone.count !== unique.length) throw new HttpError(409, "Some of those materials changed just now. Nothing was deleted; refresh and try again.");
+  });
+
+  // Files last, once the rows are surely gone; a file that fails to delete never brings a row back
+  const bills = rows.flatMap((r) => [r, ...r.deliveries, ...r.topUps]);
+  await Promise.allSettled(bills.map((b) => dropBill(b)));
+  return { deleted: unique.length };
+}
+
+/** DELETE /projects/:projectId/material-purchases/:purchaseId: one archived material */
 export async function removePurchase(userId: string, projectId: string, purchaseId: string) {
   await requirePermission(userId, projectId, WRITE);
   const before = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, include: { deliveries: { select: { billId: true, billFormat: true } }, topUps: { select: { billId: true, billFormat: true } } } });
   if (!before) throw new HttpError(404, "That entry is no longer there.");
+  if (!before.archivedAt) throw new HttpError(400, "Archive the material first; it can be deleted from Archived materials.");
   await prisma.$transaction(async (tx) => {
     await tx.materialPurchase.delete({ where: { id: purchaseId } }); // its deliveries go with it
     await recordAudit(tx, {
@@ -338,8 +383,8 @@ export async function removePurchase(userId: string, projectId: string, purchase
 export async function purchaseTotalsByProject(projectIds: string[]): Promise<Map<string, { planned: number; spent: number }>> {
   if (projectIds.length === 0) return new Map();
   const [planned, spent] = await Promise.all([
-    prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds } }, _sum: { amount: true } }),
-    prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds }, archivedAt: null }, _sum: { amount: true } }),
+    prisma.materialPurchase.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds }, archivedAt: null }, _sum: { amount: true } }),
+    prisma.materialDelivery.groupBy({ by: ["projectId"], where: { projectId: { in: projectIds }, archivedAt: null, purchase: { archivedAt: null } }, _sum: { amount: true } }),
   ]);
   const out = new Map<string, { planned: number; spent: number }>(projectIds.map((id) => [id, { planned: 0, spent: 0 }]));
   for (const r of planned) out.get(r.projectId)!.planned = r._sum.amount?.toNumber() ?? 0;
@@ -349,9 +394,10 @@ export async function purchaseTotalsByProject(projectIds: string[]): Promise<Map
 
 /* ------------------------------------------- deliveries ------------------------------------------- */
 
-async function purchaseIn(projectId: string, purchaseId: string) {
-  const p = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, select: { id: true, name: true, unit: true } });
+async function purchaseIn(projectId: string, purchaseId: string, { active = false } = {}) {
+  const p = await prisma.materialPurchase.findFirst({ where: { id: purchaseId, projectId }, select: { id: true, name: true, unit: true, archivedAt: true } });
   if (!p) throw new HttpError(404, "That material is no longer on the list.");
+  if (active && p.archivedAt) throw new HttpError(400, `${p.name} is archived. Restore it to add or change deliveries.`);
   return p;
 }
 
@@ -380,7 +426,7 @@ const purchaseNow = async (purchaseId: string) => ({ purchase: dto(await prisma.
 export async function addDelivery(userId: string, projectId: string, purchaseId: string, input: AddDelivery, file?: Express.Multer.File) {
   await requirePermission(userId, projectId, WRITE);
   checkDate(input.date);
-  const purchase = await purchaseIn(projectId, purchaseId);
+  const purchase = await purchaseIn(projectId, purchaseId, { active: true });
   const bill = await storeBill(file);
   const cost = costOf(input);
   try {
@@ -410,7 +456,7 @@ export async function addDelivery(userId: string, projectId: string, purchaseId:
 export async function updateDelivery(userId: string, projectId: string, purchaseId: string, deliveryId: string, input: AddDelivery) {
   await requirePermission(userId, projectId, WRITE);
   checkDate(input.date);
-  await purchaseIn(projectId, purchaseId);
+  await purchaseIn(projectId, purchaseId, { active: true });
   await deliveryIn(purchaseId, deliveryId);
   await prisma.materialDelivery.update({
     where: { id: deliveryId },

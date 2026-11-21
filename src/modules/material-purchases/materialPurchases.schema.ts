@@ -45,6 +45,12 @@ const deliveryFields = {
 };
 export const addDeliverySchema = z.object({ body: z.object(deliveryFields) });
 export const updateDeliverySchema = z.object({ body: z.object(deliveryFields) });
+/** Archive a material (it leaves the list and stops counting) or restore it */
+export const archivePurchaseSchema = z.object({ body: z.object({ archived: z.boolean() }) });
+/** Delete several archived materials at once */
+export const deletePurchasesSchema = z.object({
+  body: z.object({ ids: z.array(z.string().min(1).max(64)).min(1, "Pick at least one material.").max(500) }),
+});
 /** Archive (it stops counting) or restore a delivery */
 export const archiveDeliverySchema = z.object({ body: z.object({ archived: z.boolean() }) });
 
