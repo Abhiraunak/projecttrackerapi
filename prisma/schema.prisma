@@ -92,7 +92,7 @@ model User {
   expensesAdded           Expense[]           @relation("ExpenseAddedBy")
   contractorPaymentsAdded ContractorPayment[] @relation("ContractorPaymentAddedBy")
   materialPaymentsAdded   MaterialPayment[]   @relation("MaterialPaymentAddedBy")
-  materialEstimatesAdded  MaterialEstimate[]  @relation("MaterialEstimateAddedBy")
+  // materialEstimatesAdded  MaterialEstimate[]  @relation("MaterialEstimateAddedBy") // old estimates: the new MaterialEstimate has no addedBy, so this relation can't stay
   materialPurchasesAdded  MaterialPurchase[]  @relation("MaterialPurchaseAddedBy")
   materialDeliveriesAdded MaterialDelivery[]  @relation("MaterialDeliveryAddedBy")
   passwordResets          PasswordReset[] // forgot password: the codes sent
@@ -180,6 +180,7 @@ model Project {
   labourTeam           LabourTeamMember[]
   labourMeasures       LabourMeasure[]
   labourWeeks          LabourWeek[]
+  labourQuotes         LabourQuote[] // subcontractor quotes in the Labour tab's Rate comparison
   siteReports          SiteReport[] // site diary
 
   @@index([ownerId, status, updatedAt])
@@ -246,6 +247,7 @@ model AttendanceWorker {
   hours        Decimal?   @db.Decimal(6, 2)
   otHours      Decimal?   @db.Decimal(6, 2)
   hourlyRate   Decimal?   @db.Decimal(14, 4)
+  otRate       Decimal?   @db.Decimal(14, 4) // ₹ per OT hour; empty: the same as hourlyRate
 
   @@index([attendanceId, position])
 }
@@ -383,7 +385,7 @@ model Material {
   requests      MaterialRequest[]
   deliveryLines DeliveryLine[]
   payments      MaterialPayment[]
-  estimates     MaterialEstimate[]
+  // estimates     MaterialEstimate[] // old estimates: the new MaterialEstimate is per project, not per catalogue material
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 
@@ -437,28 +439,29 @@ model StockMovement {
 }
 
 model MaterialPurchase {
-  id           String              @id @default(cuid())
-  projectId    String
-  project      Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  section      String              @default("") // the heading it is listed under: "Flooring", "Concrete"… (optional)
-  name         String // "Bricks", "Cement"…
-  unit         String              @default("") // "nos", "bags", "cft"… (optional)
-  quantity     Decimal             @db.Decimal(14, 3)
-  rate         Decimal             @db.Decimal(14, 2) // per unit
-  amount       Decimal             @db.Decimal(16, 2) // quantity × rate
-  date         DateTime            @db.Date
-  note         String              @default("")
+  id            String                 @id @default(cuid())
+  projectId     String
+  project       Project                @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  section       String                 @default("") // the heading it is listed under: "Flooring", "Concrete"… (optional)
+  name          String // "Bricks", "Cement"…
+  unit          String                 @default("") // "nos", "bags", "cft"… (optional)
+  quantity      Decimal                @db.Decimal(14, 3)
+  rate          Decimal                @db.Decimal(14, 2) // per unit
+  amount        Decimal                @db.Decimal(16, 2) // quantity × rate
+  date          DateTime               @db.Date
+  note          String                 @default("")
   // The bill, stored on Cloudinary like expense bills; all empty when none was added
-  billId       String?
-  billVersion  Int?
-  billFormat   String?
-  addedById    String
-  addedBy      User                @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
-  deliveries   MaterialDelivery[] // what has arrived so far, and when
-  topUps       MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
-  siteArrivals SiteReportArrival[] // logged as arrived in the site diary
-  createdAt    DateTime            @default(now())
-  archivedAt   DateTime? // archived: off the list and counted nowhere; only archived materials can be deleted
+  billId        String?
+  billVersion   Int?
+  billFormat    String?
+  addedById     String
+  addedBy       User                   @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
+  deliveries    MaterialDelivery[] // what has arrived so far, and when
+  topUps        MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
+  siteArrivals  SiteReportArrival[] // logged as arrived in the site diary
+  createdAt     DateTime               @default(now())
+  archivedAt    DateTime? // archived: off the list and counted nowhere; only archived materials can be deleted
+  estimateLines MaterialEstimateLine[]
 
   @@index([projectId, date])
   @@index([projectId, section])
@@ -507,6 +510,40 @@ model MaterialDelivery {
 
   @@index([purchaseId, date])
   @@index([projectId])
+}
+
+/// The simple Material estimate: a named list of materials for one project
+model MaterialEstimate {
+  id          String                 @id @default(cuid())
+  projectId   String
+  project     Project                @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name        String                 @default("Untitled estimate") // "Ground floor"; the default lets older rows in this table be kept
+  createdById String?
+  lines       MaterialEstimateLine[]
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+
+  @@index([projectId])
+}
+
+/// One material in an estimate. Once sent, it is linked to its material in the Materials tab (sent* = what was sent)
+model MaterialEstimateLine {
+  id           String            @id @default(cuid())
+  estimateId   String
+  estimate     MaterialEstimate  @relation(fields: [estimateId], references: [id], onDelete: Cascade)
+  position     Int               @default(0)
+  name         String            @default("")
+  unit         String            @default("")
+  quantity     Decimal           @default(0) @db.Decimal(14, 3)
+  rate         Decimal           @default(0) @db.Decimal(14, 2)
+  purchaseId   String?
+  purchase     MaterialPurchase? @relation(fields: [purchaseId], references: [id], onDelete: SetNull)
+  sentName     String?
+  sentQuantity Decimal?          @db.Decimal(14, 3)
+  sentRate     Decimal?          @db.Decimal(14, 2)
+
+  @@index([estimateId, position])
+  @@index([purchaseId])
 }
 
 /// One priced part of one of the project's BOQs, as last synced. Never deleted by a sync: an item that left
@@ -1116,26 +1153,6 @@ model MaterialPayment {
   @@index([projectId, vendorName])
 }
 
-model MaterialEstimate {
-  id             String   @id @default(cuid())
-  projectId      String
-  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  materialId     String
-  material       Material @relation(fields: [materialId], references: [id], onDelete: Restrict)
-  title          String   @default("")
-  method         String   @default("quantity")
-  rows           Json?
-  wastagePercent Decimal  @default(0) @db.Decimal(6, 2)
-  quantity       Decimal  @db.Decimal(14, 3)
-  notes          String   @default("")
-  addedById      String
-  addedBy        User     @relation("MaterialEstimateAddedBy", fields: [addedById], references: [id])
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@index([projectId, materialId])
-}
-
 // ---------------------------------------- Site diary (daily progress report) ----------------------------------------
 
 /// One engineer's report for one project on one day. Saved on submit; changed until the day after, then locked.
@@ -1220,4 +1237,20 @@ model SiteReportPhoto {
   createdAt   DateTime          @default(now())
 
   @@unique([arrivalId, clientKey])
+}
+
+// ---------------------------------------- Labour: rate comparison ----------------------------------------
+
+/// A subcontractor's quote for a work item, in the Labour tab's Rate comparison (quote only until they are paid)
+model LabourQuote {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  taskId    String // the work item; not a relation, so removing a work item never blocks
+  name      String // the subcontractor, spelled as in payments
+  rate      Decimal  @db.Decimal(14, 2) // ₹ per unit
+  unit      String   @default("sqft")
+  createdAt DateTime @default(now())
+
+  @@index([projectId, taskId])
 }

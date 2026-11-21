@@ -14,38 +14,21 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model MaterialEstimate
- * 
+ * The simple Material estimate: a named list of materials for one project
  */
 export type MaterialEstimateModel = runtime.Types.Result.DefaultSelection<Prisma.$MaterialEstimatePayload>
 
 export type AggregateMaterialEstimate = {
   _count: MaterialEstimateCountAggregateOutputType | null
-  _avg: MaterialEstimateAvgAggregateOutputType | null
-  _sum: MaterialEstimateSumAggregateOutputType | null
   _min: MaterialEstimateMinAggregateOutputType | null
   _max: MaterialEstimateMaxAggregateOutputType | null
-}
-
-export type MaterialEstimateAvgAggregateOutputType = {
-  wastagePercent: runtime.Decimal | null
-  quantity: runtime.Decimal | null
-}
-
-export type MaterialEstimateSumAggregateOutputType = {
-  wastagePercent: runtime.Decimal | null
-  quantity: runtime.Decimal | null
 }
 
 export type MaterialEstimateMinAggregateOutputType = {
   id: string | null
   projectId: string | null
-  materialId: string | null
-  title: string | null
-  method: string | null
-  wastagePercent: runtime.Decimal | null
-  quantity: runtime.Decimal | null
-  notes: string | null
-  addedById: string | null
+  name: string | null
+  createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,13 +36,8 @@ export type MaterialEstimateMinAggregateOutputType = {
 export type MaterialEstimateMaxAggregateOutputType = {
   id: string | null
   projectId: string | null
-  materialId: string | null
-  title: string | null
-  method: string | null
-  wastagePercent: runtime.Decimal | null
-  quantity: runtime.Decimal | null
-  notes: string | null
-  addedById: string | null
+  name: string | null
+  createdById: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,40 +45,19 @@ export type MaterialEstimateMaxAggregateOutputType = {
 export type MaterialEstimateCountAggregateOutputType = {
   id: number
   projectId: number
-  materialId: number
-  title: number
-  method: number
-  rows: number
-  wastagePercent: number
-  quantity: number
-  notes: number
-  addedById: number
+  name: number
+  createdById: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type MaterialEstimateAvgAggregateInputType = {
-  wastagePercent?: true
-  quantity?: true
-}
-
-export type MaterialEstimateSumAggregateInputType = {
-  wastagePercent?: true
-  quantity?: true
-}
-
 export type MaterialEstimateMinAggregateInputType = {
   id?: true
   projectId?: true
-  materialId?: true
-  title?: true
-  method?: true
-  wastagePercent?: true
-  quantity?: true
-  notes?: true
-  addedById?: true
+  name?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -108,13 +65,8 @@ export type MaterialEstimateMinAggregateInputType = {
 export type MaterialEstimateMaxAggregateInputType = {
   id?: true
   projectId?: true
-  materialId?: true
-  title?: true
-  method?: true
-  wastagePercent?: true
-  quantity?: true
-  notes?: true
-  addedById?: true
+  name?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -122,14 +74,8 @@ export type MaterialEstimateMaxAggregateInputType = {
 export type MaterialEstimateCountAggregateInputType = {
   id?: true
   projectId?: true
-  materialId?: true
-  title?: true
-  method?: true
-  rows?: true
-  wastagePercent?: true
-  quantity?: true
-  notes?: true
-  addedById?: true
+  name?: true
+  createdById?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -173,18 +119,6 @@ export type MaterialEstimateAggregateArgs<ExtArgs extends runtime.Types.Extensio
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: MaterialEstimateAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: MaterialEstimateSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: MaterialEstimateMinAggregateInputType
@@ -215,8 +149,6 @@ export type MaterialEstimateGroupByArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   _count?: MaterialEstimateCountAggregateInputType | true
-  _avg?: MaterialEstimateAvgAggregateInputType
-  _sum?: MaterialEstimateSumAggregateInputType
   _min?: MaterialEstimateMinAggregateInputType
   _max?: MaterialEstimateMaxAggregateInputType
 }
@@ -224,19 +156,11 @@ export type MaterialEstimateGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type MaterialEstimateGroupByOutputType = {
   id: string
   projectId: string
-  materialId: string
-  title: string
-  method: string
-  rows: runtime.JsonValue | null
-  wastagePercent: runtime.Decimal
-  quantity: runtime.Decimal
-  notes: string
-  addedById: string
+  name: string
+  createdById: string | null
   createdAt: Date
   updatedAt: Date
   _count: MaterialEstimateCountAggregateOutputType | null
-  _avg: MaterialEstimateAvgAggregateOutputType | null
-  _sum: MaterialEstimateSumAggregateOutputType | null
   _min: MaterialEstimateMinAggregateOutputType | null
   _max: MaterialEstimateMaxAggregateOutputType | null
 }
@@ -262,37 +186,23 @@ export type MaterialEstimateWhereInput = {
   NOT?: Prisma.MaterialEstimateWhereInput | Prisma.MaterialEstimateWhereInput[]
   id?: Prisma.StringFilter<"MaterialEstimate"> | string
   projectId?: Prisma.StringFilter<"MaterialEstimate"> | string
-  materialId?: Prisma.StringFilter<"MaterialEstimate"> | string
-  title?: Prisma.StringFilter<"MaterialEstimate"> | string
-  method?: Prisma.StringFilter<"MaterialEstimate"> | string
-  rows?: Prisma.JsonNullableFilter<"MaterialEstimate">
-  wastagePercent?: Prisma.DecimalFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFilter<"MaterialEstimate"> | string
-  addedById?: Prisma.StringFilter<"MaterialEstimate"> | string
+  name?: Prisma.StringFilter<"MaterialEstimate"> | string
+  createdById?: Prisma.StringNullableFilter<"MaterialEstimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  material?: Prisma.XOR<Prisma.MaterialScalarRelationFilter, Prisma.MaterialWhereInput>
-  addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  lines?: Prisma.MaterialEstimateLineListRelationFilter
 }
 
 export type MaterialEstimateOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  materialId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  method?: Prisma.SortOrder
-  rows?: Prisma.SortOrderInput | Prisma.SortOrder
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  addedById?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
-  material?: Prisma.MaterialOrderByWithRelationInput
-  addedBy?: Prisma.UserOrderByWithRelationInput
+  lines?: Prisma.MaterialEstimateLineOrderByRelationAggregateInput
 }
 
 export type MaterialEstimateWhereUniqueInput = Prisma.AtLeast<{
@@ -301,39 +211,24 @@ export type MaterialEstimateWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MaterialEstimateWhereInput[]
   NOT?: Prisma.MaterialEstimateWhereInput | Prisma.MaterialEstimateWhereInput[]
   projectId?: Prisma.StringFilter<"MaterialEstimate"> | string
-  materialId?: Prisma.StringFilter<"MaterialEstimate"> | string
-  title?: Prisma.StringFilter<"MaterialEstimate"> | string
-  method?: Prisma.StringFilter<"MaterialEstimate"> | string
-  rows?: Prisma.JsonNullableFilter<"MaterialEstimate">
-  wastagePercent?: Prisma.DecimalFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFilter<"MaterialEstimate"> | string
-  addedById?: Prisma.StringFilter<"MaterialEstimate"> | string
+  name?: Prisma.StringFilter<"MaterialEstimate"> | string
+  createdById?: Prisma.StringNullableFilter<"MaterialEstimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  material?: Prisma.XOR<Prisma.MaterialScalarRelationFilter, Prisma.MaterialWhereInput>
-  addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  lines?: Prisma.MaterialEstimateLineListRelationFilter
 }, "id">
 
 export type MaterialEstimateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  materialId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  method?: Prisma.SortOrder
-  rows?: Prisma.SortOrderInput | Prisma.SortOrder
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  addedById?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MaterialEstimateCountOrderByAggregateInput
-  _avg?: Prisma.MaterialEstimateAvgOrderByAggregateInput
   _max?: Prisma.MaterialEstimateMaxOrderByAggregateInput
   _min?: Prisma.MaterialEstimateMinOrderByAggregateInput
-  _sum?: Prisma.MaterialEstimateSumOrderByAggregateInput
 }
 
 export type MaterialEstimateScalarWhereWithAggregatesInput = {
@@ -342,101 +237,65 @@ export type MaterialEstimateScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MaterialEstimateScalarWhereWithAggregatesInput | Prisma.MaterialEstimateScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
   projectId?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
-  materialId?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
-  title?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
-  method?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
-  rows?: Prisma.JsonNullableWithAggregatesFilter<"MaterialEstimate">
-  wastagePercent?: Prisma.DecimalWithAggregatesFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalWithAggregatesFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
-  addedById?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
+  name?: Prisma.StringWithAggregatesFilter<"MaterialEstimate"> | string
+  createdById?: Prisma.StringNullableWithAggregatesFilter<"MaterialEstimate"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MaterialEstimate"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MaterialEstimate"> | Date | string
 }
 
 export type MaterialEstimateCreateInput = {
   id?: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialEstimatesInput
-  material: Prisma.MaterialCreateNestedOneWithoutEstimatesInput
-  addedBy: Prisma.UserCreateNestedOneWithoutMaterialEstimatesAddedInput
+  lines?: Prisma.MaterialEstimateLineCreateNestedManyWithoutEstimateInput
 }
 
 export type MaterialEstimateUncheckedCreateInput = {
   id?: string
   projectId: string
-  materialId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  addedById: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lines?: Prisma.MaterialEstimateLineUncheckedCreateNestedManyWithoutEstimateInput
 }
 
 export type MaterialEstimateUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialEstimatesNestedInput
-  material?: Prisma.MaterialUpdateOneRequiredWithoutEstimatesNestedInput
-  addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialEstimatesAddedNestedInput
+  lines?: Prisma.MaterialEstimateLineUpdateManyWithoutEstimateNestedInput
 }
 
 export type MaterialEstimateUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  materialId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.MaterialEstimateLineUncheckedUpdateManyWithoutEstimateNestedInput
 }
 
 export type MaterialEstimateCreateManyInput = {
   id?: string
   projectId: string
-  materialId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  addedById: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MaterialEstimateUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -444,14 +303,8 @@ export type MaterialEstimateUpdateManyMutationInput = {
 export type MaterialEstimateUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  materialId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -469,33 +322,17 @@ export type MaterialEstimateOrderByRelationAggregateInput = {
 export type MaterialEstimateCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  materialId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  method?: Prisma.SortOrder
-  rows?: Prisma.SortOrder
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  addedById?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type MaterialEstimateAvgOrderByAggregateInput = {
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
 }
 
 export type MaterialEstimateMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  materialId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  method?: Prisma.SortOrder
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  addedById?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -503,62 +340,15 @@ export type MaterialEstimateMaxOrderByAggregateInput = {
 export type MaterialEstimateMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  materialId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  method?: Prisma.SortOrder
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
-  addedById?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  createdById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type MaterialEstimateSumOrderByAggregateInput = {
-  wastagePercent?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-}
-
-export type MaterialEstimateCreateNestedManyWithoutAddedByInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput> | Prisma.MaterialEstimateCreateWithoutAddedByInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput | Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyAddedByInputEnvelope
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-}
-
-export type MaterialEstimateUncheckedCreateNestedManyWithoutAddedByInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput> | Prisma.MaterialEstimateCreateWithoutAddedByInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput | Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyAddedByInputEnvelope
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-}
-
-export type MaterialEstimateUpdateManyWithoutAddedByNestedInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput> | Prisma.MaterialEstimateCreateWithoutAddedByInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput | Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput[]
-  upsert?: Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutAddedByInput | Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutAddedByInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyAddedByInputEnvelope
-  set?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  disconnect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  delete?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  update?: Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutAddedByInput | Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutAddedByInput[]
-  updateMany?: Prisma.MaterialEstimateUpdateManyWithWhereWithoutAddedByInput | Prisma.MaterialEstimateUpdateManyWithWhereWithoutAddedByInput[]
-  deleteMany?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
-}
-
-export type MaterialEstimateUncheckedUpdateManyWithoutAddedByNestedInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput> | Prisma.MaterialEstimateCreateWithoutAddedByInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput | Prisma.MaterialEstimateCreateOrConnectWithoutAddedByInput[]
-  upsert?: Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutAddedByInput | Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutAddedByInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyAddedByInputEnvelope
-  set?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  disconnect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  delete?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  update?: Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutAddedByInput | Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutAddedByInput[]
-  updateMany?: Prisma.MaterialEstimateUpdateManyWithWhereWithoutAddedByInput | Prisma.MaterialEstimateUpdateManyWithWhereWithoutAddedByInput[]
-  deleteMany?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
+export type MaterialEstimateScalarRelationFilter = {
+  is?: Prisma.MaterialEstimateWhereInput
+  isNot?: Prisma.MaterialEstimateWhereInput
 }
 
 export type MaterialEstimateCreateNestedManyWithoutProjectInput = {
@@ -603,146 +393,36 @@ export type MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
 }
 
-export type MaterialEstimateCreateNestedManyWithoutMaterialInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput> | Prisma.MaterialEstimateCreateWithoutMaterialInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput | Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyMaterialInputEnvelope
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
+export type MaterialEstimateCreateNestedOneWithoutLinesInput = {
+  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutLinesInput, Prisma.MaterialEstimateUncheckedCreateWithoutLinesInput>
+  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutLinesInput
+  connect?: Prisma.MaterialEstimateWhereUniqueInput
 }
 
-export type MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput> | Prisma.MaterialEstimateCreateWithoutMaterialInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput | Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyMaterialInputEnvelope
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-}
-
-export type MaterialEstimateUpdateManyWithoutMaterialNestedInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput> | Prisma.MaterialEstimateCreateWithoutMaterialInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput | Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput[]
-  upsert?: Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutMaterialInput | Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutMaterialInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyMaterialInputEnvelope
-  set?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  disconnect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  delete?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  update?: Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutMaterialInput | Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutMaterialInput[]
-  updateMany?: Prisma.MaterialEstimateUpdateManyWithWhereWithoutMaterialInput | Prisma.MaterialEstimateUpdateManyWithWhereWithoutMaterialInput[]
-  deleteMany?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
-}
-
-export type MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput = {
-  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput> | Prisma.MaterialEstimateCreateWithoutMaterialInput[] | Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput[]
-  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput | Prisma.MaterialEstimateCreateOrConnectWithoutMaterialInput[]
-  upsert?: Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutMaterialInput | Prisma.MaterialEstimateUpsertWithWhereUniqueWithoutMaterialInput[]
-  createMany?: Prisma.MaterialEstimateCreateManyMaterialInputEnvelope
-  set?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  disconnect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  delete?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  connect?: Prisma.MaterialEstimateWhereUniqueInput | Prisma.MaterialEstimateWhereUniqueInput[]
-  update?: Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutMaterialInput | Prisma.MaterialEstimateUpdateWithWhereUniqueWithoutMaterialInput[]
-  updateMany?: Prisma.MaterialEstimateUpdateManyWithWhereWithoutMaterialInput | Prisma.MaterialEstimateUpdateManyWithWhereWithoutMaterialInput[]
-  deleteMany?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
-}
-
-export type MaterialEstimateCreateWithoutAddedByInput = {
-  id?: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  project: Prisma.ProjectCreateNestedOneWithoutMaterialEstimatesInput
-  material: Prisma.MaterialCreateNestedOneWithoutEstimatesInput
-}
-
-export type MaterialEstimateUncheckedCreateWithoutAddedByInput = {
-  id?: string
-  projectId: string
-  materialId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type MaterialEstimateCreateOrConnectWithoutAddedByInput = {
-  where: Prisma.MaterialEstimateWhereUniqueInput
-  create: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput>
-}
-
-export type MaterialEstimateCreateManyAddedByInputEnvelope = {
-  data: Prisma.MaterialEstimateCreateManyAddedByInput | Prisma.MaterialEstimateCreateManyAddedByInput[]
-  skipDuplicates?: boolean
-}
-
-export type MaterialEstimateUpsertWithWhereUniqueWithoutAddedByInput = {
-  where: Prisma.MaterialEstimateWhereUniqueInput
-  update: Prisma.XOR<Prisma.MaterialEstimateUpdateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedUpdateWithoutAddedByInput>
-  create: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedCreateWithoutAddedByInput>
-}
-
-export type MaterialEstimateUpdateWithWhereUniqueWithoutAddedByInput = {
-  where: Prisma.MaterialEstimateWhereUniqueInput
-  data: Prisma.XOR<Prisma.MaterialEstimateUpdateWithoutAddedByInput, Prisma.MaterialEstimateUncheckedUpdateWithoutAddedByInput>
-}
-
-export type MaterialEstimateUpdateManyWithWhereWithoutAddedByInput = {
-  where: Prisma.MaterialEstimateScalarWhereInput
-  data: Prisma.XOR<Prisma.MaterialEstimateUpdateManyMutationInput, Prisma.MaterialEstimateUncheckedUpdateManyWithoutAddedByInput>
-}
-
-export type MaterialEstimateScalarWhereInput = {
-  AND?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
-  OR?: Prisma.MaterialEstimateScalarWhereInput[]
-  NOT?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
-  id?: Prisma.StringFilter<"MaterialEstimate"> | string
-  projectId?: Prisma.StringFilter<"MaterialEstimate"> | string
-  materialId?: Prisma.StringFilter<"MaterialEstimate"> | string
-  title?: Prisma.StringFilter<"MaterialEstimate"> | string
-  method?: Prisma.StringFilter<"MaterialEstimate"> | string
-  rows?: Prisma.JsonNullableFilter<"MaterialEstimate">
-  wastagePercent?: Prisma.DecimalFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFilter<"MaterialEstimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFilter<"MaterialEstimate"> | string
-  addedById?: Prisma.StringFilter<"MaterialEstimate"> | string
-  createdAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
+export type MaterialEstimateUpdateOneRequiredWithoutLinesNestedInput = {
+  create?: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutLinesInput, Prisma.MaterialEstimateUncheckedCreateWithoutLinesInput>
+  connectOrCreate?: Prisma.MaterialEstimateCreateOrConnectWithoutLinesInput
+  upsert?: Prisma.MaterialEstimateUpsertWithoutLinesInput
+  connect?: Prisma.MaterialEstimateWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialEstimateUpdateToOneWithWhereWithoutLinesInput, Prisma.MaterialEstimateUpdateWithoutLinesInput>, Prisma.MaterialEstimateUncheckedUpdateWithoutLinesInput>
 }
 
 export type MaterialEstimateCreateWithoutProjectInput = {
   id?: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  material: Prisma.MaterialCreateNestedOneWithoutEstimatesInput
-  addedBy: Prisma.UserCreateNestedOneWithoutMaterialEstimatesAddedInput
+  lines?: Prisma.MaterialEstimateLineCreateNestedManyWithoutEstimateInput
 }
 
 export type MaterialEstimateUncheckedCreateWithoutProjectInput = {
   id?: string
-  materialId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  addedById: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  lines?: Prisma.MaterialEstimateLineUncheckedCreateNestedManyWithoutEstimateInput
 }
 
 export type MaterialEstimateCreateOrConnectWithoutProjectInput = {
@@ -771,334 +451,200 @@ export type MaterialEstimateUpdateManyWithWhereWithoutProjectInput = {
   data: Prisma.XOR<Prisma.MaterialEstimateUpdateManyMutationInput, Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectInput>
 }
 
-export type MaterialEstimateCreateWithoutMaterialInput = {
+export type MaterialEstimateScalarWhereInput = {
+  AND?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
+  OR?: Prisma.MaterialEstimateScalarWhereInput[]
+  NOT?: Prisma.MaterialEstimateScalarWhereInput | Prisma.MaterialEstimateScalarWhereInput[]
+  id?: Prisma.StringFilter<"MaterialEstimate"> | string
+  projectId?: Prisma.StringFilter<"MaterialEstimate"> | string
+  name?: Prisma.StringFilter<"MaterialEstimate"> | string
+  createdById?: Prisma.StringNullableFilter<"MaterialEstimate"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"MaterialEstimate"> | Date | string
+}
+
+export type MaterialEstimateCreateWithoutLinesInput = {
   id?: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialEstimatesInput
-  addedBy: Prisma.UserCreateNestedOneWithoutMaterialEstimatesAddedInput
 }
 
-export type MaterialEstimateUncheckedCreateWithoutMaterialInput = {
+export type MaterialEstimateUncheckedCreateWithoutLinesInput = {
   id?: string
   projectId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  addedById: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type MaterialEstimateCreateOrConnectWithoutMaterialInput = {
+export type MaterialEstimateCreateOrConnectWithoutLinesInput = {
   where: Prisma.MaterialEstimateWhereUniqueInput
-  create: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput>
+  create: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutLinesInput, Prisma.MaterialEstimateUncheckedCreateWithoutLinesInput>
 }
 
-export type MaterialEstimateCreateManyMaterialInputEnvelope = {
-  data: Prisma.MaterialEstimateCreateManyMaterialInput | Prisma.MaterialEstimateCreateManyMaterialInput[]
-  skipDuplicates?: boolean
+export type MaterialEstimateUpsertWithoutLinesInput = {
+  update: Prisma.XOR<Prisma.MaterialEstimateUpdateWithoutLinesInput, Prisma.MaterialEstimateUncheckedUpdateWithoutLinesInput>
+  create: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutLinesInput, Prisma.MaterialEstimateUncheckedCreateWithoutLinesInput>
+  where?: Prisma.MaterialEstimateWhereInput
 }
 
-export type MaterialEstimateUpsertWithWhereUniqueWithoutMaterialInput = {
-  where: Prisma.MaterialEstimateWhereUniqueInput
-  update: Prisma.XOR<Prisma.MaterialEstimateUpdateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedUpdateWithoutMaterialInput>
-  create: Prisma.XOR<Prisma.MaterialEstimateCreateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedCreateWithoutMaterialInput>
+export type MaterialEstimateUpdateToOneWithWhereWithoutLinesInput = {
+  where?: Prisma.MaterialEstimateWhereInput
+  data: Prisma.XOR<Prisma.MaterialEstimateUpdateWithoutLinesInput, Prisma.MaterialEstimateUncheckedUpdateWithoutLinesInput>
 }
 
-export type MaterialEstimateUpdateWithWhereUniqueWithoutMaterialInput = {
-  where: Prisma.MaterialEstimateWhereUniqueInput
-  data: Prisma.XOR<Prisma.MaterialEstimateUpdateWithoutMaterialInput, Prisma.MaterialEstimateUncheckedUpdateWithoutMaterialInput>
-}
-
-export type MaterialEstimateUpdateManyWithWhereWithoutMaterialInput = {
-  where: Prisma.MaterialEstimateScalarWhereInput
-  data: Prisma.XOR<Prisma.MaterialEstimateUpdateManyMutationInput, Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialInput>
-}
-
-export type MaterialEstimateCreateManyAddedByInput = {
-  id?: string
-  projectId: string
-  materialId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type MaterialEstimateUpdateWithoutAddedByInput = {
+export type MaterialEstimateUpdateWithoutLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialEstimatesNestedInput
-  material?: Prisma.MaterialUpdateOneRequiredWithoutEstimatesNestedInput
 }
 
-export type MaterialEstimateUncheckedUpdateWithoutAddedByInput = {
+export type MaterialEstimateUncheckedUpdateWithoutLinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  materialId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type MaterialEstimateUncheckedUpdateManyWithoutAddedByInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  materialId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MaterialEstimateCreateManyProjectInput = {
   id?: string
-  materialId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  addedById: string
+  name?: string
+  createdById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type MaterialEstimateUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  material?: Prisma.MaterialUpdateOneRequiredWithoutEstimatesNestedInput
-  addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialEstimatesAddedNestedInput
+  lines?: Prisma.MaterialEstimateLineUpdateManyWithoutEstimateNestedInput
 }
 
 export type MaterialEstimateUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  materialId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lines?: Prisma.MaterialEstimateLineUncheckedUpdateManyWithoutEstimateNestedInput
 }
 
 export type MaterialEstimateUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  materialId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type MaterialEstimateCreateManyMaterialInput = {
-  id?: string
-  projectId: string
-  title?: string
-  method?: string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: string
-  addedById: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+
+/**
+ * Count Type MaterialEstimateCountOutputType
+ */
+
+export type MaterialEstimateCountOutputType = {
+  lines: number
 }
 
-export type MaterialEstimateUpdateWithoutMaterialInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialEstimatesNestedInput
-  addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialEstimatesAddedNestedInput
+export type MaterialEstimateCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lines?: boolean | MaterialEstimateCountOutputTypeCountLinesArgs
 }
 
-export type MaterialEstimateUncheckedUpdateWithoutMaterialInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  addedById?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+/**
+ * MaterialEstimateCountOutputType without action
+ */
+export type MaterialEstimateCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialEstimateCountOutputType
+   */
+  select?: Prisma.MaterialEstimateCountOutputTypeSelect<ExtArgs> | null
 }
 
-export type MaterialEstimateUncheckedUpdateManyWithoutMaterialInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.StringFieldUpdateOperationsInput | string
-  rows?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  wastagePercent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  notes?: Prisma.StringFieldUpdateOperationsInput | string
-  addedById?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+/**
+ * MaterialEstimateCountOutputType without action
+ */
+export type MaterialEstimateCountOutputTypeCountLinesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MaterialEstimateLineWhereInput
 }
-
 
 
 export type MaterialEstimateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  materialId?: boolean
-  title?: boolean
-  method?: boolean
-  rows?: boolean
-  wastagePercent?: boolean
-  quantity?: boolean
-  notes?: boolean
-  addedById?: boolean
+  name?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
-  addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  lines?: boolean | Prisma.MaterialEstimate$linesArgs<ExtArgs>
+  _count?: boolean | Prisma.MaterialEstimateCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialEstimate"]>
 
 export type MaterialEstimateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  materialId?: boolean
-  title?: boolean
-  method?: boolean
-  rows?: boolean
-  wastagePercent?: boolean
-  quantity?: boolean
-  notes?: boolean
-  addedById?: boolean
+  name?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
-  addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialEstimate"]>
 
 export type MaterialEstimateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  materialId?: boolean
-  title?: boolean
-  method?: boolean
-  rows?: boolean
-  wastagePercent?: boolean
-  quantity?: boolean
-  notes?: boolean
-  addedById?: boolean
+  name?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
-  addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialEstimate"]>
 
 export type MaterialEstimateSelectScalar = {
   id?: boolean
   projectId?: boolean
-  materialId?: boolean
-  title?: boolean
-  method?: boolean
-  rows?: boolean
-  wastagePercent?: boolean
-  quantity?: boolean
-  notes?: boolean
-  addedById?: boolean
+  name?: boolean
+  createdById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MaterialEstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "materialId" | "title" | "method" | "rows" | "wastagePercent" | "quantity" | "notes" | "addedById" | "createdAt" | "updatedAt", ExtArgs["result"]["materialEstimate"]>
+export type MaterialEstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "name" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["materialEstimate"]>
 export type MaterialEstimateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
-  addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  lines?: boolean | Prisma.MaterialEstimate$linesArgs<ExtArgs>
+  _count?: boolean | Prisma.MaterialEstimateCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MaterialEstimateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
-  addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type MaterialEstimateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  material?: boolean | Prisma.MaterialDefaultArgs<ExtArgs>
-  addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $MaterialEstimatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MaterialEstimate"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
-    material: Prisma.$MaterialPayload<ExtArgs>
-    addedBy: Prisma.$UserPayload<ExtArgs>
+    lines: Prisma.$MaterialEstimateLinePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     projectId: string
-    materialId: string
-    title: string
-    method: string
-    rows: runtime.JsonValue | null
-    wastagePercent: runtime.Decimal
-    quantity: runtime.Decimal
-    notes: string
-    addedById: string
+    name: string
+    createdById: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["materialEstimate"]>
@@ -1496,8 +1042,7 @@ readonly fields: MaterialEstimateFieldRefs;
 export interface Prisma__MaterialEstimateClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  material<T extends Prisma.MaterialDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialDefaultArgs<ExtArgs>>): Prisma.Prisma__MaterialClient<runtime.Types.Result.GetResult<Prisma.$MaterialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  addedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  lines<T extends Prisma.MaterialEstimate$linesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MaterialEstimate$linesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialEstimateLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1529,14 +1074,8 @@ export interface Prisma__MaterialEstimateClient<T, Null = never, ExtArgs extends
 export interface MaterialEstimateFieldRefs {
   readonly id: Prisma.FieldRef<"MaterialEstimate", 'String'>
   readonly projectId: Prisma.FieldRef<"MaterialEstimate", 'String'>
-  readonly materialId: Prisma.FieldRef<"MaterialEstimate", 'String'>
-  readonly title: Prisma.FieldRef<"MaterialEstimate", 'String'>
-  readonly method: Prisma.FieldRef<"MaterialEstimate", 'String'>
-  readonly rows: Prisma.FieldRef<"MaterialEstimate", 'Json'>
-  readonly wastagePercent: Prisma.FieldRef<"MaterialEstimate", 'Decimal'>
-  readonly quantity: Prisma.FieldRef<"MaterialEstimate", 'Decimal'>
-  readonly notes: Prisma.FieldRef<"MaterialEstimate", 'String'>
-  readonly addedById: Prisma.FieldRef<"MaterialEstimate", 'String'>
+  readonly name: Prisma.FieldRef<"MaterialEstimate", 'String'>
+  readonly createdById: Prisma.FieldRef<"MaterialEstimate", 'String'>
   readonly createdAt: Prisma.FieldRef<"MaterialEstimate", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"MaterialEstimate", 'DateTime'>
 }
@@ -1937,6 +1476,30 @@ export type MaterialEstimateDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many MaterialEstimates to delete.
    */
   limit?: number
+}
+
+/**
+ * MaterialEstimate.lines
+ */
+export type MaterialEstimate$linesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MaterialEstimateLine
+   */
+  select?: Prisma.MaterialEstimateLineSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MaterialEstimateLine
+   */
+  omit?: Prisma.MaterialEstimateLineOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MaterialEstimateLineInclude<ExtArgs> | null
+  where?: Prisma.MaterialEstimateLineWhereInput
+  orderBy?: Prisma.MaterialEstimateLineOrderByWithRelationInput | Prisma.MaterialEstimateLineOrderByWithRelationInput[]
+  cursor?: Prisma.MaterialEstimateLineWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MaterialEstimateLineScalarFieldEnum | Prisma.MaterialEstimateLineScalarFieldEnum[]
 }
 
 /**

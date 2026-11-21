@@ -70,6 +70,8 @@ export const ModelName = {
   MaterialPurchase: 'MaterialPurchase',
   MaterialTopUp: 'MaterialTopUp',
   MaterialDelivery: 'MaterialDelivery',
+  MaterialEstimate: 'MaterialEstimate',
+  MaterialEstimateLine: 'MaterialEstimateLine',
   BoqItem: 'BoqItem',
   BoqItemMaterial: 'BoqItemMaterial',
   MaterialRecipe: 'MaterialRecipe',
@@ -94,11 +96,11 @@ export const ModelName = {
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
   MaterialPayment: 'MaterialPayment',
-  MaterialEstimate: 'MaterialEstimate',
   SiteReport: 'SiteReport',
   SiteReportTeam: 'SiteReportTeam',
   SiteReportArrival: 'SiteReportArrival',
-  SiteReportPhoto: 'SiteReportPhoto'
+  SiteReportPhoto: 'SiteReportPhoto',
+  LabourQuote: 'LabourQuote'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -234,7 +236,8 @@ export const AttendanceWorkerScalarFieldEnum = {
   memberId: 'memberId',
   hours: 'hours',
   otHours: 'otHours',
-  hourlyRate: 'hourlyRate'
+  hourlyRate: 'hourlyRate',
+  otRate: 'otRate'
 } as const
 
 export type AttendanceWorkerScalarFieldEnum = (typeof AttendanceWorkerScalarFieldEnum)[keyof typeof AttendanceWorkerScalarFieldEnum]
@@ -443,6 +446,35 @@ export const MaterialDeliveryScalarFieldEnum = {
 } as const
 
 export type MaterialDeliveryScalarFieldEnum = (typeof MaterialDeliveryScalarFieldEnum)[keyof typeof MaterialDeliveryScalarFieldEnum]
+
+
+export const MaterialEstimateScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
+
+
+export const MaterialEstimateLineScalarFieldEnum = {
+  id: 'id',
+  estimateId: 'estimateId',
+  position: 'position',
+  name: 'name',
+  unit: 'unit',
+  quantity: 'quantity',
+  rate: 'rate',
+  purchaseId: 'purchaseId',
+  sentName: 'sentName',
+  sentQuantity: 'sentQuantity',
+  sentRate: 'sentRate'
+} as const
+
+export type MaterialEstimateLineScalarFieldEnum = (typeof MaterialEstimateLineScalarFieldEnum)[keyof typeof MaterialEstimateLineScalarFieldEnum]
 
 
 export const BoqItemScalarFieldEnum = {
@@ -872,24 +904,6 @@ export const MaterialPaymentScalarFieldEnum = {
 export type MaterialPaymentScalarFieldEnum = (typeof MaterialPaymentScalarFieldEnum)[keyof typeof MaterialPaymentScalarFieldEnum]
 
 
-export const MaterialEstimateScalarFieldEnum = {
-  id: 'id',
-  projectId: 'projectId',
-  materialId: 'materialId',
-  title: 'title',
-  method: 'method',
-  rows: 'rows',
-  wastagePercent: 'wastagePercent',
-  quantity: 'quantity',
-  notes: 'notes',
-  addedById: 'addedById',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
-
-
 export const SiteReportScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -962,6 +976,19 @@ export const SiteReportPhotoScalarFieldEnum = {
 } as const
 
 export type SiteReportPhotoScalarFieldEnum = (typeof SiteReportPhotoScalarFieldEnum)[keyof typeof SiteReportPhotoScalarFieldEnum]
+
+
+export const LabourQuoteScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  taskId: 'taskId',
+  name: 'name',
+  rate: 'rate',
+  unit: 'unit',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourQuoteScalarFieldEnum = (typeof LabourQuoteScalarFieldEnum)[keyof typeof LabourQuoteScalarFieldEnum]
 
 
 export const SortOrder = {

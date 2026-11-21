@@ -261,7 +261,6 @@ export type MaterialWhereInput = {
   requests?: Prisma.MaterialRequestListRelationFilter
   deliveryLines?: Prisma.DeliveryLineListRelationFilter
   payments?: Prisma.MaterialPaymentListRelationFilter
-  estimates?: Prisma.MaterialEstimateListRelationFilter
 }
 
 export type MaterialOrderByWithRelationInput = {
@@ -283,7 +282,6 @@ export type MaterialOrderByWithRelationInput = {
   requests?: Prisma.MaterialRequestOrderByRelationAggregateInput
   deliveryLines?: Prisma.DeliveryLineOrderByRelationAggregateInput
   payments?: Prisma.MaterialPaymentOrderByRelationAggregateInput
-  estimates?: Prisma.MaterialEstimateOrderByRelationAggregateInput
 }
 
 export type MaterialWhereUniqueInput = Prisma.AtLeast<{
@@ -309,7 +307,6 @@ export type MaterialWhereUniqueInput = Prisma.AtLeast<{
   requests?: Prisma.MaterialRequestListRelationFilter
   deliveryLines?: Prisma.DeliveryLineListRelationFilter
   payments?: Prisma.MaterialPaymentListRelationFilter
-  estimates?: Prisma.MaterialEstimateListRelationFilter
 }, "id" | "ownerId_name">
 
 export type MaterialOrderByWithAggregationInput = {
@@ -362,7 +359,6 @@ export type MaterialCreateInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateInput = {
@@ -383,7 +379,6 @@ export type MaterialUncheckedCreateInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUpdateInput = {
@@ -404,7 +399,6 @@ export type MaterialUpdateInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateInput = {
@@ -425,7 +419,6 @@ export type MaterialUncheckedUpdateInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateManyInput = {
@@ -692,20 +685,6 @@ export type MaterialUpdateOneWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialUpdateToOneWithWhereWithoutPaymentsInput, Prisma.MaterialUpdateWithoutPaymentsInput>, Prisma.MaterialUncheckedUpdateWithoutPaymentsInput>
 }
 
-export type MaterialCreateNestedOneWithoutEstimatesInput = {
-  create?: Prisma.XOR<Prisma.MaterialCreateWithoutEstimatesInput, Prisma.MaterialUncheckedCreateWithoutEstimatesInput>
-  connectOrCreate?: Prisma.MaterialCreateOrConnectWithoutEstimatesInput
-  connect?: Prisma.MaterialWhereUniqueInput
-}
-
-export type MaterialUpdateOneRequiredWithoutEstimatesNestedInput = {
-  create?: Prisma.XOR<Prisma.MaterialCreateWithoutEstimatesInput, Prisma.MaterialUncheckedCreateWithoutEstimatesInput>
-  connectOrCreate?: Prisma.MaterialCreateOrConnectWithoutEstimatesInput
-  upsert?: Prisma.MaterialUpsertWithoutEstimatesInput
-  connect?: Prisma.MaterialWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.MaterialUpdateToOneWithWhereWithoutEstimatesInput, Prisma.MaterialUpdateWithoutEstimatesInput>, Prisma.MaterialUncheckedUpdateWithoutEstimatesInput>
-}
-
 export type MaterialCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -723,7 +702,6 @@ export type MaterialCreateWithoutOwnerInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutOwnerInput = {
@@ -743,7 +721,6 @@ export type MaterialUncheckedCreateWithoutOwnerInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutOwnerInput = {
@@ -804,7 +781,6 @@ export type MaterialCreateWithoutMovementsInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutMovementsInput = {
@@ -824,7 +800,6 @@ export type MaterialUncheckedCreateWithoutMovementsInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutMovementsInput = {
@@ -860,7 +835,6 @@ export type MaterialUpdateWithoutMovementsInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutMovementsInput = {
@@ -880,7 +854,6 @@ export type MaterialUncheckedUpdateWithoutMovementsInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutItemMaterialsInput = {
@@ -900,7 +873,6 @@ export type MaterialCreateWithoutItemMaterialsInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutItemMaterialsInput = {
@@ -920,7 +892,6 @@ export type MaterialUncheckedCreateWithoutItemMaterialsInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutItemMaterialsInput = {
@@ -956,7 +927,6 @@ export type MaterialUpdateWithoutItemMaterialsInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutItemMaterialsInput = {
@@ -976,7 +946,6 @@ export type MaterialUncheckedUpdateWithoutItemMaterialsInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutRecipeLinesInput = {
@@ -996,7 +965,6 @@ export type MaterialCreateWithoutRecipeLinesInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutRecipeLinesInput = {
@@ -1016,7 +984,6 @@ export type MaterialUncheckedCreateWithoutRecipeLinesInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutRecipeLinesInput = {
@@ -1052,7 +1019,6 @@ export type MaterialUpdateWithoutRecipeLinesInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutRecipeLinesInput = {
@@ -1072,7 +1038,6 @@ export type MaterialUncheckedUpdateWithoutRecipeLinesInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutOrdersInput = {
@@ -1092,7 +1057,6 @@ export type MaterialCreateWithoutOrdersInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutOrdersInput = {
@@ -1112,7 +1076,6 @@ export type MaterialUncheckedCreateWithoutOrdersInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutOrdersInput = {
@@ -1148,7 +1111,6 @@ export type MaterialUpdateWithoutOrdersInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutOrdersInput = {
@@ -1168,7 +1130,6 @@ export type MaterialUncheckedUpdateWithoutOrdersInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutAlertsInput = {
@@ -1188,7 +1149,6 @@ export type MaterialCreateWithoutAlertsInput = {
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutAlertsInput = {
@@ -1208,7 +1168,6 @@ export type MaterialUncheckedCreateWithoutAlertsInput = {
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutAlertsInput = {
@@ -1244,7 +1203,6 @@ export type MaterialUpdateWithoutAlertsInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutAlertsInput = {
@@ -1264,7 +1222,6 @@ export type MaterialUncheckedUpdateWithoutAlertsInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutRequestsInput = {
@@ -1284,7 +1241,6 @@ export type MaterialCreateWithoutRequestsInput = {
   alerts?: Prisma.StockAlertCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutRequestsInput = {
@@ -1304,7 +1260,6 @@ export type MaterialUncheckedCreateWithoutRequestsInput = {
   alerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutRequestsInput = {
@@ -1340,7 +1295,6 @@ export type MaterialUpdateWithoutRequestsInput = {
   alerts?: Prisma.StockAlertUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutRequestsInput = {
@@ -1360,7 +1314,6 @@ export type MaterialUncheckedUpdateWithoutRequestsInput = {
   alerts?: Prisma.StockAlertUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutDeliveryLinesInput = {
@@ -1380,7 +1333,6 @@ export type MaterialCreateWithoutDeliveryLinesInput = {
   alerts?: Prisma.StockAlertCreateNestedManyWithoutMaterialInput
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutDeliveryLinesInput = {
@@ -1400,7 +1352,6 @@ export type MaterialUncheckedCreateWithoutDeliveryLinesInput = {
   alerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutMaterialInput
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutDeliveryLinesInput = {
@@ -1436,7 +1387,6 @@ export type MaterialUpdateWithoutDeliveryLinesInput = {
   alerts?: Prisma.StockAlertUpdateManyWithoutMaterialNestedInput
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutDeliveryLinesInput = {
@@ -1456,7 +1406,6 @@ export type MaterialUncheckedUpdateWithoutDeliveryLinesInput = {
   alerts?: Prisma.StockAlertUncheckedUpdateManyWithoutMaterialNestedInput
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateWithoutPaymentsInput = {
@@ -1476,7 +1425,6 @@ export type MaterialCreateWithoutPaymentsInput = {
   alerts?: Prisma.StockAlertCreateNestedManyWithoutMaterialInput
   requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialUncheckedCreateWithoutPaymentsInput = {
@@ -1496,7 +1444,6 @@ export type MaterialUncheckedCreateWithoutPaymentsInput = {
   alerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutMaterialInput
   requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
   deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
-  estimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutMaterialInput
 }
 
 export type MaterialCreateOrConnectWithoutPaymentsInput = {
@@ -1532,7 +1479,6 @@ export type MaterialUpdateWithoutPaymentsInput = {
   alerts?: Prisma.StockAlertUpdateManyWithoutMaterialNestedInput
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutPaymentsInput = {
@@ -1552,103 +1498,6 @@ export type MaterialUncheckedUpdateWithoutPaymentsInput = {
   alerts?: Prisma.StockAlertUncheckedUpdateManyWithoutMaterialNestedInput
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
-}
-
-export type MaterialCreateWithoutEstimatesInput = {
-  id?: string
-  name: string
-  unit: string
-  category?: string
-  minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  owner: Prisma.UserCreateNestedOneWithoutMaterialsInput
-  movements?: Prisma.StockMovementCreateNestedManyWithoutMaterialInput
-  itemMaterials?: Prisma.BoqItemMaterialCreateNestedManyWithoutMaterialInput
-  recipeLines?: Prisma.MaterialRecipeLineCreateNestedManyWithoutMaterialInput
-  orders?: Prisma.MaterialOrderCreateNestedManyWithoutMaterialInput
-  alerts?: Prisma.StockAlertCreateNestedManyWithoutMaterialInput
-  requests?: Prisma.MaterialRequestCreateNestedManyWithoutMaterialInput
-  deliveryLines?: Prisma.DeliveryLineCreateNestedManyWithoutMaterialInput
-  payments?: Prisma.MaterialPaymentCreateNestedManyWithoutMaterialInput
-}
-
-export type MaterialUncheckedCreateWithoutEstimatesInput = {
-  id?: string
-  ownerId: string
-  name: string
-  unit: string
-  category?: string
-  minStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  rate?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  movements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutMaterialInput
-  itemMaterials?: Prisma.BoqItemMaterialUncheckedCreateNestedManyWithoutMaterialInput
-  recipeLines?: Prisma.MaterialRecipeLineUncheckedCreateNestedManyWithoutMaterialInput
-  orders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutMaterialInput
-  alerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutMaterialInput
-  requests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutMaterialInput
-  deliveryLines?: Prisma.DeliveryLineUncheckedCreateNestedManyWithoutMaterialInput
-  payments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutMaterialInput
-}
-
-export type MaterialCreateOrConnectWithoutEstimatesInput = {
-  where: Prisma.MaterialWhereUniqueInput
-  create: Prisma.XOR<Prisma.MaterialCreateWithoutEstimatesInput, Prisma.MaterialUncheckedCreateWithoutEstimatesInput>
-}
-
-export type MaterialUpsertWithoutEstimatesInput = {
-  update: Prisma.XOR<Prisma.MaterialUpdateWithoutEstimatesInput, Prisma.MaterialUncheckedUpdateWithoutEstimatesInput>
-  create: Prisma.XOR<Prisma.MaterialCreateWithoutEstimatesInput, Prisma.MaterialUncheckedCreateWithoutEstimatesInput>
-  where?: Prisma.MaterialWhereInput
-}
-
-export type MaterialUpdateToOneWithWhereWithoutEstimatesInput = {
-  where?: Prisma.MaterialWhereInput
-  data: Prisma.XOR<Prisma.MaterialUpdateWithoutEstimatesInput, Prisma.MaterialUncheckedUpdateWithoutEstimatesInput>
-}
-
-export type MaterialUpdateWithoutEstimatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  unit?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.StringFieldUpdateOperationsInput | string
-  minStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutMaterialsNestedInput
-  movements?: Prisma.StockMovementUpdateManyWithoutMaterialNestedInput
-  itemMaterials?: Prisma.BoqItemMaterialUpdateManyWithoutMaterialNestedInput
-  recipeLines?: Prisma.MaterialRecipeLineUpdateManyWithoutMaterialNestedInput
-  orders?: Prisma.MaterialOrderUpdateManyWithoutMaterialNestedInput
-  alerts?: Prisma.StockAlertUpdateManyWithoutMaterialNestedInput
-  requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
-  deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
-  payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-}
-
-export type MaterialUncheckedUpdateWithoutEstimatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  unit?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.StringFieldUpdateOperationsInput | string
-  minStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  movements?: Prisma.StockMovementUncheckedUpdateManyWithoutMaterialNestedInput
-  itemMaterials?: Prisma.BoqItemMaterialUncheckedUpdateManyWithoutMaterialNestedInput
-  recipeLines?: Prisma.MaterialRecipeLineUncheckedUpdateManyWithoutMaterialNestedInput
-  orders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutMaterialNestedInput
-  alerts?: Prisma.StockAlertUncheckedUpdateManyWithoutMaterialNestedInput
-  requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
-  deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
-  payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialCreateManyOwnerInput = {
@@ -1679,7 +1528,6 @@ export type MaterialUpdateWithoutOwnerInput = {
   requests?: Prisma.MaterialRequestUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateWithoutOwnerInput = {
@@ -1699,7 +1547,6 @@ export type MaterialUncheckedUpdateWithoutOwnerInput = {
   requests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutMaterialNestedInput
   deliveryLines?: Prisma.DeliveryLineUncheckedUpdateManyWithoutMaterialNestedInput
   payments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutMaterialNestedInput
-  estimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutMaterialNestedInput
 }
 
 export type MaterialUncheckedUpdateManyWithoutOwnerInput = {
@@ -1727,7 +1574,6 @@ export type MaterialCountOutputType = {
   requests: number
   deliveryLines: number
   payments: number
-  estimates: number
 }
 
 export type MaterialCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1739,7 +1585,6 @@ export type MaterialCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   requests?: boolean | MaterialCountOutputTypeCountRequestsArgs
   deliveryLines?: boolean | MaterialCountOutputTypeCountDeliveryLinesArgs
   payments?: boolean | MaterialCountOutputTypeCountPaymentsArgs
-  estimates?: boolean | MaterialCountOutputTypeCountEstimatesArgs
 }
 
 /**
@@ -1808,13 +1653,6 @@ export type MaterialCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.MaterialPaymentWhereInput
 }
 
-/**
- * MaterialCountOutputType without action
- */
-export type MaterialCountOutputTypeCountEstimatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MaterialEstimateWhereInput
-}
-
 
 export type MaterialSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1835,7 +1673,6 @@ export type MaterialSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   requests?: boolean | Prisma.Material$requestsArgs<ExtArgs>
   deliveryLines?: boolean | Prisma.Material$deliveryLinesArgs<ExtArgs>
   payments?: boolean | Prisma.Material$paymentsArgs<ExtArgs>
-  estimates?: boolean | Prisma.Material$estimatesArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["material"]>
 
@@ -1888,7 +1725,6 @@ export type MaterialInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   requests?: boolean | Prisma.Material$requestsArgs<ExtArgs>
   deliveryLines?: boolean | Prisma.Material$deliveryLinesArgs<ExtArgs>
   payments?: boolean | Prisma.Material$paymentsArgs<ExtArgs>
-  estimates?: boolean | Prisma.Material$estimatesArgs<ExtArgs>
   _count?: boolean | Prisma.MaterialCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MaterialIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1910,7 +1746,6 @@ export type $MaterialPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     requests: Prisma.$MaterialRequestPayload<ExtArgs>[]
     deliveryLines: Prisma.$DeliveryLinePayload<ExtArgs>[]
     payments: Prisma.$MaterialPaymentPayload<ExtArgs>[]
-    estimates: Prisma.$MaterialEstimatePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2325,7 +2160,6 @@ export interface Prisma__MaterialClient<T, Null = never, ExtArgs extends runtime
   requests<T extends Prisma.Material$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Material$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliveryLines<T extends Prisma.Material$deliveryLinesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Material$deliveryLinesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryLinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Material$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Material$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  estimates<T extends Prisma.Material$estimatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Material$estimatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MaterialEstimatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2954,30 +2788,6 @@ export type Material$paymentsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.MaterialPaymentScalarFieldEnum | Prisma.MaterialPaymentScalarFieldEnum[]
-}
-
-/**
- * Material.estimates
- */
-export type Material$estimatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MaterialEstimate
-   */
-  select?: Prisma.MaterialEstimateSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MaterialEstimate
-   */
-  omit?: Prisma.MaterialEstimateOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MaterialEstimateInclude<ExtArgs> | null
-  where?: Prisma.MaterialEstimateWhereInput
-  orderBy?: Prisma.MaterialEstimateOrderByWithRelationInput | Prisma.MaterialEstimateOrderByWithRelationInput[]
-  cursor?: Prisma.MaterialEstimateWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MaterialEstimateScalarFieldEnum | Prisma.MaterialEstimateScalarFieldEnum[]
 }
 
 /**

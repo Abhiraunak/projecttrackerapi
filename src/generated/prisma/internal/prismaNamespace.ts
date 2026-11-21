@@ -416,6 +416,8 @@ export const ModelName = {
   MaterialPurchase: 'MaterialPurchase',
   MaterialTopUp: 'MaterialTopUp',
   MaterialDelivery: 'MaterialDelivery',
+  MaterialEstimate: 'MaterialEstimate',
+  MaterialEstimateLine: 'MaterialEstimateLine',
   BoqItem: 'BoqItem',
   BoqItemMaterial: 'BoqItemMaterial',
   MaterialRecipe: 'MaterialRecipe',
@@ -440,11 +442,11 @@ export const ModelName = {
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
   MaterialPayment: 'MaterialPayment',
-  MaterialEstimate: 'MaterialEstimate',
   SiteReport: 'SiteReport',
   SiteReportTeam: 'SiteReportTeam',
   SiteReportArrival: 'SiteReportArrival',
-  SiteReportPhoto: 'SiteReportPhoto'
+  SiteReportPhoto: 'SiteReportPhoto',
+  LabourQuote: 'LabourQuote'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -460,7 +462,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "materialEstimate" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto"
+    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1867,6 +1869,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.MaterialDeliveryCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.MaterialDeliveryCountAggregateOutputType> | number
+        }
+      }
+    }
+    MaterialEstimate: {
+      payload: Prisma.$MaterialEstimatePayload<ExtArgs>
+      fields: Prisma.MaterialEstimateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MaterialEstimateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MaterialEstimateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        findFirst: {
+          args: Prisma.MaterialEstimateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MaterialEstimateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        findMany: {
+          args: Prisma.MaterialEstimateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
+        }
+        create: {
+          args: Prisma.MaterialEstimateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        createMany: {
+          args: Prisma.MaterialEstimateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MaterialEstimateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
+        }
+        delete: {
+          args: Prisma.MaterialEstimateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        update: {
+          args: Prisma.MaterialEstimateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        deleteMany: {
+          args: Prisma.MaterialEstimateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MaterialEstimateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MaterialEstimateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
+        }
+        upsert: {
+          args: Prisma.MaterialEstimateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
+        }
+        aggregate: {
+          args: Prisma.MaterialEstimateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterialEstimate>
+        }
+        groupBy: {
+          args: Prisma.MaterialEstimateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MaterialEstimateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateCountAggregateOutputType> | number
+        }
+      }
+    }
+    MaterialEstimateLine: {
+      payload: Prisma.$MaterialEstimateLinePayload<ExtArgs>
+      fields: Prisma.MaterialEstimateLineFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MaterialEstimateLineFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MaterialEstimateLineFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>
+        }
+        findFirst: {
+          args: Prisma.MaterialEstimateLineFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MaterialEstimateLineFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>
+        }
+        findMany: {
+          args: Prisma.MaterialEstimateLineFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>[]
+        }
+        create: {
+          args: Prisma.MaterialEstimateLineCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>
+        }
+        createMany: {
+          args: Prisma.MaterialEstimateLineCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MaterialEstimateLineCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>[]
+        }
+        delete: {
+          args: Prisma.MaterialEstimateLineDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>
+        }
+        update: {
+          args: Prisma.MaterialEstimateLineUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>
+        }
+        deleteMany: {
+          args: Prisma.MaterialEstimateLineDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MaterialEstimateLineUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MaterialEstimateLineUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>[]
+        }
+        upsert: {
+          args: Prisma.MaterialEstimateLineUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimateLinePayload>
+        }
+        aggregate: {
+          args: Prisma.MaterialEstimateLineAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterialEstimateLine>
+        }
+        groupBy: {
+          args: Prisma.MaterialEstimateLineGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateLineGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MaterialEstimateLineCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateLineCountAggregateOutputType> | number
         }
       }
     }
@@ -3646,80 +3796,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    MaterialEstimate: {
-      payload: Prisma.$MaterialEstimatePayload<ExtArgs>
-      fields: Prisma.MaterialEstimateFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.MaterialEstimateFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.MaterialEstimateFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
-        }
-        findFirst: {
-          args: Prisma.MaterialEstimateFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.MaterialEstimateFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
-        }
-        findMany: {
-          args: Prisma.MaterialEstimateFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
-        }
-        create: {
-          args: Prisma.MaterialEstimateCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
-        }
-        createMany: {
-          args: Prisma.MaterialEstimateCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.MaterialEstimateCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
-        }
-        delete: {
-          args: Prisma.MaterialEstimateDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
-        }
-        update: {
-          args: Prisma.MaterialEstimateUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
-        }
-        deleteMany: {
-          args: Prisma.MaterialEstimateDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.MaterialEstimateUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.MaterialEstimateUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>[]
-        }
-        upsert: {
-          args: Prisma.MaterialEstimateUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialEstimatePayload>
-        }
-        aggregate: {
-          args: Prisma.MaterialEstimateAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterialEstimate>
-        }
-        groupBy: {
-          args: Prisma.MaterialEstimateGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.MaterialEstimateCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.MaterialEstimateCountAggregateOutputType> | number
-        }
-      }
-    }
     SiteReport: {
       payload: Prisma.$SiteReportPayload<ExtArgs>
       fields: Prisma.SiteReportFieldRefs
@@ -4016,6 +4092,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LabourQuote: {
+      payload: Prisma.$LabourQuotePayload<ExtArgs>
+      fields: Prisma.LabourQuoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LabourQuoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LabourQuoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>
+        }
+        findFirst: {
+          args: Prisma.LabourQuoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LabourQuoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>
+        }
+        findMany: {
+          args: Prisma.LabourQuoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>[]
+        }
+        create: {
+          args: Prisma.LabourQuoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>
+        }
+        createMany: {
+          args: Prisma.LabourQuoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LabourQuoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>[]
+        }
+        delete: {
+          args: Prisma.LabourQuoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>
+        }
+        update: {
+          args: Prisma.LabourQuoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>
+        }
+        deleteMany: {
+          args: Prisma.LabourQuoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LabourQuoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LabourQuoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>[]
+        }
+        upsert: {
+          args: Prisma.LabourQuoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourQuotePayload>
+        }
+        aggregate: {
+          args: Prisma.LabourQuoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLabourQuote>
+        }
+        groupBy: {
+          args: Prisma.LabourQuoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourQuoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LabourQuoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourQuoteCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -4172,7 +4322,8 @@ export const AttendanceWorkerScalarFieldEnum = {
   memberId: 'memberId',
   hours: 'hours',
   otHours: 'otHours',
-  hourlyRate: 'hourlyRate'
+  hourlyRate: 'hourlyRate',
+  otRate: 'otRate'
 } as const
 
 export type AttendanceWorkerScalarFieldEnum = (typeof AttendanceWorkerScalarFieldEnum)[keyof typeof AttendanceWorkerScalarFieldEnum]
@@ -4381,6 +4532,35 @@ export const MaterialDeliveryScalarFieldEnum = {
 } as const
 
 export type MaterialDeliveryScalarFieldEnum = (typeof MaterialDeliveryScalarFieldEnum)[keyof typeof MaterialDeliveryScalarFieldEnum]
+
+
+export const MaterialEstimateScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
+
+
+export const MaterialEstimateLineScalarFieldEnum = {
+  id: 'id',
+  estimateId: 'estimateId',
+  position: 'position',
+  name: 'name',
+  unit: 'unit',
+  quantity: 'quantity',
+  rate: 'rate',
+  purchaseId: 'purchaseId',
+  sentName: 'sentName',
+  sentQuantity: 'sentQuantity',
+  sentRate: 'sentRate'
+} as const
+
+export type MaterialEstimateLineScalarFieldEnum = (typeof MaterialEstimateLineScalarFieldEnum)[keyof typeof MaterialEstimateLineScalarFieldEnum]
 
 
 export const BoqItemScalarFieldEnum = {
@@ -4810,24 +4990,6 @@ export const MaterialPaymentScalarFieldEnum = {
 export type MaterialPaymentScalarFieldEnum = (typeof MaterialPaymentScalarFieldEnum)[keyof typeof MaterialPaymentScalarFieldEnum]
 
 
-export const MaterialEstimateScalarFieldEnum = {
-  id: 'id',
-  projectId: 'projectId',
-  materialId: 'materialId',
-  title: 'title',
-  method: 'method',
-  rows: 'rows',
-  wastagePercent: 'wastagePercent',
-  quantity: 'quantity',
-  notes: 'notes',
-  addedById: 'addedById',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type MaterialEstimateScalarFieldEnum = (typeof MaterialEstimateScalarFieldEnum)[keyof typeof MaterialEstimateScalarFieldEnum]
-
-
 export const SiteReportScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -4900,6 +5062,19 @@ export const SiteReportPhotoScalarFieldEnum = {
 } as const
 
 export type SiteReportPhotoScalarFieldEnum = (typeof SiteReportPhotoScalarFieldEnum)[keyof typeof SiteReportPhotoScalarFieldEnum]
+
+
+export const LabourQuoteScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  taskId: 'taskId',
+  name: 'name',
+  rate: 'rate',
+  unit: 'unit',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourQuoteScalarFieldEnum = (typeof LabourQuoteScalarFieldEnum)[keyof typeof LabourQuoteScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -5412,6 +5587,8 @@ export type GlobalOmitConfig = {
   materialPurchase?: Prisma.MaterialPurchaseOmit
   materialTopUp?: Prisma.MaterialTopUpOmit
   materialDelivery?: Prisma.MaterialDeliveryOmit
+  materialEstimate?: Prisma.MaterialEstimateOmit
+  materialEstimateLine?: Prisma.MaterialEstimateLineOmit
   boqItem?: Prisma.BoqItemOmit
   boqItemMaterial?: Prisma.BoqItemMaterialOmit
   materialRecipe?: Prisma.MaterialRecipeOmit
@@ -5436,11 +5613,11 @@ export type GlobalOmitConfig = {
   expense?: Prisma.ExpenseOmit
   contractorPayment?: Prisma.ContractorPaymentOmit
   materialPayment?: Prisma.MaterialPaymentOmit
-  materialEstimate?: Prisma.MaterialEstimateOmit
   siteReport?: Prisma.SiteReportOmit
   siteReportTeam?: Prisma.SiteReportTeamOmit
   siteReportArrival?: Prisma.SiteReportArrivalOmit
   siteReportPhoto?: Prisma.SiteReportPhotoOmit
+  labourQuote?: Prisma.LabourQuoteOmit
 }
 
 /* Types for Logging */

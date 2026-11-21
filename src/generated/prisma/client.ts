@@ -141,6 +141,16 @@ export type MaterialTopUp = Prisma.MaterialTopUpModel
  */
 export type MaterialDelivery = Prisma.MaterialDeliveryModel
 /**
+ * Model MaterialEstimate
+ * The simple Material estimate: a named list of materials for one project
+ */
+export type MaterialEstimate = Prisma.MaterialEstimateModel
+/**
+ * Model MaterialEstimateLine
+ * One material in an estimate. Once sent, it is linked to its material in the Materials tab (sent* = what was sent)
+ */
+export type MaterialEstimateLine = Prisma.MaterialEstimateLineModel
+/**
  * Model BoqItem
  * One priced part of one of the project's BOQs, as last synced. Never deleted by a sync: an item that left
  * the BOQ is marked inactive, so stock already issued to it keeps its history.
@@ -273,11 +283,6 @@ export type ContractorPayment = Prisma.ContractorPaymentModel
  */
 export type MaterialPayment = Prisma.MaterialPaymentModel
 /**
- * Model MaterialEstimate
- * 
- */
-export type MaterialEstimate = Prisma.MaterialEstimateModel
-/**
  * Model SiteReport
  * One engineer's report for one project on one day. Saved on submit; changed until the day after, then locked.
  */
@@ -297,3 +302,8 @@ export type SiteReportArrival = Prisma.SiteReportArrivalModel
  * 
  */
 export type SiteReportPhoto = Prisma.SiteReportPhotoModel
+/**
+ * Model LabourQuote
+ * A subcontractor's quote for a work item, in the Labour tab's Rate comparison (quote only until they are paid)
+ */
+export type LabourQuote = Prisma.LabourQuoteModel

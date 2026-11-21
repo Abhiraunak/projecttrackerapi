@@ -32,6 +32,7 @@ export type AttendanceWorkerAvgAggregateOutputType = {
   hours: runtime.Decimal | null
   otHours: runtime.Decimal | null
   hourlyRate: runtime.Decimal | null
+  otRate: runtime.Decimal | null
 }
 
 export type AttendanceWorkerSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type AttendanceWorkerSumAggregateOutputType = {
   hours: runtime.Decimal | null
   otHours: runtime.Decimal | null
   hourlyRate: runtime.Decimal | null
+  otRate: runtime.Decimal | null
 }
 
 export type AttendanceWorkerMinAggregateOutputType = {
@@ -52,6 +54,7 @@ export type AttendanceWorkerMinAggregateOutputType = {
   hours: runtime.Decimal | null
   otHours: runtime.Decimal | null
   hourlyRate: runtime.Decimal | null
+  otRate: runtime.Decimal | null
 }
 
 export type AttendanceWorkerMaxAggregateOutputType = {
@@ -64,6 +67,7 @@ export type AttendanceWorkerMaxAggregateOutputType = {
   hours: runtime.Decimal | null
   otHours: runtime.Decimal | null
   hourlyRate: runtime.Decimal | null
+  otRate: runtime.Decimal | null
 }
 
 export type AttendanceWorkerCountAggregateOutputType = {
@@ -76,6 +80,7 @@ export type AttendanceWorkerCountAggregateOutputType = {
   hours: number
   otHours: number
   hourlyRate: number
+  otRate: number
   _all: number
 }
 
@@ -86,6 +91,7 @@ export type AttendanceWorkerAvgAggregateInputType = {
   hours?: true
   otHours?: true
   hourlyRate?: true
+  otRate?: true
 }
 
 export type AttendanceWorkerSumAggregateInputType = {
@@ -94,6 +100,7 @@ export type AttendanceWorkerSumAggregateInputType = {
   hours?: true
   otHours?: true
   hourlyRate?: true
+  otRate?: true
 }
 
 export type AttendanceWorkerMinAggregateInputType = {
@@ -106,6 +113,7 @@ export type AttendanceWorkerMinAggregateInputType = {
   hours?: true
   otHours?: true
   hourlyRate?: true
+  otRate?: true
 }
 
 export type AttendanceWorkerMaxAggregateInputType = {
@@ -118,6 +126,7 @@ export type AttendanceWorkerMaxAggregateInputType = {
   hours?: true
   otHours?: true
   hourlyRate?: true
+  otRate?: true
 }
 
 export type AttendanceWorkerCountAggregateInputType = {
@@ -130,6 +139,7 @@ export type AttendanceWorkerCountAggregateInputType = {
   hours?: true
   otHours?: true
   hourlyRate?: true
+  otRate?: true
   _all?: true
 }
 
@@ -229,6 +239,7 @@ export type AttendanceWorkerGroupByOutputType = {
   hours: runtime.Decimal | null
   otHours: runtime.Decimal | null
   hourlyRate: runtime.Decimal | null
+  otRate: runtime.Decimal | null
   _count: AttendanceWorkerCountAggregateOutputType | null
   _avg: AttendanceWorkerAvgAggregateOutputType | null
   _sum: AttendanceWorkerSumAggregateOutputType | null
@@ -264,6 +275,7 @@ export type AttendanceWorkerWhereInput = {
   hours?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   attendance?: Prisma.XOR<Prisma.AttendanceScalarRelationFilter, Prisma.AttendanceWhereInput>
 }
 
@@ -277,6 +289,7 @@ export type AttendanceWorkerOrderByWithRelationInput = {
   hours?: Prisma.SortOrderInput | Prisma.SortOrder
   otHours?: Prisma.SortOrderInput | Prisma.SortOrder
   hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  otRate?: Prisma.SortOrderInput | Prisma.SortOrder
   attendance?: Prisma.AttendanceOrderByWithRelationInput
 }
 
@@ -293,6 +306,7 @@ export type AttendanceWorkerWhereUniqueInput = Prisma.AtLeast<{
   hours?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   attendance?: Prisma.XOR<Prisma.AttendanceScalarRelationFilter, Prisma.AttendanceWhereInput>
 }, "id">
 
@@ -306,6 +320,7 @@ export type AttendanceWorkerOrderByWithAggregationInput = {
   hours?: Prisma.SortOrderInput | Prisma.SortOrder
   otHours?: Prisma.SortOrderInput | Prisma.SortOrder
   hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
+  otRate?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AttendanceWorkerCountOrderByAggregateInput
   _avg?: Prisma.AttendanceWorkerAvgOrderByAggregateInput
   _max?: Prisma.AttendanceWorkerMaxOrderByAggregateInput
@@ -326,6 +341,7 @@ export type AttendanceWorkerScalarWhereWithAggregatesInput = {
   hours?: Prisma.DecimalNullableWithAggregatesFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.DecimalNullableWithAggregatesFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.DecimalNullableWithAggregatesFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.DecimalNullableWithAggregatesFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerCreateInput = {
@@ -337,6 +353,7 @@ export type AttendanceWorkerCreateInput = {
   hours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   attendance: Prisma.AttendanceCreateNestedOneWithoutWorkersInput
 }
 
@@ -350,6 +367,7 @@ export type AttendanceWorkerUncheckedCreateInput = {
   hours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUpdateInput = {
@@ -361,6 +379,7 @@ export type AttendanceWorkerUpdateInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   attendance?: Prisma.AttendanceUpdateOneRequiredWithoutWorkersNestedInput
 }
 
@@ -374,6 +393,7 @@ export type AttendanceWorkerUncheckedUpdateInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerCreateManyInput = {
@@ -386,6 +406,7 @@ export type AttendanceWorkerCreateManyInput = {
   hours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUpdateManyMutationInput = {
@@ -397,6 +418,7 @@ export type AttendanceWorkerUpdateManyMutationInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUncheckedUpdateManyInput = {
@@ -409,6 +431,7 @@ export type AttendanceWorkerUncheckedUpdateManyInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerListRelationFilter = {
@@ -431,6 +454,7 @@ export type AttendanceWorkerCountOrderByAggregateInput = {
   hours?: Prisma.SortOrder
   otHours?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
+  otRate?: Prisma.SortOrder
 }
 
 export type AttendanceWorkerAvgOrderByAggregateInput = {
@@ -439,6 +463,7 @@ export type AttendanceWorkerAvgOrderByAggregateInput = {
   hours?: Prisma.SortOrder
   otHours?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
+  otRate?: Prisma.SortOrder
 }
 
 export type AttendanceWorkerMaxOrderByAggregateInput = {
@@ -451,6 +476,7 @@ export type AttendanceWorkerMaxOrderByAggregateInput = {
   hours?: Prisma.SortOrder
   otHours?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
+  otRate?: Prisma.SortOrder
 }
 
 export type AttendanceWorkerMinOrderByAggregateInput = {
@@ -463,6 +489,7 @@ export type AttendanceWorkerMinOrderByAggregateInput = {
   hours?: Prisma.SortOrder
   otHours?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
+  otRate?: Prisma.SortOrder
 }
 
 export type AttendanceWorkerSumOrderByAggregateInput = {
@@ -471,6 +498,7 @@ export type AttendanceWorkerSumOrderByAggregateInput = {
   hours?: Prisma.SortOrder
   otHours?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
+  otRate?: Prisma.SortOrder
 }
 
 export type AttendanceWorkerCreateNestedManyWithoutAttendanceInput = {
@@ -524,6 +552,7 @@ export type AttendanceWorkerCreateWithoutAttendanceInput = {
   hours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUncheckedCreateWithoutAttendanceInput = {
@@ -535,6 +564,7 @@ export type AttendanceWorkerUncheckedCreateWithoutAttendanceInput = {
   hours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerCreateOrConnectWithoutAttendanceInput = {
@@ -576,6 +606,7 @@ export type AttendanceWorkerScalarWhereInput = {
   hours?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.DecimalNullableFilter<"AttendanceWorker"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerCreateManyAttendanceInput = {
@@ -587,6 +618,7 @@ export type AttendanceWorkerCreateManyAttendanceInput = {
   hours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUpdateWithoutAttendanceInput = {
@@ -598,6 +630,7 @@ export type AttendanceWorkerUpdateWithoutAttendanceInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUncheckedUpdateWithoutAttendanceInput = {
@@ -609,6 +642,7 @@ export type AttendanceWorkerUncheckedUpdateWithoutAttendanceInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 export type AttendanceWorkerUncheckedUpdateManyWithoutAttendanceInput = {
@@ -620,6 +654,7 @@ export type AttendanceWorkerUncheckedUpdateManyWithoutAttendanceInput = {
   hours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   otHours?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  otRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
 }
 
 
@@ -634,6 +669,7 @@ export type AttendanceWorkerSelect<ExtArgs extends runtime.Types.Extensions.Inte
   hours?: boolean
   otHours?: boolean
   hourlyRate?: boolean
+  otRate?: boolean
   attendance?: boolean | Prisma.AttendanceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attendanceWorker"]>
 
@@ -647,6 +683,7 @@ export type AttendanceWorkerSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   hours?: boolean
   otHours?: boolean
   hourlyRate?: boolean
+  otRate?: boolean
   attendance?: boolean | Prisma.AttendanceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attendanceWorker"]>
 
@@ -660,6 +697,7 @@ export type AttendanceWorkerSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   hours?: boolean
   otHours?: boolean
   hourlyRate?: boolean
+  otRate?: boolean
   attendance?: boolean | Prisma.AttendanceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["attendanceWorker"]>
 
@@ -673,9 +711,10 @@ export type AttendanceWorkerSelectScalar = {
   hours?: boolean
   otHours?: boolean
   hourlyRate?: boolean
+  otRate?: boolean
 }
 
-export type AttendanceWorkerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attendanceId" | "label" | "amount" | "position" | "memberId" | "hours" | "otHours" | "hourlyRate", ExtArgs["result"]["attendanceWorker"]>
+export type AttendanceWorkerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attendanceId" | "label" | "amount" | "position" | "memberId" | "hours" | "otHours" | "hourlyRate" | "otRate", ExtArgs["result"]["attendanceWorker"]>
 export type AttendanceWorkerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attendance?: boolean | Prisma.AttendanceDefaultArgs<ExtArgs>
 }
@@ -701,6 +740,7 @@ export type $AttendanceWorkerPayload<ExtArgs extends runtime.Types.Extensions.In
     hours: runtime.Decimal | null
     otHours: runtime.Decimal | null
     hourlyRate: runtime.Decimal | null
+    otRate: runtime.Decimal | null
   }, ExtArgs["result"]["attendanceWorker"]>
   composites: {}
 }
@@ -1134,6 +1174,7 @@ export interface AttendanceWorkerFieldRefs {
   readonly hours: Prisma.FieldRef<"AttendanceWorker", 'Decimal'>
   readonly otHours: Prisma.FieldRef<"AttendanceWorker", 'Decimal'>
   readonly hourlyRate: Prisma.FieldRef<"AttendanceWorker", 'Decimal'>
+  readonly otRate: Prisma.FieldRef<"AttendanceWorker", 'Decimal'>
 }
     
 
