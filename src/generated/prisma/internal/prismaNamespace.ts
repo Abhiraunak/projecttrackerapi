@@ -4962,6 +4962,8 @@ export const ContractorPaymentScalarFieldEnum = {
   date: 'date',
   amount: 'amount',
   remark: 'remark',
+  periodFrom: 'periodFrom',
+  periodTo: 'periodTo',
   proofId: 'proofId',
   proofVersion: 'proofVersion',
   proofFormat: 'proofFormat',

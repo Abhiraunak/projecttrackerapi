@@ -3,7 +3,7 @@ import { HttpError } from "../../lib/error.js";
 import { requirePermission } from "../../lib/projectAccess.js";
 import { drawingUrls } from "../../lib/cloudinary.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
-import type { CopyDay, MeasureInput, SaveDay } from "./labourSimple.schema.js";
+import type { CopyDay, MeasureInput, PeriodPaymentInput, SaveDay } from "./labourSimple.schema.js";
 
 /*
  * The simple Labour section, on the tables already there (attendance with hours and OT, contractor payments, contract
@@ -388,6 +388,69 @@ export async function updatePayment(userId: string, projectId: string, id: strin
   const p = await prisma.contractorPayment.findFirst({ where: { id, projectId }, select: { id: true } });
   if (!p) throw new HttpError(404, "That payment is no longer there.");
   await prisma.contractorPayment.update({ where: { id }, data: { contractorName: input.contractorName.trim(), date: day(input.date), amount: input.amount, remark: input.remark } });
+  return { ok: true };
+}
+
+/* ------------------------------------------------ paid for a period ------------------------------------------------ */
+/*
+ * A payment with the days it covers (Attendance tab). Kept as an ordinary contractor payment, so it also counts in the
+ * Payments tab: dated on the To day, or today when the period runs into the future.
+ */
+
+const periodSelect = { id: true, contractorName: true, amount: true, periodFrom: true, periodTo: true } as const;
+type PeriodRow = { id: string; contractorName: string; amount: Num; periodFrom: Date | null; periodTo: Date | null };
+const periodDto = (p: PeriodRow) => ({ id: p.id, name: p.contractorName, from: p.periodFrom ? ymdOf(p.periodFrom) : "", to: p.periodTo ? ymdOf(p.periodTo) : "", amount: r2(num(p.amount)) });
+const paidOn = (to: string) => (to > today() ? today() : to);
+
+/** GET …/labour-simple/period-payments: every "paid for a period" entry, latest period first */
+export async function periodPayments(userId: string, projectId: string) {
+  await requirePermission(userId, projectId, VIEW);
+  const rows = await prisma.contractorPayment.findMany({
+    where: { projectId, periodFrom: { not: null } },
+    orderBy: [{ periodTo: "desc" }, { createdAt: "desc" }],
+    take: 1000,
+    select: periodSelect,
+  });
+  const items = rows.map(periodDto);
+  return { items, total: r2(items.reduce((s, i) => s + i.amount, 0)) };
+}
+
+/** POST …/labour-simple/period-payments */
+export async function addPeriodPayment(userId: string, projectId: string, input: PeriodPaymentInput) {
+  await requirePermission(userId, projectId, WRITE);
+  const row = await prisma.contractorPayment.create({
+    data: {
+      projectId,
+      contractorName: input.name.trim(),
+      date: day(paidOn(input.to)),
+      amount: input.amount,
+      periodFrom: day(input.from),
+      periodTo: day(input.to),
+      addedById: userId,
+    },
+    select: periodSelect,
+  });
+  return { item: periodDto(row) };
+}
+
+/** PUT …/labour-simple/period-payments/:id */
+export async function updatePeriodPayment(userId: string, projectId: string, id: string, input: PeriodPaymentInput) {
+  await requirePermission(userId, projectId, WRITE);
+  const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, periodFrom: { not: null } }, select: { id: true } });
+  if (!found) throw new HttpError(404, "That entry is no longer there.");
+  const row = await prisma.contractorPayment.update({
+    where: { id },
+    data: { contractorName: input.name.trim(), date: day(paidOn(input.to)), amount: input.amount, periodFrom: day(input.from), periodTo: day(input.to) },
+    select: periodSelect,
+  });
+  return { item: periodDto(row) };
+}
+
+/** DELETE …/labour-simple/period-payments/:id (only these entries; other payments are untouched) */
+export async function removePeriodPayment(userId: string, projectId: string, id: string) {
+  await requirePermission(userId, projectId, WRITE);
+  const { count } = await prisma.contractorPayment.deleteMany({ where: { id, projectId, periodFrom: { not: null } } });
+  if (count === 0) throw new HttpError(404, "That entry is no longer there.");
   return { ok: true };
 }
 

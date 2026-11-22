@@ -44,6 +44,8 @@ export type ContractorPaymentMinAggregateOutputType = {
   date: Date | null
   amount: runtime.Decimal | null
   remark: string | null
+  periodFrom: Date | null
+  periodTo: Date | null
   proofId: string | null
   proofVersion: number | null
   proofFormat: string | null
@@ -59,6 +61,8 @@ export type ContractorPaymentMaxAggregateOutputType = {
   date: Date | null
   amount: runtime.Decimal | null
   remark: string | null
+  periodFrom: Date | null
+  periodTo: Date | null
   proofId: string | null
   proofVersion: number | null
   proofFormat: string | null
@@ -74,6 +78,8 @@ export type ContractorPaymentCountAggregateOutputType = {
   date: number
   amount: number
   remark: number
+  periodFrom: number
+  periodTo: number
   proofId: number
   proofVersion: number
   proofFormat: number
@@ -101,6 +107,8 @@ export type ContractorPaymentMinAggregateInputType = {
   date?: true
   amount?: true
   remark?: true
+  periodFrom?: true
+  periodTo?: true
   proofId?: true
   proofVersion?: true
   proofFormat?: true
@@ -116,6 +124,8 @@ export type ContractorPaymentMaxAggregateInputType = {
   date?: true
   amount?: true
   remark?: true
+  periodFrom?: true
+  periodTo?: true
   proofId?: true
   proofVersion?: true
   proofFormat?: true
@@ -131,6 +141,8 @@ export type ContractorPaymentCountAggregateInputType = {
   date?: true
   amount?: true
   remark?: true
+  periodFrom?: true
+  periodTo?: true
   proofId?: true
   proofVersion?: true
   proofFormat?: true
@@ -233,6 +245,8 @@ export type ContractorPaymentGroupByOutputType = {
   date: Date
   amount: runtime.Decimal
   remark: string
+  periodFrom: Date | null
+  periodTo: Date | null
   proofId: string | null
   proofVersion: number | null
   proofFormat: string | null
@@ -271,6 +285,8 @@ export type ContractorPaymentWhereInput = {
   date?: Prisma.DateTimeFilter<"ContractorPayment"> | Date | string
   amount?: Prisma.DecimalFilter<"ContractorPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFilter<"ContractorPayment"> | string
+  periodFrom?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
+  periodTo?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
@@ -288,6 +304,8 @@ export type ContractorPaymentOrderByWithRelationInput = {
   date?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  periodFrom?: Prisma.SortOrderInput | Prisma.SortOrder
+  periodTo?: Prisma.SortOrderInput | Prisma.SortOrder
   proofId?: Prisma.SortOrderInput | Prisma.SortOrder
   proofVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   proofFormat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -308,6 +326,8 @@ export type ContractorPaymentWhereUniqueInput = Prisma.AtLeast<{
   date?: Prisma.DateTimeFilter<"ContractorPayment"> | Date | string
   amount?: Prisma.DecimalFilter<"ContractorPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFilter<"ContractorPayment"> | string
+  periodFrom?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
+  periodTo?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
@@ -325,6 +345,8 @@ export type ContractorPaymentOrderByWithAggregationInput = {
   date?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  periodFrom?: Prisma.SortOrderInput | Prisma.SortOrder
+  periodTo?: Prisma.SortOrderInput | Prisma.SortOrder
   proofId?: Prisma.SortOrderInput | Prisma.SortOrder
   proofVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   proofFormat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -348,6 +370,8 @@ export type ContractorPaymentScalarWhereWithAggregatesInput = {
   date?: Prisma.DateTimeWithAggregatesFilter<"ContractorPayment"> | Date | string
   amount?: Prisma.DecimalWithAggregatesFilter<"ContractorPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringWithAggregatesFilter<"ContractorPayment"> | string
+  periodFrom?: Prisma.DateTimeNullableWithAggregatesFilter<"ContractorPayment"> | Date | string | null
+  periodTo?: Prisma.DateTimeNullableWithAggregatesFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableWithAggregatesFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableWithAggregatesFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableWithAggregatesFilter<"ContractorPayment"> | string | null
@@ -362,6 +386,8 @@ export type ContractorPaymentCreateInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -378,6 +404,8 @@ export type ContractorPaymentUncheckedCreateInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -392,6 +420,8 @@ export type ContractorPaymentUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -408,6 +438,8 @@ export type ContractorPaymentUncheckedUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -423,6 +455,8 @@ export type ContractorPaymentCreateManyInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -437,6 +471,8 @@ export type ContractorPaymentUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -451,6 +487,8 @@ export type ContractorPaymentUncheckedUpdateManyInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -476,6 +514,8 @@ export type ContractorPaymentCountOrderByAggregateInput = {
   date?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  periodFrom?: Prisma.SortOrder
+  periodTo?: Prisma.SortOrder
   proofId?: Prisma.SortOrder
   proofVersion?: Prisma.SortOrder
   proofFormat?: Prisma.SortOrder
@@ -496,6 +536,8 @@ export type ContractorPaymentMaxOrderByAggregateInput = {
   date?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  periodFrom?: Prisma.SortOrder
+  periodTo?: Prisma.SortOrder
   proofId?: Prisma.SortOrder
   proofVersion?: Prisma.SortOrder
   proofFormat?: Prisma.SortOrder
@@ -511,6 +553,8 @@ export type ContractorPaymentMinOrderByAggregateInput = {
   date?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   remark?: Prisma.SortOrder
+  periodFrom?: Prisma.SortOrder
+  periodTo?: Prisma.SortOrder
   proofId?: Prisma.SortOrder
   proofVersion?: Prisma.SortOrder
   proofFormat?: Prisma.SortOrder
@@ -614,6 +658,8 @@ export type ContractorPaymentCreateWithoutAddedByInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -629,6 +675,8 @@ export type ContractorPaymentUncheckedCreateWithoutAddedByInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -672,6 +720,8 @@ export type ContractorPaymentScalarWhereInput = {
   date?: Prisma.DateTimeFilter<"ContractorPayment"> | Date | string
   amount?: Prisma.DecimalFilter<"ContractorPayment"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFilter<"ContractorPayment"> | string
+  periodFrom?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
+  periodTo?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
@@ -686,6 +736,8 @@ export type ContractorPaymentCreateWithoutProjectInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -700,6 +752,8 @@ export type ContractorPaymentUncheckedCreateWithoutProjectInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -741,6 +795,8 @@ export type ContractorPaymentCreateManyAddedByInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -754,6 +810,8 @@ export type ContractorPaymentUpdateWithoutAddedByInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -769,6 +827,8 @@ export type ContractorPaymentUncheckedUpdateWithoutAddedByInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -783,6 +843,8 @@ export type ContractorPaymentUncheckedUpdateManyWithoutAddedByInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -796,6 +858,8 @@ export type ContractorPaymentCreateManyProjectInput = {
   date: Date | string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -810,6 +874,8 @@ export type ContractorPaymentUpdateWithoutProjectInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -824,6 +890,8 @@ export type ContractorPaymentUncheckedUpdateWithoutProjectInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -838,6 +906,8 @@ export type ContractorPaymentUncheckedUpdateManyWithoutProjectInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -855,6 +925,8 @@ export type ContractorPaymentSelect<ExtArgs extends runtime.Types.Extensions.Int
   date?: boolean
   amount?: boolean
   remark?: boolean
+  periodFrom?: boolean
+  periodTo?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
@@ -872,6 +944,8 @@ export type ContractorPaymentSelectCreateManyAndReturn<ExtArgs extends runtime.T
   date?: boolean
   amount?: boolean
   remark?: boolean
+  periodFrom?: boolean
+  periodTo?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
@@ -889,6 +963,8 @@ export type ContractorPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   date?: boolean
   amount?: boolean
   remark?: boolean
+  periodFrom?: boolean
+  periodTo?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
@@ -906,6 +982,8 @@ export type ContractorPaymentSelectScalar = {
   date?: boolean
   amount?: boolean
   remark?: boolean
+  periodFrom?: boolean
+  periodTo?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
@@ -913,7 +991,7 @@ export type ContractorPaymentSelectScalar = {
   createdAt?: boolean
 }
 
-export type ContractorPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "trade" | "contractorName" | "date" | "amount" | "remark" | "proofId" | "proofVersion" | "proofFormat" | "addedById" | "createdAt", ExtArgs["result"]["contractorPayment"]>
+export type ContractorPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "trade" | "contractorName" | "date" | "amount" | "remark" | "periodFrom" | "periodTo" | "proofId" | "proofVersion" | "proofFormat" | "addedById" | "createdAt", ExtArgs["result"]["contractorPayment"]>
 export type ContractorPaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -941,6 +1019,11 @@ export type $ContractorPaymentPayload<ExtArgs extends runtime.Types.Extensions.I
     date: Date
     amount: runtime.Decimal
     remark: string
+    /**
+     * "Paid for a period" (Attendance tab): the days this payment covers; empty for ordinary payments
+     */
+    periodFrom: Date | null
+    periodTo: Date | null
     proofId: string | null
     proofVersion: number | null
     proofFormat: string | null
@@ -1378,6 +1461,8 @@ export interface ContractorPaymentFieldRefs {
   readonly date: Prisma.FieldRef<"ContractorPayment", 'DateTime'>
   readonly amount: Prisma.FieldRef<"ContractorPayment", 'Decimal'>
   readonly remark: Prisma.FieldRef<"ContractorPayment", 'String'>
+  readonly periodFrom: Prisma.FieldRef<"ContractorPayment", 'DateTime'>
+  readonly periodTo: Prisma.FieldRef<"ContractorPayment", 'DateTime'>
   readonly proofId: Prisma.FieldRef<"ContractorPayment", 'String'>
   readonly proofVersion: Prisma.FieldRef<"ContractorPayment", 'Int'>
   readonly proofFormat: Prisma.FieldRef<"ContractorPayment", 'String'>
