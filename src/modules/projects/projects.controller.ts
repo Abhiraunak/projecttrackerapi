@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
-import { requireCan, requirePermission } from "../../lib/projectAccess.js";
+import { getUserAccess, requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
 import { spendByProject } from "./spend.service.js";
 import {
@@ -33,7 +33,10 @@ export async function list(req: Request, res: Response) {
 
 export async function create(req: Request<unknown, unknown, CreateBody>, res: Response) {
   const userId = uid(req);
-  await requireCan(userId, "project.manage");
+  // "Create projects" (project.create) or "Overview" (project.manage) may start a project
+  const access = await getUserAccess(userId);
+  if (!access.permissions.includes("project.create") && !access.permissions.includes("project.manage"))
+    throw new HttpError(403, "You don't have permission to create projects. Ask an admin.");
   const { title, projectCost, tasks } = req.body;
 
   const project = await prisma.project.create({
@@ -78,19 +81,7 @@ export async function patchProject(req: Request<{ id: string }, unknown, PatchPr
   const { id } = req.params;
   await requirePermission(uid(req), id, "project.manage");
 
-  // Dates arrive as "2026-11-21" (or null to clear); everything else is saved as sent
-  const { startDate, endDate, ...rest } = req.body;
-  const day = (v: string | null) => (v ? new Date(`${v}T00:00:00Z`) : null);
-  const current = startDate !== undefined && endDate !== undefined ? null : await prisma.project.findUnique({ where: { id }, select: { startDate: true, endDate: true } });
-  const start = startDate !== undefined ? startDate : (current?.startDate?.toISOString().slice(0, 10) ?? null);
-  const end = endDate !== undefined ? endDate : (current?.endDate?.toISOString().slice(0, 10) ?? null);
-  if (start && end && end < start) throw new HttpError(400, "The finish date can't be before the start date.");
-
-  const project = await prisma.project.update({
-    where: { id },
-    data: { ...rest, ...(startDate !== undefined ? { startDate: day(startDate) } : {}), ...(endDate !== undefined ? { endDate: day(endDate) } : {}) },
-    include: withTasks,
-  });
+  const project = await prisma.project.update({ where: { id }, data: req.body, include: withTasks });
   res.json({ project: projectDto(project) });
 }
 
