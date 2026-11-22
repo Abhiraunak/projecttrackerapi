@@ -55,6 +55,17 @@ export const paymentSchema = z.object({
         remark: z.string().trim().max(500).default(""),
     }),
 });
+/** "Paid for a period": a name, the days it covers and the amount paid */
+export const periodPaymentSchema = z.object({
+    body: z
+        .object({
+        name,
+        from: ymd,
+        to: ymd,
+        amount: z.number().finite().positive("Enter the amount paid.").max(1_000_000_000),
+    })
+        .refine((b) => b.from <= b.to, { message: "From must be on or before To.", path: ["to"] }),
+});
 export const measureSchema = z.object({
     body: z.object({
         contractorName: name,

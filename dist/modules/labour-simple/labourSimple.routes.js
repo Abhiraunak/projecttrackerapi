@@ -2,7 +2,7 @@ import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
-import { copyDaySchema, dayQuery, measureSchema, paymentSchema, quantitySchema, quoteSchema, rangeQuery, saveDaySchema, statementQuery, workRateSchema, workSchema } from "./labourSimple.schema.js";
+import { copyDaySchema, dayQuery, measureSchema, paymentSchema, periodPaymentSchema, quantitySchema, quoteSchema, rangeQuery, saveDaySchema, statementQuery, workRateSchema, workSchema } from "./labourSimple.schema.js";
 import * as s from "./labourSimple.service.js";
 /*
  * The simple Labour section. Mounted at /api/v1 (app.ts): app.use("/api/v1", labourSimpleRoutes).
@@ -26,6 +26,11 @@ router.put(`${base}/works/:id/quantity`, requireAuth, writeLimiter, validate(qua
 // payments
 router.get(`${base}/statement`, requireAuth, async (req, res) => res.json(await s.statement(uid(req), req.params.projectId, statementQuery.parse(req.query))));
 router.put(`${base}/payments/:id`, requireAuth, writeLimiter, validate(paymentSchema), async (req, res) => res.json(await s.updatePayment(uid(req), req.params.projectId, req.params.id, req.body)));
+// paid for a period (Attendance tab): a name, From – To and the amount
+router.get(`${base}/period-payments`, requireAuth, async (req, res) => res.json(await s.periodPayments(uid(req), req.params.projectId)));
+router.post(`${base}/period-payments`, requireAuth, writeLimiter, validate(periodPaymentSchema), async (req, res) => res.status(201).json(await s.addPeriodPayment(uid(req), req.params.projectId, req.body)));
+router.put(`${base}/period-payments/:id`, requireAuth, writeLimiter, validate(periodPaymentSchema), async (req, res) => res.json(await s.updatePeriodPayment(uid(req), req.params.projectId, req.params.id, req.body)));
+router.delete(`${base}/period-payments/:id`, requireAuth, async (req, res) => res.json(await s.removePeriodPayment(uid(req), req.params.projectId, req.params.id)));
 // subcontract
 router.get(`${base}/subcontract`, requireAuth, async (req, res) => res.json(await s.subcontract(uid(req), req.params.projectId)));
 router.post(`${base}/subcontract`, requireAuth, writeLimiter, validate(measureSchema), async (req, res) => res.status(201).json(await s.addMeasure(uid(req), req.params.projectId, req.body)));
