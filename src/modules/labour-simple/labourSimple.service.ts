@@ -468,7 +468,8 @@ export async function removePeriodPayment(userId: string, projectId: string, id:
  */
 
 type DayLite = { contractorName: string; date: Date; totalAmount: Num; workers: { label: string }[] };
-const isTeam = (d: DayLite) => d.workers.some((w) => keyOf(w.label) !== keyOf(d.contractorName));
+/** "One person" only when the day holds exactly that person; older days (several workers, or amounts only) are a team */
+const isTeam = (d: DayLite) => d.workers.length !== 1 || keyOf(d.workers[0]!.label) !== keyOf(d.contractorName);
 
 /** GET …/labour-simple/team: one row per team head or person, newest first */
 export async function team(userId: string, projectId: string) {

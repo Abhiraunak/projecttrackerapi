@@ -60,12 +60,12 @@ export async function projectHub(userId: string, projectId: string) {
       : null,
     can("attendance.view")
       ? part("last attendance", projectId, () =>
-        prisma.attendance.findFirst({ where: { projectId }, orderBy: [{ date: "desc" }, { createdAt: "desc" }], select: { date: true, totalAmount: true } })
+        prisma.attendance.findFirst({ where: { projectId, archivedAt: null }, orderBy: [{ date: "desc" }, { createdAt: "desc" }], select: { date: true, totalAmount: true } })
       )
       : null,
     can("attendance.view")
       ? part("attendance this week", projectId, () =>
-        prisma.attendance.aggregate({ where: { projectId, date: { gte: weekFrom } }, _sum: { totalAmount: true }, _count: true })
+        prisma.attendance.aggregate({ where: { projectId, archivedAt: null, date: { gte: weekFrom } }, _sum: { totalAmount: true }, _count: true })
       )
       : null,
     // Phase 6: items at this site and this month's hire
