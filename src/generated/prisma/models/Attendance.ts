@@ -51,6 +51,7 @@ export type AttendanceMinAggregateOutputType = {
   batchId: string | null
   batchLead: boolean | null
   payMode: string | null
+  archivedAt: Date | null
   taskId: string | null
 }
 
@@ -69,6 +70,7 @@ export type AttendanceMaxAggregateOutputType = {
   batchId: string | null
   batchLead: boolean | null
   payMode: string | null
+  archivedAt: Date | null
   taskId: string | null
 }
 
@@ -87,6 +89,7 @@ export type AttendanceCountAggregateOutputType = {
   batchId: number
   batchLead: number
   payMode: number
+  archivedAt: number
   taskId: number
   _all: number
 }
@@ -117,6 +120,7 @@ export type AttendanceMinAggregateInputType = {
   batchId?: true
   batchLead?: true
   payMode?: true
+  archivedAt?: true
   taskId?: true
 }
 
@@ -135,6 +139,7 @@ export type AttendanceMaxAggregateInputType = {
   batchId?: true
   batchLead?: true
   payMode?: true
+  archivedAt?: true
   taskId?: true
 }
 
@@ -153,6 +158,7 @@ export type AttendanceCountAggregateInputType = {
   batchId?: true
   batchLead?: true
   payMode?: true
+  archivedAt?: true
   taskId?: true
   _all?: true
 }
@@ -258,6 +264,7 @@ export type AttendanceGroupByOutputType = {
   batchId: string | null
   batchLead: boolean
   payMode: string
+  archivedAt: Date | null
   taskId: string | null
   _count: AttendanceCountAggregateOutputType | null
   _avg: AttendanceAvgAggregateOutputType | null
@@ -299,6 +306,7 @@ export type AttendanceWhereInput = {
   batchId?: Prisma.StringNullableFilter<"Attendance"> | string | null
   batchLead?: Prisma.BoolFilter<"Attendance"> | boolean
   payMode?: Prisma.StringFilter<"Attendance"> | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Attendance"> | Date | string | null
   taskId?: Prisma.StringNullableFilter<"Attendance"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -321,6 +329,7 @@ export type AttendanceOrderByWithRelationInput = {
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
   batchLead?: Prisma.SortOrder
   payMode?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   taskId?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   owner?: Prisma.UserOrderByWithRelationInput
@@ -346,6 +355,7 @@ export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
   batchId?: Prisma.StringNullableFilter<"Attendance"> | string | null
   batchLead?: Prisma.BoolFilter<"Attendance"> | boolean
   payMode?: Prisma.StringFilter<"Attendance"> | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Attendance"> | Date | string | null
   taskId?: Prisma.StringNullableFilter<"Attendance"> | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -368,6 +378,7 @@ export type AttendanceOrderByWithAggregationInput = {
   batchId?: Prisma.SortOrderInput | Prisma.SortOrder
   batchLead?: Prisma.SortOrder
   payMode?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   taskId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AttendanceCountOrderByAggregateInput
   _avg?: Prisma.AttendanceAvgOrderByAggregateInput
@@ -394,6 +405,7 @@ export type AttendanceScalarWhereWithAggregatesInput = {
   batchId?: Prisma.StringNullableWithAggregatesFilter<"Attendance"> | string | null
   batchLead?: Prisma.BoolWithAggregatesFilter<"Attendance"> | boolean
   payMode?: Prisma.StringWithAggregatesFilter<"Attendance"> | string
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
   taskId?: Prisma.StringNullableWithAggregatesFilter<"Attendance"> | string | null
 }
 
@@ -410,6 +422,7 @@ export type AttendanceCreateInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
@@ -431,6 +444,7 @@ export type AttendanceUncheckedCreateInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
@@ -448,6 +462,7 @@ export type AttendanceUpdateInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
@@ -469,6 +484,7 @@ export type AttendanceUncheckedUpdateInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
@@ -488,6 +504,7 @@ export type AttendanceCreateManyInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
 }
 
@@ -504,6 +521,7 @@ export type AttendanceUpdateManyMutationInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AttendanceUncheckedUpdateManyInput = {
@@ -521,6 +539,7 @@ export type AttendanceUncheckedUpdateManyInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -549,6 +568,7 @@ export type AttendanceCountOrderByAggregateInput = {
   batchId?: Prisma.SortOrder
   batchLead?: Prisma.SortOrder
   payMode?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
 }
 
@@ -572,6 +592,7 @@ export type AttendanceMaxOrderByAggregateInput = {
   batchId?: Prisma.SortOrder
   batchLead?: Prisma.SortOrder
   payMode?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
 }
 
@@ -590,6 +611,7 @@ export type AttendanceMinOrderByAggregateInput = {
   batchId?: Prisma.SortOrder
   batchLead?: Prisma.SortOrder
   payMode?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
 }
 
@@ -756,6 +778,7 @@ export type AttendanceCreateWithoutOwnerInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
   task?: Prisma.TaskCreateNestedOneWithoutAttendanceInput
@@ -775,6 +798,7 @@ export type AttendanceUncheckedCreateWithoutOwnerInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
@@ -823,6 +847,7 @@ export type AttendanceScalarWhereInput = {
   batchId?: Prisma.StringNullableFilter<"Attendance"> | string | null
   batchLead?: Prisma.BoolFilter<"Attendance"> | boolean
   payMode?: Prisma.StringFilter<"Attendance"> | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Attendance"> | Date | string | null
   taskId?: Prisma.StringNullableFilter<"Attendance"> | string | null
 }
 
@@ -839,6 +864,7 @@ export type AttendanceCreateWithoutProjectInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
   task?: Prisma.TaskCreateNestedOneWithoutAttendanceInput
@@ -858,6 +884,7 @@ export type AttendanceUncheckedCreateWithoutProjectInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
@@ -901,6 +928,7 @@ export type AttendanceCreateWithoutTaskInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
   workers?: Prisma.AttendanceWorkerCreateNestedManyWithoutAttendanceInput
@@ -921,6 +949,7 @@ export type AttendanceUncheckedCreateWithoutTaskInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   workers?: Prisma.AttendanceWorkerUncheckedCreateNestedManyWithoutAttendanceInput
 }
 
@@ -963,6 +992,7 @@ export type AttendanceCreateWithoutWorkersInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutAttendanceInput
   owner: Prisma.UserCreateNestedOneWithoutAttendanceInput
   task?: Prisma.TaskCreateNestedOneWithoutAttendanceInput
@@ -983,6 +1013,7 @@ export type AttendanceUncheckedCreateWithoutWorkersInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
 }
 
@@ -1015,6 +1046,7 @@ export type AttendanceUpdateWithoutWorkersInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
   task?: Prisma.TaskUpdateOneWithoutAttendanceNestedInput
@@ -1035,6 +1067,7 @@ export type AttendanceUncheckedUpdateWithoutWorkersInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -1052,6 +1085,7 @@ export type AttendanceCreateManyOwnerInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
 }
 
@@ -1068,6 +1102,7 @@ export type AttendanceUpdateWithoutOwnerInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
   task?: Prisma.TaskUpdateOneWithoutAttendanceNestedInput
@@ -1087,6 +1122,7 @@ export type AttendanceUncheckedUpdateWithoutOwnerInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
@@ -1105,6 +1141,7 @@ export type AttendanceUncheckedUpdateManyWithoutOwnerInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -1122,6 +1159,7 @@ export type AttendanceCreateManyProjectInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
   taskId?: string | null
 }
 
@@ -1138,6 +1176,7 @@ export type AttendanceUpdateWithoutProjectInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
   task?: Prisma.TaskUpdateOneWithoutAttendanceNestedInput
@@ -1157,6 +1196,7 @@ export type AttendanceUncheckedUpdateWithoutProjectInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
@@ -1175,6 +1215,7 @@ export type AttendanceUncheckedUpdateManyWithoutProjectInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -1193,6 +1234,7 @@ export type AttendanceCreateManyTaskInput = {
   batchId?: string | null
   batchLead?: boolean
   payMode?: string
+  archivedAt?: Date | string | null
 }
 
 export type AttendanceUpdateWithoutTaskInput = {
@@ -1208,6 +1250,7 @@ export type AttendanceUpdateWithoutTaskInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutAttendanceNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutAttendanceNestedInput
   workers?: Prisma.AttendanceWorkerUpdateManyWithoutAttendanceNestedInput
@@ -1228,6 +1271,7 @@ export type AttendanceUncheckedUpdateWithoutTaskInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   workers?: Prisma.AttendanceWorkerUncheckedUpdateManyWithoutAttendanceNestedInput
 }
 
@@ -1246,6 +1290,7 @@ export type AttendanceUncheckedUpdateManyWithoutTaskInput = {
   batchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   batchLead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   payMode?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1294,6 +1339,7 @@ export type AttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   batchId?: boolean
   batchLead?: boolean
   payMode?: boolean
+  archivedAt?: boolean
   taskId?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1317,6 +1363,7 @@ export type AttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   batchId?: boolean
   batchLead?: boolean
   payMode?: boolean
+  archivedAt?: boolean
   taskId?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1338,6 +1385,7 @@ export type AttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   batchId?: boolean
   batchLead?: boolean
   payMode?: boolean
+  archivedAt?: boolean
   taskId?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1359,10 +1407,11 @@ export type AttendanceSelectScalar = {
   batchId?: boolean
   batchLead?: boolean
   payMode?: boolean
+  archivedAt?: boolean
   taskId?: boolean
 }
 
-export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "ownerId" | "contractorName" | "trade" | "date" | "extras" | "notes" | "totalAmount" | "createdAt" | "updatedAt" | "batchId" | "batchLead" | "payMode" | "taskId", ExtArgs["result"]["attendance"]>
+export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "ownerId" | "contractorName" | "trade" | "date" | "extras" | "notes" | "totalAmount" | "createdAt" | "updatedAt" | "batchId" | "batchLead" | "payMode" | "archivedAt" | "taskId", ExtArgs["result"]["attendance"]>
 export type AttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1404,6 +1453,10 @@ export type $AttendancePayload<ExtArgs extends runtime.Types.Extensions.Internal
     batchId: string | null
     batchLead: boolean
     payMode: string
+    /**
+     * Archived from the Labour tab (with its person): hidden and not counted; deleted for good only from Archived
+     */
+    archivedAt: Date | null
     taskId: string | null
   }, ExtArgs["result"]["attendance"]>
   composites: {}
@@ -1846,6 +1899,7 @@ export interface AttendanceFieldRefs {
   readonly batchId: Prisma.FieldRef<"Attendance", 'String'>
   readonly batchLead: Prisma.FieldRef<"Attendance", 'Boolean'>
   readonly payMode: Prisma.FieldRef<"Attendance", 'String'>
+  readonly archivedAt: Prisma.FieldRef<"Attendance", 'DateTime'>
   readonly taskId: Prisma.FieldRef<"Attendance", 'String'>
 }
     

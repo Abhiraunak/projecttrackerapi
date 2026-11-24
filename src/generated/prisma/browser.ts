@@ -58,9 +58,15 @@ export type AttendanceWorker = Prisma.AttendanceWorkerModel
  */
 export type LabourTeamMember = Prisma.LabourTeamMemberModel
 /**
- * Model LabourMeasure
+ * Model LabourProgress
  * Contract work (paid by measurement, not attendance): e.g. 420 sqft of floor tiles × ₹28 = ₹11,760 to the tile
  * contractor. Measured each week; counts as earned on its date, like a day of attendance.
+ * "Done till date" on one subcontract work: each update kept with its date; the latest one counts
+ */
+export type LabourProgress = Prisma.LabourProgressModel
+/**
+ * Model LabourMeasure
+ * 
  */
 export type LabourMeasure = Prisma.LabourMeasureModel
 /**

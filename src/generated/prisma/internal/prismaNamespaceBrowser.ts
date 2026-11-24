@@ -59,6 +59,7 @@ export const ModelName = {
   Attendance: 'Attendance',
   AttendanceWorker: 'AttendanceWorker',
   LabourTeamMember: 'LabourTeamMember',
+  LabourProgress: 'LabourProgress',
   LabourMeasure: 'LabourMeasure',
   LabourWeek: 'LabourWeek',
   Drawing: 'Drawing',
@@ -221,6 +222,7 @@ export const AttendanceScalarFieldEnum = {
   batchId: 'batchId',
   batchLead: 'batchLead',
   payMode: 'payMode',
+  archivedAt: 'archivedAt',
   taskId: 'taskId'
 } as const
 
@@ -258,6 +260,18 @@ export const LabourTeamMemberScalarFieldEnum = {
 export type LabourTeamMemberScalarFieldEnum = (typeof LabourTeamMemberScalarFieldEnum)[keyof typeof LabourTeamMemberScalarFieldEnum]
 
 
+export const LabourProgressScalarFieldEnum = {
+  id: 'id',
+  measureId: 'measureId',
+  date: 'date',
+  done: 'done',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourProgressScalarFieldEnum = (typeof LabourProgressScalarFieldEnum)[keyof typeof LabourProgressScalarFieldEnum]
+
+
 export const LabourMeasureScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -271,7 +285,8 @@ export const LabourMeasureScalarFieldEnum = {
   amount: 'amount',
   note: 'note',
   addedBy: 'addedBy',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  archivedAt: 'archivedAt'
 } as const
 
 export type LabourMeasureScalarFieldEnum = (typeof LabourMeasureScalarFieldEnum)[keyof typeof LabourMeasureScalarFieldEnum]
@@ -878,6 +893,8 @@ export const ContractorPaymentScalarFieldEnum = {
   remark: 'remark',
   periodFrom: 'periodFrom',
   periodTo: 'periodTo',
+  measureId: 'measureId',
+  archivedAt: 'archivedAt',
   proofId: 'proofId',
   proofVersion: 'proofVersion',
   proofFormat: 'proofFormat',

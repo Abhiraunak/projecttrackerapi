@@ -14,8 +14,7 @@ import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model LabourMeasure
- * Contract work (paid by measurement, not attendance): e.g. 420 sqft of floor tiles × ₹28 = ₹11,760 to the tile
- * contractor. Measured each week; counts as earned on its date, like a day of attendance.
+ * 
  */
 export type LabourMeasureModel = runtime.Types.Result.DefaultSelection<Prisma.$LabourMeasurePayload>
 
@@ -53,6 +52,7 @@ export type LabourMeasureMinAggregateOutputType = {
   note: string | null
   addedBy: string | null
   createdAt: Date | null
+  archivedAt: Date | null
 }
 
 export type LabourMeasureMaxAggregateOutputType = {
@@ -69,6 +69,7 @@ export type LabourMeasureMaxAggregateOutputType = {
   note: string | null
   addedBy: string | null
   createdAt: Date | null
+  archivedAt: Date | null
 }
 
 export type LabourMeasureCountAggregateOutputType = {
@@ -85,6 +86,7 @@ export type LabourMeasureCountAggregateOutputType = {
   note: number
   addedBy: number
   createdAt: number
+  archivedAt: number
   _all: number
 }
 
@@ -115,6 +117,7 @@ export type LabourMeasureMinAggregateInputType = {
   note?: true
   addedBy?: true
   createdAt?: true
+  archivedAt?: true
 }
 
 export type LabourMeasureMaxAggregateInputType = {
@@ -131,6 +134,7 @@ export type LabourMeasureMaxAggregateInputType = {
   note?: true
   addedBy?: true
   createdAt?: true
+  archivedAt?: true
 }
 
 export type LabourMeasureCountAggregateInputType = {
@@ -147,6 +151,7 @@ export type LabourMeasureCountAggregateInputType = {
   note?: true
   addedBy?: true
   createdAt?: true
+  archivedAt?: true
   _all?: true
 }
 
@@ -250,6 +255,7 @@ export type LabourMeasureGroupByOutputType = {
   note: string
   addedBy: string
   createdAt: Date
+  archivedAt: Date | null
   _count: LabourMeasureCountAggregateOutputType | null
   _avg: LabourMeasureAvgAggregateOutputType | null
   _sum: LabourMeasureSumAggregateOutputType | null
@@ -289,7 +295,10 @@ export type LabourMeasureWhereInput = {
   note?: Prisma.StringFilter<"LabourMeasure"> | string
   addedBy?: Prisma.StringFilter<"LabourMeasure"> | string
   createdAt?: Prisma.DateTimeFilter<"LabourMeasure"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"LabourMeasure"> | Date | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  progress?: Prisma.LabourProgressListRelationFilter
+  payments?: Prisma.ContractorPaymentListRelationFilter
 }
 
 export type LabourMeasureOrderByWithRelationInput = {
@@ -306,7 +315,10 @@ export type LabourMeasureOrderByWithRelationInput = {
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
+  progress?: Prisma.LabourProgressOrderByRelationAggregateInput
+  payments?: Prisma.ContractorPaymentOrderByRelationAggregateInput
 }
 
 export type LabourMeasureWhereUniqueInput = Prisma.AtLeast<{
@@ -326,7 +338,10 @@ export type LabourMeasureWhereUniqueInput = Prisma.AtLeast<{
   note?: Prisma.StringFilter<"LabourMeasure"> | string
   addedBy?: Prisma.StringFilter<"LabourMeasure"> | string
   createdAt?: Prisma.DateTimeFilter<"LabourMeasure"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"LabourMeasure"> | Date | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  progress?: Prisma.LabourProgressListRelationFilter
+  payments?: Prisma.ContractorPaymentListRelationFilter
 }, "id">
 
 export type LabourMeasureOrderByWithAggregationInput = {
@@ -343,6 +358,7 @@ export type LabourMeasureOrderByWithAggregationInput = {
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.LabourMeasureCountOrderByAggregateInput
   _avg?: Prisma.LabourMeasureAvgOrderByAggregateInput
   _max?: Prisma.LabourMeasureMaxOrderByAggregateInput
@@ -367,6 +383,7 @@ export type LabourMeasureScalarWhereWithAggregatesInput = {
   note?: Prisma.StringWithAggregatesFilter<"LabourMeasure"> | string
   addedBy?: Prisma.StringWithAggregatesFilter<"LabourMeasure"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LabourMeasure"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"LabourMeasure"> | Date | string | null
 }
 
 export type LabourMeasureCreateInput = {
@@ -382,7 +399,10 @@ export type LabourMeasureCreateInput = {
   note?: string
   addedBy: string
   createdAt?: Date | string
+  archivedAt?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutLabourMeasuresInput
+  progress?: Prisma.LabourProgressCreateNestedManyWithoutMeasureInput
+  payments?: Prisma.ContractorPaymentCreateNestedManyWithoutMeasureInput
 }
 
 export type LabourMeasureUncheckedCreateInput = {
@@ -399,6 +419,9 @@ export type LabourMeasureUncheckedCreateInput = {
   note?: string
   addedBy: string
   createdAt?: Date | string
+  archivedAt?: Date | string | null
+  progress?: Prisma.LabourProgressUncheckedCreateNestedManyWithoutMeasureInput
+  payments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutMeasureInput
 }
 
 export type LabourMeasureUpdateInput = {
@@ -414,7 +437,10 @@ export type LabourMeasureUpdateInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutLabourMeasuresNestedInput
+  progress?: Prisma.LabourProgressUpdateManyWithoutMeasureNestedInput
+  payments?: Prisma.ContractorPaymentUpdateManyWithoutMeasureNestedInput
 }
 
 export type LabourMeasureUncheckedUpdateInput = {
@@ -431,6 +457,9 @@ export type LabourMeasureUncheckedUpdateInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  progress?: Prisma.LabourProgressUncheckedUpdateManyWithoutMeasureNestedInput
+  payments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutMeasureNestedInput
 }
 
 export type LabourMeasureCreateManyInput = {
@@ -447,6 +476,7 @@ export type LabourMeasureCreateManyInput = {
   note?: string
   addedBy: string
   createdAt?: Date | string
+  archivedAt?: Date | string | null
 }
 
 export type LabourMeasureUpdateManyMutationInput = {
@@ -462,6 +492,7 @@ export type LabourMeasureUpdateManyMutationInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type LabourMeasureUncheckedUpdateManyInput = {
@@ -478,6 +509,7 @@ export type LabourMeasureUncheckedUpdateManyInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type LabourMeasureListRelationFilter = {
@@ -488,6 +520,11 @@ export type LabourMeasureListRelationFilter = {
 
 export type LabourMeasureOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type LabourMeasureScalarRelationFilter = {
+  is?: Prisma.LabourMeasureWhereInput
+  isNot?: Prisma.LabourMeasureWhereInput
 }
 
 export type LabourMeasureCountOrderByAggregateInput = {
@@ -504,6 +541,7 @@ export type LabourMeasureCountOrderByAggregateInput = {
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
 }
 
 export type LabourMeasureAvgOrderByAggregateInput = {
@@ -526,6 +564,7 @@ export type LabourMeasureMaxOrderByAggregateInput = {
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
 }
 
 export type LabourMeasureMinOrderByAggregateInput = {
@@ -542,12 +581,18 @@ export type LabourMeasureMinOrderByAggregateInput = {
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
 }
 
 export type LabourMeasureSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   rate?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+}
+
+export type LabourMeasureNullableScalarRelationFilter = {
+  is?: Prisma.LabourMeasureWhereInput | null
+  isNot?: Prisma.LabourMeasureWhereInput | null
 }
 
 export type LabourMeasureCreateNestedManyWithoutProjectInput = {
@@ -592,6 +637,36 @@ export type LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.LabourMeasureScalarWhereInput | Prisma.LabourMeasureScalarWhereInput[]
 }
 
+export type LabourMeasureCreateNestedOneWithoutProgressInput = {
+  create?: Prisma.XOR<Prisma.LabourMeasureCreateWithoutProgressInput, Prisma.LabourMeasureUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.LabourMeasureCreateOrConnectWithoutProgressInput
+  connect?: Prisma.LabourMeasureWhereUniqueInput
+}
+
+export type LabourMeasureUpdateOneRequiredWithoutProgressNestedInput = {
+  create?: Prisma.XOR<Prisma.LabourMeasureCreateWithoutProgressInput, Prisma.LabourMeasureUncheckedCreateWithoutProgressInput>
+  connectOrCreate?: Prisma.LabourMeasureCreateOrConnectWithoutProgressInput
+  upsert?: Prisma.LabourMeasureUpsertWithoutProgressInput
+  connect?: Prisma.LabourMeasureWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LabourMeasureUpdateToOneWithWhereWithoutProgressInput, Prisma.LabourMeasureUpdateWithoutProgressInput>, Prisma.LabourMeasureUncheckedUpdateWithoutProgressInput>
+}
+
+export type LabourMeasureCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.LabourMeasureCreateWithoutPaymentsInput, Prisma.LabourMeasureUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.LabourMeasureCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.LabourMeasureWhereUniqueInput
+}
+
+export type LabourMeasureUpdateOneWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.LabourMeasureCreateWithoutPaymentsInput, Prisma.LabourMeasureUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.LabourMeasureCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.LabourMeasureUpsertWithoutPaymentsInput
+  disconnect?: Prisma.LabourMeasureWhereInput | boolean
+  delete?: Prisma.LabourMeasureWhereInput | boolean
+  connect?: Prisma.LabourMeasureWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LabourMeasureUpdateToOneWithWhereWithoutPaymentsInput, Prisma.LabourMeasureUpdateWithoutPaymentsInput>, Prisma.LabourMeasureUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type LabourMeasureCreateWithoutProjectInput = {
   id?: string
   trade?: string
@@ -605,6 +680,9 @@ export type LabourMeasureCreateWithoutProjectInput = {
   note?: string
   addedBy: string
   createdAt?: Date | string
+  archivedAt?: Date | string | null
+  progress?: Prisma.LabourProgressCreateNestedManyWithoutMeasureInput
+  payments?: Prisma.ContractorPaymentCreateNestedManyWithoutMeasureInput
 }
 
 export type LabourMeasureUncheckedCreateWithoutProjectInput = {
@@ -620,6 +698,9 @@ export type LabourMeasureUncheckedCreateWithoutProjectInput = {
   note?: string
   addedBy: string
   createdAt?: Date | string
+  archivedAt?: Date | string | null
+  progress?: Prisma.LabourProgressUncheckedCreateNestedManyWithoutMeasureInput
+  payments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutMeasureInput
 }
 
 export type LabourMeasureCreateOrConnectWithoutProjectInput = {
@@ -665,6 +746,183 @@ export type LabourMeasureScalarWhereInput = {
   note?: Prisma.StringFilter<"LabourMeasure"> | string
   addedBy?: Prisma.StringFilter<"LabourMeasure"> | string
   createdAt?: Prisma.DateTimeFilter<"LabourMeasure"> | Date | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"LabourMeasure"> | Date | string | null
+}
+
+export type LabourMeasureCreateWithoutProgressInput = {
+  id?: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  work: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string
+  addedBy: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  project: Prisma.ProjectCreateNestedOneWithoutLabourMeasuresInput
+  payments?: Prisma.ContractorPaymentCreateNestedManyWithoutMeasureInput
+}
+
+export type LabourMeasureUncheckedCreateWithoutProgressInput = {
+  id?: string
+  projectId: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  work: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string
+  addedBy: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  payments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutMeasureInput
+}
+
+export type LabourMeasureCreateOrConnectWithoutProgressInput = {
+  where: Prisma.LabourMeasureWhereUniqueInput
+  create: Prisma.XOR<Prisma.LabourMeasureCreateWithoutProgressInput, Prisma.LabourMeasureUncheckedCreateWithoutProgressInput>
+}
+
+export type LabourMeasureUpsertWithoutProgressInput = {
+  update: Prisma.XOR<Prisma.LabourMeasureUpdateWithoutProgressInput, Prisma.LabourMeasureUncheckedUpdateWithoutProgressInput>
+  create: Prisma.XOR<Prisma.LabourMeasureCreateWithoutProgressInput, Prisma.LabourMeasureUncheckedCreateWithoutProgressInput>
+  where?: Prisma.LabourMeasureWhereInput
+}
+
+export type LabourMeasureUpdateToOneWithWhereWithoutProgressInput = {
+  where?: Prisma.LabourMeasureWhereInput
+  data: Prisma.XOR<Prisma.LabourMeasureUpdateWithoutProgressInput, Prisma.LabourMeasureUncheckedUpdateWithoutProgressInput>
+}
+
+export type LabourMeasureUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  project?: Prisma.ProjectUpdateOneRequiredWithoutLabourMeasuresNestedInput
+  payments?: Prisma.ContractorPaymentUpdateManyWithoutMeasureNestedInput
+}
+
+export type LabourMeasureUncheckedUpdateWithoutProgressInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutMeasureNestedInput
+}
+
+export type LabourMeasureCreateWithoutPaymentsInput = {
+  id?: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  work: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string
+  addedBy: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  project: Prisma.ProjectCreateNestedOneWithoutLabourMeasuresInput
+  progress?: Prisma.LabourProgressCreateNestedManyWithoutMeasureInput
+}
+
+export type LabourMeasureUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  projectId: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  work: string
+  quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: string
+  rate: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string
+  addedBy: string
+  createdAt?: Date | string
+  archivedAt?: Date | string | null
+  progress?: Prisma.LabourProgressUncheckedCreateNestedManyWithoutMeasureInput
+}
+
+export type LabourMeasureCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.LabourMeasureWhereUniqueInput
+  create: Prisma.XOR<Prisma.LabourMeasureCreateWithoutPaymentsInput, Prisma.LabourMeasureUncheckedCreateWithoutPaymentsInput>
+}
+
+export type LabourMeasureUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.LabourMeasureUpdateWithoutPaymentsInput, Prisma.LabourMeasureUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.LabourMeasureCreateWithoutPaymentsInput, Prisma.LabourMeasureUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.LabourMeasureWhereInput
+}
+
+export type LabourMeasureUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.LabourMeasureWhereInput
+  data: Prisma.XOR<Prisma.LabourMeasureUpdateWithoutPaymentsInput, Prisma.LabourMeasureUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type LabourMeasureUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  project?: Prisma.ProjectUpdateOneRequiredWithoutLabourMeasuresNestedInput
+  progress?: Prisma.LabourProgressUpdateManyWithoutMeasureNestedInput
+}
+
+export type LabourMeasureUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  work?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: Prisma.StringFieldUpdateOperationsInput | string
+  rate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.StringFieldUpdateOperationsInput | string
+  addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  progress?: Prisma.LabourProgressUncheckedUpdateManyWithoutMeasureNestedInput
 }
 
 export type LabourMeasureCreateManyProjectInput = {
@@ -680,6 +938,7 @@ export type LabourMeasureCreateManyProjectInput = {
   note?: string
   addedBy: string
   createdAt?: Date | string
+  archivedAt?: Date | string | null
 }
 
 export type LabourMeasureUpdateWithoutProjectInput = {
@@ -695,6 +954,9 @@ export type LabourMeasureUpdateWithoutProjectInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  progress?: Prisma.LabourProgressUpdateManyWithoutMeasureNestedInput
+  payments?: Prisma.ContractorPaymentUpdateManyWithoutMeasureNestedInput
 }
 
 export type LabourMeasureUncheckedUpdateWithoutProjectInput = {
@@ -710,6 +972,9 @@ export type LabourMeasureUncheckedUpdateWithoutProjectInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  progress?: Prisma.LabourProgressUncheckedUpdateManyWithoutMeasureNestedInput
+  payments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutMeasureNestedInput
 }
 
 export type LabourMeasureUncheckedUpdateManyWithoutProjectInput = {
@@ -725,8 +990,47 @@ export type LabourMeasureUncheckedUpdateManyWithoutProjectInput = {
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+
+/**
+ * Count Type LabourMeasureCountOutputType
+ */
+
+export type LabourMeasureCountOutputType = {
+  progress: number
+  payments: number
+}
+
+export type LabourMeasureCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  progress?: boolean | LabourMeasureCountOutputTypeCountProgressArgs
+  payments?: boolean | LabourMeasureCountOutputTypeCountPaymentsArgs
+}
+
+/**
+ * LabourMeasureCountOutputType without action
+ */
+export type LabourMeasureCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabourMeasureCountOutputType
+   */
+  select?: Prisma.LabourMeasureCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * LabourMeasureCountOutputType without action
+ */
+export type LabourMeasureCountOutputTypeCountProgressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LabourProgressWhereInput
+}
+
+/**
+ * LabourMeasureCountOutputType without action
+ */
+export type LabourMeasureCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractorPaymentWhereInput
+}
 
 
 export type LabourMeasureSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -743,7 +1047,11 @@ export type LabourMeasureSelect<ExtArgs extends runtime.Types.Extensions.Interna
   note?: boolean
   addedBy?: boolean
   createdAt?: boolean
+  archivedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  progress?: boolean | Prisma.LabourMeasure$progressArgs<ExtArgs>
+  payments?: boolean | Prisma.LabourMeasure$paymentsArgs<ExtArgs>
+  _count?: boolean | Prisma.LabourMeasureCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labourMeasure"]>
 
 export type LabourMeasureSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -760,6 +1068,7 @@ export type LabourMeasureSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   note?: boolean
   addedBy?: boolean
   createdAt?: boolean
+  archivedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labourMeasure"]>
 
@@ -777,6 +1086,7 @@ export type LabourMeasureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   note?: boolean
   addedBy?: boolean
   createdAt?: boolean
+  archivedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labourMeasure"]>
 
@@ -794,11 +1104,15 @@ export type LabourMeasureSelectScalar = {
   note?: boolean
   addedBy?: boolean
   createdAt?: boolean
+  archivedAt?: boolean
 }
 
-export type LabourMeasureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "trade" | "contractorName" | "date" | "work" | "quantity" | "unit" | "rate" | "amount" | "note" | "addedBy" | "createdAt", ExtArgs["result"]["labourMeasure"]>
+export type LabourMeasureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "trade" | "contractorName" | "date" | "work" | "quantity" | "unit" | "rate" | "amount" | "note" | "addedBy" | "createdAt" | "archivedAt", ExtArgs["result"]["labourMeasure"]>
 export type LabourMeasureInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  progress?: boolean | Prisma.LabourMeasure$progressArgs<ExtArgs>
+  payments?: boolean | Prisma.LabourMeasure$paymentsArgs<ExtArgs>
+  _count?: boolean | Prisma.LabourMeasureCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LabourMeasureIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -811,6 +1125,8 @@ export type $LabourMeasurePayload<ExtArgs extends runtime.Types.Extensions.Inter
   name: "LabourMeasure"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
+    progress: Prisma.$LabourProgressPayload<ExtArgs>[]
+    payments: Prisma.$ContractorPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -826,6 +1142,10 @@ export type $LabourMeasurePayload<ExtArgs extends runtime.Types.Extensions.Inter
     note: string
     addedBy: string
     createdAt: Date
+    /**
+     * quantity = the whole quantity given; amount = done till date × rate (the latest progress)
+     */
+    archivedAt: Date | null
   }, ExtArgs["result"]["labourMeasure"]>
   composites: {}
 }
@@ -1221,6 +1541,8 @@ readonly fields: LabourMeasureFieldRefs;
 export interface Prisma__LabourMeasureClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  progress<T extends Prisma.LabourMeasure$progressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LabourMeasure$progressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabourProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.LabourMeasure$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LabourMeasure$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractorPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1263,6 +1585,7 @@ export interface LabourMeasureFieldRefs {
   readonly note: Prisma.FieldRef<"LabourMeasure", 'String'>
   readonly addedBy: Prisma.FieldRef<"LabourMeasure", 'String'>
   readonly createdAt: Prisma.FieldRef<"LabourMeasure", 'DateTime'>
+  readonly archivedAt: Prisma.FieldRef<"LabourMeasure", 'DateTime'>
 }
     
 
@@ -1661,6 +1984,54 @@ export type LabourMeasureDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many LabourMeasures to delete.
    */
   limit?: number
+}
+
+/**
+ * LabourMeasure.progress
+ */
+export type LabourMeasure$progressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabourProgress
+   */
+  select?: Prisma.LabourProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LabourProgress
+   */
+  omit?: Prisma.LabourProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LabourProgressInclude<ExtArgs> | null
+  where?: Prisma.LabourProgressWhereInput
+  orderBy?: Prisma.LabourProgressOrderByWithRelationInput | Prisma.LabourProgressOrderByWithRelationInput[]
+  cursor?: Prisma.LabourProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LabourProgressScalarFieldEnum | Prisma.LabourProgressScalarFieldEnum[]
+}
+
+/**
+ * LabourMeasure.payments
+ */
+export type LabourMeasure$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ContractorPayment
+   */
+  select?: Prisma.ContractorPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ContractorPayment
+   */
+  omit?: Prisma.ContractorPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ContractorPaymentInclude<ExtArgs> | null
+  where?: Prisma.ContractorPaymentWhereInput
+  orderBy?: Prisma.ContractorPaymentOrderByWithRelationInput | Prisma.ContractorPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.ContractorPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ContractorPaymentScalarFieldEnum | Prisma.ContractorPaymentScalarFieldEnum[]
 }
 
 /**

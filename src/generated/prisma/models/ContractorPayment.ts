@@ -46,6 +46,8 @@ export type ContractorPaymentMinAggregateOutputType = {
   remark: string | null
   periodFrom: Date | null
   periodTo: Date | null
+  measureId: string | null
+  archivedAt: Date | null
   proofId: string | null
   proofVersion: number | null
   proofFormat: string | null
@@ -63,6 +65,8 @@ export type ContractorPaymentMaxAggregateOutputType = {
   remark: string | null
   periodFrom: Date | null
   periodTo: Date | null
+  measureId: string | null
+  archivedAt: Date | null
   proofId: string | null
   proofVersion: number | null
   proofFormat: string | null
@@ -80,6 +84,8 @@ export type ContractorPaymentCountAggregateOutputType = {
   remark: number
   periodFrom: number
   periodTo: number
+  measureId: number
+  archivedAt: number
   proofId: number
   proofVersion: number
   proofFormat: number
@@ -109,6 +115,8 @@ export type ContractorPaymentMinAggregateInputType = {
   remark?: true
   periodFrom?: true
   periodTo?: true
+  measureId?: true
+  archivedAt?: true
   proofId?: true
   proofVersion?: true
   proofFormat?: true
@@ -126,6 +134,8 @@ export type ContractorPaymentMaxAggregateInputType = {
   remark?: true
   periodFrom?: true
   periodTo?: true
+  measureId?: true
+  archivedAt?: true
   proofId?: true
   proofVersion?: true
   proofFormat?: true
@@ -143,6 +153,8 @@ export type ContractorPaymentCountAggregateInputType = {
   remark?: true
   periodFrom?: true
   periodTo?: true
+  measureId?: true
+  archivedAt?: true
   proofId?: true
   proofVersion?: true
   proofFormat?: true
@@ -247,6 +259,8 @@ export type ContractorPaymentGroupByOutputType = {
   remark: string
   periodFrom: Date | null
   periodTo: Date | null
+  measureId: string | null
+  archivedAt: Date | null
   proofId: string | null
   proofVersion: number | null
   proofFormat: string | null
@@ -287,12 +301,15 @@ export type ContractorPaymentWhereInput = {
   remark?: Prisma.StringFilter<"ContractorPayment"> | string
   periodFrom?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   periodTo?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
+  measureId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   addedById?: Prisma.StringFilter<"ContractorPayment"> | string
   createdAt?: Prisma.DateTimeFilter<"ContractorPayment"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  measure?: Prisma.XOR<Prisma.LabourMeasureNullableScalarRelationFilter, Prisma.LabourMeasureWhereInput> | null
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -306,12 +323,15 @@ export type ContractorPaymentOrderByWithRelationInput = {
   remark?: Prisma.SortOrder
   periodFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   periodTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  measureId?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   proofId?: Prisma.SortOrderInput | Prisma.SortOrder
   proofVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   proofFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
+  measure?: Prisma.LabourMeasureOrderByWithRelationInput
   addedBy?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -328,12 +348,15 @@ export type ContractorPaymentWhereUniqueInput = Prisma.AtLeast<{
   remark?: Prisma.StringFilter<"ContractorPayment"> | string
   periodFrom?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   periodTo?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
+  measureId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   addedById?: Prisma.StringFilter<"ContractorPayment"> | string
   createdAt?: Prisma.DateTimeFilter<"ContractorPayment"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  measure?: Prisma.XOR<Prisma.LabourMeasureNullableScalarRelationFilter, Prisma.LabourMeasureWhereInput> | null
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -347,6 +370,8 @@ export type ContractorPaymentOrderByWithAggregationInput = {
   remark?: Prisma.SortOrder
   periodFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   periodTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  measureId?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   proofId?: Prisma.SortOrderInput | Prisma.SortOrder
   proofVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   proofFormat?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -372,6 +397,8 @@ export type ContractorPaymentScalarWhereWithAggregatesInput = {
   remark?: Prisma.StringWithAggregatesFilter<"ContractorPayment"> | string
   periodFrom?: Prisma.DateTimeNullableWithAggregatesFilter<"ContractorPayment"> | Date | string | null
   periodTo?: Prisma.DateTimeNullableWithAggregatesFilter<"ContractorPayment"> | Date | string | null
+  measureId?: Prisma.StringNullableWithAggregatesFilter<"ContractorPayment"> | string | null
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableWithAggregatesFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableWithAggregatesFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableWithAggregatesFilter<"ContractorPayment"> | string | null
@@ -388,11 +415,13 @@ export type ContractorPaymentCreateInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutContractorPaymentsInput
+  measure?: Prisma.LabourMeasureCreateNestedOneWithoutPaymentsInput
   addedBy: Prisma.UserCreateNestedOneWithoutContractorPaymentsAddedInput
 }
 
@@ -406,6 +435,8 @@ export type ContractorPaymentUncheckedCreateInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  measureId?: string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -422,11 +453,13 @@ export type ContractorPaymentUpdateInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutContractorPaymentsNestedInput
+  measure?: Prisma.LabourMeasureUpdateOneWithoutPaymentsNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutContractorPaymentsAddedNestedInput
 }
 
@@ -440,6 +473,8 @@ export type ContractorPaymentUncheckedUpdateInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  measureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -457,6 +492,8 @@ export type ContractorPaymentCreateManyInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  measureId?: string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -473,6 +510,7 @@ export type ContractorPaymentUpdateManyMutationInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -489,6 +527,8 @@ export type ContractorPaymentUncheckedUpdateManyInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  measureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -516,6 +556,8 @@ export type ContractorPaymentCountOrderByAggregateInput = {
   remark?: Prisma.SortOrder
   periodFrom?: Prisma.SortOrder
   periodTo?: Prisma.SortOrder
+  measureId?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   proofId?: Prisma.SortOrder
   proofVersion?: Prisma.SortOrder
   proofFormat?: Prisma.SortOrder
@@ -538,6 +580,8 @@ export type ContractorPaymentMaxOrderByAggregateInput = {
   remark?: Prisma.SortOrder
   periodFrom?: Prisma.SortOrder
   periodTo?: Prisma.SortOrder
+  measureId?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   proofId?: Prisma.SortOrder
   proofVersion?: Prisma.SortOrder
   proofFormat?: Prisma.SortOrder
@@ -555,6 +599,8 @@ export type ContractorPaymentMinOrderByAggregateInput = {
   remark?: Prisma.SortOrder
   periodFrom?: Prisma.SortOrder
   periodTo?: Prisma.SortOrder
+  measureId?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   proofId?: Prisma.SortOrder
   proofVersion?: Prisma.SortOrder
   proofFormat?: Prisma.SortOrder
@@ -651,6 +697,48 @@ export type ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.ContractorPaymentScalarWhereInput | Prisma.ContractorPaymentScalarWhereInput[]
 }
 
+export type ContractorPaymentCreateNestedManyWithoutMeasureInput = {
+  create?: Prisma.XOR<Prisma.ContractorPaymentCreateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput> | Prisma.ContractorPaymentCreateWithoutMeasureInput[] | Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput[]
+  connectOrCreate?: Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput | Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput[]
+  createMany?: Prisma.ContractorPaymentCreateManyMeasureInputEnvelope
+  connect?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+}
+
+export type ContractorPaymentUncheckedCreateNestedManyWithoutMeasureInput = {
+  create?: Prisma.XOR<Prisma.ContractorPaymentCreateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput> | Prisma.ContractorPaymentCreateWithoutMeasureInput[] | Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput[]
+  connectOrCreate?: Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput | Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput[]
+  createMany?: Prisma.ContractorPaymentCreateManyMeasureInputEnvelope
+  connect?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+}
+
+export type ContractorPaymentUpdateManyWithoutMeasureNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractorPaymentCreateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput> | Prisma.ContractorPaymentCreateWithoutMeasureInput[] | Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput[]
+  connectOrCreate?: Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput | Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput[]
+  upsert?: Prisma.ContractorPaymentUpsertWithWhereUniqueWithoutMeasureInput | Prisma.ContractorPaymentUpsertWithWhereUniqueWithoutMeasureInput[]
+  createMany?: Prisma.ContractorPaymentCreateManyMeasureInputEnvelope
+  set?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  disconnect?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  delete?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  connect?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  update?: Prisma.ContractorPaymentUpdateWithWhereUniqueWithoutMeasureInput | Prisma.ContractorPaymentUpdateWithWhereUniqueWithoutMeasureInput[]
+  updateMany?: Prisma.ContractorPaymentUpdateManyWithWhereWithoutMeasureInput | Prisma.ContractorPaymentUpdateManyWithWhereWithoutMeasureInput[]
+  deleteMany?: Prisma.ContractorPaymentScalarWhereInput | Prisma.ContractorPaymentScalarWhereInput[]
+}
+
+export type ContractorPaymentUncheckedUpdateManyWithoutMeasureNestedInput = {
+  create?: Prisma.XOR<Prisma.ContractorPaymentCreateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput> | Prisma.ContractorPaymentCreateWithoutMeasureInput[] | Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput[]
+  connectOrCreate?: Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput | Prisma.ContractorPaymentCreateOrConnectWithoutMeasureInput[]
+  upsert?: Prisma.ContractorPaymentUpsertWithWhereUniqueWithoutMeasureInput | Prisma.ContractorPaymentUpsertWithWhereUniqueWithoutMeasureInput[]
+  createMany?: Prisma.ContractorPaymentCreateManyMeasureInputEnvelope
+  set?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  disconnect?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  delete?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  connect?: Prisma.ContractorPaymentWhereUniqueInput | Prisma.ContractorPaymentWhereUniqueInput[]
+  update?: Prisma.ContractorPaymentUpdateWithWhereUniqueWithoutMeasureInput | Prisma.ContractorPaymentUpdateWithWhereUniqueWithoutMeasureInput[]
+  updateMany?: Prisma.ContractorPaymentUpdateManyWithWhereWithoutMeasureInput | Prisma.ContractorPaymentUpdateManyWithWhereWithoutMeasureInput[]
+  deleteMany?: Prisma.ContractorPaymentScalarWhereInput | Prisma.ContractorPaymentScalarWhereInput[]
+}
+
 export type ContractorPaymentCreateWithoutAddedByInput = {
   id?: string
   trade?: string
@@ -660,11 +748,13 @@ export type ContractorPaymentCreateWithoutAddedByInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutContractorPaymentsInput
+  measure?: Prisma.LabourMeasureCreateNestedOneWithoutPaymentsInput
 }
 
 export type ContractorPaymentUncheckedCreateWithoutAddedByInput = {
@@ -677,6 +767,8 @@ export type ContractorPaymentUncheckedCreateWithoutAddedByInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  measureId?: string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -722,6 +814,8 @@ export type ContractorPaymentScalarWhereInput = {
   remark?: Prisma.StringFilter<"ContractorPayment"> | string
   periodFrom?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   periodTo?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
+  measureId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"ContractorPayment"> | Date | string | null
   proofId?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
   proofVersion?: Prisma.IntNullableFilter<"ContractorPayment"> | number | null
   proofFormat?: Prisma.StringNullableFilter<"ContractorPayment"> | string | null
@@ -738,10 +832,12 @@ export type ContractorPaymentCreateWithoutProjectInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
   createdAt?: Date | string
+  measure?: Prisma.LabourMeasureCreateNestedOneWithoutPaymentsInput
   addedBy: Prisma.UserCreateNestedOneWithoutContractorPaymentsAddedInput
 }
 
@@ -754,6 +850,8 @@ export type ContractorPaymentUncheckedCreateWithoutProjectInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  measureId?: string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -787,6 +885,68 @@ export type ContractorPaymentUpdateManyWithWhereWithoutProjectInput = {
   data: Prisma.XOR<Prisma.ContractorPaymentUpdateManyMutationInput, Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectInput>
 }
 
+export type ContractorPaymentCreateWithoutMeasureInput = {
+  id?: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
+  archivedAt?: Date | string | null
+  proofId?: string | null
+  proofVersion?: number | null
+  proofFormat?: string | null
+  createdAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutContractorPaymentsInput
+  addedBy: Prisma.UserCreateNestedOneWithoutContractorPaymentsAddedInput
+}
+
+export type ContractorPaymentUncheckedCreateWithoutMeasureInput = {
+  id?: string
+  projectId: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
+  archivedAt?: Date | string | null
+  proofId?: string | null
+  proofVersion?: number | null
+  proofFormat?: string | null
+  addedById: string
+  createdAt?: Date | string
+}
+
+export type ContractorPaymentCreateOrConnectWithoutMeasureInput = {
+  where: Prisma.ContractorPaymentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ContractorPaymentCreateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput>
+}
+
+export type ContractorPaymentCreateManyMeasureInputEnvelope = {
+  data: Prisma.ContractorPaymentCreateManyMeasureInput | Prisma.ContractorPaymentCreateManyMeasureInput[]
+  skipDuplicates?: boolean
+}
+
+export type ContractorPaymentUpsertWithWhereUniqueWithoutMeasureInput = {
+  where: Prisma.ContractorPaymentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ContractorPaymentUpdateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedUpdateWithoutMeasureInput>
+  create: Prisma.XOR<Prisma.ContractorPaymentCreateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedCreateWithoutMeasureInput>
+}
+
+export type ContractorPaymentUpdateWithWhereUniqueWithoutMeasureInput = {
+  where: Prisma.ContractorPaymentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ContractorPaymentUpdateWithoutMeasureInput, Prisma.ContractorPaymentUncheckedUpdateWithoutMeasureInput>
+}
+
+export type ContractorPaymentUpdateManyWithWhereWithoutMeasureInput = {
+  where: Prisma.ContractorPaymentScalarWhereInput
+  data: Prisma.XOR<Prisma.ContractorPaymentUpdateManyMutationInput, Prisma.ContractorPaymentUncheckedUpdateManyWithoutMeasureInput>
+}
+
 export type ContractorPaymentCreateManyAddedByInput = {
   id?: string
   projectId: string
@@ -797,6 +957,8 @@ export type ContractorPaymentCreateManyAddedByInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  measureId?: string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -812,11 +974,13 @@ export type ContractorPaymentUpdateWithoutAddedByInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutContractorPaymentsNestedInput
+  measure?: Prisma.LabourMeasureUpdateOneWithoutPaymentsNestedInput
 }
 
 export type ContractorPaymentUncheckedUpdateWithoutAddedByInput = {
@@ -829,6 +993,8 @@ export type ContractorPaymentUncheckedUpdateWithoutAddedByInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  measureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -845,6 +1011,8 @@ export type ContractorPaymentUncheckedUpdateManyWithoutAddedByInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  measureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -860,6 +1028,8 @@ export type ContractorPaymentCreateManyProjectInput = {
   remark?: string
   periodFrom?: Date | string | null
   periodTo?: Date | string | null
+  measureId?: string | null
+  archivedAt?: Date | string | null
   proofId?: string | null
   proofVersion?: number | null
   proofFormat?: string | null
@@ -876,10 +1046,12 @@ export type ContractorPaymentUpdateWithoutProjectInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  measure?: Prisma.LabourMeasureUpdateOneWithoutPaymentsNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutContractorPaymentsAddedNestedInput
 }
 
@@ -892,6 +1064,8 @@ export type ContractorPaymentUncheckedUpdateWithoutProjectInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  measureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -908,6 +1082,80 @@ export type ContractorPaymentUncheckedUpdateManyWithoutProjectInput = {
   remark?: Prisma.StringFieldUpdateOperationsInput | string
   periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  measureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContractorPaymentCreateManyMeasureInput = {
+  id?: string
+  projectId: string
+  trade?: string
+  contractorName: string
+  date: Date | string
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  remark?: string
+  periodFrom?: Date | string | null
+  periodTo?: Date | string | null
+  archivedAt?: Date | string | null
+  proofId?: string | null
+  proofVersion?: number | null
+  proofFormat?: string | null
+  addedById: string
+  createdAt?: Date | string
+}
+
+export type ContractorPaymentUpdateWithoutMeasureInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutContractorPaymentsNestedInput
+  addedBy?: Prisma.UserUpdateOneRequiredWithoutContractorPaymentsAddedNestedInput
+}
+
+export type ContractorPaymentUncheckedUpdateWithoutMeasureInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ContractorPaymentUncheckedUpdateManyWithoutMeasureInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  trade?: Prisma.StringFieldUpdateOperationsInput | string
+  contractorName?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  remark?: Prisma.StringFieldUpdateOperationsInput | string
+  periodFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  periodTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   proofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proofVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   proofFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -927,12 +1175,15 @@ export type ContractorPaymentSelect<ExtArgs extends runtime.Types.Extensions.Int
   remark?: boolean
   periodFrom?: boolean
   periodTo?: boolean
+  measureId?: boolean
+  archivedAt?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  measure?: boolean | Prisma.ContractorPayment$measureArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contractorPayment"]>
 
@@ -946,12 +1197,15 @@ export type ContractorPaymentSelectCreateManyAndReturn<ExtArgs extends runtime.T
   remark?: boolean
   periodFrom?: boolean
   periodTo?: boolean
+  measureId?: boolean
+  archivedAt?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  measure?: boolean | Prisma.ContractorPayment$measureArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contractorPayment"]>
 
@@ -965,12 +1219,15 @@ export type ContractorPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   remark?: boolean
   periodFrom?: boolean
   periodTo?: boolean
+  measureId?: boolean
+  archivedAt?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  measure?: boolean | Prisma.ContractorPayment$measureArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["contractorPayment"]>
 
@@ -984,6 +1241,8 @@ export type ContractorPaymentSelectScalar = {
   remark?: boolean
   periodFrom?: boolean
   periodTo?: boolean
+  measureId?: boolean
+  archivedAt?: boolean
   proofId?: boolean
   proofVersion?: boolean
   proofFormat?: boolean
@@ -991,17 +1250,20 @@ export type ContractorPaymentSelectScalar = {
   createdAt?: boolean
 }
 
-export type ContractorPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "trade" | "contractorName" | "date" | "amount" | "remark" | "periodFrom" | "periodTo" | "proofId" | "proofVersion" | "proofFormat" | "addedById" | "createdAt", ExtArgs["result"]["contractorPayment"]>
+export type ContractorPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "trade" | "contractorName" | "date" | "amount" | "remark" | "periodFrom" | "periodTo" | "measureId" | "archivedAt" | "proofId" | "proofVersion" | "proofFormat" | "addedById" | "createdAt", ExtArgs["result"]["contractorPayment"]>
 export type ContractorPaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  measure?: boolean | Prisma.ContractorPayment$measureArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ContractorPaymentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  measure?: boolean | Prisma.ContractorPayment$measureArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ContractorPaymentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  measure?: boolean | Prisma.ContractorPayment$measureArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -1009,6 +1271,7 @@ export type $ContractorPaymentPayload<ExtArgs extends runtime.Types.Extensions.I
   name: "ContractorPayment"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
+    measure: Prisma.$LabourMeasurePayload<ExtArgs> | null
     addedBy: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1024,6 +1287,14 @@ export type $ContractorPaymentPayload<ExtArgs extends runtime.Types.Extensions.I
      */
     periodFrom: Date | null
     periodTo: Date | null
+    /**
+     * Subcontract: the work this payment was for (empty = advance or not tied to a work)
+     */
+    measureId: string | null
+    /**
+     * Archived from the Labour tab: hidden and not counted; deleted for good only from Archived
+     */
+    archivedAt: Date | null
     proofId: string | null
     proofVersion: number | null
     proofFormat: string | null
@@ -1424,6 +1695,7 @@ readonly fields: ContractorPaymentFieldRefs;
 export interface Prisma__ContractorPaymentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  measure<T extends Prisma.ContractorPayment$measureArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractorPayment$measureArgs<ExtArgs>>): Prisma.Prisma__LabourMeasureClient<runtime.Types.Result.GetResult<Prisma.$LabourMeasurePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   addedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1463,6 +1735,8 @@ export interface ContractorPaymentFieldRefs {
   readonly remark: Prisma.FieldRef<"ContractorPayment", 'String'>
   readonly periodFrom: Prisma.FieldRef<"ContractorPayment", 'DateTime'>
   readonly periodTo: Prisma.FieldRef<"ContractorPayment", 'DateTime'>
+  readonly measureId: Prisma.FieldRef<"ContractorPayment", 'String'>
+  readonly archivedAt: Prisma.FieldRef<"ContractorPayment", 'DateTime'>
   readonly proofId: Prisma.FieldRef<"ContractorPayment", 'String'>
   readonly proofVersion: Prisma.FieldRef<"ContractorPayment", 'Int'>
   readonly proofFormat: Prisma.FieldRef<"ContractorPayment", 'String'>
@@ -1866,6 +2140,25 @@ export type ContractorPaymentDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many ContractorPayments to delete.
    */
   limit?: number
+}
+
+/**
+ * ContractorPayment.measure
+ */
+export type ContractorPayment$measureArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LabourMeasure
+   */
+  select?: Prisma.LabourMeasureSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LabourMeasure
+   */
+  omit?: Prisma.LabourMeasureOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LabourMeasureInclude<ExtArgs> | null
+  where?: Prisma.LabourMeasureWhereInput
 }
 
 /**

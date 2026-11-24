@@ -405,6 +405,7 @@ export const ModelName = {
   Attendance: 'Attendance',
   AttendanceWorker: 'AttendanceWorker',
   LabourTeamMember: 'LabourTeamMember',
+  LabourProgress: 'LabourProgress',
   LabourMeasure: 'LabourMeasure',
   LabourWeek: 'LabourWeek',
   Drawing: 'Drawing',
@@ -462,7 +463,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote"
+    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourProgress" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1055,6 +1056,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.LabourTeamMemberCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.LabourTeamMemberCountAggregateOutputType> | number
+        }
+      }
+    }
+    LabourProgress: {
+      payload: Prisma.$LabourProgressPayload<ExtArgs>
+      fields: Prisma.LabourProgressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LabourProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LabourProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>
+        }
+        findFirst: {
+          args: Prisma.LabourProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LabourProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>
+        }
+        findMany: {
+          args: Prisma.LabourProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>[]
+        }
+        create: {
+          args: Prisma.LabourProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>
+        }
+        createMany: {
+          args: Prisma.LabourProgressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LabourProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>[]
+        }
+        delete: {
+          args: Prisma.LabourProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>
+        }
+        update: {
+          args: Prisma.LabourProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>
+        }
+        deleteMany: {
+          args: Prisma.LabourProgressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LabourProgressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LabourProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>[]
+        }
+        upsert: {
+          args: Prisma.LabourProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourProgressPayload>
+        }
+        aggregate: {
+          args: Prisma.LabourProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLabourProgress>
+        }
+        groupBy: {
+          args: Prisma.LabourProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourProgressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LabourProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourProgressCountAggregateOutputType> | number
         }
       }
     }
@@ -4307,6 +4382,7 @@ export const AttendanceScalarFieldEnum = {
   batchId: 'batchId',
   batchLead: 'batchLead',
   payMode: 'payMode',
+  archivedAt: 'archivedAt',
   taskId: 'taskId'
 } as const
 
@@ -4344,6 +4420,18 @@ export const LabourTeamMemberScalarFieldEnum = {
 export type LabourTeamMemberScalarFieldEnum = (typeof LabourTeamMemberScalarFieldEnum)[keyof typeof LabourTeamMemberScalarFieldEnum]
 
 
+export const LabourProgressScalarFieldEnum = {
+  id: 'id',
+  measureId: 'measureId',
+  date: 'date',
+  done: 'done',
+  addedBy: 'addedBy',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourProgressScalarFieldEnum = (typeof LabourProgressScalarFieldEnum)[keyof typeof LabourProgressScalarFieldEnum]
+
+
 export const LabourMeasureScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
@@ -4357,7 +4445,8 @@ export const LabourMeasureScalarFieldEnum = {
   amount: 'amount',
   note: 'note',
   addedBy: 'addedBy',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  archivedAt: 'archivedAt'
 } as const
 
 export type LabourMeasureScalarFieldEnum = (typeof LabourMeasureScalarFieldEnum)[keyof typeof LabourMeasureScalarFieldEnum]
@@ -4964,6 +5053,8 @@ export const ContractorPaymentScalarFieldEnum = {
   remark: 'remark',
   periodFrom: 'periodFrom',
   periodTo: 'periodTo',
+  measureId: 'measureId',
+  archivedAt: 'archivedAt',
   proofId: 'proofId',
   proofVersion: 'proofVersion',
   proofFormat: 'proofFormat',
@@ -5578,6 +5669,7 @@ export type GlobalOmitConfig = {
   attendance?: Prisma.AttendanceOmit
   attendanceWorker?: Prisma.AttendanceWorkerOmit
   labourTeamMember?: Prisma.LabourTeamMemberOmit
+  labourProgress?: Prisma.LabourProgressOmit
   labourMeasure?: Prisma.LabourMeasureOmit
   labourWeek?: Prisma.LabourWeekOmit
   drawing?: Prisma.DrawingOmit

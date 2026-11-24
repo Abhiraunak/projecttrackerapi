@@ -2,7 +2,25 @@ import { Router, type Request } from "express";
 import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
-import { copyDaySchema, dayQuery, measureSchema, paymentSchema, periodPaymentSchema, quantitySchema, quoteSchema, rangeQuery, saveDaySchema, statementQuery, workRateSchema, workSchema } from "./labourSimple.schema.js";
+import {
+  archivedDeleteSchema,
+  copyDaySchema,
+  dayQuery,
+  measureSchema,
+  paymentSchema,
+  periodPaymentSchema,
+  personQuery,
+  personSchema,
+  progressSchema,
+  quantitySchema,
+  quoteSchema,
+  rangeQuery,
+  saveDaySchema,
+  statementQuery,
+  subPaymentSchema,
+  workRateSchema,
+  workSchema,
+} from "./labourSimple.schema.js";
 import * as s from "./labourSimple.service.js";
 
 /*
@@ -44,11 +62,42 @@ router.put(`${base}/period-payments/:id`, requireAuth, writeLimiter, validate(pe
 );
 router.delete(`${base}/period-payments/:id`, requireAuth, async (req: PI, res) => res.json(await s.removePeriodPayment(uid(req), req.params.projectId, req.params.id)));
 
-// subcontract
+// team heads and individuals (Attendance tab list): one row per person, their days and payments, archive
+router.get(`${base}/team`, requireAuth, async (req: P, res) => res.json(await s.team(uid(req), req.params.projectId)));
+router.get(`${base}/team/person`, requireAuth, async (req: P, res) => res.json(await s.person(uid(req), req.params.projectId, personQuery.parse(req.query).name)));
+router.post(`${base}/team/archive`, requireAuth, writeLimiter, validate(personSchema), async (req: P, res) => res.json(await s.archivePerson(uid(req), req.params.projectId, req.body.name)));
+router.post(`${base}/team/restore`, requireAuth, writeLimiter, validate(personSchema), async (req: P, res) => res.json(await s.restorePerson(uid(req), req.params.projectId, req.body.name)));
+router.post(`${base}/payments/:id/archive`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archivePayment(uid(req), req.params.projectId, req.params.id, true)));
+router.post(`${base}/payments/:id/restore`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archivePayment(uid(req), req.params.projectId, req.params.id, false)));
+
+// subcontract: works with "done till date", payments for a work or as an advance, archive
 router.get(`${base}/subcontract`, requireAuth, async (req: P, res) => res.json(await s.subcontract(uid(req), req.params.projectId)));
 router.post(`${base}/subcontract`, requireAuth, writeLimiter, validate(measureSchema), async (req: P, res) => res.status(201).json(await s.addMeasure(uid(req), req.params.projectId, req.body)));
+// (before /subcontract/:id so "payments" is never read as an id)
+router.post(`${base}/subcontract/payments`, requireAuth, writeLimiter, validate(subPaymentSchema), async (req: P, res) =>
+  res.status(201).json(await s.addSubPayment(uid(req), req.params.projectId, req.body)),
+);
+router.put(`${base}/subcontract/payments/:id`, requireAuth, writeLimiter, validate(subPaymentSchema), async (req: PI, res) =>
+  res.json(await s.updateSubPayment(uid(req), req.params.projectId, req.params.id, req.body)),
+);
 router.put(`${base}/subcontract/:id`, requireAuth, writeLimiter, validate(measureSchema), async (req: PI, res) => res.json(await s.updateMeasure(uid(req), req.params.projectId, req.params.id, req.body)));
+router.post(`${base}/subcontract/:id/progress`, requireAuth, writeLimiter, validate(progressSchema), async (req: PI, res) =>
+  res.status(201).json(await s.addProgress(uid(req), req.params.projectId, req.params.id, req.body)),
+);
+router.put(`${base}/progress/:id`, requireAuth, writeLimiter, validate(progressSchema), async (req: PI, res) => res.json(await s.updateProgress(uid(req), req.params.projectId, req.params.id, req.body)));
+router.post(`${base}/subcontract/:id/archive`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archiveMeasure(uid(req), req.params.projectId, req.params.id, true)));
+router.post(`${base}/subcontract/:id/restore`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archiveMeasure(uid(req), req.params.projectId, req.params.id, false)));
 router.delete(`${base}/subcontract/:id`, requireAuth, async (req: PI, res) => res.json(await s.removeMeasure(uid(req), req.params.projectId, req.params.id)));
+router.post(`${base}/subcontractors/archive`, requireAuth, writeLimiter, validate(personSchema), async (req: P, res) =>
+  res.json(await s.archiveSubcontractor(uid(req), req.params.projectId, req.body.name, true)),
+);
+router.post(`${base}/subcontractors/restore`, requireAuth, writeLimiter, validate(personSchema), async (req: P, res) =>
+  res.json(await s.archiveSubcontractor(uid(req), req.params.projectId, req.body.name, false)),
+);
+
+// archived: the list, and delete for good (only what was archived first)
+router.get(`${base}/archived`, requireAuth, async (req: P, res) => res.json(await s.archived(uid(req), req.params.projectId)));
+router.post(`${base}/archived/delete`, requireAuth, writeLimiter, validate(archivedDeleteSchema), async (req: P, res) => res.json(await s.deleteArchived(uid(req), req.params.projectId, req.body)));
 
 // rate comparison: the table (one row per work), and a work's quantity done and contractor rate
 router.get(`${base}/rates`, requireAuth, async (req: P, res) => res.json(await s.rateTable(uid(req), req.params.projectId, rangeQuery.parse(req.query))));
