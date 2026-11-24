@@ -6,6 +6,7 @@
 export const PERMISSIONS = [
     "project.view",
     "project.manage", // create and edit projects, their work items and money figures
+    "project.create", // only start new projects (the "Create projects" tick); editing them needs project.manage
     "project.delete",
     "tasks.progress", // update how much of a work item is done
     "audit.view",

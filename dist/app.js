@@ -65,8 +65,8 @@ app.use('/api/v1/notifications', notificationRoutes);
 // app.use('/api/v1/punches', punchRoutes);         // staff punch in / out
 app.use('/api/v1/equipment', equipmentRoutes); // Phase 6: equipment register
 app.use('/api/v1/site-diary', siteDiaryRoutes); // site engineer's daily report (DPR) and the manager's review
-app.use('/api/v1', materialEstimateRoutes); // the simple Material estimate section
-app.use('/api/v1', labourSimpleRoutes); // the simple Labour section
+app.use('/api/v1', materialEstimateRoutes); // Material estimate section: /projects/:projectId/material-estimates
+app.use('/api/v1', labourSimpleRoutes); // Labour section: /projects/:projectId/labour-simple/...
 app.use(notFound);
 app.use(errorHandler); // must be last
 // The server is started in server.ts (it also starts the alert sweep, payment reminders and session clean-up)

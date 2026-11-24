@@ -440,4 +440,48 @@ export async function removeHireChange(userId, id, changeId) {
     await prisma.equipmentHireChange.delete({ where: { id: row.id } });
     return { ok: true };
 }
+/**
+ * Equipment spend per project, matching the Equipment tab: for owned items, the pieces at that site × their cost each;
+ * for hired items, the hire charged to that site so far. Written-off and moved-away pieces no longer count there.
+ */
+export async function equipmentSpendByProject(projectIds) {
+    const out = new Map(projectIds.map((id) => [id, 0]));
+    if (projectIds.length === 0)
+        return out;
+    const touching = await prisma.equipmentMove.findMany({
+        where: { OR: [{ toProjectId: { in: projectIds } }, { fromProjectId: { in: projectIds } }] },
+        select: { equipmentId: true },
+        distinct: ["equipmentId"],
+    });
+    if (!touching.length)
+        return out;
+    const ids = touching.map((t) => t.equipmentId);
+    const [items, moves] = await Promise.all([
+        prisma.equipment.findMany({ where: { id: { in: ids } }, select: itemSelect }),
+        prisma.equipmentMove.findMany({ where: { equipmentId: { in: ids } }, select: { ...moveSelect, equipmentId: true } }),
+    ]);
+    const byItem = new Map();
+    for (const m of moves)
+        byItem.set(m.equipmentId, [...(byItem.get(m.equipmentId) ?? []), toMove(m)]);
+    const day = today();
+    for (const i of items) {
+        const list = byItem.get(i.id) ?? [];
+        if (i.ownership === "hired") {
+            const use = useByPlace(list, termsOf(i), day);
+            for (const id of projectIds)
+                out.set(id, (out.get(id) ?? 0) + (use.get(id)?.charge ?? 0));
+        }
+        else {
+            const cost = i.unitCost?.toNumber() ?? 0;
+            if (!cost)
+                continue;
+            const here = stockByPlace(list);
+            for (const id of projectIds)
+                out.set(id, (out.get(id) ?? 0) + (here.get(id) ?? 0) * cost);
+        }
+    }
+    for (const [id, v] of out)
+        out.set(id, Math.round(v * 100) / 100);
+    return out;
+}
 //# sourceMappingURL=equipment.service.js.map

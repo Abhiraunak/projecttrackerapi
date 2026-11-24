@@ -1,6 +1,7 @@
 import { prisma } from "../../lib/prisma.js";
 import { requireCan } from "../../lib/projectAccess.js";
-import { equipmentHireByProject } from "../equipment/equipment.service.js";
+import { equipmentSpendByProject } from "../equipment/equipment.service.js";
+import { purchaseTotalsByProject } from "../material-purchases/materialPurchases.service.js";
 const num = (v) => v?.toNumber() ?? 0;
 const round2 = (n) => Math.round(n * 100) / 100;
 const empty = () => ({
@@ -16,14 +17,14 @@ export async function spendByProject(projectIds) {
     if (projectIds.length === 0)
         return out;
     const where = { projectId: { in: projectIds } };
-    const [attendance, contract, payments, deliveries, planned, general, hire] = await Promise.all([
-        prisma.attendance.groupBy({ by: ["projectId"], where, _sum: { totalAmount: true } }),
-        prisma.labourMeasure.groupBy({ by: ["projectId"], where, _sum: { amount: true } }),
-        prisma.contractorPayment.groupBy({ by: ["projectId"], where, _sum: { amount: true } }),
-        prisma.materialDelivery.groupBy({ by: ["projectId"], where, _sum: { amount: true } }),
-        prisma.materialPurchase.groupBy({ by: ["projectId"], where, _sum: { amount: true } }),
+    const live = { ...where, archivedAt: null }; // archived rows count nowhere
+    const [attendance, contract, payments, materials, general, equipment] = await Promise.all([
+        prisma.attendance.groupBy({ by: ["projectId"], where: live, _sum: { totalAmount: true } }),
+        prisma.labourMeasure.groupBy({ by: ["projectId"], where: live, _sum: { amount: true } }),
+        prisma.contractorPayment.groupBy({ by: ["projectId"], where: live, _sum: { amount: true } }),
+        purchaseTotalsByProject(projectIds), // the Materials tab's own totals (archived materials and deliveries left out)
         prisma.expense.groupBy({ by: ["projectId"], where: { ...where, category: "general" }, _sum: { amount: true } }),
-        equipmentHireByProject(projectIds),
+        equipmentSpendByProject(projectIds),
     ]);
     for (const r of attendance)
         out.get(r.projectId).labour.attendance = num(r._sum.totalAmount);
@@ -31,18 +32,20 @@ export async function spendByProject(projectIds) {
         out.get(r.projectId).labour.contract = num(r._sum.amount);
     for (const r of payments)
         out.get(r.projectId).labour.paid = num(r._sum.amount);
-    for (const r of deliveries)
-        out.get(r.projectId).material.deliveries = num(r._sum.amount);
-    for (const r of planned)
-        out.get(r.projectId).material.planned = num(r._sum.amount);
+    for (const [id, m] of materials) {
+        out.get(id).material.deliveries = m.spent;
+        out.get(id).material.planned = m.planned;
+    }
     for (const r of general)
         out.get(r.projectId).general = num(r._sum.amount);
-    for (const [id, v] of hire)
+    for (const [id, v] of equipment)
         out.get(id).equipment = v;
     for (const s of out.values()) {
         s.labour.total = round2(s.labour.attendance + s.labour.contract);
         s.labour.toPay = round2(s.labour.total - s.labour.paid); // below 0: paid in advance
-        s.material.total = round2(s.material.deliveries);
+        s.material.deliveries = round2(s.material.deliveries);
+        s.material.planned = round2(s.material.planned);
+        s.material.total = s.material.deliveries;
         s.general = round2(s.general);
         s.total = round2(s.labour.total + s.material.total + s.equipment + s.general);
     }

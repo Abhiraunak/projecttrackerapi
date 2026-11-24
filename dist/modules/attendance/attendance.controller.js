@@ -620,7 +620,7 @@ export async function workItems(req, res) {
     await requirePermission(userId, projectId, "attendance.view");
     const [tasks, sums] = await Promise.all([
         prisma.task.findMany({ where: { projectId }, orderBy: { position: "asc" }, select: { id: true, work: true } }),
-        prisma.attendance.groupBy({ by: ["taskId"], where: { projectId }, _sum: { totalAmount: true }, _count: { _all: true } }),
+        prisma.attendance.groupBy({ by: ["taskId"], where: { projectId, archivedAt: null }, _sum: { totalAmount: true }, _count: { _all: true } }), // archived days count nowhere
     ]);
     const total = (taskId) => round2(num(sums.find((x) => x.taskId === taskId)?._sum.totalAmount));
     const days = (taskId) => sums.find((x) => x.taskId === taskId)?._count._all ?? 0;

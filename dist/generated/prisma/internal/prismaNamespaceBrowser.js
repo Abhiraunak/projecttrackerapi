@@ -47,6 +47,7 @@ export const ModelName = {
     Attendance: 'Attendance',
     AttendanceWorker: 'AttendanceWorker',
     LabourTeamMember: 'LabourTeamMember',
+    LabourProgress: 'LabourProgress',
     LabourMeasure: 'LabourMeasure',
     LabourWeek: 'LabourWeek',
     Drawing: 'Drawing',
@@ -181,6 +182,7 @@ export const AttendanceScalarFieldEnum = {
     batchId: 'batchId',
     batchLead: 'batchLead',
     payMode: 'payMode',
+    archivedAt: 'archivedAt',
     taskId: 'taskId'
 };
 export const AttendanceWorkerScalarFieldEnum = {
@@ -206,6 +208,14 @@ export const LabourTeamMemberScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
+export const LabourProgressScalarFieldEnum = {
+    id: 'id',
+    measureId: 'measureId',
+    date: 'date',
+    done: 'done',
+    addedBy: 'addedBy',
+    createdAt: 'createdAt'
+};
 export const LabourMeasureScalarFieldEnum = {
     id: 'id',
     projectId: 'projectId',
@@ -219,7 +229,8 @@ export const LabourMeasureScalarFieldEnum = {
     amount: 'amount',
     note: 'note',
     addedBy: 'addedBy',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    archivedAt: 'archivedAt'
 };
 export const LabourWeekScalarFieldEnum = {
     id: 'id',
@@ -686,6 +697,8 @@ export const ContractorPaymentScalarFieldEnum = {
     remark: 'remark',
     periodFrom: 'periodFrom',
     periodTo: 'periodTo',
+    measureId: 'measureId',
+    archivedAt: 'archivedAt',
     proofId: 'proofId',
     proofVersion: 'proofVersion',
     proofFormat: 'proofFormat',

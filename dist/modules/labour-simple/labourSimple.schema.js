@@ -66,15 +66,44 @@ export const periodPaymentSchema = z.object({
     })
         .refine((b) => b.from <= b.to, { message: "From must be on or before To.", path: ["to"] }),
 });
+/** Subcontract work given: quantity = the whole quantity given; done = how much is finished so far (optional) */
 export const measureSchema = z.object({
     body: z.object({
         contractorName: name,
         date: ymd,
         work: z.string().trim().min(1, "Say what work it was, e.g. Flooring, 1st floor.").max(160),
-        quantity: z.number().finite().positive("Enter the quantity.").max(10_000_000),
+        quantity: z.number().finite().positive("Enter the quantity given.").max(10_000_000),
+        done: z.number().finite().min(0).max(10_000_000).optional(),
         unit: z.string().trim().min(1).max(20).default("sqft"),
         rate: z.number().finite().min(0).max(1_000_000),
         note: z.string().trim().max(500).default(""),
+    }),
+});
+/** One person by name (archive, restore, their days and payments) */
+export const personSchema = z.object({ body: z.object({ name }) });
+export const personQuery = z.object({ name });
+/** "Done till date" on one subcontract work: the total finished so far, not just that day's part */
+export const progressSchema = z.object({
+    body: z.object({ date: ymd, done: z.number().finite().min(0, "Enter how much is done.").max(10_000_000) }),
+});
+/** A payment to a subcontractor: for one work, or an advance (no work) */
+export const subPaymentSchema = z.object({
+    body: z.object({
+        name,
+        date: ymd,
+        amount: z.number().finite().positive("Enter the amount paid.").max(1_000_000_000),
+        measureId: z.string().min(1).max(64).nullable().default(null),
+        remark: z.string().trim().max(500).default(""),
+    }),
+});
+/** Delete for good, from Archived: only rows already archived are removed */
+const ids = z.array(z.string().min(1).max(64)).max(500).default([]);
+export const archivedDeleteSchema = z.object({
+    body: z.object({
+        people: z.array(name).max(200).default([]),
+        subcontractors: z.array(name).max(200).default([]),
+        payments: ids,
+        works: ids,
     }),
 });
 /** Rate comparison, per work: how much was done and the contractor's rate per unit */

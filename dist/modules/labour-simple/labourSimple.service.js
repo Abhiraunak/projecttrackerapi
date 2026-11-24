@@ -16,6 +16,9 @@ const day = (s) => new Date(`${s}T00:00:00Z`);
 const ymdOf = (d) => d.toISOString().slice(0, 10);
 const today = () => dayKeyIn(new Date());
 const same = (name) => ({ equals: name.trim(), mode: "insensitive" });
+const live = { archivedAt: null }; // archived rows are hidden and counted nowhere
+const gone = { archivedAt: { not: null } };
+const keyOf = (n) => n.trim().toLowerCase();
 const taskOf = (taskId) => (taskId ? taskId : null);
 const notFuture = (date) => {
     if (date > today())
@@ -63,8 +66,8 @@ export async function getDay(userId, projectId, q) {
     const taskId = taskOf(q.taskId);
     const where = { projectId, contractorName: same(q.contractor), taskId };
     const [rows, before] = await Promise.all([
-        prisma.attendance.findMany({ where: { ...where, date: day(q.date) }, orderBy: { createdAt: "asc" }, select: { extras: true, workers: { select: workerSelect, orderBy: { position: "asc" } } } }),
-        prisma.attendance.findFirst({ where: { ...where, date: { lt: day(q.date) } }, orderBy: [{ date: "desc" }, { createdAt: "desc" }], select: { date: true, workers: { select: workerSelect, orderBy: { position: "asc" } } } }),
+        prisma.attendance.findMany({ where: { ...where, ...live, date: day(q.date) }, orderBy: { createdAt: "asc" }, select: { extras: true, workers: { select: workerSelect, orderBy: { position: "asc" } } } }),
+        prisma.attendance.findFirst({ where: { ...where, ...live, date: { lt: day(q.date) } }, orderBy: [{ date: "desc" }, { createdAt: "desc" }], select: { date: true, workers: { select: workerSelect, orderBy: { position: "asc" } } } }),
     ]);
     const workers = rows.flatMap((r) => r.workers.map(workerDto));
     const extras = r2(rows.reduce((s, r) => s + num(r.extras), 0)); // extra amounts on older days, kept as they are
@@ -219,6 +222,7 @@ export async function dayTotals(userId, projectId, q) {
         by: ["date"],
         where: {
             projectId,
+            ...live,
             date: { gte: day(q.from), lte: day(q.to) },
             ...(q.taskId !== undefined ? { taskId: taskOf(q.taskId) } : {}),
             ...(q.contractor ? { contractorName: same(q.contractor) } : {}),
@@ -234,6 +238,7 @@ export async function records(userId, projectId, q) {
     const rows = await prisma.attendance.findMany({
         where: {
             projectId,
+            ...live,
             date: { gte: day(q.from), lte: day(q.to) },
             ...(q.taskId !== undefined ? { taskId: taskOf(q.taskId) } : {}),
             ...(q.contractor ? { contractorName: same(q.contractor) } : {}),
@@ -259,7 +264,7 @@ export async function works(userId, projectId) {
     await requirePermission(userId, projectId, VIEW);
     const [tasks, sums] = await Promise.all([
         prisma.task.findMany({ where: { projectId }, orderBy: { position: "asc" }, select: { id: true, work: true, area: true } }),
-        prisma.attendance.groupBy({ by: ["taskId"], where: { projectId }, _sum: { totalAmount: true } }),
+        prisma.attendance.groupBy({ by: ["taskId"], where: { projectId, ...live }, _sum: { totalAmount: true } }),
     ]);
     const cost = (taskId) => r2(num(sums.find((s) => s.taskId === taskId)?._sum.totalAmount));
     return { items: tasks.map((t) => ({ id: t.id, title: t.work, quantity: t.area, cost: cost(t.id) })), general: cost(null) };
@@ -290,9 +295,9 @@ export async function renameWork(userId, projectId, taskId, title) {
 export async function people(userId, projectId) {
     await requirePermission(userId, projectId, VIEW);
     const [a, p, m, q] = await Promise.all([
-        prisma.attendance.findMany({ where: { projectId }, distinct: ["contractorName"], select: { contractorName: true }, orderBy: { date: "desc" } }),
-        prisma.contractorPayment.findMany({ where: { projectId }, distinct: ["contractorName"], select: { contractorName: true } }),
-        prisma.labourMeasure.findMany({ where: { projectId }, distinct: ["contractorName"], select: { contractorName: true } }),
+        prisma.attendance.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true }, orderBy: { date: "desc" } }),
+        prisma.contractorPayment.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
+        prisma.labourMeasure.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
         prisma.labourQuote.findMany({ where: { projectId }, distinct: ["name"], select: { name: true } }),
     ]);
     const seen = new Map();
@@ -322,7 +327,7 @@ const paymentDto = (p) => ({
 export async function statement(userId, projectId, q) {
     await requirePermission(userId, projectId, VIEW);
     checkRange(q.from, q.to);
-    const who = { projectId, contractorName: same(q.person) };
+    const who = { projectId, contractorName: same(q.person), ...live };
     const range = { gte: day(q.from), lte: day(q.to) };
     const [att, meas, pays, attAll, measAll, paidAll] = await Promise.all([
         prisma.attendance.findMany({
@@ -388,7 +393,7 @@ const paidOn = (to) => (to > today() ? today() : to);
 export async function periodPayments(userId, projectId) {
     await requirePermission(userId, projectId, VIEW);
     const rows = await prisma.contractorPayment.findMany({
-        where: { projectId, periodFrom: { not: null } },
+        where: { projectId, ...live, periodFrom: { not: null } },
         orderBy: [{ periodTo: "desc" }, { createdAt: "desc" }],
         take: 1000,
         select: periodSelect,
@@ -416,7 +421,8 @@ export async function addPeriodPayment(userId, projectId, input) {
 /** PUT …/labour-simple/period-payments/:id */
 export async function updatePeriodPayment(userId, projectId, id, input) {
     await requirePermission(userId, projectId, WRITE);
-    const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, periodFrom: { not: null } }, select: { id: true } });
+    // any payment to a team head or person (older ones without a period get one now)
+    const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, measureId: null }, select: { id: true } });
     if (!found)
         throw new HttpError(404, "That entry is no longer there.");
     const row = await prisma.contractorPayment.update({
@@ -426,58 +432,427 @@ export async function updatePeriodPayment(userId, projectId, id, input) {
     });
     return { item: periodDto(row) };
 }
-/** DELETE …/labour-simple/period-payments/:id (only these entries; other payments are untouched) */
+/** DELETE …/labour-simple/period-payments/:id: only a payment that was archived first */
 export async function removePeriodPayment(userId, projectId, id) {
     await requirePermission(userId, projectId, WRITE);
-    const { count } = await prisma.contractorPayment.deleteMany({ where: { id, projectId, periodFrom: { not: null } } });
+    const { count } = await prisma.contractorPayment.deleteMany({ where: { id, projectId, ...gone } });
     if (count === 0)
-        throw new HttpError(404, "That entry is no longer there.");
+        throw new HttpError(409, "Archive the payment first, then delete it from Archived.");
     return { ok: true };
 }
-const measureDto = (m) => ({ id: m.id, contractorName: m.contractorName, date: ymdOf(m.date), work: m.work, quantity: num(m.quantity), unit: m.unit, rate: num(m.rate), amount: r2(num(m.amount)), note: m.note });
-/** GET …/labour-simple/subcontract: every contract work entry, and per subcontractor: work done, paid, still to pay */
+/** "One person" only when the day holds exactly that person; older days (several workers, or amounts only) are a team */
+const isTeam = (d) => d.workers.length !== 1 || keyOf(d.workers[0].label) !== keyOf(d.contractorName);
+/** GET …/labour-simple/team: one row per team head or person, newest first */
+export async function team(userId, projectId) {
+    await requirePermission(userId, projectId, VIEW);
+    const [days, subs, pays] = await Promise.all([
+        prisma.attendance.findMany({
+            where: { projectId, ...live },
+            select: { contractorName: true, date: true, totalAmount: true, workers: { select: { label: true } } },
+        }),
+        prisma.labourMeasure.findMany({ where: { projectId }, distinct: ["contractorName"], select: { contractorName: true } }),
+        prisma.contractorPayment.findMany({ where: { projectId, ...live, measureId: null }, select: { contractorName: true, amount: true, date: true } }),
+    ]);
+    const subNames = new Set(subs.map((x) => keyOf(x.contractorName)));
+    const rows = new Map();
+    const rowOf = (name) => {
+        const k = keyOf(name);
+        let r = rows.get(k);
+        if (!r) {
+            r = { name: name.trim(), kind: null, days: 0, earned: 0, paid: 0, last: "" };
+            rows.set(k, r);
+        }
+        return r;
+    };
+    for (const d of days) {
+        const r = rowOf(d.contractorName);
+        r.days += 1;
+        r.earned += num(d.totalAmount);
+        r.kind = r.kind === "team" || isTeam(d) ? "team" : "one";
+        const ymd = ymdOf(d.date);
+        if (ymd > r.last)
+            r.last = ymd;
+    }
+    for (const p of pays) {
+        const k = keyOf(p.contractorName);
+        if (subNames.has(k) && !rows.has(k))
+            continue; // a subcontractor's payment: shown in Subcontract
+        const r = rowOf(p.contractorName);
+        r.paid += num(p.amount);
+        const ymd = ymdOf(p.date);
+        if (ymd > r.last)
+            r.last = ymd;
+    }
+    const items = [...rows.values()]
+        .map((r) => ({ ...r, earned: r2(r.earned), paid: r2(r.paid), toPay: r2(r.earned - r.paid) }))
+        .sort((a, b) => (a.last === b.last ? a.name.localeCompare(b.name) : a.last < b.last ? 1 : -1));
+    return {
+        items,
+        totals: { earned: r2(items.reduce((s, i) => s + i.earned, 0)), paid: r2(items.reduce((s, i) => s + i.paid, 0)), toPay: r2(items.reduce((s, i) => s + i.toPay, 0)) },
+    };
+}
+/** GET …/labour-simple/team/person?name=: one row opened: their marked days and their payments, newest first */
+export async function person(userId, projectId, name) {
+    await requirePermission(userId, projectId, VIEW);
+    const who = { projectId, contractorName: same(name), ...live };
+    const [days, pays] = await Promise.all([
+        prisma.attendance.findMany({
+            where: who,
+            orderBy: [{ date: "desc" }, { createdAt: "desc" }],
+            take: 400,
+            select: { date: true, taskId: true, totalAmount: true, task: { select: { work: true } }, workers: { select: { hours: true, otHours: true } } },
+        }),
+        prisma.contractorPayment.findMany({
+            where: { ...who, measureId: null },
+            orderBy: [{ date: "desc" }, { createdAt: "desc" }],
+            take: 400,
+            select: { id: true, date: true, amount: true, remark: true, periodFrom: true, periodTo: true },
+        }),
+    ]);
+    return {
+        days: days.map((d) => ({
+            date: ymdOf(d.date),
+            taskId: d.taskId,
+            work: d.task?.work ?? "General",
+            workers: d.workers.length,
+            hours: r2(d.workers.reduce((s, w) => s + num(w.hours), 0)),
+            otHours: r2(d.workers.reduce((s, w) => s + num(w.otHours), 0)),
+            amount: r2(num(d.totalAmount)),
+        })),
+        payments: pays.map((p) => ({
+            id: p.id,
+            date: ymdOf(p.date),
+            from: p.periodFrom ? ymdOf(p.periodFrom) : "",
+            to: p.periodTo ? ymdOf(p.periodTo) : "",
+            amount: r2(num(p.amount)),
+            remark: p.remark,
+        })),
+    };
+}
+/** POST …/labour-simple/team/archive: the person with all their days and payments goes to Archived (counted nowhere) */
+export async function archivePerson(userId, projectId, name) {
+    await requirePermission(userId, projectId, WRITE);
+    const now = new Date();
+    const who = { projectId, contractorName: same(name), ...live };
+    const [a, p] = await prisma.$transaction([
+        prisma.attendance.updateMany({ where: who, data: { archivedAt: now } }),
+        prisma.contractorPayment.updateMany({ where: { ...who, measureId: null }, data: { archivedAt: now } }),
+    ]);
+    if (a.count + p.count === 0)
+        throw new HttpError(404, "Nothing of theirs is left to archive.");
+    return { days: a.count, payments: p.count };
+}
+/** POST …/labour-simple/team/restore: back on the list with every archived day and payment */
+export async function restorePerson(userId, projectId, name) {
+    await requirePermission(userId, projectId, WRITE);
+    const who = { projectId, contractorName: same(name), ...gone };
+    const [a, p] = await prisma.$transaction([
+        prisma.attendance.updateMany({ where: who, data: { archivedAt: null } }),
+        prisma.contractorPayment.updateMany({ where: { ...who, measureId: null }, data: { archivedAt: null } }),
+    ]);
+    return { days: a.count, payments: p.count };
+}
+/** POST …/labour-simple/payments/:id/archive and …/restore: one payment (team or subcontract) */
+export async function archivePayment(userId, projectId, id, archive) {
+    await requirePermission(userId, projectId, WRITE);
+    const { count } = await prisma.contractorPayment.updateMany({ where: { id, projectId, ...(archive ? live : gone) }, data: { archivedAt: archive ? new Date() : null } });
+    if (count === 0)
+        throw new HttpError(404, "That payment is no longer there.");
+    return { ok: true };
+}
+/** Keep a work's amount = its latest "done till date" × rate */
+async function settleAmount(tx, measureId) {
+    const [m, last] = await Promise.all([
+        tx.labourMeasure.findUnique({ where: { id: measureId }, select: { rate: true } }),
+        tx.labourProgress.findFirst({ where: { measureId }, orderBy: [{ date: "desc" }, { createdAt: "desc" }], select: { done: true } }),
+    ]);
+    if (m)
+        await tx.labourMeasure.update({ where: { id: measureId }, data: { amount: r2(num(last?.done) * num(m.rate)) } });
+}
+async function liveMeasure(projectId, id) {
+    const m = await prisma.labourMeasure.findFirst({ where: { id, projectId, ...live }, select: { id: true, contractorName: true } });
+    if (!m)
+        throw new HttpError(404, "That work is no longer there.");
+    return m;
+}
+/** GET …/labour-simple/subcontract: per subcontractor: their works (done till date, amount, paid, to pay) and payments */
 export async function subcontract(userId, projectId) {
     await requirePermission(userId, projectId, VIEW);
-    const rows = await prisma.labourMeasure.findMany({ where: { projectId }, orderBy: [{ date: "desc" }, { createdAt: "desc" }], take: 2000 });
-    const items = rows.map(measureDto);
-    const names = [...new Map(items.map((i) => [i.contractorName.trim().toLowerCase(), i.contractorName.trim()])).values()];
-    const paid = names.length
-        ? await prisma.contractorPayment.groupBy({ by: ["contractorName"], where: { projectId, OR: names.map((n) => ({ contractorName: same(n) })) }, _sum: { amount: true } })
-        : [];
-    const people = names.map((n) => {
-        const done = r2(items.filter((i) => i.contractorName.trim().toLowerCase() === n.toLowerCase()).reduce((s, i) => s + i.amount, 0));
-        const p = r2(paid.filter((g) => g.contractorName.trim().toLowerCase() === n.toLowerCase()).reduce((s, g) => s + num(g._sum.amount), 0));
-        return { name: n, done, paid: p, toPay: r2(done - p) };
+    const [ms, pays] = await Promise.all([
+        prisma.labourMeasure.findMany({
+            where: { projectId, ...live },
+            orderBy: [{ date: "asc" }, { createdAt: "asc" }],
+            take: 2000,
+            select: {
+                id: true,
+                contractorName: true,
+                date: true,
+                work: true,
+                quantity: true,
+                unit: true,
+                rate: true,
+                amount: true,
+                note: true,
+                progress: { orderBy: [{ date: "asc" }, { createdAt: "asc" }], select: { id: true, date: true, done: true } },
+            },
+        }),
+        prisma.contractorPayment.findMany({
+            where: { projectId, ...live },
+            orderBy: [{ date: "desc" }, { createdAt: "desc" }],
+            select: { id: true, contractorName: true, date: true, amount: true, remark: true, measureId: true },
+        }),
+    ]);
+    const workName = new Map(ms.map((m) => [m.id, m.work]));
+    const subs = new Map();
+    function workDto(m) {
+        const last = m.progress.at(-1);
+        const amount = r2(num(m.amount));
+        const paid = r2(pays.filter((p) => p.measureId === m.id).reduce((s, p) => s + num(p.amount), 0));
+        return {
+            id: m.id,
+            date: ymdOf(m.date),
+            work: m.work,
+            unit: m.unit,
+            rate: num(m.rate),
+            total: num(m.quantity),
+            done: last ? num(last.done) : 0,
+            doneOn: last ? ymdOf(last.date) : null,
+            amount,
+            paid,
+            toPay: r2(amount - paid),
+            note: m.note,
+            progress: m.progress.map((x) => ({ id: x.id, date: ymdOf(x.date), done: num(x.done) })),
+        };
+    }
+    for (const m of ms) {
+        const k = keyOf(m.contractorName);
+        if (!subs.has(k))
+            subs.set(k, { name: m.contractorName.trim(), works: [], payments: [] });
+        subs.get(k).works.push(workDto(m));
+    }
+    for (const p of pays) {
+        const sub = subs.get(keyOf(p.contractorName));
+        if (!sub)
+            continue; // not a subcontractor: shown in Attendance
+        sub.payments.push({ id: p.id, date: ymdOf(p.date), amount: r2(num(p.amount)), remark: p.remark, measureId: p.measureId, work: p.measureId ? (workName.get(p.measureId) ?? null) : null });
+    }
+    const people = [...subs.values()].map((x) => {
+        const done = r2(x.works.reduce((s, w) => s + w.amount, 0));
+        const paid = r2(x.payments.reduce((s, p) => s + p.amount, 0));
+        return { ...x, done, paid, toPay: r2(done - paid) };
     });
-    return { items, people, totals: { done: r2(people.reduce((s, x) => s + x.done, 0)), paid: r2(people.reduce((s, x) => s + x.paid, 0)), toPay: r2(people.reduce((s, x) => s + x.toPay, 0)) } };
+    return {
+        people,
+        totals: { done: r2(people.reduce((s, x) => s + x.done, 0)), paid: r2(people.reduce((s, x) => s + x.paid, 0)), toPay: r2(people.reduce((s, x) => s + x.toPay, 0)) },
+    };
 }
+/** POST …/labour-simple/subcontract: a work given (whole quantity, rate), with how much is done already if any */
 export async function addMeasure(userId, projectId, input) {
     await requirePermission(userId, projectId, WRITE);
-    notFuture(input.date);
-    const row = await prisma.labourMeasure.create({
-        data: { projectId, trade: "", contractorName: input.contractorName.trim(), date: day(input.date), work: input.work, quantity: input.quantity, unit: input.unit, rate: input.rate, amount: r2(input.quantity * input.rate), note: input.note, addedBy: await whoIs(userId) },
+    const by = await whoIs(userId);
+    const done = input.done ?? 0;
+    const row = await prisma.$transaction(async (tx) => {
+        const m = await tx.labourMeasure.create({
+            data: { projectId, trade: "", contractorName: input.contractorName.trim(), date: day(input.date), work: input.work, quantity: input.quantity, unit: input.unit, rate: input.rate, amount: r2(done * input.rate), note: input.note, addedBy: by },
+            select: { id: true },
+        });
+        if (done > 0)
+            await tx.labourProgress.create({ data: { measureId: m.id, date: day(input.date), done, addedBy: by } });
+        return m;
     });
-    return { item: measureDto(row) };
+    return { id: row.id };
 }
+/** PUT …/labour-simple/subcontract/:id: change the work, quantity given, unit, rate, date or note */
 export async function updateMeasure(userId, projectId, id, input) {
     await requirePermission(userId, projectId, WRITE);
-    notFuture(input.date);
-    const found = await prisma.labourMeasure.findFirst({ where: { id, projectId }, select: { id: true } });
-    if (!found)
-        throw new HttpError(404, "That entry is no longer there.");
-    const row = await prisma.labourMeasure.update({
-        where: { id },
-        data: { contractorName: input.contractorName.trim(), date: day(input.date), work: input.work, quantity: input.quantity, unit: input.unit, rate: input.rate, amount: r2(input.quantity * input.rate), note: input.note },
+    await liveMeasure(projectId, id);
+    await prisma.$transaction(async (tx) => {
+        await tx.labourMeasure.update({
+            where: { id },
+            data: { contractorName: input.contractorName.trim(), date: day(input.date), work: input.work, quantity: input.quantity, unit: input.unit, rate: input.rate, note: input.note },
+        });
+        await settleAmount(tx, id);
     });
-    return { item: measureDto(row) };
+    return { ok: true };
 }
+/** POST …/labour-simple/subcontract/:id/progress: "done till date" (the total finished so far) on a date */
+export async function addProgress(userId, projectId, id, input) {
+    await requirePermission(userId, projectId, WRITE);
+    await liveMeasure(projectId, id);
+    const by = await whoIs(userId);
+    await prisma.$transaction(async (tx) => {
+        await tx.labourProgress.create({ data: { measureId: id, date: day(input.date), done: input.done, addedBy: by } });
+        await settleAmount(tx, id);
+    });
+    return { ok: true };
+}
+/** PUT …/labour-simple/progress/:id: correct one "done till date" update */
+export async function updateProgress(userId, projectId, id, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const p = await prisma.labourProgress.findFirst({ where: { id, measure: { projectId, ...live } }, select: { measureId: true } });
+    if (!p)
+        throw new HttpError(404, "That update is no longer there.");
+    await prisma.$transaction(async (tx) => {
+        await tx.labourProgress.update({ where: { id }, data: { date: day(input.date), done: input.done } });
+        await settleAmount(tx, p.measureId);
+    });
+    return { ok: true };
+}
+/** A payment to a subcontractor: for one of their works, or an advance */
+async function subPaymentData(projectId, input) {
+    let contractorName = input.name.trim();
+    if (input.measureId)
+        contractorName = (await liveMeasure(projectId, input.measureId)).contractorName;
+    return { contractorName, date: day(input.date), amount: input.amount, measureId: input.measureId, remark: input.remark };
+}
+/** POST …/labour-simple/subcontract/payments */
+export async function addSubPayment(userId, projectId, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const row = await prisma.contractorPayment.create({ data: { projectId, addedById: userId, ...(await subPaymentData(projectId, input)) }, select: { id: true } });
+    return { id: row.id };
+}
+/** PUT …/labour-simple/subcontract/payments/:id */
+export async function updateSubPayment(userId, projectId, id, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, ...live }, select: { id: true } });
+    if (!found)
+        throw new HttpError(404, "That payment is no longer there.");
+    await prisma.contractorPayment.update({ where: { id }, data: await subPaymentData(projectId, input) });
+    return { ok: true };
+}
+/** POST …/labour-simple/subcontract/:id/archive and …/restore: one work, with the payments made for it */
+export async function archiveMeasure(userId, projectId, id, archive) {
+    await requirePermission(userId, projectId, WRITE);
+    const at = archive ? new Date() : null;
+    const [m] = await prisma.$transaction([
+        prisma.labourMeasure.updateMany({ where: { id, projectId, ...(archive ? live : gone) }, data: { archivedAt: at } }),
+        prisma.contractorPayment.updateMany({ where: { projectId, measureId: id, ...(archive ? live : gone) }, data: { archivedAt: at } }),
+    ]);
+    if (m.count === 0)
+        throw new HttpError(404, "That work is no longer there.");
+    return { ok: true };
+}
+/** POST …/labour-simple/subcontractors/archive and …/restore: a subcontractor with all their works and payments */
+export async function archiveSubcontractor(userId, projectId, name, archive) {
+    await requirePermission(userId, projectId, WRITE);
+    const where = { projectId, contractorName: same(name), ...(archive ? live : gone) };
+    const at = archive ? new Date() : null;
+    const [m, p] = await prisma.$transaction([
+        prisma.labourMeasure.updateMany({ where, data: { archivedAt: at } }),
+        prisma.contractorPayment.updateMany({ where, data: { archivedAt: at } }),
+    ]);
+    if (archive && m.count + p.count === 0)
+        throw new HttpError(404, "Nothing of theirs is left to archive.");
+    return { works: m.count, payments: p.count };
+}
+/** DELETE …/labour-simple/subcontract/:id: only a work archived first (its "done till date" updates go with it) */
 export async function removeMeasure(userId, projectId, id) {
     await requirePermission(userId, projectId, WRITE);
-    const found = await prisma.labourMeasure.findFirst({ where: { id, projectId }, select: { id: true } });
-    if (!found)
-        throw new HttpError(404, "That entry is no longer there.");
-    await prisma.labourMeasure.delete({ where: { id } });
+    const { count } = await prisma.labourMeasure.deleteMany({ where: { id, projectId, ...gone } });
+    if (count === 0)
+        throw new HttpError(409, "Archive the work first, then delete it from Archived.");
     return { ok: true };
+}
+/* ------------------------------------------------ archived ------------------------------------------------ */
+/**
+ * GET …/labour-simple/archived: what was archived, for the Archived list: whole people and subcontractors (nothing of
+ * theirs left on the lists), and single payments and works archived on their own.
+ */
+export async function archived(userId, projectId) {
+    await requirePermission(userId, projectId, VIEW);
+    const [days, pays, ms, liveDays, livePays, liveMs] = await Promise.all([
+        prisma.attendance.findMany({ where: { projectId, ...gone }, select: { contractorName: true, totalAmount: true } }),
+        prisma.contractorPayment.findMany({
+            where: { projectId, ...gone },
+            orderBy: { archivedAt: "desc" },
+            select: { id: true, contractorName: true, date: true, amount: true, periodFrom: true, periodTo: true, measureId: true, measure: { select: { work: true } } },
+        }),
+        prisma.labourMeasure.findMany({ where: { projectId, ...gone }, orderBy: { archivedAt: "desc" }, select: { id: true, contractorName: true, work: true, amount: true } }),
+        prisma.attendance.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
+        prisma.contractorPayment.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
+        prisma.labourMeasure.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
+    ]);
+    const liveSub = new Set(liveMs.map((m) => keyOf(m.contractorName)));
+    const subNames = new Set([...liveSub, ...ms.map((m) => keyOf(m.contractorName))]);
+    const liveTeam = new Set([...liveDays, ...livePays].map((x) => keyOf(x.contractorName)));
+    // whole people: archived days or payments, nothing left on the Attendance list
+    const people = new Map();
+    for (const d of days) {
+        const k = keyOf(d.contractorName);
+        if (liveTeam.has(k))
+            continue;
+        const r = people.get(k) ?? { name: d.contractorName.trim(), days: 0, payments: 0, earned: 0, paid: 0 };
+        r.days += 1;
+        r.earned = r2(r.earned + num(d.totalAmount));
+        people.set(k, r);
+    }
+    // whole subcontractors: archived works, none left on the Subcontract list
+    const subs = new Map();
+    for (const m of ms) {
+        const k = keyOf(m.contractorName);
+        if (liveSub.has(k))
+            continue;
+        const r = subs.get(k) ?? { name: m.contractorName.trim(), works: 0, payments: 0, done: 0, paid: 0 };
+        r.works += 1;
+        r.done = r2(r.done + num(m.amount));
+        subs.set(k, r);
+    }
+    const payments = [];
+    for (const p of pays) {
+        const k = keyOf(p.contractorName);
+        if (subNames.has(k) && subs.has(k)) {
+            subs.get(k).payments += 1;
+            subs.get(k).paid = r2(subs.get(k).paid + num(p.amount));
+            continue;
+        }
+        if (!p.measureId && !subNames.has(k) && !liveTeam.has(k)) {
+            const r = people.get(k) ?? { name: p.contractorName.trim(), days: 0, payments: 0, earned: 0, paid: 0 };
+            r.payments += 1;
+            r.paid = r2(r.paid + num(p.amount));
+            people.set(k, r);
+            continue;
+        }
+        payments.push({
+            id: p.id,
+            name: p.contractorName.trim(),
+            kind: subNames.has(k) ? "sub" : "team",
+            date: ymdOf(p.date),
+            from: p.periodFrom ? ymdOf(p.periodFrom) : "",
+            to: p.periodTo ? ymdOf(p.periodTo) : "",
+            amount: r2(num(p.amount)),
+            work: p.measure?.work ?? null,
+        });
+    }
+    const works = ms.filter((m) => liveSub.has(keyOf(m.contractorName))).map((m) => ({ id: m.id, name: m.contractorName.trim(), work: m.work, amount: r2(num(m.amount)) }));
+    return { people: [...people.values()], subcontractors: [...subs.values()], payments, works };
+}
+/**
+ * POST …/labour-simple/archived/delete: delete for good, in one transaction. Only rows already archived are removed;
+ * anything still on a list is never touched.
+ */
+export async function deleteArchived(userId, projectId, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const counts = await prisma.$transaction(async (tx) => {
+        let days = 0;
+        let payments = 0;
+        let works = 0;
+        for (const n of input.people) {
+            days += (await tx.attendance.deleteMany({ where: { projectId, contractorName: same(n), ...gone } })).count; // workers cascade
+            payments += (await tx.contractorPayment.deleteMany({ where: { projectId, contractorName: same(n), measureId: null, ...gone } })).count;
+        }
+        for (const n of input.subcontractors) {
+            payments += (await tx.contractorPayment.deleteMany({ where: { projectId, contractorName: same(n), ...gone } })).count;
+            works += (await tx.labourMeasure.deleteMany({ where: { projectId, contractorName: same(n), ...gone } })).count; // updates cascade
+        }
+        if (input.works.length) {
+            payments += (await tx.contractorPayment.deleteMany({ where: { projectId, measureId: { in: input.works }, ...gone } })).count;
+            works += (await tx.labourMeasure.deleteMany({ where: { projectId, id: { in: input.works }, ...gone } })).count;
+        }
+        if (input.payments.length)
+            payments += (await tx.contractorPayment.deleteMany({ where: { projectId, id: { in: input.payments }, ...gone } })).count;
+        return { days, payments, works };
+    });
+    return counts;
 }
 /* ------------------------------------------------ rate comparison ------------------------------------------------ */
 /**
@@ -493,11 +868,11 @@ export async function compare(userId, projectId, q) {
     if (!task)
         throw new HttpError(404, "That work is no longer there.");
     const [att, quotes] = await Promise.all([
-        prisma.attendance.findMany({ where: { projectId, taskId: task.id, date: { gte: day(q.from), lte: day(q.to) } }, select: { totalAmount: true, workers: { select: { hours: true, otHours: true } } } }),
+        prisma.attendance.findMany({ where: { projectId, ...live, taskId: task.id, date: { gte: day(q.from), lte: day(q.to) } }, select: { totalAmount: true, workers: { select: { hours: true, otHours: true } } } }),
         prisma.labourQuote.findMany({ where: { projectId, taskId: task.id }, orderBy: { createdAt: "asc" } }),
     ]);
     const paid = quotes.length
-        ? await prisma.contractorPayment.groupBy({ by: ["contractorName"], where: { projectId, OR: quotes.map((x) => ({ contractorName: same(x.name) })) }, _sum: { amount: true } })
+        ? await prisma.contractorPayment.groupBy({ by: ["contractorName"], where: { projectId, ...live, OR: quotes.map((x) => ({ contractorName: same(x.name) })) }, _sum: { amount: true } })
         : [];
     const paidTo = (n) => r2(paid.filter((g) => g.contractorName.trim().toLowerCase() === n.trim().toLowerCase()).reduce((s, g) => s + num(g._sum.amount), 0));
     return {
@@ -522,7 +897,7 @@ export async function rateTable(userId, projectId, q) {
     checkRange(q.from, q.to);
     const [tasks, sums] = await Promise.all([
         prisma.task.findMany({ where: { projectId }, orderBy: { position: "asc" }, select: { id: true, work: true, area: true, contractorRate: true } }),
-        prisma.attendance.groupBy({ by: ["taskId"], where: { projectId, taskId: { not: null }, date: { gte: day(q.from), lte: day(q.to) } }, _sum: { totalAmount: true }, _count: { _all: true } }),
+        prisma.attendance.groupBy({ by: ["taskId"], where: { projectId, ...live, taskId: { not: null }, date: { gte: day(q.from), lte: day(q.to) } }, _sum: { totalAmount: true }, _count: { _all: true } }),
     ]);
     return {
         items: tasks.map((t) => {

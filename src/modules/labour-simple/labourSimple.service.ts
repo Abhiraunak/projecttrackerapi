@@ -515,7 +515,13 @@ export async function team(userId: string, projectId: string) {
     .sort((a, b) => (a.last === b.last ? a.name.localeCompare(b.name) : a.last < b.last ? 1 : -1));
   return {
     items,
-    totals: { earned: r2(items.reduce((s, i) => s + i.earned, 0)), paid: r2(items.reduce((s, i) => s + i.paid, 0)), toPay: r2(items.reduce((s, i) => s + i.toPay, 0)) },
+    totals: {
+      earned: r2(items.reduce((s, i) => s + i.earned, 0)),
+      paid: r2(items.reduce((s, i) => s + i.paid, 0)),
+      // still owed and paid ahead apart, so one person's advance never hides what another is owed
+      toPay: r2(items.reduce((s, i) => s + (i.kind !== null ? Math.max(0, i.toPay) : 0), 0)),
+      ahead: r2(items.reduce((s, i) => s + (i.kind !== null ? Math.max(0, -i.toPay) : 0), 0)),
+    },
   };
 }
 
@@ -680,7 +686,12 @@ export async function subcontract(userId: string, projectId: string) {
   });
   return {
     people,
-    totals: { done: r2(people.reduce((s, x) => s + x.done, 0)), paid: r2(people.reduce((s, x) => s + x.paid, 0)), toPay: r2(people.reduce((s, x) => s + x.toPay, 0)) },
+    totals: {
+      done: r2(people.reduce((s, x) => s + x.done, 0)),
+      paid: r2(people.reduce((s, x) => s + x.paid, 0)),
+      toPay: r2(people.reduce((s, x) => s + Math.max(0, x.toPay), 0)),
+      ahead: r2(people.reduce((s, x) => s + Math.max(0, -x.toPay), 0)),
+    },
   };
 }
 
