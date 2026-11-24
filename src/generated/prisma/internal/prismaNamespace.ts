@@ -442,6 +442,7 @@ export const ModelName = {
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
+  LabourBill: 'LabourBill',
   MaterialPayment: 'MaterialPayment',
   SiteReport: 'SiteReport',
   SiteReportTeam: 'SiteReportTeam',
@@ -463,7 +464,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourProgress" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote"
+    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourProgress" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "labourBill" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3797,6 +3798,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LabourBill: {
+      payload: Prisma.$LabourBillPayload<ExtArgs>
+      fields: Prisma.LabourBillFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LabourBillFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LabourBillFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>
+        }
+        findFirst: {
+          args: Prisma.LabourBillFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LabourBillFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>
+        }
+        findMany: {
+          args: Prisma.LabourBillFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>[]
+        }
+        create: {
+          args: Prisma.LabourBillCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>
+        }
+        createMany: {
+          args: Prisma.LabourBillCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LabourBillCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>[]
+        }
+        delete: {
+          args: Prisma.LabourBillDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>
+        }
+        update: {
+          args: Prisma.LabourBillUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>
+        }
+        deleteMany: {
+          args: Prisma.LabourBillDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LabourBillUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LabourBillUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>[]
+        }
+        upsert: {
+          args: Prisma.LabourBillUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LabourBillPayload>
+        }
+        aggregate: {
+          args: Prisma.LabourBillAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLabourBill>
+        }
+        groupBy: {
+          args: Prisma.LabourBillGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourBillGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LabourBillCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LabourBillCountAggregateOutputType> | number
+        }
+      }
+    }
     MaterialPayment: {
       payload: Prisma.$MaterialPaymentPayload<ExtArgs>
       fields: Prisma.MaterialPaymentFieldRefs
@@ -5054,6 +5129,7 @@ export const ContractorPaymentScalarFieldEnum = {
   periodFrom: 'periodFrom',
   periodTo: 'periodTo',
   measureId: 'measureId',
+  billId: 'billId',
   archivedAt: 'archivedAt',
   proofId: 'proofId',
   proofVersion: 'proofVersion',
@@ -5063,6 +5139,22 @@ export const ContractorPaymentScalarFieldEnum = {
 } as const
 
 export type ContractorPaymentScalarFieldEnum = (typeof ContractorPaymentScalarFieldEnum)[keyof typeof ContractorPaymentScalarFieldEnum]
+
+
+export const LabourBillScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractorName: 'contractorName',
+  periodFrom: 'periodFrom',
+  periodTo: 'periodTo',
+  amount: 'amount',
+  note: 'note',
+  addedBy: 'addedBy',
+  archivedAt: 'archivedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourBillScalarFieldEnum = (typeof LabourBillScalarFieldEnum)[keyof typeof LabourBillScalarFieldEnum]
 
 
 export const MaterialPaymentScalarFieldEnum = {
@@ -5706,6 +5798,7 @@ export type GlobalOmitConfig = {
   equipmentMove?: Prisma.EquipmentMoveOmit
   expense?: Prisma.ExpenseOmit
   contractorPayment?: Prisma.ContractorPaymentOmit
+  labourBill?: Prisma.LabourBillOmit
   materialPayment?: Prisma.MaterialPaymentOmit
   siteReport?: Prisma.SiteReportOmit
   siteReportTeam?: Prisma.SiteReportTeamOmit

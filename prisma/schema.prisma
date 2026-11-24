@@ -174,6 +174,7 @@ model Project {
   equipmentHireChanges EquipmentHireChange[] // NEW: one-off hire amounts charged to this site
   expenses             Expense[] // daily expenditure
   contractorPayments   ContractorPayment[]
+  labourBills          LabourBill[] // Attendance tab: bills for a period, paid against
   materialPayments     MaterialPayment[]
   materialEstimates    MaterialEstimate[]
   materialPurchases    MaterialPurchase[]
@@ -286,20 +287,20 @@ model LabourProgress {
 }
 
 model LabourMeasure {
-  id             String   @id @default(cuid())
+  id             String              @id @default(cuid())
   projectId      String
-  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  trade          String   @default("") // spelled as in attendance and payments
+  project        Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  trade          String              @default("") // spelled as in attendance and payments
   contractorName String
-  date           DateTime @db.Date
+  date           DateTime            @db.Date
   work           String // "Floor tiles, 2nd floor"
-  quantity       Decimal  @db.Decimal(14, 3)
-  unit           String   @default("sqft")
-  rate           Decimal  @db.Decimal(14, 2)
-  amount         Decimal  @db.Decimal(16, 2) // quantity × rate, worked out on the server
-  note           String   @default("")
+  quantity       Decimal             @db.Decimal(14, 3)
+  unit           String              @default("sqft")
+  rate           Decimal             @db.Decimal(14, 2)
+  amount         Decimal             @db.Decimal(16, 2) // quantity × rate, worked out on the server
+  note           String              @default("")
   addedBy        String // the name of who logged it
-  createdAt      DateTime @default(now())
+  createdAt      DateTime            @default(now())
   /// quantity = the whole quantity given; amount = done till date × rate (the latest progress)
   archivedAt     DateTime?
   progress       LabourProgress[]
@@ -1132,33 +1133,56 @@ model Expense {
 }
 
 model ContractorPayment {
-  id             String   @id @default(cuid())
+  id             String         @id @default(cuid())
   projectId      String
-  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  trade          String   @default("")
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  trade          String         @default("")
   contractorName String
-  date           DateTime @db.Date
-  amount         Decimal  @db.Decimal(14, 2)
-  remark         String   @default("")
+  date           DateTime       @db.Date
+  amount         Decimal        @db.Decimal(14, 2)
+  remark         String         @default("")
   /// "Paid for a period" (Attendance tab): the days this payment covers; empty for ordinary payments
-  periodFrom     DateTime? @db.Date
-  periodTo       DateTime? @db.Date
+  periodFrom     DateTime?      @db.Date
+  periodTo       DateTime?      @db.Date
   /// Subcontract: the work this payment was for (empty = advance or not tied to a work)
   measureId      String?
   measure        LabourMeasure? @relation(fields: [measureId], references: [id], onDelete: SetNull)
+  /// Attendance tab: the bill (a period's amount) this payment was made against (empty = not against a bill)
+  billId         String?
+  bill           LabourBill?    @relation(fields: [billId], references: [id], onDelete: SetNull)
   /// Archived from the Labour tab: hidden and not counted; deleted for good only from Archived
   archivedAt     DateTime?
   proofId        String?
   proofVersion   Int?
   proofFormat    String?
   addedById      String
-  addedBy        User     @relation("ContractorPaymentAddedBy", fields: [addedById], references: [id])
-  createdAt      DateTime @default(now())
+  addedBy        User           @relation("ContractorPaymentAddedBy", fields: [addedById], references: [id])
+  createdAt      DateTime       @default(now())
 
   @@index([projectId, date])
   @@index([projectId, trade, contractorName])
   @@index([projectId, periodTo])
   @@index([measureId])
+  @@index([billId])
+}
+
+/// A bill: what a team head or person earned for a period (From – To). Payments are made against it, on any day.
+model LabourBill {
+  id             String              @id @default(cuid())
+  projectId      String
+  project        Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  contractorName String
+  periodFrom     DateTime            @db.Date
+  periodTo       DateTime            @db.Date
+  amount         Decimal             @db.Decimal(14, 2)
+  note           String              @default("")
+  addedBy        String              @default("")
+  /// Archived from the Labour tab (with its payments): hidden and not counted; deleted for good only from Archived
+  archivedAt     DateTime?
+  createdAt      DateTime            @default(now())
+  payments       ContractorPayment[]
+
+  @@index([projectId, contractorName])
 }
 
 model MaterialPayment {
@@ -1181,7 +1205,6 @@ model MaterialPayment {
   @@index([projectId, date])
   @@index([projectId, vendorName])
 }
-
 
 // ---------------------------------------- Site diary (daily progress report) ----------------------------------------
 

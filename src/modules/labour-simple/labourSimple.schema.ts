@@ -118,6 +118,31 @@ export const subPaymentSchema = z.object({
 });
 export type SubPaymentInput = z.infer<typeof subPaymentSchema>["body"];
 
+/** A bill: what a team head or person earned for a period (From – To) */
+export const billSchema = z.object({
+  body: z
+    .object({
+      name,
+      from: ymd,
+      to: ymd,
+      amount: z.number().finite().positive("Enter the bill amount.").max(1_000_000_000),
+      note: z.string().trim().max(500).default(""),
+    })
+    .refine((b) => b.from <= b.to, { message: "From must be on or before To.", path: ["to"] }),
+});
+export type BillInput = z.infer<typeof billSchema>["body"];
+
+/** A payment made against a bill, on a day */
+export const billPaymentSchema = z.object({
+  body: z.object({
+    billId: z.string().min(1).max(64),
+    date: ymd,
+    amount: z.number().finite().positive("Enter the amount paid.").max(1_000_000_000),
+    remark: z.string().trim().max(500).default(""),
+  }),
+});
+export type BillPaymentInput = z.infer<typeof billPaymentSchema>["body"];
+
 /** Delete for good, from Archived: only rows already archived are removed */
 const ids = z.array(z.string().min(1).max(64)).max(500).default([]);
 export const archivedDeleteSchema = z.object({
@@ -126,6 +151,7 @@ export const archivedDeleteSchema = z.object({
     subcontractors: z.array(name).max(200).default([]),
     payments: ids,
     works: ids,
+    bills: ids,
   }),
 });
 export type ArchivedDelete = z.infer<typeof archivedDeleteSchema>["body"];

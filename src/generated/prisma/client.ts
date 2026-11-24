@@ -284,6 +284,11 @@ export type Expense = Prisma.ExpenseModel
  */
 export type ContractorPayment = Prisma.ContractorPaymentModel
 /**
+ * Model LabourBill
+ * A bill: what a team head or person earned for a period (From – To). Payments are made against it, on any day.
+ */
+export type LabourBill = Prisma.LabourBillModel
+/**
  * Model MaterialPayment
  * 
  */

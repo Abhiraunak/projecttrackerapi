@@ -96,6 +96,7 @@ export const ModelName = {
   EquipmentMove: 'EquipmentMove',
   Expense: 'Expense',
   ContractorPayment: 'ContractorPayment',
+  LabourBill: 'LabourBill',
   MaterialPayment: 'MaterialPayment',
   SiteReport: 'SiteReport',
   SiteReportTeam: 'SiteReportTeam',
@@ -894,6 +895,7 @@ export const ContractorPaymentScalarFieldEnum = {
   periodFrom: 'periodFrom',
   periodTo: 'periodTo',
   measureId: 'measureId',
+  billId: 'billId',
   archivedAt: 'archivedAt',
   proofId: 'proofId',
   proofVersion: 'proofVersion',
@@ -903,6 +905,22 @@ export const ContractorPaymentScalarFieldEnum = {
 } as const
 
 export type ContractorPaymentScalarFieldEnum = (typeof ContractorPaymentScalarFieldEnum)[keyof typeof ContractorPaymentScalarFieldEnum]
+
+
+export const LabourBillScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  contractorName: 'contractorName',
+  periodFrom: 'periodFrom',
+  periodTo: 'periodTo',
+  amount: 'amount',
+  note: 'note',
+  addedBy: 'addedBy',
+  archivedAt: 'archivedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type LabourBillScalarFieldEnum = (typeof LabourBillScalarFieldEnum)[keyof typeof LabourBillScalarFieldEnum]
 
 
 export const MaterialPaymentScalarFieldEnum = {
