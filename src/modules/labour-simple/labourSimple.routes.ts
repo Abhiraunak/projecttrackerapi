@@ -6,6 +6,7 @@ import {
   archivedDeleteSchema,
   billPaymentSchema,
   billSchema,
+  teamPaymentSchema,
   copyDaySchema,
   dayQuery,
   measureSchema,
@@ -79,6 +80,12 @@ router.post(`${base}/bill-payments`, requireAuth, writeLimiter, validate(billPay
 );
 router.put(`${base}/bill-payments/:id`, requireAuth, writeLimiter, validate(billPaymentSchema), async (req: PI, res) =>
   res.json(await s.updateBillPayment(uid(req), req.params.projectId, req.params.id, req.body)),
+);
+router.post(`${base}/team-payments`, requireAuth, writeLimiter, validate(teamPaymentSchema), async (req: P, res) =>
+  res.status(201).json(await s.addTeamPayment(uid(req), req.params.projectId, req.body)),
+);
+router.put(`${base}/team-payments/:id`, requireAuth, writeLimiter, validate(teamPaymentSchema), async (req: PI, res) =>
+  res.json(await s.updateTeamPayment(uid(req), req.params.projectId, req.params.id, req.body)),
 );
 router.post(`${base}/payments/:id/to-bill`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.paymentToBill(uid(req), req.params.projectId, req.params.id)));
 router.post(`${base}/payments/:id/archive`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archivePayment(uid(req), req.params.projectId, req.params.id, true)));

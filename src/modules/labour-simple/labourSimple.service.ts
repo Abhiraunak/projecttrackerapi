@@ -3,7 +3,7 @@ import { HttpError } from "../../lib/error.js";
 import { requirePermission } from "../../lib/projectAccess.js";
 import { drawingUrls } from "../../lib/cloudinary.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
-import type { ArchivedDelete, BillInput, BillPaymentInput, CopyDay, MeasureInput, PeriodPaymentInput, SaveDay, SubPaymentInput } from "./labourSimple.schema.js";
+import type { ArchivedDelete, BillInput, BillPaymentInput, CopyDay, TeamPaymentInput, MeasureInput, PeriodPaymentInput, SaveDay, SubPaymentInput } from "./labourSimple.schema.js";
 
 /*
  * The simple Labour section, on the tables already there (attendance with hours and OT, contractor payments, contract
@@ -573,16 +573,29 @@ export async function person(userId: string, projectId: string, name: string) {
       otHours: r2(d.workers.reduce((s, w) => s + num(w.otHours), 0)),
       amount: r2(num(d.totalAmount)),
     })),
-    // Each bill with the payments made against it, oldest payment first, and what is left on it
-    bills: bills.map((b) => {
-      const mine = pays.filter((p) => p.billId === b.id).reverse();
-      const paid = r2(mine.reduce((s, p) => s + num(p.amount), 0));
-      const amount = r2(num(b.amount));
-      return { id: b.id, from: ymdOf(b.periodFrom), to: ymdOf(b.periodTo), amount, note: b.note, paid, left: r2(amount - paid), payments: mine.map(payDto) };
-    }),
-    // Payments not made against a bill (older ones from before bills, or an advance)
-    payments: pays.filter((p) => !p.billId).map(payDto),
+    // Bills (a period's amount) and payments (the day paid) are two lists; payments count against all bills together
+    bills: bills.map((b) => ({ id: b.id, from: ymdOf(b.periodFrom), to: ymdOf(b.periodTo), amount: r2(num(b.amount)), note: b.note })),
+    payments: pays.map(payDto),
   };
+}
+
+/** POST …/labour-simple/team-payments: a payment to a team head or person, on a day */
+export async function addTeamPayment(userId: string, projectId: string, input: TeamPaymentInput) {
+  await requirePermission(userId, projectId, WRITE);
+  const row = await prisma.contractorPayment.create({
+    data: { projectId, contractorName: input.name.trim(), date: day(input.date), amount: input.amount, remark: input.remark, addedById: userId },
+    select: { id: true },
+  });
+  return { id: row.id };
+}
+
+/** PUT …/labour-simple/team-payments/:id: change the day, amount or note */
+export async function updateTeamPayment(userId: string, projectId: string, id: string, input: TeamPaymentInput) {
+  await requirePermission(userId, projectId, WRITE);
+  const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, ...live, measureId: null }, select: { id: true } });
+  if (!found) throw new HttpError(404, "That payment is no longer there.");
+  await prisma.contractorPayment.update({ where: { id }, data: { date: day(input.date), amount: input.amount, remark: input.remark } });
+  return { ok: true };
 }
 
 /* ------------------------------------------------ bills ------------------------------------------------ */
@@ -611,15 +624,11 @@ export async function updateBill(userId: string, projectId: string, id: string, 
   return { ok: true };
 }
 
-/** POST …/labour-simple/bills/:id/archive and …/restore: the bill with the payments made against it */
+/** POST …/labour-simple/bills/:id/archive and …/restore: one bill (payments are a list of their own and stay) */
 export async function archiveBill(userId: string, projectId: string, id: string, archive: boolean) {
   await requirePermission(userId, projectId, WRITE);
-  const at = archive ? new Date() : null;
-  const [b] = await prisma.$transaction([
-    prisma.labourBill.updateMany({ where: { id, projectId, ...(archive ? live : gone) }, data: { archivedAt: at } }),
-    prisma.contractorPayment.updateMany({ where: { projectId, billId: id, ...(archive ? live : gone) }, data: { archivedAt: at } }),
-  ]);
-  if (b.count === 0) throw new HttpError(404, "That bill is no longer there.");
+  const { count } = await prisma.labourBill.updateMany({ where: { id, projectId, ...(archive ? live : gone) }, data: { archivedAt: archive ? new Date() : null } });
+  if (count === 0) throw new HttpError(404, "That bill is no longer there.");
   return { ok: true };
 }
 
@@ -935,8 +944,7 @@ export async function archived(userId: string, projectId: string) {
   const liveSub = new Set(liveMs.map((m) => keyOf(m.contractorName)));
   const subNames = new Set([...liveSub, ...ms.map((m) => keyOf(m.contractorName))]);
   const liveTeam = new Set([...liveDays, ...livePays, ...liveBills].map((x) => keyOf(x.contractorName)));
-  // payments archived together with their bill or work come back with it, so they are not listed on their own
-  const goneBills = new Set(billsGone.map((b) => b.id));
+  // payments archived together with their work come back with it, so they are not listed on their own
   const goneWorks = new Set(ms.map((m) => m.id));
 
   // whole people: archived days, bills or payments, nothing left on the Attendance list
@@ -988,7 +996,7 @@ export async function archived(userId: string, projectId: string) {
       r.paid = r2(r.paid + num(p.amount));
       continue;
     }
-    if ((p.billId && goneBills.has(p.billId)) || (p.measureId && goneWorks.has(p.measureId))) continue;
+    if (p.measureId && goneWorks.has(p.measureId)) continue; // a payment is its own line, even if its old bill is archived
     payments.push({
       id: p.id,
       name: p.contractorName.trim(),
@@ -1020,7 +1028,7 @@ export async function deleteArchived(userId: string, projectId: string, input: A
       await tx.labourBill.deleteMany({ where: { projectId, contractorName: same(n), ...gone } });
     }
     if (input.bills.length) {
-      payments += (await tx.contractorPayment.deleteMany({ where: { projectId, billId: { in: input.bills }, ...gone } })).count;
+      // payments are a list of their own: deleting a bill leaves them (their link clears itself)
       await tx.labourBill.deleteMany({ where: { projectId, id: { in: input.bills }, ...gone } });
     }
     for (const n of input.subcontractors) {

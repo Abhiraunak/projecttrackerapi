@@ -143,6 +143,17 @@ export const billPaymentSchema = z.object({
 });
 export type BillPaymentInput = z.infer<typeof billPaymentSchema>["body"];
 
+/** A payment to a team head or person: the day paid and the amount (counted against all their bills together) */
+export const teamPaymentSchema = z.object({
+  body: z.object({
+    name,
+    date: ymd,
+    amount: z.number().finite().positive("Enter the amount paid.").max(1_000_000_000),
+    remark: z.string().trim().max(500).default(""),
+  }),
+});
+export type TeamPaymentInput = z.infer<typeof teamPaymentSchema>["body"];
+
 /** Delete for good, from Archived: only rows already archived are removed */
 const ids = z.array(z.string().min(1).max(64)).max(500).default([]);
 export const archivedDeleteSchema = z.object({

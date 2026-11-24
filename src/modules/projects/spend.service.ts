@@ -9,11 +9,10 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
 /**
  * What a project has actually spent, taken only from the workspace sections, so the Overview, the Expenditure tab and
  * the project cards add up to exactly what those sections show. Anything archived counts nowhere, as in the sections.
- *  - Labour    = per person (team head, one person or subcontractor), what they are owed or what they were paid,
- *                whichever is more. Owed = their bills (Attendance › a person's Payments) when they have any, otherwise
- *                what they earned: attendance (Attendance amount) + contract work done till date (Subcontract › Work
- *                done). So nothing counts twice, and a payment made without attendance marked still counts.
- *                `paid` = every payment in the Labour tabs; `toPay` = what people are still owed (each To pay above 0);
+ *  - Labour    = only the money actually paid (every payment in the Labour tabs). Bills and attendance are not
+ *                counted as spent; they only give what is still to pay. `paidTeam` = paid to team heads and
+ *                individuals, `paidSub` = paid to subcontractors. Owed per person = their bills when they have any,
+ *                otherwise attendance + contract work done; `toPay` = what is still owed (each To pay above 0);
  *                `ahead` = what was paid beyond what is owed (each "Paid ahead");
  *  - Materials = what the deliveries cost (Materials › Spent so far); `planned` = Materials › Planned cost;
  *  - Equipment = owned items at this site × cost each, plus hire charged for hired items (Equipment tab);
@@ -21,8 +20,8 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
  * Nothing outside those sections is counted (no work items' old "paid", no old stock, no labour/material expenses).
  */
 export interface ProjectSpend {
-    /** total = earned (attendance + contract); spent = per person the larger of earned and paid (what Spent so far uses) */
-    labour: { attendance: number; contract: number; total: number; billed: number; paid: number; toPay: number; ahead: number; spent: number };
+    /** spent = paid (only payments count as spent); total = earned (attendance + contract), for reference */
+    labour: { attendance: number; contract: number; total: number; billed: number; paid: number; paidTeam: number; paidSub: number; toPay: number; ahead: number; spent: number };
     material: { deliveries: number; total: number; planned: number };
     equipment: number;
     general: number;
@@ -30,7 +29,7 @@ export interface ProjectSpend {
 }
 
 const empty = (): ProjectSpend => ({
-    labour: { attendance: 0, contract: 0, total: 0, billed: 0, paid: 0, toPay: 0, ahead: 0, spent: 0 },
+    labour: { attendance: 0, contract: 0, total: 0, billed: 0, paid: 0, paidTeam: 0, paidSub: 0, toPay: 0, ahead: 0, spent: 0 },
     material: { deliveries: 0, total: 0, planned: 0 },
     equipment: 0,
     general: 0,
@@ -56,11 +55,11 @@ export async function spendByProject(projectIds: string[]): Promise<Map<string, 
     ]);
 
     // Each person by name (capitals and spaces ignored), as the Labour tabs list them
-    const people = new Map<string, Map<string, { earned: number; paid: number; billed: number; bills: number }>>(projectIds.map((id) => [id, new Map()]));
+    const people = new Map<string, Map<string, { earned: number; paid: number; billed: number; bills: number; sub: boolean }>>(projectIds.map((id) => [id, new Map()]));
     const person = (projectId: string, name: string) => {
         const list = people.get(projectId)!;
         const k = name.trim().toLowerCase();
-        if (!list.has(k)) list.set(k, { earned: 0, paid: 0, billed: 0, bills: 0 });
+        if (!list.has(k)) list.set(k, { earned: 0, paid: 0, billed: 0, bills: 0, sub: false });
         return list.get(k)!;
     };
     for (const r of attendance) {
@@ -71,7 +70,9 @@ export async function spendByProject(projectIds: string[]): Promise<Map<string, 
     for (const r of contract) {
         const v = num(r._sum.amount);
         out.get(r.projectId)!.labour.contract += v;
-        person(r.projectId, r.contractorName).earned += v;
+        const p = person(r.projectId, r.contractorName);
+        p.earned += v;
+        p.sub = true; // has subcontract work: their payments are "paid to subcontractors"
     }
     for (const r of payments) {
         const v = num(r._sum.amount);
@@ -88,7 +89,8 @@ export async function spendByProject(projectIds: string[]): Promise<Map<string, 
         for (const p of list.values()) {
             const owed = p.bills > 0 ? p.billed : p.earned; // bills when there are any, as the Attendance tab shows
             L.billed += p.billed;
-            L.spent += Math.max(owed, p.paid);
+            if (p.sub) L.paidSub += p.paid;
+            else L.paidTeam += p.paid;
             L.toPay += Math.max(0, owed - p.paid);
             L.ahead += Math.max(0, p.paid - owed);
         }
@@ -108,7 +110,9 @@ export async function spendByProject(projectIds: string[]): Promise<Map<string, 
         s.labour.toPay = round2(s.labour.toPay);
         s.labour.ahead = round2(s.labour.ahead);
         s.labour.billed = round2(s.labour.billed);
-        s.labour.spent = round2(s.labour.spent);
+        s.labour.paidTeam = round2(s.labour.paidTeam);
+        s.labour.paidSub = round2(s.labour.paidSub);
+        s.labour.spent = s.labour.paid; // only money actually paid counts as spent
         s.material.deliveries = round2(s.material.deliveries);
         s.material.planned = round2(s.material.planned);
         s.material.total = s.material.deliveries;
