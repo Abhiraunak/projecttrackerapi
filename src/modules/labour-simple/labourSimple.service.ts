@@ -623,6 +623,29 @@ export async function archiveBill(userId: string, projectId: string, id: string,
   return { ok: true };
 }
 
+/**
+ * POST …/labour-simple/payments/:id/to-bill: an older entry that is really a period's amount becomes a bill with nothing
+ * paid yet (its period, or its date when it has none), so it shows as still to pay with Pay. The payment row goes.
+ */
+export async function paymentToBill(userId: string, projectId: string, id: string) {
+  await requirePermission(userId, projectId, WRITE);
+  const p = await prisma.contractorPayment.findFirst({
+    where: { id, projectId, ...live, measureId: null, billId: null },
+    select: { contractorName: true, date: true, amount: true, remark: true, periodFrom: true, periodTo: true },
+  });
+  if (!p) throw new HttpError(404, "That entry is no longer there.");
+  const by = await whoIs(userId);
+  const bill = await prisma.$transaction(async (tx) => {
+    const b = await tx.labourBill.create({
+      data: { projectId, contractorName: p.contractorName, periodFrom: p.periodFrom ?? p.date, periodTo: p.periodTo ?? p.date, amount: p.amount, note: p.remark, addedBy: by },
+      select: { id: true },
+    });
+    await tx.contractorPayment.delete({ where: { id } });
+    return b;
+  });
+  return { id: bill.id };
+}
+
 /** POST …/labour-simple/bill-payments: pay against a bill, on a day */
 export async function addBillPayment(userId: string, projectId: string, input: BillPaymentInput) {
   await requirePermission(userId, projectId, WRITE);
