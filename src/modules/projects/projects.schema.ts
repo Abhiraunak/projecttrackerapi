@@ -32,17 +32,25 @@ const tasks = z.array(taskInput).min(1).max(200);
 export const createProjectSchema = z.object({ body: z.object({ title, projectCost, tasks }) });
 export const updateProjectSchema = z.object({ body: z.object({ title, projectCost, status: statusEnum.optional(), tasks }) });
 
+// A project date: "2026-11-01"; one sent with a time ("2026-11-01T00:00:00.000Z") keeps only its day; "" clears it
+const projectDay = z
+  .string()
+  .trim()
+  .transform((v) => v.slice(0, 10))
+  .refine((v) => v === "" || /^\d{4}-\d{2}-\d{2}$/.test(v), "Pick the date again.")
+  .transform((v) => v || null);
+
 export const patchProjectSchema = z.object({
   body: z
     // No default here: leaving projectCost out must keep the saved cost, not clear it
     .object({
       title: title.optional(),
       firmName: firmName.optional(),
-      projectCost: amount.nullable().optional(),
+      projectCost: z.coerce.number().pipe(amount).nullable().optional(), // a number sent as text ("5000000") is fine too
       status: statusEnum.optional(),
       // The project's own dates; null clears them (then the work items' dates are used)
-      startDate: z.iso.date().nullable().optional(),
-      endDate: z.iso.date().nullable().optional(),
+      startDate: projectDay.nullable().optional(),
+      endDate: projectDay.nullable().optional(),
     })
     .refine((b) => Object.keys(b).length > 0, "Nothing to update")
     .refine((b) => !b.startDate || !b.endDate || b.endDate >= b.startDate, { message: "The finish date can't be before the start date.", path: ["endDate"] }),
