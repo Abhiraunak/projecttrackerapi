@@ -524,6 +524,7 @@ model MaterialDelivery {
   addedById   String
   addedBy     User               @relation("MaterialDeliveryAddedBy", fields: [addedById], references: [id])
   ratePending Boolean            @default(false) // from the site diary: arrived, the manager hasn't added the rate yet
+  note        String             @default("") // anything to remember about this delivery (truck no., short supply...)
   archivedAt  DateTime? // archived: counts nowhere; only archived deliveries can be deleted
   siteArrival SiteReportArrival?
   createdAt   DateTime           @default(now())

@@ -73,7 +73,7 @@ export async function projectHub(userId, projectId) {
         },
         progress: { percent: overallProgress(tasks), items: tasks.length, ...scheduleFigures(tasks, today, own) },
         // Spent = labour + material deliveries + equipment hire + General expenses: the same sum as GET /spend
-        money: moneyFigures(project.projectCost?.toNumber() ?? null, labour.agreed, (spend?.labour.total ?? 0) + (spend?.equipment ?? 0) + (spend?.general ?? 0), spend?.material.total ?? 0),
+        money: moneyFigures(project.projectCost?.toNumber() ?? null, labour.agreed, (spend?.labour.spent ?? 0) + (spend?.equipment ?? 0) + (spend?.general ?? 0), spend?.material.total ?? 0),
         labour,
         // Contractor vs in-house for the work items that have both rates
         rates: rateFigures(tasks),

@@ -2,7 +2,7 @@ import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
-import { archivedDeleteSchema, copyDaySchema, dayQuery, measureSchema, paymentSchema, periodPaymentSchema, personQuery, personSchema, progressSchema, quantitySchema, quoteSchema, rangeQuery, saveDaySchema, statementQuery, subPaymentSchema, workRateSchema, workSchema, } from "./labourSimple.schema.js";
+import { archivedDeleteSchema, billPaymentSchema, billSchema, teamPaymentSchema, copyDaySchema, dayQuery, measureSchema, paymentSchema, periodPaymentSchema, personQuery, personSchema, progressSchema, quantitySchema, quoteSchema, rangeQuery, saveDaySchema, statementQuery, subPaymentSchema, workRateSchema, workSchema, } from "./labourSimple.schema.js";
 import * as s from "./labourSimple.service.js";
 /*
  * The simple Labour section. Mounted at /api/v1 (app.ts): app.use("/api/v1", labourSimpleRoutes).
@@ -36,6 +36,16 @@ router.get(`${base}/team`, requireAuth, async (req, res) => res.json(await s.tea
 router.get(`${base}/team/person`, requireAuth, async (req, res) => res.json(await s.person(uid(req), req.params.projectId, personQuery.parse(req.query).name)));
 router.post(`${base}/team/archive`, requireAuth, writeLimiter, validate(personSchema), async (req, res) => res.json(await s.archivePerson(uid(req), req.params.projectId, req.body.name)));
 router.post(`${base}/team/restore`, requireAuth, writeLimiter, validate(personSchema), async (req, res) => res.json(await s.restorePerson(uid(req), req.params.projectId, req.body.name)));
+// bills: a period's amount for a team head or person, and payments made against it on a day
+router.post(`${base}/bills`, requireAuth, writeLimiter, validate(billSchema), async (req, res) => res.status(201).json(await s.addBill(uid(req), req.params.projectId, req.body)));
+router.put(`${base}/bills/:id`, requireAuth, writeLimiter, validate(billSchema), async (req, res) => res.json(await s.updateBill(uid(req), req.params.projectId, req.params.id, req.body)));
+router.post(`${base}/bills/:id/archive`, requireAuth, writeLimiter, async (req, res) => res.json(await s.archiveBill(uid(req), req.params.projectId, req.params.id, true)));
+router.post(`${base}/bills/:id/restore`, requireAuth, writeLimiter, async (req, res) => res.json(await s.archiveBill(uid(req), req.params.projectId, req.params.id, false)));
+router.post(`${base}/bill-payments`, requireAuth, writeLimiter, validate(billPaymentSchema), async (req, res) => res.status(201).json(await s.addBillPayment(uid(req), req.params.projectId, req.body)));
+router.put(`${base}/bill-payments/:id`, requireAuth, writeLimiter, validate(billPaymentSchema), async (req, res) => res.json(await s.updateBillPayment(uid(req), req.params.projectId, req.params.id, req.body)));
+router.post(`${base}/team-payments`, requireAuth, writeLimiter, validate(teamPaymentSchema), async (req, res) => res.status(201).json(await s.addTeamPayment(uid(req), req.params.projectId, req.body)));
+router.put(`${base}/team-payments/:id`, requireAuth, writeLimiter, validate(teamPaymentSchema), async (req, res) => res.json(await s.updateTeamPayment(uid(req), req.params.projectId, req.params.id, req.body)));
+router.post(`${base}/payments/:id/to-bill`, requireAuth, writeLimiter, async (req, res) => res.json(await s.paymentToBill(uid(req), req.params.projectId, req.params.id)));
 router.post(`${base}/payments/:id/archive`, requireAuth, writeLimiter, async (req, res) => res.json(await s.archivePayment(uid(req), req.params.projectId, req.params.id, true)));
 router.post(`${base}/payments/:id/restore`, requireAuth, writeLimiter, async (req, res) => res.json(await s.archivePayment(uid(req), req.params.projectId, req.params.id, false)));
 // subcontract: works with "done till date", payments for a work or as an advance, archive

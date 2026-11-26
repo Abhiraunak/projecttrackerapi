@@ -96,6 +96,36 @@ export const subPaymentSchema = z.object({
         remark: z.string().trim().max(500).default(""),
     }),
 });
+/** A bill: what a team head or person earned for a period (From – To) */
+export const billSchema = z.object({
+    body: z
+        .object({
+        name,
+        from: ymd,
+        to: ymd,
+        amount: z.number().finite().positive("Enter the bill amount.").max(1_000_000_000),
+        note: z.string().trim().max(500).default(""),
+    })
+        .refine((b) => b.from <= b.to, { message: "From must be on or before To.", path: ["to"] }),
+});
+/** A payment made against a bill, on a day */
+export const billPaymentSchema = z.object({
+    body: z.object({
+        billId: z.string().min(1).max(64),
+        date: ymd,
+        amount: z.number().finite().positive("Enter the amount paid.").max(1_000_000_000),
+        remark: z.string().trim().max(500).default(""),
+    }),
+});
+/** A payment to a team head or person: the day paid and the amount (counted against all their bills together) */
+export const teamPaymentSchema = z.object({
+    body: z.object({
+        name,
+        date: ymd,
+        amount: z.number().finite().positive("Enter the amount paid.").max(1_000_000_000),
+        remark: z.string().trim().max(500).default(""),
+    }),
+});
 /** Delete for good, from Archived: only rows already archived are removed */
 const ids = z.array(z.string().min(1).max(64)).max(500).default([]);
 export const archivedDeleteSchema = z.object({
@@ -104,6 +134,7 @@ export const archivedDeleteSchema = z.object({
         subcontractors: z.array(name).max(200).default([]),
         payments: ids,
         works: ids,
+        bills: ids,
     }),
 });
 /** Rate comparison, per work: how much was done and the contractor's rate per unit */

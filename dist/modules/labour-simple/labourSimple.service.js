@@ -445,13 +445,14 @@ const isTeam = (d) => d.workers.length !== 1 || keyOf(d.workers[0].label) !== ke
 /** GET …/labour-simple/team: one row per team head or person, newest first */
 export async function team(userId, projectId) {
     await requirePermission(userId, projectId, VIEW);
-    const [days, subs, pays] = await Promise.all([
+    const [days, subs, pays, bills] = await Promise.all([
         prisma.attendance.findMany({
             where: { projectId, ...live },
             select: { contractorName: true, date: true, totalAmount: true, workers: { select: { label: true } } },
         }),
         prisma.labourMeasure.findMany({ where: { projectId }, distinct: ["contractorName"], select: { contractorName: true } }),
         prisma.contractorPayment.findMany({ where: { projectId, ...live, measureId: null }, select: { contractorName: true, amount: true, date: true } }),
+        prisma.labourBill.findMany({ where: { projectId, ...live }, select: { contractorName: true, amount: true, periodTo: true } }),
     ]);
     const subNames = new Set(subs.map((x) => keyOf(x.contractorName)));
     const rows = new Map();
@@ -459,7 +460,7 @@ export async function team(userId, projectId) {
         const k = keyOf(name);
         let r = rows.get(k);
         if (!r) {
-            r = { name: name.trim(), kind: null, days: 0, earned: 0, paid: 0, last: "" };
+            r = { name: name.trim(), kind: null, days: 0, earned: 0, billed: 0, bills: 0, paid: 0, last: "" };
             rows.set(k, r);
         }
         return r;
@@ -470,6 +471,14 @@ export async function team(userId, projectId) {
         r.earned += num(d.totalAmount);
         r.kind = r.kind === "team" || isTeam(d) ? "team" : "one";
         const ymd = ymdOf(d.date);
+        if (ymd > r.last)
+            r.last = ymd;
+    }
+    for (const b of bills) {
+        const r = rowOf(b.contractorName);
+        r.billed += num(b.amount);
+        r.bills += 1;
+        const ymd = ymdOf(b.periodTo);
         if (ymd > r.last)
             r.last = ymd;
     }
@@ -484,18 +493,28 @@ export async function team(userId, projectId) {
             r.last = ymd;
     }
     const items = [...rows.values()]
-        .map((r) => ({ ...r, earned: r2(r.earned), paid: r2(r.paid), toPay: r2(r.earned - r.paid) }))
+        .map((r) => {
+        const owed = r.bills > 0 ? r.billed : r.earned; // bills when there are any, else the attendance amount
+        return { ...r, earned: r2(r.earned), billed: r2(r.billed), paid: r2(r.paid), owed: r2(owed), toPay: r2(owed - r.paid) };
+    })
         .sort((a, b) => (a.last === b.last ? a.name.localeCompare(b.name) : a.last < b.last ? 1 : -1));
     return {
         items,
-        totals: { earned: r2(items.reduce((s, i) => s + i.earned, 0)), paid: r2(items.reduce((s, i) => s + i.paid, 0)), toPay: r2(items.reduce((s, i) => s + i.toPay, 0)) },
+        totals: {
+            earned: r2(items.reduce((s, i) => s + i.earned, 0)),
+            billed: r2(items.reduce((s, i) => s + i.billed, 0)),
+            paid: r2(items.reduce((s, i) => s + i.paid, 0)),
+            // still owed and paid ahead apart, so one person's advance never hides what another is owed
+            toPay: r2(items.reduce((s, i) => s + Math.max(0, i.toPay), 0)),
+            ahead: r2(items.reduce((s, i) => s + Math.max(0, -i.toPay), 0)),
+        },
     };
 }
 /** GET …/labour-simple/team/person?name=: one row opened: their marked days and their payments, newest first */
 export async function person(userId, projectId, name) {
     await requirePermission(userId, projectId, VIEW);
     const who = { projectId, contractorName: same(name), ...live };
-    const [days, pays] = await Promise.all([
+    const [days, pays, bills] = await Promise.all([
         prisma.attendance.findMany({
             where: who,
             orderBy: [{ date: "desc" }, { createdAt: "desc" }],
@@ -505,10 +524,17 @@ export async function person(userId, projectId, name) {
         prisma.contractorPayment.findMany({
             where: { ...who, measureId: null },
             orderBy: [{ date: "desc" }, { createdAt: "desc" }],
+            take: 1000,
+            select: { id: true, date: true, amount: true, remark: true, periodFrom: true, periodTo: true, billId: true },
+        }),
+        prisma.labourBill.findMany({
+            where: who,
+            orderBy: [{ periodTo: "desc" }, { createdAt: "desc" }],
             take: 400,
-            select: { id: true, date: true, amount: true, remark: true, periodFrom: true, periodTo: true },
+            select: { id: true, periodFrom: true, periodTo: true, amount: true, note: true },
         }),
     ]);
+    const payDto = (p) => ({ id: p.id, date: ymdOf(p.date), amount: r2(num(p.amount)), remark: p.remark });
     return {
         days: days.map((d) => ({
             date: ymdOf(d.date),
@@ -519,38 +545,127 @@ export async function person(userId, projectId, name) {
             otHours: r2(d.workers.reduce((s, w) => s + num(w.otHours), 0)),
             amount: r2(num(d.totalAmount)),
         })),
-        payments: pays.map((p) => ({
-            id: p.id,
-            date: ymdOf(p.date),
-            from: p.periodFrom ? ymdOf(p.periodFrom) : "",
-            to: p.periodTo ? ymdOf(p.periodTo) : "",
-            amount: r2(num(p.amount)),
-            remark: p.remark,
-        })),
+        // Bills (a period's amount) and payments (the day paid) are two lists; payments count against all bills together
+        bills: bills.map((b) => ({ id: b.id, from: ymdOf(b.periodFrom), to: ymdOf(b.periodTo), amount: r2(num(b.amount)), note: b.note })),
+        payments: pays.map(payDto),
     };
+}
+/** POST …/labour-simple/team-payments: a payment to a team head or person, on a day */
+export async function addTeamPayment(userId, projectId, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const row = await prisma.contractorPayment.create({
+        data: { projectId, contractorName: input.name.trim(), date: day(input.date), amount: input.amount, remark: input.remark, addedById: userId },
+        select: { id: true },
+    });
+    return { id: row.id };
+}
+/** PUT …/labour-simple/team-payments/:id: change the day, amount or note */
+export async function updateTeamPayment(userId, projectId, id, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, ...live, measureId: null }, select: { id: true } });
+    if (!found)
+        throw new HttpError(404, "That payment is no longer there.");
+    await prisma.contractorPayment.update({ where: { id }, data: { date: day(input.date), amount: input.amount, remark: input.remark } });
+    return { ok: true };
+}
+/* ------------------------------------------------ bills ------------------------------------------------ */
+async function liveBill(projectId, id) {
+    const b = await prisma.labourBill.findFirst({ where: { id, projectId, ...live }, select: { id: true, contractorName: true } });
+    if (!b)
+        throw new HttpError(404, "That bill is no longer there.");
+    return b;
+}
+/** POST …/labour-simple/bills: what a team head or person earned for From – To (a new name joins the list) */
+export async function addBill(userId, projectId, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const row = await prisma.labourBill.create({
+        data: { projectId, contractorName: input.name.trim(), periodFrom: day(input.from), periodTo: day(input.to), amount: input.amount, note: input.note, addedBy: await whoIs(userId) },
+        select: { id: true },
+    });
+    return { id: row.id };
+}
+/** PUT …/labour-simple/bills/:id: change the period, the amount or the note */
+export async function updateBill(userId, projectId, id, input) {
+    await requirePermission(userId, projectId, WRITE);
+    await liveBill(projectId, id);
+    await prisma.labourBill.update({ where: { id }, data: { periodFrom: day(input.from), periodTo: day(input.to), amount: input.amount, note: input.note } });
+    return { ok: true };
+}
+/** POST …/labour-simple/bills/:id/archive and …/restore: one bill (payments are a list of their own and stay) */
+export async function archiveBill(userId, projectId, id, archive) {
+    await requirePermission(userId, projectId, WRITE);
+    const { count } = await prisma.labourBill.updateMany({ where: { id, projectId, ...(archive ? live : gone) }, data: { archivedAt: archive ? new Date() : null } });
+    if (count === 0)
+        throw new HttpError(404, "That bill is no longer there.");
+    return { ok: true };
+}
+/**
+ * POST …/labour-simple/payments/:id/to-bill: an older entry that is really a period's amount becomes a bill with nothing
+ * paid yet (its period, or its date when it has none), so it shows as still to pay with Pay. The payment row goes.
+ */
+export async function paymentToBill(userId, projectId, id) {
+    await requirePermission(userId, projectId, WRITE);
+    const p = await prisma.contractorPayment.findFirst({
+        where: { id, projectId, ...live, measureId: null, billId: null },
+        select: { contractorName: true, date: true, amount: true, remark: true, periodFrom: true, periodTo: true },
+    });
+    if (!p)
+        throw new HttpError(404, "That entry is no longer there.");
+    const by = await whoIs(userId);
+    const bill = await prisma.$transaction(async (tx) => {
+        const b = await tx.labourBill.create({
+            data: { projectId, contractorName: p.contractorName, periodFrom: p.periodFrom ?? p.date, periodTo: p.periodTo ?? p.date, amount: p.amount, note: p.remark, addedBy: by },
+            select: { id: true },
+        });
+        await tx.contractorPayment.delete({ where: { id } });
+        return b;
+    });
+    return { id: bill.id };
+}
+/** POST …/labour-simple/bill-payments: pay against a bill, on a day */
+export async function addBillPayment(userId, projectId, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const b = await liveBill(projectId, input.billId);
+    const row = await prisma.contractorPayment.create({
+        data: { projectId, contractorName: b.contractorName, date: day(input.date), amount: input.amount, remark: input.remark, billId: b.id, addedById: userId },
+        select: { id: true },
+    });
+    return { id: row.id };
+}
+/** PUT …/labour-simple/bill-payments/:id: change the date, amount or note of a payment (on a bill or not) */
+export async function updateBillPayment(userId, projectId, id, input) {
+    await requirePermission(userId, projectId, WRITE);
+    const found = await prisma.contractorPayment.findFirst({ where: { id, projectId, ...live, measureId: null }, select: { id: true } });
+    if (!found)
+        throw new HttpError(404, "That payment is no longer there.");
+    const b = await liveBill(projectId, input.billId);
+    await prisma.contractorPayment.update({ where: { id }, data: { date: day(input.date), amount: input.amount, remark: input.remark, billId: b.id, contractorName: b.contractorName } });
+    return { ok: true };
 }
 /** POST …/labour-simple/team/archive: the person with all their days and payments goes to Archived (counted nowhere) */
 export async function archivePerson(userId, projectId, name) {
     await requirePermission(userId, projectId, WRITE);
     const now = new Date();
     const who = { projectId, contractorName: same(name), ...live };
-    const [a, p] = await prisma.$transaction([
+    const [a, p, b] = await prisma.$transaction([
         prisma.attendance.updateMany({ where: who, data: { archivedAt: now } }),
         prisma.contractorPayment.updateMany({ where: { ...who, measureId: null }, data: { archivedAt: now } }),
+        prisma.labourBill.updateMany({ where: who, data: { archivedAt: now } }),
     ]);
-    if (a.count + p.count === 0)
+    if (a.count + p.count + b.count === 0)
         throw new HttpError(404, "Nothing of theirs is left to archive.");
-    return { days: a.count, payments: p.count };
+    return { days: a.count, payments: p.count, bills: b.count };
 }
 /** POST …/labour-simple/team/restore: back on the list with every archived day and payment */
 export async function restorePerson(userId, projectId, name) {
     await requirePermission(userId, projectId, WRITE);
     const who = { projectId, contractorName: same(name), ...gone };
-    const [a, p] = await prisma.$transaction([
+    const [a, p, b] = await prisma.$transaction([
         prisma.attendance.updateMany({ where: who, data: { archivedAt: null } }),
         prisma.contractorPayment.updateMany({ where: { ...who, measureId: null }, data: { archivedAt: null } }),
+        prisma.labourBill.updateMany({ where: who, data: { archivedAt: null } }),
     ]);
-    return { days: a.count, payments: p.count };
+    return { days: a.count, payments: p.count, bills: b.count };
 }
 /** POST …/labour-simple/payments/:id/archive and …/restore: one payment (team or subcontract) */
 export async function archivePayment(userId, projectId, id, archive) {
@@ -643,7 +758,12 @@ export async function subcontract(userId, projectId) {
     });
     return {
         people,
-        totals: { done: r2(people.reduce((s, x) => s + x.done, 0)), paid: r2(people.reduce((s, x) => s + x.paid, 0)), toPay: r2(people.reduce((s, x) => s + x.toPay, 0)) },
+        totals: {
+            done: r2(people.reduce((s, x) => s + x.done, 0)),
+            paid: r2(people.reduce((s, x) => s + x.paid, 0)),
+            toPay: r2(people.reduce((s, x) => s + Math.max(0, x.toPay), 0)),
+            ahead: r2(people.reduce((s, x) => s + Math.max(0, -x.toPay), 0)),
+        },
     };
 }
 /** POST …/labour-simple/subcontract: a work given (whole quantity, rate), with how much is done already if any */
@@ -760,31 +880,48 @@ export async function removeMeasure(userId, projectId, id) {
  */
 export async function archived(userId, projectId) {
     await requirePermission(userId, projectId, VIEW);
-    const [days, pays, ms, liveDays, livePays, liveMs] = await Promise.all([
+    const [days, pays, ms, liveDays, livePays, liveMs, billsGone, liveBills] = await Promise.all([
         prisma.attendance.findMany({ where: { projectId, ...gone }, select: { contractorName: true, totalAmount: true } }),
         prisma.contractorPayment.findMany({
             where: { projectId, ...gone },
             orderBy: { archivedAt: "desc" },
-            select: { id: true, contractorName: true, date: true, amount: true, periodFrom: true, periodTo: true, measureId: true, measure: { select: { work: true } } },
+            select: { id: true, contractorName: true, date: true, amount: true, periodFrom: true, periodTo: true, measureId: true, billId: true, measure: { select: { work: true } } },
         }),
         prisma.labourMeasure.findMany({ where: { projectId, ...gone }, orderBy: { archivedAt: "desc" }, select: { id: true, contractorName: true, work: true, amount: true } }),
         prisma.attendance.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
         prisma.contractorPayment.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
         prisma.labourMeasure.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
+        prisma.labourBill.findMany({ where: { projectId, ...gone }, orderBy: { archivedAt: "desc" }, select: { id: true, contractorName: true, periodFrom: true, periodTo: true, amount: true } }),
+        prisma.labourBill.findMany({ where: { projectId, ...live }, distinct: ["contractorName"], select: { contractorName: true } }),
     ]);
     const liveSub = new Set(liveMs.map((m) => keyOf(m.contractorName)));
     const subNames = new Set([...liveSub, ...ms.map((m) => keyOf(m.contractorName))]);
-    const liveTeam = new Set([...liveDays, ...livePays].map((x) => keyOf(x.contractorName)));
-    // whole people: archived days or payments, nothing left on the Attendance list
+    const liveTeam = new Set([...liveDays, ...livePays, ...liveBills].map((x) => keyOf(x.contractorName)));
+    // payments archived together with their work come back with it, so they are not listed on their own
+    const goneWorks = new Set(ms.map((m) => m.id));
     const people = new Map();
+    const goneOf = (name) => {
+        const k = keyOf(name);
+        const r = people.get(k) ?? { name: name.trim(), days: 0, bills: 0, payments: 0, earned: 0, billed: 0, paid: 0 };
+        people.set(k, r);
+        return r;
+    };
     for (const d of days) {
-        const k = keyOf(d.contractorName);
-        if (liveTeam.has(k))
+        if (liveTeam.has(keyOf(d.contractorName)))
             continue;
-        const r = people.get(k) ?? { name: d.contractorName.trim(), days: 0, payments: 0, earned: 0, paid: 0 };
+        const r = goneOf(d.contractorName);
         r.days += 1;
         r.earned = r2(r.earned + num(d.totalAmount));
-        people.set(k, r);
+    }
+    const bills = [];
+    for (const b of billsGone) {
+        if (liveTeam.has(keyOf(b.contractorName))) {
+            bills.push({ id: b.id, name: b.contractorName.trim(), from: ymdOf(b.periodFrom), to: ymdOf(b.periodTo), amount: r2(num(b.amount)) });
+            continue;
+        }
+        const r = goneOf(b.contractorName);
+        r.bills += 1;
+        r.billed = r2(r.billed + num(b.amount));
     }
     // whole subcontractors: archived works, none left on the Subcontract list
     const subs = new Map();
@@ -806,12 +943,13 @@ export async function archived(userId, projectId) {
             continue;
         }
         if (!p.measureId && !subNames.has(k) && !liveTeam.has(k)) {
-            const r = people.get(k) ?? { name: p.contractorName.trim(), days: 0, payments: 0, earned: 0, paid: 0 };
+            const r = goneOf(p.contractorName);
             r.payments += 1;
             r.paid = r2(r.paid + num(p.amount));
-            people.set(k, r);
             continue;
         }
+        if (p.measureId && goneWorks.has(p.measureId))
+            continue; // a payment is its own line, even if its old bill is archived
         payments.push({
             id: p.id,
             name: p.contractorName.trim(),
@@ -824,7 +962,7 @@ export async function archived(userId, projectId) {
         });
     }
     const works = ms.filter((m) => liveSub.has(keyOf(m.contractorName))).map((m) => ({ id: m.id, name: m.contractorName.trim(), work: m.work, amount: r2(num(m.amount)) }));
-    return { people: [...people.values()], subcontractors: [...subs.values()], payments, works };
+    return { people: [...people.values()], subcontractors: [...subs.values()], payments, works, bills };
 }
 /**
  * POST …/labour-simple/archived/delete: delete for good, in one transaction. Only rows already archived are removed;
@@ -839,6 +977,11 @@ export async function deleteArchived(userId, projectId, input) {
         for (const n of input.people) {
             days += (await tx.attendance.deleteMany({ where: { projectId, contractorName: same(n), ...gone } })).count; // workers cascade
             payments += (await tx.contractorPayment.deleteMany({ where: { projectId, contractorName: same(n), measureId: null, ...gone } })).count;
+            await tx.labourBill.deleteMany({ where: { projectId, contractorName: same(n), ...gone } });
+        }
+        if (input.bills.length) {
+            // payments are a list of their own: deleting a bill leaves them (their link clears itself)
+            await tx.labourBill.deleteMany({ where: { projectId, id: { in: input.bills }, ...gone } });
         }
         for (const n of input.subcontractors) {
             payments += (await tx.contractorPayment.deleteMany({ where: { projectId, contractorName: same(n), ...gone } })).count;

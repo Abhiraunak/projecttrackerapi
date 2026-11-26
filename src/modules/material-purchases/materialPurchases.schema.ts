@@ -42,6 +42,7 @@ const deliveryFields = {
   quantity: z.coerce.number().finite().positive("Enter how many arrived.").max(1_000_000_000),
   rate: optionalNumber(100_000_000, "The rate can't be negative."),
   amount: optionalNumber(10_000_000_000, "The amount can't be negative."),
+  note: z.string().trim().max(500, "Keep the note under 500 letters.").default(""), // optional
 };
 export const addDeliverySchema = z.object({ body: z.object(deliveryFields) });
 export const updateDeliverySchema = z.object({ body: z.object(deliveryFields) });

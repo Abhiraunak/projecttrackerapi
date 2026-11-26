@@ -1,5 +1,6 @@
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
+import { toDate } from "../../lib/dates.js";
 import { getUserAccess, requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
 import { spendByProject } from "./spend.service.js";
@@ -64,7 +65,14 @@ export async function update(req, res) {
 export async function patchProject(req, res) {
     const { id } = req.params;
     await requirePermission(uid(req), id, "project.manage");
-    const project = await prisma.project.update({ where: { id }, data: req.body, include: withTasks });
+    // The dates come as "2026-11-05"; the database needs real dates (null clears them, left out keeps them)
+    const { startDate, endDate, ...rest } = req.body;
+    const data = {
+        ...rest,
+        ...(startDate !== undefined && { startDate: startDate ? toDate(startDate) : null }),
+        ...(endDate !== undefined && { endDate: endDate ? toDate(endDate) : null }),
+    };
+    const project = await prisma.project.update({ where: { id }, data, include: withTasks });
     res.json({ project: projectDto(project) });
 }
 export async function remove(req, res) {

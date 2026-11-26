@@ -38,7 +38,7 @@ const select = {
   addedBy: { select: { name: true, email: true } },
   deliveries: {
     orderBy: [{ date: "desc" }, { createdAt: "desc" }],
-    select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, archivedAt: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+    select: { id: true, date: true, quantity: true, rate: true, amount: true, note: true, ratePending: true, archivedAt: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
   },
   topUps: {
     orderBy: [{ date: "asc" }, { createdAt: "asc" }],
@@ -48,7 +48,7 @@ const select = {
 
 type BillCols = { billId: string | null; billVersion: number | null; billFormat: string | null };
 type Num = { toNumber(): number };
-type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; ratePending?: boolean; archivedAt?: Date | null; addedBy: { name: string | null; email: string } };
+type DeliveryRow = BillCols & { id: string; date: Date; quantity: Num; rate: Num; amount: Num; note?: string; ratePending?: boolean; archivedAt?: Date | null; addedBy: { name: string | null; email: string } };
 
 const billOf = (p: BillCols) => ({
   billUrl:
@@ -64,6 +64,7 @@ const deliveryDto = (d: DeliveryRow) => ({
   quantity: d.quantity.toNumber(),
   rate: d.rate.toNumber(), // what was actually paid per unit
   amount: d.amount.toNumber(), // quantity × rate
+  note: d.note ?? "",
   ratePending: d.ratePending ?? false, // no rate or amount yet ("Not set"): from the site diary, or logged without one
   archivedAt: d.archivedAt ? d.archivedAt.toISOString() : null,
   ...billOf(d),
@@ -432,7 +433,7 @@ export async function addDelivery(userId: string, projectId: string, purchaseId:
   try {
     await prisma.$transaction(async (tx) => {
       const created = await tx.materialDelivery.create({
-        data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...cost, addedById: userId, ...bill },
+        data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, note: input.note, ...cost, addedById: userId, ...bill },
         select: { id: true },
       });
       await recordAudit(tx, {
@@ -460,7 +461,7 @@ export async function updateDelivery(userId: string, projectId: string, purchase
   await deliveryIn(purchaseId, deliveryId);
   await prisma.materialDelivery.update({
     where: { id: deliveryId },
-    data: { date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...costOf(input) },
+    data: { date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, note: input.note, ...costOf(input) },
   });
   return purchaseNow(purchaseId);
 }
