@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { toDate } from "../../lib/dates.js";
+import { recordAudit } from "../audit/audit.service.js";
 import { getUserAccess, requireCan, requirePermission } from "../../lib/projectAccess.js";
 import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
 import { spendByProject } from "./spend.service.js";
@@ -89,7 +90,21 @@ export async function patchProject(req: Request<{ id: string }, unknown, PatchPr
     ...(startDate !== undefined && { startDate: startDate ? toDate(startDate) : null }),
     ...(endDate !== undefined && { endDate: endDate ? toDate(endDate) : null }),
   };
+  const before = await prisma.project.findUnique({ where: { id }, select: { title: true, firmName: true, projectCost: true, status: true } });
   const project = await prisma.project.update({ where: { id }, data, include: withTasks });
+
+  // Into the activity log (Recent activity for admins): what changed, in words
+  const inr = (v: unknown) => (v == null ? "not set" : `₹${Math.round(Number(v)).toLocaleString("en-IN")}`);
+  const said: string[] = [];
+  if (rest.title !== undefined && rest.title !== before?.title) said.push(`name to ${rest.title}`);
+  if (rest.firmName !== undefined && rest.firmName !== before?.firmName) said.push(`firm to ${rest.firmName || "none"}`);
+  if (rest.projectCost !== undefined && Number(rest.projectCost ?? -1) !== Number(before?.projectCost ?? -1))
+    said.push(`cost ${inr(before?.projectCost)} → ${inr(rest.projectCost)}`);
+  if (rest.status !== undefined && rest.status !== before?.status) said.push(`status to ${rest.status.toLowerCase()}`);
+  if (startDate !== undefined || endDate !== undefined) said.push("dates");
+  if (said.length > 0) {
+    await recordAudit(prisma, { projectId: id, actorId: uid(req), action: "project.updated", entityType: "project", entityId: id, summary: `Changed ${said.join(", ")}` }).catch(() => { });
+  }
   res.json({ project: projectDto(project) });
 }
 

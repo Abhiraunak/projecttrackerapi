@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const AUDIT_ENTITIES = ["project", "task", "member", "requirement", "stock", "attendance", "user", "boq"];
+export const AUDIT_ENTITIES = ["project", "task", "member", "requirement", "stock", "attendance", "user", "boq", "equipment", "site_report", "material_delivery", "material", "expense", "payment"];
 /** req.query is read-only in Express 5, so the controller parses it directly */
 export const auditQuerySchema = z.object({
     entityType: z.enum(AUDIT_ENTITIES).optional(),

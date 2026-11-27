@@ -4,6 +4,7 @@ import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
 import { archivedDeleteSchema, billPaymentSchema, billSchema, teamPaymentSchema, copyDaySchema, dayQuery, measureSchema, paymentSchema, periodPaymentSchema, personQuery, personSchema, progressSchema, quantitySchema, quoteSchema, rangeQuery, saveDaySchema, statementQuery, subPaymentSchema, workRateSchema, workSchema, } from "./labourSimple.schema.js";
 import * as s from "./labourSimple.service.js";
+import { logLabourActivity } from "./labourSimple.activity.js";
 /*
  * The simple Labour section. Mounted at /api/v1 (app.ts): app.use("/api/v1", labourSimpleRoutes).
  * Adding a payment with a receipt photo, and deleting a payment, use the existing /projects/:id/contractor-payments.
@@ -11,6 +12,8 @@ import * as s from "./labourSimple.service.js";
 const writeLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 1500, standardHeaders: "draft-7", legacyHeaders: false });
 const router = Router();
 const base = "/projects/:projectId/labour-simple";
+// Every Labour save also goes into the activity log (Recent activity for admins)
+router.use(base, logLabourActivity);
 const uid = (req) => req.user.sub;
 // attendance
 router.get(`${base}/day`, requireAuth, async (req, res) => res.json(await s.getDay(uid(req), req.params.projectId, dayQuery.parse(req.query))));

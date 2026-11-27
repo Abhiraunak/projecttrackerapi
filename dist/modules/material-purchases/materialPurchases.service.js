@@ -33,7 +33,7 @@ const select = {
     addedBy: { select: { name: true, email: true } },
     deliveries: {
         orderBy: [{ date: "desc" }, { createdAt: "desc" }],
-        select: { id: true, date: true, quantity: true, rate: true, amount: true, ratePending: true, archivedAt: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
+        select: { id: true, date: true, quantity: true, rate: true, amount: true, note: true, ratePending: true, archivedAt: true, billId: true, billVersion: true, billFormat: true, addedBy: { select: { name: true, email: true } } },
     },
     topUps: {
         orderBy: [{ date: "asc" }, { createdAt: "asc" }],
@@ -52,6 +52,7 @@ const deliveryDto = (d) => ({
     quantity: d.quantity.toNumber(),
     rate: d.rate.toNumber(), // what was actually paid per unit
     amount: d.amount.toNumber(), // quantity × rate
+    note: d.note ?? "",
     ratePending: d.ratePending ?? false, // no rate or amount yet ("Not set"): from the site diary, or logged without one
     archivedAt: d.archivedAt ? d.archivedAt.toISOString() : null,
     ...billOf(d),
@@ -394,7 +395,7 @@ export async function addDelivery(userId, projectId, purchaseId, input, file) {
     try {
         await prisma.$transaction(async (tx) => {
             const created = await tx.materialDelivery.create({
-                data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...cost, addedById: userId, ...bill },
+                data: { purchaseId, projectId, date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, note: input.note, ...cost, addedById: userId, ...bill },
                 select: { id: true },
             });
             await recordAudit(tx, {
@@ -423,7 +424,7 @@ export async function updateDelivery(userId, projectId, purchaseId, deliveryId, 
     await deliveryIn(purchaseId, deliveryId);
     await prisma.materialDelivery.update({
         where: { id: deliveryId },
-        data: { date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, ...costOf(input) },
+        data: { date: new Date(`${input.date}T00:00:00Z`), quantity: input.quantity, note: input.note, ...costOf(input) },
     });
     return purchaseNow(purchaseId);
 }

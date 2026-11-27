@@ -389,6 +389,7 @@ export const MaterialDeliveryScalarFieldEnum = {
     billFormat: 'billFormat',
     addedById: 'addedById',
     ratePending: 'ratePending',
+    note: 'note',
     archivedAt: 'archivedAt',
     createdAt: 'createdAt'
 };

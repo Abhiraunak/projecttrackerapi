@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AUDIT_ENTITIES = ["project", "task", "member", "requirement", "stock", "attendance", "user", "boq"] as const;
+export const AUDIT_ENTITIES = ["project", "task", "member", "requirement", "stock", "attendance", "user", "boq", "equipment", "site_report", "material_delivery", "material", "expense", "payment"] as const;
 export type AuditEntity = (typeof AUDIT_ENTITIES)[number];
 
 /** req.query is read-only in Express 5, so the controller parses it directly */

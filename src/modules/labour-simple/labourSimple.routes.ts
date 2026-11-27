@@ -25,6 +25,7 @@ import {
   workSchema,
 } from "./labourSimple.schema.js";
 import * as s from "./labourSimple.service.js";
+import { logLabourActivity } from "./labourSimple.activity.js";
 
 /*
  * The simple Labour section. Mounted at /api/v1 (app.ts): app.use("/api/v1", labourSimpleRoutes).
@@ -35,6 +36,8 @@ const router = Router();
 type P = Request<{ projectId: string }>;
 type PI = Request<{ projectId: string; id: string }>;
 const base = "/projects/:projectId/labour-simple";
+// Every Labour save also goes into the activity log (Recent activity for admins)
+router.use(base, logLabourActivity);
 const uid = (req: Request) => req.user!.sub;
 
 // attendance
