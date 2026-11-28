@@ -1055,6 +1055,10 @@ model Equipment {
   serviceDue    DateTime?             @db.Date // machines: next service
   notes         String                @default("")
   retired       Boolean               @default(false) // nothing left and not used any more: hidden from pickers
+  // The bill (a photo or PDF), stored on Cloudinary like delivery bills; all empty when there is no bill
+  billId        String?
+  billVersion   Int?
+  billFormat    String?
   addedById     String
   addedBy       User                  @relation("EquipmentAddedBy", fields: [addedById], references: [id])
   createdAt     DateTime              @default(now())

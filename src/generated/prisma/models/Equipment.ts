@@ -31,6 +31,7 @@ export type EquipmentAvgAggregateOutputType = {
   hireRate: runtime.Decimal | null
   unitCost: runtime.Decimal | null
   marketValue: runtime.Decimal | null
+  billVersion: number | null
 }
 
 export type EquipmentSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type EquipmentSumAggregateOutputType = {
   hireRate: runtime.Decimal | null
   unitCost: runtime.Decimal | null
   marketValue: runtime.Decimal | null
+  billVersion: number | null
 }
 
 export type EquipmentMinAggregateOutputType = {
@@ -58,6 +60,9 @@ export type EquipmentMinAggregateOutputType = {
   serviceDue: Date | null
   notes: string | null
   retired: boolean | null
+  billId: string | null
+  billVersion: number | null
+  billFormat: string | null
   addedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -81,6 +86,9 @@ export type EquipmentMaxAggregateOutputType = {
   serviceDue: Date | null
   notes: string | null
   retired: boolean | null
+  billId: string | null
+  billVersion: number | null
+  billFormat: string | null
   addedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -104,6 +112,9 @@ export type EquipmentCountAggregateOutputType = {
   serviceDue: number
   notes: number
   retired: number
+  billId: number
+  billVersion: number
+  billFormat: number
   addedById: number
   createdAt: number
   updatedAt: number
@@ -116,6 +127,7 @@ export type EquipmentAvgAggregateInputType = {
   hireRate?: true
   unitCost?: true
   marketValue?: true
+  billVersion?: true
 }
 
 export type EquipmentSumAggregateInputType = {
@@ -123,6 +135,7 @@ export type EquipmentSumAggregateInputType = {
   hireRate?: true
   unitCost?: true
   marketValue?: true
+  billVersion?: true
 }
 
 export type EquipmentMinAggregateInputType = {
@@ -143,6 +156,9 @@ export type EquipmentMinAggregateInputType = {
   serviceDue?: true
   notes?: true
   retired?: true
+  billId?: true
+  billVersion?: true
+  billFormat?: true
   addedById?: true
   createdAt?: true
   updatedAt?: true
@@ -166,6 +182,9 @@ export type EquipmentMaxAggregateInputType = {
   serviceDue?: true
   notes?: true
   retired?: true
+  billId?: true
+  billVersion?: true
+  billFormat?: true
   addedById?: true
   createdAt?: true
   updatedAt?: true
@@ -189,6 +208,9 @@ export type EquipmentCountAggregateInputType = {
   serviceDue?: true
   notes?: true
   retired?: true
+  billId?: true
+  billVersion?: true
+  billFormat?: true
   addedById?: true
   createdAt?: true
   updatedAt?: true
@@ -299,6 +321,9 @@ export type EquipmentGroupByOutputType = {
   serviceDue: Date | null
   notes: string
   retired: boolean
+  billId: string | null
+  billVersion: number | null
+  billFormat: string | null
   addedById: string
   createdAt: Date
   updatedAt: Date
@@ -345,6 +370,9 @@ export type EquipmentWhereInput = {
   serviceDue?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringFilter<"Equipment"> | string
   retired?: Prisma.BoolFilter<"Equipment"> | boolean
+  billId?: Prisma.StringNullableFilter<"Equipment"> | string | null
+  billVersion?: Prisma.IntNullableFilter<"Equipment"> | number | null
+  billFormat?: Prisma.StringNullableFilter<"Equipment"> | string | null
   addedById?: Prisma.StringFilter<"Equipment"> | string
   createdAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
@@ -371,6 +399,9 @@ export type EquipmentOrderByWithRelationInput = {
   serviceDue?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
+  billId?: Prisma.SortOrderInput | Prisma.SortOrder
+  billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -400,6 +431,9 @@ export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
   serviceDue?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringFilter<"Equipment"> | string
   retired?: Prisma.BoolFilter<"Equipment"> | boolean
+  billId?: Prisma.StringNullableFilter<"Equipment"> | string | null
+  billVersion?: Prisma.IntNullableFilter<"Equipment"> | number | null
+  billFormat?: Prisma.StringNullableFilter<"Equipment"> | string | null
   addedById?: Prisma.StringFilter<"Equipment"> | string
   createdAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
@@ -426,6 +460,9 @@ export type EquipmentOrderByWithAggregationInput = {
   serviceDue?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
+  billId?: Prisma.SortOrderInput | Prisma.SortOrder
+  billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -457,6 +494,9 @@ export type EquipmentScalarWhereWithAggregatesInput = {
   serviceDue?: Prisma.DateTimeNullableWithAggregatesFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringWithAggregatesFilter<"Equipment"> | string
   retired?: Prisma.BoolWithAggregatesFilter<"Equipment"> | boolean
+  billId?: Prisma.StringNullableWithAggregatesFilter<"Equipment"> | string | null
+  billVersion?: Prisma.IntNullableWithAggregatesFilter<"Equipment"> | number | null
+  billFormat?: Prisma.StringNullableWithAggregatesFilter<"Equipment"> | string | null
   addedById?: Prisma.StringWithAggregatesFilter<"Equipment"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Equipment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Equipment"> | Date | string
@@ -480,6 +520,9 @@ export type EquipmentCreateInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutEquipmentAddedInput
@@ -505,6 +548,9 @@ export type EquipmentUncheckedCreateInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   addedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -529,6 +575,9 @@ export type EquipmentUpdateInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutEquipmentAddedNestedInput
@@ -554,6 +603,9 @@ export type EquipmentUncheckedUpdateInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -579,6 +631,9 @@ export type EquipmentCreateManyInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   addedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -601,6 +656,9 @@ export type EquipmentUpdateManyMutationInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -623,6 +681,9 @@ export type EquipmentUncheckedUpdateManyInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -656,6 +717,9 @@ export type EquipmentCountOrderByAggregateInput = {
   serviceDue?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
+  billId?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
+  billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -666,6 +730,7 @@ export type EquipmentAvgOrderByAggregateInput = {
   hireRate?: Prisma.SortOrder
   unitCost?: Prisma.SortOrder
   marketValue?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
 }
 
 export type EquipmentMaxOrderByAggregateInput = {
@@ -686,6 +751,9 @@ export type EquipmentMaxOrderByAggregateInput = {
   serviceDue?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
+  billId?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
+  billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -709,6 +777,9 @@ export type EquipmentMinOrderByAggregateInput = {
   serviceDue?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   retired?: Prisma.SortOrder
+  billId?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
+  billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -719,6 +790,7 @@ export type EquipmentSumOrderByAggregateInput = {
   hireRate?: Prisma.SortOrder
   unitCost?: Prisma.SortOrder
   marketValue?: Prisma.SortOrder
+  billVersion?: Prisma.SortOrder
 }
 
 export type EquipmentScalarRelationFilter = {
@@ -814,6 +886,9 @@ export type EquipmentCreateWithoutAddedByInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   moves?: Prisma.EquipmentMoveCreateNestedManyWithoutEquipmentInput
@@ -838,6 +913,9 @@ export type EquipmentUncheckedCreateWithoutAddedByInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   moves?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutEquipmentInput
@@ -891,6 +969,9 @@ export type EquipmentScalarWhereInput = {
   serviceDue?: Prisma.DateTimeNullableFilter<"Equipment"> | Date | string | null
   notes?: Prisma.StringFilter<"Equipment"> | string
   retired?: Prisma.BoolFilter<"Equipment"> | boolean
+  billId?: Prisma.StringNullableFilter<"Equipment"> | string | null
+  billVersion?: Prisma.IntNullableFilter<"Equipment"> | number | null
+  billFormat?: Prisma.StringNullableFilter<"Equipment"> | string | null
   addedById?: Prisma.StringFilter<"Equipment"> | string
   createdAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Equipment"> | Date | string
@@ -914,6 +995,9 @@ export type EquipmentCreateWithoutHireChangesInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutEquipmentAddedInput
@@ -938,6 +1022,9 @@ export type EquipmentUncheckedCreateWithoutHireChangesInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   addedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -977,6 +1064,9 @@ export type EquipmentUpdateWithoutHireChangesInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutEquipmentAddedNestedInput
@@ -1001,6 +1091,9 @@ export type EquipmentUncheckedUpdateWithoutHireChangesInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1025,6 +1118,9 @@ export type EquipmentCreateWithoutMovesInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutEquipmentAddedInput
@@ -1049,6 +1145,9 @@ export type EquipmentUncheckedCreateWithoutMovesInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   addedById: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1088,6 +1187,9 @@ export type EquipmentUpdateWithoutMovesInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutEquipmentAddedNestedInput
@@ -1112,6 +1214,9 @@ export type EquipmentUncheckedUpdateWithoutMovesInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1136,6 +1241,9 @@ export type EquipmentCreateManyAddedByInput = {
   serviceDue?: Date | string | null
   notes?: string
   retired?: boolean
+  billId?: string | null
+  billVersion?: number | null
+  billFormat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1157,6 +1265,9 @@ export type EquipmentUpdateWithoutAddedByInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   moves?: Prisma.EquipmentMoveUpdateManyWithoutEquipmentNestedInput
@@ -1181,6 +1292,9 @@ export type EquipmentUncheckedUpdateWithoutAddedByInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   moves?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutEquipmentNestedInput
@@ -1205,6 +1319,9 @@ export type EquipmentUncheckedUpdateManyWithoutAddedByInput = {
   serviceDue?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notes?: Prisma.StringFieldUpdateOperationsInput | string
   retired?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1267,6 +1384,9 @@ export type EquipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1294,6 +1414,9 @@ export type EquipmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1318,6 +1441,9 @@ export type EquipmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1342,12 +1468,15 @@ export type EquipmentSelectScalar = {
   serviceDue?: boolean
   notes?: boolean
   retired?: boolean
+  billId?: boolean
+  billVersion?: boolean
+  billFormat?: boolean
   addedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EquipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serialNo" | "name" | "category" | "unit" | "code" | "ownership" | "hireRate" | "hirePer" | "supplier" | "unitCost" | "marketValue" | "marketValueOn" | "purchasedOn" | "serviceDue" | "notes" | "retired" | "addedById" | "createdAt" | "updatedAt", ExtArgs["result"]["equipment"]>
+export type EquipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serialNo" | "name" | "category" | "unit" | "code" | "ownership" | "hireRate" | "hirePer" | "supplier" | "unitCost" | "marketValue" | "marketValueOn" | "purchasedOn" | "serviceDue" | "notes" | "retired" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt" | "updatedAt", ExtArgs["result"]["equipment"]>
 export type EquipmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   moves?: boolean | Prisma.Equipment$movesArgs<ExtArgs>
@@ -1386,6 +1515,9 @@ export type $EquipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     serviceDue: Date | null
     notes: string
     retired: boolean
+    billId: string | null
+    billVersion: number | null
+    billFormat: string | null
     addedById: string
     createdAt: Date
     updatedAt: Date
@@ -1832,6 +1964,9 @@ export interface EquipmentFieldRefs {
   readonly serviceDue: Prisma.FieldRef<"Equipment", 'DateTime'>
   readonly notes: Prisma.FieldRef<"Equipment", 'String'>
   readonly retired: Prisma.FieldRef<"Equipment", 'Boolean'>
+  readonly billId: Prisma.FieldRef<"Equipment", 'String'>
+  readonly billVersion: Prisma.FieldRef<"Equipment", 'Int'>
+  readonly billFormat: Prisma.FieldRef<"Equipment", 'String'>
   readonly addedById: Prisma.FieldRef<"Equipment", 'String'>
   readonly createdAt: Prisma.FieldRef<"Equipment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Equipment", 'DateTime'>

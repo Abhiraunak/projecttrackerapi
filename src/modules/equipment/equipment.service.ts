@@ -2,6 +2,9 @@ import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { requireCan, requirePermission } from "../../lib/projectAccess.js";
+import { deleteDrawingFile, drawingUrls, uploadDrawingFile } from "../../lib/cloudinary.js";
+import { detectFileType } from "../../lib/fileType.js";
+import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 import {
   CATEGORIES,
@@ -50,6 +53,9 @@ const itemSelect = {
   purchasedOn: true,
   retired: true,
   updatedAt: true,
+  billId: true,
+  billVersion: true,
+  billFormat: true,
   // Rate changes and one-off amounts: every hire figure below takes them into account
   hireChanges: { select: { kind: true, date: true, rate: true, amount: true, projectId: true } },
 } satisfies Prisma.EquipmentSelect;
@@ -91,6 +97,18 @@ const termsOf = (i: ItemRow): HireTerms => ({
 /** Our running number as people read it: 7 → "EQ-0007" */
 export const equipmentNo = (serialNo: number) => `EQ-${String(serialNo).padStart(4, "0")}`;
 
+// The bill: a link to open it, and whether it is a photo or a PDF (both empty when there is none)
+const kindOf = (format: string) => (format === "pdf" ? "pdf" : "image") as "pdf" | "image";
+const billOf = (b: { billId: string | null; billVersion: number | null; billFormat: string | null }) => ({
+  billUrl:
+    b.billId && b.billVersion !== null && b.billFormat
+      ? drawingUrls({ publicId: b.billId, version: b.billVersion, format: b.billFormat, kind: kindOf(b.billFormat) }).openUrl
+      : null,
+  billKind: b.billFormat ? kindOf(b.billFormat) : null,
+});
+const dropBill = (b: { billId: string | null; billFormat: string | null }) =>
+  b.billId && b.billFormat ? deleteDrawingFile(b.billId, kindOf(b.billFormat)).catch(() => { }) : Promise.resolve();
+
 const itemDto = (i: ItemRow) => ({
   id: i.id,
   serialNo: i.serialNo,
@@ -113,6 +131,7 @@ const itemDto = (i: ItemRow) => ({
   purchasedOn: i.purchasedOn ? ymd(i.purchasedOn) : null,
   retired: i.retired,
   updatedAt: i.updatedAt,
+  ...billOf(i),
 });
 
 async function projectNames(ids: Iterable<string>) {
@@ -380,9 +399,35 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
  */
 export async function deleteEquipment(userId: string, id: string) {
   await requireCan(userId, "equipment.manage");
-  const item = await prisma.equipment.findUnique({ where: { id }, select: { id: true } });
+  const item = await prisma.equipment.findUnique({ where: { id }, select: { id: true, billId: true, billFormat: true } });
   if (!item) throw new HttpError(404, "That equipment was already deleted.");
   await prisma.equipment.delete({ where: { id } });
+  await dropBill(item); // the file goes once the row is surely gone
+  return { ok: true };
+}
+
+/** PUT /equipment/:id/bill: attach the item's bill (a photo or PDF); a new one replaces the old */
+export async function setEquipmentBill(userId: string, id: string, file?: Express.Multer.File) {
+  await requireCan(userId, "equipment.manage");
+  if (!file) throw new HttpError(400, "Choose the bill: a photo (JPG, PNG) or a PDF.");
+  const before = await prisma.equipment.findUnique({ where: { id }, select: { id: true, billId: true, billFormat: true } });
+  if (!before) throw new HttpError(404, "That equipment is no longer there.");
+  const detected = detectFileType(file.buffer);
+  if (!detected || detected.kind === "cad") throw new HttpError(415, "The bill can be a photo (JPG, PNG, WebP) or a PDF.");
+  if (detected.kind === "image" && file.size > MAX_IMAGE_BYTES) throw new HttpError(413, "Photos can be up to 10 MB.");
+  const stored = await uploadDrawingFile(file.buffer, detected);
+  await prisma.equipment.update({ where: { id }, data: { billId: stored.publicId, billVersion: stored.version, billFormat: stored.format } });
+  await dropBill(before); // the old bill, if there was one
+  return billOf({ billId: stored.publicId, billVersion: stored.version, billFormat: stored.format });
+}
+
+/** DELETE /equipment/:id/bill: take the bill off */
+export async function removeEquipmentBill(userId: string, id: string) {
+  await requireCan(userId, "equipment.manage");
+  const before = await prisma.equipment.findUnique({ where: { id }, select: { id: true, billId: true, billFormat: true } });
+  if (!before) throw new HttpError(404, "That equipment is no longer there.");
+  await prisma.equipment.update({ where: { id }, data: { billId: null, billVersion: null, billFormat: null } });
+  await dropBill(before);
   return { ok: true };
 }
 

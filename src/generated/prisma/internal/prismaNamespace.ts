@@ -5060,6 +5060,9 @@ export const EquipmentScalarFieldEnum = {
   serviceDue: 'serviceDue',
   notes: 'notes',
   retired: 'retired',
+  billId: 'billId',
+  billVersion: 'billVersion',
+  billFormat: 'billFormat',
   addedById: 'addedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

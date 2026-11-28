@@ -1,8 +1,21 @@
 import { Router, type Request } from "express";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
+import { uploadSingleFile } from "../../middleware/uploadImage.js";
 import { createEquipmentSchema, hireChangeSchema, moveSchema, updateEquipmentSchema } from "./equipment.schema.js";
-import { addHireChange, addMove, createEquipment, deleteEquipment, getEquipment, listEquipment, removeHireChange, undoMove, updateEquipment } from "./equipment.service.js";
+import {
+  addHireChange,
+  addMove,
+  createEquipment,
+  deleteEquipment,
+  getEquipment,
+  listEquipment,
+  removeEquipmentBill,
+  removeHireChange,
+  setEquipmentBill,
+  undoMove,
+  updateEquipment,
+} from "./equipment.service.js";
 
 /** The equipment register. Mounted at /api/v1/equipment. */
 /** Routes under /:id: the id is always there (req.params is otherwise a loose dictionary) */
@@ -23,6 +36,13 @@ router.get("/:id", async (req: WithId, res) => {
 });
 router.patch("/:id", validate(updateEquipmentSchema), async (req: WithId, res) => {
   res.json(await updateEquipment(req.user!.sub, req.params.id, req.body));
+});
+// The item's bill: a photo or PDF in the form field "file"
+router.put("/:id/bill", uploadSingleFile, async (req: WithId, res) => {
+  res.json(await setEquipmentBill(req.user!.sub, req.params.id, req.file));
+});
+router.delete("/:id/bill", async (req: WithId, res) => {
+  res.json(await removeEquipmentBill(req.user!.sub, req.params.id));
 });
 router.delete("/:id", async (req: WithId, res) => {
   res.json(await deleteEquipment(req.user!.sub, req.params.id));
