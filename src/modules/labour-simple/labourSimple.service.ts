@@ -1,7 +1,9 @@
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../lib/error.js";
 import { requirePermission } from "../../lib/projectAccess.js";
-import { drawingUrls } from "../../lib/cloudinary.js";
+import { deleteDrawingFile, drawingUrls, uploadDrawingFile } from "../../lib/cloudinary.js";
+import { detectFileType } from "../../lib/fileType.js";
+import { MAX_IMAGE_BYTES } from "../../middleware/uploadImage.js";
 import { dayKeyIn } from "../punches/punch.calc.js";
 import type { ArchivedDelete, BillInput, BillPaymentInput, CopyDay, TeamPaymentInput, MeasureInput, PeriodPaymentInput, SaveDay, SubPaymentInput } from "./labourSimple.schema.js";
 
@@ -559,7 +561,7 @@ export async function person(userId: string, projectId: string, name: string) {
       where: who,
       orderBy: [{ periodTo: "desc" }, { createdAt: "desc" }],
       take: 400,
-      select: { id: true, periodFrom: true, periodTo: true, amount: true, note: true },
+      select: { id: true, periodFrom: true, periodTo: true, amount: true, note: true, fileId: true, fileVersion: true, fileFormat: true },
     }),
   ]);
   const payDto = (p: (typeof pays)[number]) => ({ id: p.id, date: ymdOf(p.date), amount: r2(num(p.amount)), remark: p.remark });
@@ -574,7 +576,7 @@ export async function person(userId: string, projectId: string, name: string) {
       amount: r2(num(d.totalAmount)),
     })),
     // Bills (a period's amount) and payments (the day paid) are two lists; payments count against all bills together
-    bills: bills.map((b) => ({ id: b.id, from: ymdOf(b.periodFrom), to: ymdOf(b.periodTo), amount: r2(num(b.amount)), note: b.note })),
+    bills: bills.map((b) => ({ id: b.id, from: ymdOf(b.periodFrom), to: ymdOf(b.periodTo), amount: r2(num(b.amount)), note: b.note, ...billFileOf(b) })),
     payments: pays.map(payDto),
   };
 }
@@ -599,6 +601,45 @@ export async function updateTeamPayment(userId: string, projectId: string, id: s
 }
 
 /* ------------------------------------------------ bills ------------------------------------------------ */
+
+// A labour bill's paper (photo or PDF): a link to open it, and its kind; both null when none was attached
+const fileKind = (format: string) => (format === "pdf" ? "pdf" : "image") as "pdf" | "image";
+function billFileOf(b: { fileId: string | null; fileVersion: number | null; fileFormat: string | null }) {
+  return {
+    fileUrl:
+      b.fileId && b.fileVersion !== null && b.fileFormat
+        ? drawingUrls({ publicId: b.fileId, version: b.fileVersion, format: b.fileFormat, kind: fileKind(b.fileFormat) }).openUrl
+        : null,
+    fileKind: b.fileFormat ? fileKind(b.fileFormat) : null,
+  };
+}
+const dropBillFile = (b: { fileId: string | null; fileFormat: string | null }) =>
+  b.fileId && b.fileFormat ? deleteDrawingFile(b.fileId, fileKind(b.fileFormat)).catch(() => { }) : Promise.resolve();
+
+/** PUT …/labour-simple/bills/:id/file: attach the bill paper (photo or PDF); a new one replaces the old */
+export async function setBillFile(userId: string, projectId: string, id: string, file?: Express.Multer.File) {
+  await requirePermission(userId, projectId, WRITE);
+  if (!file) throw new HttpError(400, "Choose the bill: a photo (JPG, PNG) or a PDF.");
+  const before = await prisma.labourBill.findFirst({ where: { id, projectId, ...live }, select: { fileId: true, fileFormat: true } });
+  if (!before) throw new HttpError(404, "That bill is no longer there.");
+  const detected = detectFileType(file.buffer);
+  if (!detected || detected.kind === "cad") throw new HttpError(415, "The bill can be a photo (JPG, PNG, WebP) or a PDF.");
+  if (detected.kind === "image" && file.size > MAX_IMAGE_BYTES) throw new HttpError(413, "Photos can be up to 10 MB.");
+  const stored = await uploadDrawingFile(file.buffer, detected);
+  await prisma.labourBill.update({ where: { id }, data: { fileId: stored.publicId, fileVersion: stored.version, fileFormat: stored.format } });
+  await dropBillFile(before); // the old paper, if there was one
+  return billFileOf({ fileId: stored.publicId, fileVersion: stored.version, fileFormat: stored.format });
+}
+
+/** DELETE …/labour-simple/bills/:id/file: take the bill paper off (the bill itself stays) */
+export async function removeBillFile(userId: string, projectId: string, id: string) {
+  await requirePermission(userId, projectId, WRITE);
+  const before = await prisma.labourBill.findFirst({ where: { id, projectId, ...live }, select: { fileId: true, fileFormat: true } });
+  if (!before) throw new HttpError(404, "That bill is no longer there.");
+  await prisma.labourBill.update({ where: { id }, data: { fileId: null, fileVersion: null, fileFormat: null } });
+  await dropBillFile(before);
+  return { ok: true };
+}
 
 async function liveBill(projectId: string, id: string) {
   const b = await prisma.labourBill.findFirst({ where: { id, projectId, ...live }, select: { id: true, contractorName: true } });
@@ -1018,6 +1059,11 @@ export async function archived(userId: string, projectId: string) {
  */
 export async function deleteArchived(userId: string, projectId: string, input: ArchivedDelete) {
   await requirePermission(userId, projectId, WRITE);
+  // The bill papers of the bills about to go, to delete from storage once the rows are surely gone
+  const papers = await prisma.labourBill.findMany({
+    where: { projectId, ...gone, fileId: { not: null }, OR: [{ id: { in: input.bills } }, ...input.people.map((n) => ({ contractorName: same(n) }))] },
+    select: { fileId: true, fileFormat: true },
+  });
   const counts = await prisma.$transaction(async (tx) => {
     let days = 0;
     let payments = 0;
@@ -1042,6 +1088,7 @@ export async function deleteArchived(userId: string, projectId: string, input: A
     if (input.payments.length) payments += (await tx.contractorPayment.deleteMany({ where: { projectId, id: { in: input.payments }, ...gone } })).count;
     return { days, payments, works };
   });
+  await Promise.all(papers.map(dropBillFile));
   return counts;
 }
 

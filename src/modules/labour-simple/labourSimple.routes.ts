@@ -2,6 +2,7 @@ import { Router, type Request } from "express";
 import rateLimit from "express-rate-limit";
 import { requireAuth } from "../../middleware/auth.js";
 import { validate } from "../../middleware/validate.js";
+import { uploadSingleFile } from "../../middleware/uploadImage.js";
 import {
   archivedDeleteSchema,
   billPaymentSchema,
@@ -76,6 +77,11 @@ router.post(`${base}/team/restore`, requireAuth, writeLimiter, validate(personSc
 // bills: a period's amount for a team head or person, and payments made against it on a day
 router.post(`${base}/bills`, requireAuth, writeLimiter, validate(billSchema), async (req: P, res) => res.status(201).json(await s.addBill(uid(req), req.params.projectId, req.body)));
 router.put(`${base}/bills/:id`, requireAuth, writeLimiter, validate(billSchema), async (req: PI, res) => res.json(await s.updateBill(uid(req), req.params.projectId, req.params.id, req.body)));
+// The bill paper (a photo or PDF in the form field "file")
+router.put(`${base}/bills/:id/file`, requireAuth, writeLimiter, uploadSingleFile, async (req: PI, res) =>
+  res.json(await s.setBillFile(uid(req), req.params.projectId, req.params.id, req.file)),
+);
+router.delete(`${base}/bills/:id/file`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.removeBillFile(uid(req), req.params.projectId, req.params.id)));
 router.post(`${base}/bills/:id/archive`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archiveBill(uid(req), req.params.projectId, req.params.id, true)));
 router.post(`${base}/bills/:id/restore`, requireAuth, writeLimiter, async (req: PI, res) => res.json(await s.archiveBill(uid(req), req.params.projectId, req.params.id, false)));
 router.post(`${base}/bill-payments`, requireAuth, writeLimiter, validate(billPaymentSchema), async (req: P, res) =>

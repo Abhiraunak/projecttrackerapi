@@ -35,6 +35,8 @@ function lineFor(method: string, path: string, b: Body): Line | null {
     }
     if (is("POST", /^\/bills$/)) return pay("labour.bill_added", `Added a bill · ${who(b)} · ${day(b.from)} – ${day(b.to)} · ${inr(b.amount)}`);
     if (is("PUT", /^\/bills\/[^/]+$/)) return pay("labour.bill_changed", `Changed a bill · ${who(b)} · ${inr(b.amount)}`);
+    if (is("PUT", /^\/bills\/[^/]+\/file$/)) return pay("labour.bill_file_attached", "Attached a labour bill (photo or PDF)");
+    if (is("DELETE", /^\/bills\/[^/]+\/file$/)) return pay("labour.bill_file_removed", "Removed a labour bill's photo or PDF");
     if (is("POST", /^\/bills\/[^/]+\/archive$/)) return pay("labour.bill_archived", "Archived a labour bill");
     if (is("POST", /^\/bills\/[^/]+\/restore$/)) return pay("labour.bill_restored", "Restored a labour bill");
     if (is("POST", /^\/(team-payments|bill-payments)$/)) return pay("labour.paid", `Paid ${who(b) || "labour"} · ${inr(b.amount)} · ${day(b.date)}`);

@@ -109,7 +109,7 @@ export async function labourSummary(userId: string, projectId: string) {
   const [earned, paid, general] = await Promise.all([
     earnedRows(projectId),
     prisma.contractorPayment.aggregate({ where: { projectId }, _sum: { amount: true } }),
-    prisma.expense.aggregate({ where: { projectId, category: "general" }, _sum: { amount: true } }),
+    prisma.expense.aggregate({ where: { projectId, category: "general", archivedAt: null }, _sum: { amount: true } }),
   ]);
   const trades = tradeCosts(earned);
   const labour = Math.round(trades.reduce((s, t) => s + t.cost, 0) * 100) / 100;
@@ -127,7 +127,7 @@ export async function labourSummary(userId: string, projectId: string) {
 
 /** POST /projects/:id/contractor-payments: one payment, with an optional receipt (photo or PDF) */
 export async function addPayment(userId: string, projectId: string, input: AddPayment, file?: Express.Multer.File) {
-  await requirePermission(userId, projectId, "project.manage");
+  await requirePermission(userId, projectId, "attendance.write"); // part of the Labour section's one tick
   if (input.date > dayKeyIn(new Date())) throw new HttpError(400, "The date can't be in the future.");
 
   // Same spelling as attendance and earlier payments, so the ledger lines up
@@ -182,7 +182,7 @@ export async function addPayment(userId: string, projectId: string, input: AddPa
 
 /** DELETE /projects/:id/contractor-payments/:paymentId */
 export async function removePayment(userId: string, projectId: string, paymentId: string) {
-  await requirePermission(userId, projectId, "project.manage");
+  await requirePermission(userId, projectId, "attendance.write"); // part of the Labour section's one tick
   const before = await prisma.contractorPayment.findFirst({ where: { id: paymentId, projectId } });
   if (!before) throw new HttpError(404, "Payment not found");
   await prisma.$transaction(async (tx) => {
