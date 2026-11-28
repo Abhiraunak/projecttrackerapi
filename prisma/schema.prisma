@@ -480,13 +480,13 @@ model MaterialPurchase {
   billId        String?
   billVersion   Int?
   billFormat    String?
+  archivedAt    DateTime? // archived: hidden and counted nowhere until restored; only archived items can be deleted
   addedById     String
   addedBy       User                   @relation("MaterialPurchaseAddedBy", fields: [addedById], references: [id])
   deliveries    MaterialDelivery[] // what has arrived so far, and when
   topUps        MaterialTopUp[] // "+5,000 on 8 Nov": more of the same material, with the date
   siteArrivals  SiteReportArrival[] // logged as arrived in the site diary
   createdAt     DateTime               @default(now())
-  archivedAt    DateTime? // archived: off the list and counted nowhere; only archived materials can be deleted
   estimateLines MaterialEstimateLine[]
 
   @@index([projectId, date])
@@ -1065,6 +1065,7 @@ model Equipment {
   billId        String?
   billVersion   Int?
   billFormat    String?
+  archivedAt    DateTime? // archived: hidden and counted nowhere until restored; only archived items can be deleted
   addedById     String
   addedBy       User                  @relation("EquipmentAddedBy", fields: [addedById], references: [id])
   createdAt     DateTime              @default(now())

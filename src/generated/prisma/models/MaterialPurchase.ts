@@ -54,9 +54,9 @@ export type MaterialPurchaseMinAggregateOutputType = {
   billId: string | null
   billVersion: number | null
   billFormat: string | null
+  archivedAt: Date | null
   addedById: string | null
   createdAt: Date | null
-  archivedAt: Date | null
 }
 
 export type MaterialPurchaseMaxAggregateOutputType = {
@@ -73,9 +73,9 @@ export type MaterialPurchaseMaxAggregateOutputType = {
   billId: string | null
   billVersion: number | null
   billFormat: string | null
+  archivedAt: Date | null
   addedById: string | null
   createdAt: Date | null
-  archivedAt: Date | null
 }
 
 export type MaterialPurchaseCountAggregateOutputType = {
@@ -92,9 +92,9 @@ export type MaterialPurchaseCountAggregateOutputType = {
   billId: number
   billVersion: number
   billFormat: number
+  archivedAt: number
   addedById: number
   createdAt: number
-  archivedAt: number
   _all: number
 }
 
@@ -127,9 +127,9 @@ export type MaterialPurchaseMinAggregateInputType = {
   billId?: true
   billVersion?: true
   billFormat?: true
+  archivedAt?: true
   addedById?: true
   createdAt?: true
-  archivedAt?: true
 }
 
 export type MaterialPurchaseMaxAggregateInputType = {
@@ -146,9 +146,9 @@ export type MaterialPurchaseMaxAggregateInputType = {
   billId?: true
   billVersion?: true
   billFormat?: true
+  archivedAt?: true
   addedById?: true
   createdAt?: true
-  archivedAt?: true
 }
 
 export type MaterialPurchaseCountAggregateInputType = {
@@ -165,9 +165,9 @@ export type MaterialPurchaseCountAggregateInputType = {
   billId?: true
   billVersion?: true
   billFormat?: true
+  archivedAt?: true
   addedById?: true
   createdAt?: true
-  archivedAt?: true
   _all?: true
 }
 
@@ -271,9 +271,9 @@ export type MaterialPurchaseGroupByOutputType = {
   billId: string | null
   billVersion: number | null
   billFormat: string | null
+  archivedAt: Date | null
   addedById: string
   createdAt: Date
-  archivedAt: Date | null
   _count: MaterialPurchaseCountAggregateOutputType | null
   _avg: MaterialPurchaseAvgAggregateOutputType | null
   _sum: MaterialPurchaseSumAggregateOutputType | null
@@ -313,9 +313,9 @@ export type MaterialPurchaseWhereInput = {
   billId?: Prisma.StringNullableFilter<"MaterialPurchase"> | string | null
   billVersion?: Prisma.IntNullableFilter<"MaterialPurchase"> | number | null
   billFormat?: Prisma.StringNullableFilter<"MaterialPurchase"> | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialPurchase"> | Date | string | null
   addedById?: Prisma.StringFilter<"MaterialPurchase"> | string
   createdAt?: Prisma.DateTimeFilter<"MaterialPurchase"> | Date | string
-  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialPurchase"> | Date | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   deliveries?: Prisma.MaterialDeliveryListRelationFilter
@@ -338,9 +338,9 @@ export type MaterialPurchaseOrderByWithRelationInput = {
   billId?: Prisma.SortOrderInput | Prisma.SortOrder
   billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   addedBy?: Prisma.UserOrderByWithRelationInput
   deliveries?: Prisma.MaterialDeliveryOrderByRelationAggregateInput
@@ -366,9 +366,9 @@ export type MaterialPurchaseWhereUniqueInput = Prisma.AtLeast<{
   billId?: Prisma.StringNullableFilter<"MaterialPurchase"> | string | null
   billVersion?: Prisma.IntNullableFilter<"MaterialPurchase"> | number | null
   billFormat?: Prisma.StringNullableFilter<"MaterialPurchase"> | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialPurchase"> | Date | string | null
   addedById?: Prisma.StringFilter<"MaterialPurchase"> | string
   createdAt?: Prisma.DateTimeFilter<"MaterialPurchase"> | Date | string
-  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialPurchase"> | Date | string | null
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   deliveries?: Prisma.MaterialDeliveryListRelationFilter
@@ -391,9 +391,9 @@ export type MaterialPurchaseOrderByWithAggregationInput = {
   billId?: Prisma.SortOrderInput | Prisma.SortOrder
   billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MaterialPurchaseCountOrderByAggregateInput
   _avg?: Prisma.MaterialPurchaseAvgOrderByAggregateInput
   _max?: Prisma.MaterialPurchaseMaxOrderByAggregateInput
@@ -418,9 +418,9 @@ export type MaterialPurchaseScalarWhereWithAggregatesInput = {
   billId?: Prisma.StringNullableWithAggregatesFilter<"MaterialPurchase"> | string | null
   billVersion?: Prisma.IntNullableWithAggregatesFilter<"MaterialPurchase"> | number | null
   billFormat?: Prisma.StringNullableWithAggregatesFilter<"MaterialPurchase"> | string | null
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MaterialPurchase"> | Date | string | null
   addedById?: Prisma.StringWithAggregatesFilter<"MaterialPurchase"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MaterialPurchase"> | Date | string
-  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MaterialPurchase"> | Date | string | null
 }
 
 export type MaterialPurchaseCreateInput = {
@@ -436,8 +436,8 @@ export type MaterialPurchaseCreateInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
@@ -460,9 +460,9 @@ export type MaterialPurchaseUncheckedCreateInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
@@ -482,8 +482,8 @@ export type MaterialPurchaseUpdateInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
@@ -506,9 +506,9 @@ export type MaterialPurchaseUncheckedUpdateInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -529,9 +529,9 @@ export type MaterialPurchaseCreateManyInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
 }
 
 export type MaterialPurchaseUpdateManyMutationInput = {
@@ -547,8 +547,8 @@ export type MaterialPurchaseUpdateManyMutationInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MaterialPurchaseUncheckedUpdateManyInput = {
@@ -565,9 +565,9 @@ export type MaterialPurchaseUncheckedUpdateManyInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type MaterialPurchaseListRelationFilter = {
@@ -594,9 +594,9 @@ export type MaterialPurchaseCountOrderByAggregateInput = {
   billId?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  archivedAt?: Prisma.SortOrder
 }
 
 export type MaterialPurchaseAvgOrderByAggregateInput = {
@@ -620,9 +620,9 @@ export type MaterialPurchaseMaxOrderByAggregateInput = {
   billId?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  archivedAt?: Prisma.SortOrder
 }
 
 export type MaterialPurchaseMinOrderByAggregateInput = {
@@ -639,9 +639,9 @@ export type MaterialPurchaseMinOrderByAggregateInput = {
   billId?: Prisma.SortOrder
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  archivedAt?: Prisma.SortOrder
 }
 
 export type MaterialPurchaseSumOrderByAggregateInput = {
@@ -818,8 +818,8 @@ export type MaterialPurchaseCreateWithoutAddedByInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
@@ -841,8 +841,8 @@ export type MaterialPurchaseUncheckedCreateWithoutAddedByInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
@@ -892,9 +892,9 @@ export type MaterialPurchaseScalarWhereInput = {
   billId?: Prisma.StringNullableFilter<"MaterialPurchase"> | string | null
   billVersion?: Prisma.IntNullableFilter<"MaterialPurchase"> | number | null
   billFormat?: Prisma.StringNullableFilter<"MaterialPurchase"> | string | null
+  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialPurchase"> | Date | string | null
   addedById?: Prisma.StringFilter<"MaterialPurchase"> | string
   createdAt?: Prisma.DateTimeFilter<"MaterialPurchase"> | Date | string
-  archivedAt?: Prisma.DateTimeNullableFilter<"MaterialPurchase"> | Date | string | null
 }
 
 export type MaterialPurchaseCreateWithoutProjectInput = {
@@ -910,8 +910,8 @@ export type MaterialPurchaseCreateWithoutProjectInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
@@ -932,9 +932,9 @@ export type MaterialPurchaseUncheckedCreateWithoutProjectInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
@@ -980,8 +980,8 @@ export type MaterialPurchaseCreateWithoutTopUpsInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
@@ -1003,9 +1003,9 @@ export type MaterialPurchaseUncheckedCreateWithoutTopUpsInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
   estimateLines?: Prisma.MaterialEstimateLineUncheckedCreateNestedManyWithoutPurchaseInput
@@ -1040,8 +1040,8 @@ export type MaterialPurchaseUpdateWithoutTopUpsInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
@@ -1063,9 +1063,9 @@ export type MaterialPurchaseUncheckedUpdateWithoutTopUpsInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
   estimateLines?: Prisma.MaterialEstimateLineUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -1084,8 +1084,8 @@ export type MaterialPurchaseCreateWithoutDeliveriesInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   topUps?: Prisma.MaterialTopUpCreateNestedManyWithoutPurchaseInput
@@ -1107,9 +1107,9 @@ export type MaterialPurchaseUncheckedCreateWithoutDeliveriesInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
   estimateLines?: Prisma.MaterialEstimateLineUncheckedCreateNestedManyWithoutPurchaseInput
@@ -1144,8 +1144,8 @@ export type MaterialPurchaseUpdateWithoutDeliveriesInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
@@ -1167,9 +1167,9 @@ export type MaterialPurchaseUncheckedUpdateWithoutDeliveriesInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
   estimateLines?: Prisma.MaterialEstimateLineUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -1188,8 +1188,8 @@ export type MaterialPurchaseCreateWithoutEstimateLinesInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
@@ -1211,9 +1211,9 @@ export type MaterialPurchaseUncheckedCreateWithoutEstimateLinesInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedCreateNestedManyWithoutPurchaseInput
@@ -1248,8 +1248,8 @@ export type MaterialPurchaseUpdateWithoutEstimateLinesInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
@@ -1271,9 +1271,9 @@ export type MaterialPurchaseUncheckedUpdateWithoutEstimateLinesInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -1292,8 +1292,8 @@ export type MaterialPurchaseCreateWithoutSiteArrivalsInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutMaterialPurchasesInput
   addedBy: Prisma.UserCreateNestedOneWithoutMaterialPurchasesAddedInput
   deliveries?: Prisma.MaterialDeliveryCreateNestedManyWithoutPurchaseInput
@@ -1315,9 +1315,9 @@ export type MaterialPurchaseUncheckedCreateWithoutSiteArrivalsInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutPurchaseInput
   topUps?: Prisma.MaterialTopUpUncheckedCreateNestedManyWithoutPurchaseInput
   estimateLines?: Prisma.MaterialEstimateLineUncheckedCreateNestedManyWithoutPurchaseInput
@@ -1352,8 +1352,8 @@ export type MaterialPurchaseUpdateWithoutSiteArrivalsInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
@@ -1375,9 +1375,9 @@ export type MaterialPurchaseUncheckedUpdateWithoutSiteArrivalsInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
   estimateLines?: Prisma.MaterialEstimateLineUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -1397,8 +1397,8 @@ export type MaterialPurchaseCreateManyAddedByInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
-  createdAt?: Date | string
   archivedAt?: Date | string | null
+  createdAt?: Date | string
 }
 
 export type MaterialPurchaseUpdateWithoutAddedByInput = {
@@ -1414,8 +1414,8 @@ export type MaterialPurchaseUpdateWithoutAddedByInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutMaterialPurchasesNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
@@ -1437,8 +1437,8 @@ export type MaterialPurchaseUncheckedUpdateWithoutAddedByInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -1459,8 +1459,8 @@ export type MaterialPurchaseUncheckedUpdateManyWithoutAddedByInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MaterialPurchaseCreateManyProjectInput = {
@@ -1476,9 +1476,9 @@ export type MaterialPurchaseCreateManyProjectInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   addedById: string
   createdAt?: Date | string
-  archivedAt?: Date | string | null
 }
 
 export type MaterialPurchaseUpdateWithoutProjectInput = {
@@ -1494,8 +1494,8 @@ export type MaterialPurchaseUpdateWithoutProjectInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutMaterialPurchasesAddedNestedInput
   deliveries?: Prisma.MaterialDeliveryUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUpdateManyWithoutPurchaseNestedInput
@@ -1516,9 +1516,9 @@ export type MaterialPurchaseUncheckedUpdateWithoutProjectInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveries?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutPurchaseNestedInput
   topUps?: Prisma.MaterialTopUpUncheckedUpdateManyWithoutPurchaseNestedInput
   siteArrivals?: Prisma.SiteReportArrivalUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -1538,9 +1538,9 @@ export type MaterialPurchaseUncheckedUpdateManyWithoutProjectInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1615,9 +1615,9 @@ export type MaterialPurchaseSelect<ExtArgs extends runtime.Types.Extensions.Inte
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
+  archivedAt?: boolean
   addedById?: boolean
   createdAt?: boolean
-  archivedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   deliveries?: boolean | Prisma.MaterialPurchase$deliveriesArgs<ExtArgs>
@@ -1641,9 +1641,9 @@ export type MaterialPurchaseSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
+  archivedAt?: boolean
   addedById?: boolean
   createdAt?: boolean
-  archivedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialPurchase"]>
@@ -1662,9 +1662,9 @@ export type MaterialPurchaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
+  archivedAt?: boolean
   addedById?: boolean
   createdAt?: boolean
-  archivedAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["materialPurchase"]>
@@ -1683,12 +1683,12 @@ export type MaterialPurchaseSelectScalar = {
   billId?: boolean
   billVersion?: boolean
   billFormat?: boolean
+  archivedAt?: boolean
   addedById?: boolean
   createdAt?: boolean
-  archivedAt?: boolean
 }
 
-export type MaterialPurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "section" | "name" | "unit" | "quantity" | "rate" | "amount" | "date" | "note" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt" | "archivedAt", ExtArgs["result"]["materialPurchase"]>
+export type MaterialPurchaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "section" | "name" | "unit" | "quantity" | "rate" | "amount" | "date" | "note" | "billId" | "billVersion" | "billFormat" | "archivedAt" | "addedById" | "createdAt", ExtArgs["result"]["materialPurchase"]>
 export type MaterialPurchaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1731,9 +1731,9 @@ export type $MaterialPurchasePayload<ExtArgs extends runtime.Types.Extensions.In
     billId: string | null
     billVersion: number | null
     billFormat: string | null
+    archivedAt: Date | null
     addedById: string
     createdAt: Date
-    archivedAt: Date | null
   }, ExtArgs["result"]["materialPurchase"]>
   composites: {}
 }
@@ -2176,9 +2176,9 @@ export interface MaterialPurchaseFieldRefs {
   readonly billId: Prisma.FieldRef<"MaterialPurchase", 'String'>
   readonly billVersion: Prisma.FieldRef<"MaterialPurchase", 'Int'>
   readonly billFormat: Prisma.FieldRef<"MaterialPurchase", 'String'>
+  readonly archivedAt: Prisma.FieldRef<"MaterialPurchase", 'DateTime'>
   readonly addedById: Prisma.FieldRef<"MaterialPurchase", 'String'>
   readonly createdAt: Prisma.FieldRef<"MaterialPurchase", 'DateTime'>
-  readonly archivedAt: Prisma.FieldRef<"MaterialPurchase", 'DateTime'>
 }
     
 

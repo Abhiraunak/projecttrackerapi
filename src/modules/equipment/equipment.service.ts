@@ -155,7 +155,7 @@ const placesOf = (at: Map<string, number>, names: Map<string, string>) => ({
 export async function listEquipment(userId: string) {
   await requireCan(userId, "equipment.view");
   const [items, moves, projects] = await Promise.all([
-    prisma.equipment.findMany({ select: itemSelect, orderBy: [{ retired: "asc" }, { serialNo: "asc" }] }),
+    prisma.equipment.findMany({ where: { archivedAt: null }, select: itemSelect, orderBy: [{ retired: "asc" }, { serialNo: "asc" }] }),
     prisma.equipmentMove.findMany({ select: { ...moveSelect, equipmentId: true } }),
     prisma.project.findMany({ where: { status: "ONGOING" }, select: { id: true, title: true }, orderBy: { title: "asc" } }),
   ]);
@@ -170,6 +170,10 @@ export async function listEquipment(userId: string) {
     categories: CATEGORIES,
     projects,
     nextNumber: equipmentNo(nextNo),
+    // Archived items: counted nowhere; restore one, or delete it for good
+    archived: (
+      await prisma.equipment.findMany({ where: { archivedAt: { not: null } }, select: { id: true, serialNo: true, name: true, unitCost: true, archivedAt: true }, orderBy: { archivedAt: "desc" } })
+    ).map(archivedDto),
     items: items.map((i) => {
       const at = stockByPlace(byItem.get(i.id) ?? []);
       return { ...itemDto(i), total: totalOf(at), ...placesOf(at, names) };
@@ -252,7 +256,7 @@ export async function projectEquipment(userId: string, projectId: string) {
   });
   const ids = touching.map((t) => t.equipmentId);
   const [items, moves] = await Promise.all([
-    prisma.equipment.findMany({ where: { id: { in: ids } }, select: itemSelect }),
+    prisma.equipment.findMany({ where: { id: { in: ids }, archivedAt: null }, select: itemSelect }),
     prisma.equipmentMove.findMany({ where: { equipmentId: { in: ids } }, select: { ...moveSelect, equipmentId: true } }),
   ]);
   const byItem = new Map<string, Move[]>();
@@ -277,9 +281,17 @@ export async function projectEquipment(userId: string, projectId: string) {
   const now = rows.filter((r) => r.here > 0).sort((a, b) => a.name.localeCompare(b.name));
   const before = rows.filter((r) => r.here <= 0 && r.unitDays > 0).sort((a, b) => b.hireSoFar - a.hireSoFar);
 
+  const archived = await prisma.equipment.findMany({
+    where: { id: { in: ids }, archivedAt: { not: null } },
+    select: { id: true, serialNo: true, name: true, unitCost: true, archivedAt: true },
+    orderBy: { archivedAt: "desc" },
+  });
+
   return {
     categories: CATEGORIES,
     items: now,
+    /** Archived items that were at this site: counted nowhere until restored */
+    archived: archived.map(archivedDto),
     /** Here earlier, gone now: kept so their hire charges still add up on this project */
     earlier: before.map((r) => ({ id: r.id, name: r.name, unit: r.unit, category: r.category, unitDays: r.unitDays, hireSoFar: r.hireSoFar, hireThisMonth: r.hireThisMonth })),
     totals: {
@@ -307,7 +319,7 @@ export async function equipmentHireByProject(projectIds: string[]): Promise<Map<
   if (!touching.length) return out;
   const ids = touching.map((t) => t.equipmentId);
   const [items, moves] = await Promise.all([
-    prisma.equipment.findMany({ where: { id: { in: ids } }, select: itemSelect }),
+    prisma.equipment.findMany({ where: { id: { in: ids }, archivedAt: null }, select: itemSelect }),
     prisma.equipmentMove.findMany({ where: { equipmentId: { in: ids } }, select: { ...moveSelect, equipmentId: true } }),
   ]);
   const byItem = new Map<string, Move[]>();
@@ -326,7 +338,7 @@ export async function equipmentHeadline(projectId: string) {
   if (!touching.length) return { items: 0, hireThisMonth: 0 };
   const ids = touching.map((t) => t.equipmentId);
   const [items, moves] = await Promise.all([
-    prisma.equipment.findMany({ where: { id: { in: ids } }, select: itemSelect }),
+    prisma.equipment.findMany({ where: { id: { in: ids }, archivedAt: null }, select: itemSelect }),
     prisma.equipmentMove.findMany({ where: { equipmentId: { in: ids } }, select: { ...moveSelect, equipmentId: true } }),
   ]);
   const day = today();
@@ -397,10 +409,32 @@ export async function updateEquipment(userId: string, id: string, input: UpdateE
  * DELETE /equipment/:id: remove an item added by mistake, with its moves and hire changes (they cascade). Its hire
  * stops counting on every project. Items that are worn out or sold should be written off instead, to keep the history.
  */
+/** An archived item, as the Archived list shows it */
+const archivedDto = (a: { id: string; serialNo: number; name: string; unitCost: { toNumber(): number } | null; archivedAt: Date | null }) => ({
+  id: a.id,
+  number: equipmentNo(a.serialNo),
+  name: a.name,
+  unitCost: a.unitCost?.toNumber() ?? null,
+  archivedAt: a.archivedAt,
+});
+
+/** POST /equipment/:id/archive and …/restore: an archived item is hidden and counted nowhere until restored */
+export async function archiveEquipment(userId: string, id: string, archive: boolean) {
+  await requireCan(userId, "equipment.manage");
+  const { count } = await prisma.equipment.updateMany({
+    where: { id, archivedAt: archive ? null : { not: null } },
+    data: { archivedAt: archive ? new Date() : null },
+  });
+  if (count === 0) throw new HttpError(404, archive ? "That equipment is no longer there." : "That equipment isn't archived.");
+  return { ok: true };
+}
+
+/** DELETE /equipment/:id: for good, with its moves and hire changes; only an archived item */
 export async function deleteEquipment(userId: string, id: string) {
   await requireCan(userId, "equipment.manage");
-  const item = await prisma.equipment.findUnique({ where: { id }, select: { id: true, billId: true, billFormat: true } });
+  const item = await prisma.equipment.findUnique({ where: { id }, select: { id: true, billId: true, billFormat: true, archivedAt: true } });
   if (!item) throw new HttpError(404, "That equipment was already deleted.");
+  if (!item.archivedAt) throw new HttpError(409, "Archive the equipment first; only archived equipment can be deleted.");
   await prisma.equipment.delete({ where: { id } });
   await dropBill(item); // the file goes once the row is surely gone
   return { ok: true };
@@ -443,8 +477,9 @@ export async function addMove(userId: string, id: string, input: MoveInput) {
   };
 
   const saved = await prisma.$transaction(async (tx) => {
-    const item = await tx.equipment.findUnique({ where: { id }, select: { name: true, unit: true } });
+    const item = await tx.equipment.findUnique({ where: { id }, select: { name: true, unit: true, archivedAt: true } });
     if (!item) throw new HttpError(404, "Equipment not found");
+    if (item.archivedAt) throw new HttpError(409, "This equipment is archived. Restore it first.");
     await assertProject(tx, move.from);
     await assertProject(tx, move.to);
     const moves = (await tx.equipmentMove.findMany({ where: { equipmentId: id }, select: moveSelect })).map(toMove);
@@ -497,8 +532,9 @@ export async function undoMove(userId: string, id: string, moveId: string) {
 export async function addHireChange(userId: string, id: string, input: HireChangeInput) {
   await requireCan(userId, "equipment.manage");
   if (input.date > today()) throw new HttpError(400, "The date can't be in the future.");
-  const item = await prisma.equipment.findUnique({ where: { id }, select: { ownership: true } });
+  const item = await prisma.equipment.findUnique({ where: { id }, select: { ownership: true, archivedAt: true } });
   if (!item) throw new HttpError(404, "Equipment not found");
+  if (item.archivedAt) throw new HttpError(409, "This equipment is archived. Restore it first.");
   if (item.ownership !== "hired") throw new HttpError(400, "Only hired equipment has a hire rate to change.");
   if (input.kind === "amount") await assertProject(prisma, input.projectId);
   const who = await prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } });
@@ -536,7 +572,7 @@ export async function equipmentSpendByProject(projectIds: string[]): Promise<Map
   if (!touching.length) return out;
   const ids = touching.map((t) => t.equipmentId);
   const [items, moves] = await Promise.all([
-    prisma.equipment.findMany({ where: { id: { in: ids } }, select: itemSelect }),
+    prisma.equipment.findMany({ where: { id: { in: ids }, archivedAt: null }, select: itemSelect }),
     prisma.equipmentMove.findMany({ where: { equipmentId: { in: ids } }, select: { ...moveSelect, equipmentId: true } }),
   ]);
   const byItem = new Map<string, Move[]>();

@@ -6,6 +6,7 @@ import { createEquipmentSchema, hireChangeSchema, moveSchema, updateEquipmentSch
 import {
   addHireChange,
   addMove,
+  archiveEquipment,
   createEquipment,
   deleteEquipment,
   getEquipment,
@@ -36,6 +37,13 @@ router.get("/:id", async (req: WithId, res) => {
 });
 router.patch("/:id", validate(updateEquipmentSchema), async (req: WithId, res) => {
   res.json(await updateEquipment(req.user!.sub, req.params.id, req.body));
+});
+// Archive first (hidden, counted nowhere); only archived items can be deleted
+router.post("/:id/archive", async (req: WithId, res) => {
+  res.json(await archiveEquipment(req.user!.sub, req.params.id, true));
+});
+router.post("/:id/restore", async (req: WithId, res) => {
+  res.json(await archiveEquipment(req.user!.sub, req.params.id, false));
 });
 // The item's bill: a photo or PDF in the form field "file"
 router.put("/:id/bill", uploadSingleFile, async (req: WithId, res) => {
