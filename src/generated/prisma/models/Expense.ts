@@ -48,6 +48,7 @@ export type ExpenseMinAggregateOutputType = {
   billVersion: number | null
   billFormat: string | null
   addedById: string | null
+  archivedAt: Date | null
   createdAt: Date | null
 }
 
@@ -63,6 +64,7 @@ export type ExpenseMaxAggregateOutputType = {
   billVersion: number | null
   billFormat: string | null
   addedById: string | null
+  archivedAt: Date | null
   createdAt: Date | null
 }
 
@@ -78,6 +80,7 @@ export type ExpenseCountAggregateOutputType = {
   billVersion: number
   billFormat: number
   addedById: number
+  archivedAt: number
   createdAt: number
   _all: number
 }
@@ -105,6 +108,7 @@ export type ExpenseMinAggregateInputType = {
   billVersion?: true
   billFormat?: true
   addedById?: true
+  archivedAt?: true
   createdAt?: true
 }
 
@@ -120,6 +124,7 @@ export type ExpenseMaxAggregateInputType = {
   billVersion?: true
   billFormat?: true
   addedById?: true
+  archivedAt?: true
   createdAt?: true
 }
 
@@ -135,6 +140,7 @@ export type ExpenseCountAggregateInputType = {
   billVersion?: true
   billFormat?: true
   addedById?: true
+  archivedAt?: true
   createdAt?: true
   _all?: true
 }
@@ -237,6 +243,7 @@ export type ExpenseGroupByOutputType = {
   billVersion: number | null
   billFormat: string | null
   addedById: string
+  archivedAt: Date | null
   createdAt: Date
   _count: ExpenseCountAggregateOutputType | null
   _avg: ExpenseAvgAggregateOutputType | null
@@ -275,6 +282,7 @@ export type ExpenseWhereInput = {
   billVersion?: Prisma.IntNullableFilter<"Expense"> | number | null
   billFormat?: Prisma.StringNullableFilter<"Expense"> | string | null
   addedById?: Prisma.StringFilter<"Expense"> | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -292,6 +300,7 @@ export type ExpenseOrderByWithRelationInput = {
   billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
   addedBy?: Prisma.UserOrderByWithRelationInput
@@ -312,6 +321,7 @@ export type ExpenseWhereUniqueInput = Prisma.AtLeast<{
   billVersion?: Prisma.IntNullableFilter<"Expense"> | number | null
   billFormat?: Prisma.StringNullableFilter<"Expense"> | string | null
   addedById?: Prisma.StringFilter<"Expense"> | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
   addedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -329,6 +339,7 @@ export type ExpenseOrderByWithAggregationInput = {
   billVersion?: Prisma.SortOrderInput | Prisma.SortOrder
   billFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   addedById?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ExpenseCountOrderByAggregateInput
   _avg?: Prisma.ExpenseAvgOrderByAggregateInput
@@ -352,6 +363,7 @@ export type ExpenseScalarWhereWithAggregatesInput = {
   billVersion?: Prisma.IntNullableWithAggregatesFilter<"Expense"> | number | null
   billFormat?: Prisma.StringNullableWithAggregatesFilter<"Expense"> | string | null
   addedById?: Prisma.StringWithAggregatesFilter<"Expense"> | string
+  archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Expense"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Expense"> | Date | string
 }
 
@@ -365,6 +377,7 @@ export type ExpenseCreateInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutExpensesInput
   addedBy: Prisma.UserCreateNestedOneWithoutExpensesAddedInput
@@ -382,6 +395,7 @@ export type ExpenseUncheckedCreateInput = {
   billVersion?: number | null
   billFormat?: string | null
   addedById: string
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -395,6 +409,7 @@ export type ExpenseUpdateInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutExpensesNestedInput
   addedBy?: Prisma.UserUpdateOneRequiredWithoutExpensesAddedNestedInput
@@ -412,6 +427,7 @@ export type ExpenseUncheckedUpdateInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -427,6 +443,7 @@ export type ExpenseCreateManyInput = {
   billVersion?: number | null
   billFormat?: string | null
   addedById: string
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -440,6 +457,7 @@ export type ExpenseUpdateManyMutationInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -455,6 +473,7 @@ export type ExpenseUncheckedUpdateManyInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -480,6 +499,7 @@ export type ExpenseCountOrderByAggregateInput = {
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -500,6 +520,7 @@ export type ExpenseMaxOrderByAggregateInput = {
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -515,6 +536,7 @@ export type ExpenseMinOrderByAggregateInput = {
   billVersion?: Prisma.SortOrder
   billFormat?: Prisma.SortOrder
   addedById?: Prisma.SortOrder
+  archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -617,6 +639,7 @@ export type ExpenseCreateWithoutAddedByInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutExpensesInput
 }
@@ -632,6 +655,7 @@ export type ExpenseUncheckedCreateWithoutAddedByInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -676,6 +700,7 @@ export type ExpenseScalarWhereInput = {
   billVersion?: Prisma.IntNullableFilter<"Expense"> | number | null
   billFormat?: Prisma.StringNullableFilter<"Expense"> | string | null
   addedById?: Prisma.StringFilter<"Expense"> | string
+  archivedAt?: Prisma.DateTimeNullableFilter<"Expense"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Expense"> | Date | string
 }
 
@@ -689,6 +714,7 @@ export type ExpenseCreateWithoutProjectInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   createdAt?: Date | string
   addedBy: Prisma.UserCreateNestedOneWithoutExpensesAddedInput
 }
@@ -704,6 +730,7 @@ export type ExpenseUncheckedCreateWithoutProjectInput = {
   billVersion?: number | null
   billFormat?: string | null
   addedById: string
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -744,6 +771,7 @@ export type ExpenseCreateManyAddedByInput = {
   billId?: string | null
   billVersion?: number | null
   billFormat?: string | null
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -757,6 +785,7 @@ export type ExpenseUpdateWithoutAddedByInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutExpensesNestedInput
 }
@@ -772,6 +801,7 @@ export type ExpenseUncheckedUpdateWithoutAddedByInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -786,6 +816,7 @@ export type ExpenseUncheckedUpdateManyWithoutAddedByInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -800,6 +831,7 @@ export type ExpenseCreateManyProjectInput = {
   billVersion?: number | null
   billFormat?: string | null
   addedById: string
+  archivedAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -813,6 +845,7 @@ export type ExpenseUpdateWithoutProjectInput = {
   billId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addedBy?: Prisma.UserUpdateOneRequiredWithoutExpensesAddedNestedInput
 }
@@ -828,6 +861,7 @@ export type ExpenseUncheckedUpdateWithoutProjectInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -842,6 +876,7 @@ export type ExpenseUncheckedUpdateManyWithoutProjectInput = {
   billVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   billFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   addedById?: Prisma.StringFieldUpdateOperationsInput | string
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -859,6 +894,7 @@ export type ExpenseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   billVersion?: boolean
   billFormat?: boolean
   addedById?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -876,6 +912,7 @@ export type ExpenseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   billVersion?: boolean
   billFormat?: boolean
   addedById?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -893,6 +930,7 @@ export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   billVersion?: boolean
   billFormat?: boolean
   addedById?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -910,10 +948,11 @@ export type ExpenseSelectScalar = {
   billVersion?: boolean
   billFormat?: boolean
   addedById?: boolean
+  archivedAt?: boolean
   createdAt?: boolean
 }
 
-export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "category" | "date" | "amount" | "purpose" | "remark" | "billId" | "billVersion" | "billFormat" | "addedById" | "createdAt", ExtArgs["result"]["expense"]>
+export type ExpenseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "category" | "date" | "amount" | "purpose" | "remark" | "billId" | "billVersion" | "billFormat" | "addedById" | "archivedAt" | "createdAt", ExtArgs["result"]["expense"]>
 export type ExpenseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   addedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -945,6 +984,7 @@ export type $ExpensePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     billVersion: number | null
     billFormat: string | null
     addedById: string
+    archivedAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["expense"]>
   composites: {}
@@ -1382,6 +1422,7 @@ export interface ExpenseFieldRefs {
   readonly billVersion: Prisma.FieldRef<"Expense", 'Int'>
   readonly billFormat: Prisma.FieldRef<"Expense", 'String'>
   readonly addedById: Prisma.FieldRef<"Expense", 'String'>
+  readonly archivedAt: Prisma.FieldRef<"Expense", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Expense", 'DateTime'>
 }
     

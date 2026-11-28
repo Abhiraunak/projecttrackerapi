@@ -202,6 +202,7 @@ export type UserWhereInput = {
   permissions?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  projectPins?: Prisma.ProjectPinListRelationFilter
   projects?: Prisma.ProjectListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
@@ -245,6 +246,7 @@ export type UserOrderByWithRelationInput = {
   permissions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  projectPins?: Prisma.ProjectPinOrderByRelationAggregateInput
   projects?: Prisma.ProjectOrderByRelationAggregateInput
   attendance?: Prisma.AttendanceOrderByRelationAggregateInput
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
@@ -291,6 +293,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   permissions?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  projectPins?: Prisma.ProjectPinListRelationFilter
   projects?: Prisma.ProjectListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
@@ -362,6 +365,7 @@ export type UserCreateInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -405,6 +409,7 @@ export type UserUncheckedCreateInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -448,6 +453,7 @@ export type UserUpdateInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -491,6 +497,7 @@ export type UserUncheckedUpdateInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1092,6 +1099,20 @@ export type UserUpdateOneRequiredWithoutSiteReportsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSiteReportsInput, Prisma.UserUpdateWithoutSiteReportsInput>, Prisma.UserUncheckedUpdateWithoutSiteReportsInput>
 }
 
+export type UserCreateNestedOneWithoutProjectPinsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectPinsInput, Prisma.UserUncheckedCreateWithoutProjectPinsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectPinsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProjectPinsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProjectPinsInput, Prisma.UserUncheckedCreateWithoutProjectPinsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProjectPinsInput
+  upsert?: Prisma.UserUpsertWithoutProjectPinsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProjectPinsInput, Prisma.UserUpdateWithoutProjectPinsInput>, Prisma.UserUncheckedUpdateWithoutProjectPinsInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   name?: string | null
@@ -1101,6 +1122,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
@@ -1143,6 +1165,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
@@ -1201,6 +1224,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
@@ -1243,6 +1267,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1285,6 +1310,7 @@ export type UserCreateWithoutPasswordResetsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -1327,6 +1353,7 @@ export type UserUncheckedCreateWithoutPasswordResetsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1385,6 +1412,7 @@ export type UserUpdateWithoutPasswordResetsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -1427,6 +1455,7 @@ export type UserUncheckedUpdateWithoutPasswordResetsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1469,6 +1498,7 @@ export type UserCreateWithoutProjectsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
@@ -1511,6 +1541,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
@@ -1569,6 +1600,7 @@ export type UserUpdateWithoutProjectsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
@@ -1611,6 +1643,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1653,6 +1686,7 @@ export type UserCreateWithoutAttendanceInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
@@ -1695,6 +1729,7 @@ export type UserUncheckedCreateWithoutAttendanceInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
@@ -1753,6 +1788,7 @@ export type UserUpdateWithoutAttendanceInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
@@ -1795,6 +1831,7 @@ export type UserUncheckedUpdateWithoutAttendanceInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1837,6 +1874,7 @@ export type UserCreateWithoutDrawingsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -1879,6 +1917,7 @@ export type UserUncheckedCreateWithoutDrawingsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1937,6 +1976,7 @@ export type UserUpdateWithoutDrawingsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -1979,6 +2019,7 @@ export type UserUncheckedUpdateWithoutDrawingsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2021,6 +2062,7 @@ export type UserCreateWithoutDrawingSharesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2063,6 +2105,7 @@ export type UserUncheckedCreateWithoutDrawingSharesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2121,6 +2164,7 @@ export type UserUpdateWithoutDrawingSharesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2163,6 +2207,7 @@ export type UserUncheckedUpdateWithoutDrawingSharesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2205,6 +2250,7 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2247,6 +2293,7 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2305,6 +2352,7 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2347,6 +2395,7 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2389,6 +2438,7 @@ export type UserCreateWithoutMaterialsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2431,6 +2481,7 @@ export type UserUncheckedCreateWithoutMaterialsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2489,6 +2540,7 @@ export type UserUpdateWithoutMaterialsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2531,6 +2583,7 @@ export type UserUncheckedUpdateWithoutMaterialsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2573,6 +2626,7 @@ export type UserCreateWithoutVendorsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2615,6 +2669,7 @@ export type UserUncheckedCreateWithoutVendorsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2673,6 +2728,7 @@ export type UserUpdateWithoutVendorsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2715,6 +2771,7 @@ export type UserUncheckedUpdateWithoutVendorsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2757,6 +2814,7 @@ export type UserCreateWithoutStockMovementsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2799,6 +2857,7 @@ export type UserUncheckedCreateWithoutStockMovementsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2857,6 +2916,7 @@ export type UserUpdateWithoutStockMovementsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -2899,6 +2959,7 @@ export type UserUncheckedUpdateWithoutStockMovementsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2941,6 +3002,7 @@ export type UserCreateWithoutMaterialPurchasesAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -2983,6 +3045,7 @@ export type UserUncheckedCreateWithoutMaterialPurchasesAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3041,6 +3104,7 @@ export type UserUpdateWithoutMaterialPurchasesAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3083,6 +3147,7 @@ export type UserUncheckedUpdateWithoutMaterialPurchasesAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3125,6 +3190,7 @@ export type UserCreateWithoutMaterialDeliveriesAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3167,6 +3233,7 @@ export type UserUncheckedCreateWithoutMaterialDeliveriesAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3225,6 +3292,7 @@ export type UserUpdateWithoutMaterialDeliveriesAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3267,6 +3335,7 @@ export type UserUncheckedUpdateWithoutMaterialDeliveriesAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3309,6 +3378,7 @@ export type UserCreateWithoutMaterialOrdersInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3351,6 +3421,7 @@ export type UserUncheckedCreateWithoutMaterialOrdersInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3409,6 +3480,7 @@ export type UserUpdateWithoutMaterialOrdersInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3451,6 +3523,7 @@ export type UserUncheckedUpdateWithoutMaterialOrdersInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3493,6 +3566,7 @@ export type UserCreateWithoutRequestsMadeInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3535,6 +3609,7 @@ export type UserUncheckedCreateWithoutRequestsMadeInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3582,6 +3657,7 @@ export type UserCreateWithoutRequestsDecidedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3624,6 +3700,7 @@ export type UserUncheckedCreateWithoutRequestsDecidedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3682,6 +3759,7 @@ export type UserUpdateWithoutRequestsMadeInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3724,6 +3802,7 @@ export type UserUncheckedUpdateWithoutRequestsMadeInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3777,6 +3856,7 @@ export type UserUpdateWithoutRequestsDecidedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -3819,6 +3899,7 @@ export type UserUncheckedUpdateWithoutRequestsDecidedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3861,6 +3942,7 @@ export type UserCreateWithoutAuditEntriesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -3903,6 +3985,7 @@ export type UserUncheckedCreateWithoutAuditEntriesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3961,6 +4044,7 @@ export type UserUpdateWithoutAuditEntriesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4003,6 +4087,7 @@ export type UserUncheckedUpdateWithoutAuditEntriesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4045,6 +4130,7 @@ export type UserCreateWithoutBoqsCreatedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4087,6 +4173,7 @@ export type UserUncheckedCreateWithoutBoqsCreatedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4134,6 +4221,7 @@ export type UserCreateWithoutBoqsUpdatedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4176,6 +4264,7 @@ export type UserUncheckedCreateWithoutBoqsUpdatedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4234,6 +4323,7 @@ export type UserUpdateWithoutBoqsCreatedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4276,6 +4366,7 @@ export type UserUncheckedUpdateWithoutBoqsCreatedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4329,6 +4420,7 @@ export type UserUpdateWithoutBoqsUpdatedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4371,6 +4463,7 @@ export type UserUncheckedUpdateWithoutBoqsUpdatedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4413,6 +4506,7 @@ export type UserCreateWithoutClientProjectsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4455,6 +4549,7 @@ export type UserUncheckedCreateWithoutClientProjectsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4513,6 +4608,7 @@ export type UserUpdateWithoutClientProjectsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4555,6 +4651,7 @@ export type UserUncheckedUpdateWithoutClientProjectsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4597,6 +4694,7 @@ export type UserCreateWithoutProofsUploadedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4639,6 +4737,7 @@ export type UserUncheckedCreateWithoutProofsUploadedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4686,6 +4785,7 @@ export type UserCreateWithoutProofsDecidedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -4728,6 +4828,7 @@ export type UserUncheckedCreateWithoutProofsDecidedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -4786,6 +4887,7 @@ export type UserUpdateWithoutProofsUploadedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4828,6 +4930,7 @@ export type UserUncheckedUpdateWithoutProofsUploadedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4881,6 +4984,7 @@ export type UserUpdateWithoutProofsDecidedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -4923,6 +5027,7 @@ export type UserUncheckedUpdateWithoutProofsDecidedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4965,6 +5070,7 @@ export type UserCreateWithoutDelaysRecordedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5007,6 +5113,7 @@ export type UserUncheckedCreateWithoutDelaysRecordedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5065,6 +5172,7 @@ export type UserUpdateWithoutDelaysRecordedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5107,6 +5215,7 @@ export type UserUncheckedUpdateWithoutDelaysRecordedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5149,6 +5258,7 @@ export type UserCreateWithoutNotificationsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5191,6 +5301,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5249,6 +5360,7 @@ export type UserUpdateWithoutNotificationsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5291,6 +5403,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5333,6 +5446,7 @@ export type UserCreateWithoutPunchesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5375,6 +5489,7 @@ export type UserUncheckedCreateWithoutPunchesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5433,6 +5548,7 @@ export type UserUpdateWithoutPunchesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5475,6 +5591,7 @@ export type UserUncheckedUpdateWithoutPunchesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5517,6 +5634,7 @@ export type UserCreateWithoutDeliveriesReceivedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5559,6 +5677,7 @@ export type UserUncheckedCreateWithoutDeliveriesReceivedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5606,6 +5725,7 @@ export type UserCreateWithoutDeliveriesDecidedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5648,6 +5768,7 @@ export type UserUncheckedCreateWithoutDeliveriesDecidedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5706,6 +5827,7 @@ export type UserUpdateWithoutDeliveriesReceivedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5748,6 +5870,7 @@ export type UserUncheckedUpdateWithoutDeliveriesReceivedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5801,6 +5924,7 @@ export type UserUpdateWithoutDeliveriesDecidedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -5843,6 +5967,7 @@ export type UserUncheckedUpdateWithoutDeliveriesDecidedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -5885,6 +6010,7 @@ export type UserCreateWithoutEquipmentAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -5927,6 +6053,7 @@ export type UserUncheckedCreateWithoutEquipmentAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -5985,6 +6112,7 @@ export type UserUpdateWithoutEquipmentAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6027,6 +6155,7 @@ export type UserUncheckedUpdateWithoutEquipmentAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6069,6 +6198,7 @@ export type UserCreateWithoutEquipmentMovesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6111,6 +6241,7 @@ export type UserUncheckedCreateWithoutEquipmentMovesInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6169,6 +6300,7 @@ export type UserUpdateWithoutEquipmentMovesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6211,6 +6343,7 @@ export type UserUncheckedUpdateWithoutEquipmentMovesInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6253,6 +6386,7 @@ export type UserCreateWithoutExpensesAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6295,6 +6429,7 @@ export type UserUncheckedCreateWithoutExpensesAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6353,6 +6488,7 @@ export type UserUpdateWithoutExpensesAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6395,6 +6531,7 @@ export type UserUncheckedUpdateWithoutExpensesAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6437,6 +6574,7 @@ export type UserCreateWithoutContractorPaymentsAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6479,6 +6617,7 @@ export type UserUncheckedCreateWithoutContractorPaymentsAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6537,6 +6676,7 @@ export type UserUpdateWithoutContractorPaymentsAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6579,6 +6719,7 @@ export type UserUncheckedUpdateWithoutContractorPaymentsAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6621,6 +6762,7 @@ export type UserCreateWithoutMaterialPaymentsAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6663,6 +6805,7 @@ export type UserUncheckedCreateWithoutMaterialPaymentsAddedInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6721,6 +6864,7 @@ export type UserUpdateWithoutMaterialPaymentsAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6763,6 +6907,7 @@ export type UserUncheckedUpdateWithoutMaterialPaymentsAddedInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6805,6 +6950,7 @@ export type UserCreateWithoutSiteReportsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
@@ -6847,6 +6993,7 @@ export type UserUncheckedCreateWithoutSiteReportsInput = {
   permissions?: Prisma.UserCreatepermissionsInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  projectPins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutUserInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
@@ -6905,6 +7052,7 @@ export type UserUpdateWithoutSiteReportsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
@@ -6947,6 +7095,7 @@ export type UserUncheckedUpdateWithoutSiteReportsInput = {
   permissions?: Prisma.UserUpdatepermissionsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projectPins?: Prisma.ProjectPinUncheckedUpdateManyWithoutUserNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -6980,12 +7129,201 @@ export type UserUncheckedUpdateWithoutSiteReportsInput = {
   passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
 }
 
+export type UserCreateWithoutProjectPinsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqCreateNestedManyWithoutUpdatedByInput
+  clientProjects?: Prisma.ProjectClientCreateNestedManyWithoutUserInput
+  proofsUploaded?: Prisma.PaymentProofCreateNestedManyWithoutUploadedByInput
+  proofsDecided?: Prisma.PaymentProofCreateNestedManyWithoutDecidedByInput
+  delaysRecorded?: Prisma.ProjectDelayCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutUserInput
+  deliveriesReceived?: Prisma.DeliveryCreateNestedManyWithoutReceivedByInput
+  deliveriesDecided?: Prisma.DeliveryCreateNestedManyWithoutDecidedByInput
+  equipmentAdded?: Prisma.EquipmentCreateNestedManyWithoutAddedByInput
+  equipmentMoves?: Prisma.EquipmentMoveCreateNestedManyWithoutByInput
+  expensesAdded?: Prisma.ExpenseCreateNestedManyWithoutAddedByInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentCreateNestedManyWithoutAddedByInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentCreateNestedManyWithoutAddedByInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseCreateNestedManyWithoutAddedByInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetCreateNestedManyWithoutUserInput
+  siteReports?: Prisma.SiteReportCreateNestedManyWithoutEngineerInput
+}
+
+export type UserUncheckedCreateWithoutProjectPinsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  permissions?: Prisma.UserCreatepermissionsInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOwnerInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutOwnerInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutOwnerInput
+  drawingShares?: Prisma.DrawingShareUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  materials?: Prisma.MaterialUncheckedCreateNestedManyWithoutOwnerInput
+  vendors?: Prisma.VendorUncheckedCreateNestedManyWithoutOwnerInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutCreatedByInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutCreatedByInput
+  requestsMade?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutRequestedByInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutDecidedByInput
+  auditEntries?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  boqsCreated?: Prisma.BoqUncheckedCreateNestedManyWithoutCreatedByInput
+  boqsUpdated?: Prisma.BoqUncheckedCreateNestedManyWithoutUpdatedByInput
+  clientProjects?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutUserInput
+  proofsUploaded?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutUploadedByInput
+  proofsDecided?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutDecidedByInput
+  delaysRecorded?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutCreatedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutUserInput
+  deliveriesReceived?: Prisma.DeliveryUncheckedCreateNestedManyWithoutReceivedByInput
+  deliveriesDecided?: Prisma.DeliveryUncheckedCreateNestedManyWithoutDecidedByInput
+  equipmentAdded?: Prisma.EquipmentUncheckedCreateNestedManyWithoutAddedByInput
+  equipmentMoves?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutByInput
+  expensesAdded?: Prisma.ExpenseUncheckedCreateNestedManyWithoutAddedByInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutAddedByInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutAddedByInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutAddedByInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedCreateNestedManyWithoutAddedByInput
+  passwordResets?: Prisma.PasswordResetUncheckedCreateNestedManyWithoutUserInput
+  siteReports?: Prisma.SiteReportUncheckedCreateNestedManyWithoutEngineerInput
+}
+
+export type UserCreateOrConnectWithoutProjectPinsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectPinsInput, Prisma.UserUncheckedCreateWithoutProjectPinsInput>
+}
+
+export type UserUpsertWithoutProjectPinsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProjectPinsInput, Prisma.UserUncheckedUpdateWithoutProjectPinsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProjectPinsInput, Prisma.UserUncheckedCreateWithoutProjectPinsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProjectPinsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProjectPinsInput, Prisma.UserUncheckedUpdateWithoutProjectPinsInput>
+}
+
+export type UserUpdateWithoutProjectPinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUpdateManyWithoutUpdatedByNestedInput
+  clientProjects?: Prisma.ProjectClientUpdateManyWithoutUserNestedInput
+  proofsUploaded?: Prisma.PaymentProofUpdateManyWithoutUploadedByNestedInput
+  proofsDecided?: Prisma.PaymentProofUpdateManyWithoutDecidedByNestedInput
+  delaysRecorded?: Prisma.ProjectDelayUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutUserNestedInput
+  deliveriesReceived?: Prisma.DeliveryUpdateManyWithoutReceivedByNestedInput
+  deliveriesDecided?: Prisma.DeliveryUpdateManyWithoutDecidedByNestedInput
+  equipmentAdded?: Prisma.EquipmentUpdateManyWithoutAddedByNestedInput
+  equipmentMoves?: Prisma.EquipmentMoveUpdateManyWithoutByNestedInput
+  expensesAdded?: Prisma.ExpenseUpdateManyWithoutAddedByNestedInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentUpdateManyWithoutAddedByNestedInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentUpdateManyWithoutAddedByNestedInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseUpdateManyWithoutAddedByNestedInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUpdateManyWithoutUserNestedInput
+  siteReports?: Prisma.SiteReportUpdateManyWithoutEngineerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProjectPinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  permissions?: Prisma.UserUpdatepermissionsInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutOwnerNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutOwnerNestedInput
+  drawingShares?: Prisma.DrawingShareUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  materials?: Prisma.MaterialUncheckedUpdateManyWithoutOwnerNestedInput
+  vendors?: Prisma.VendorUncheckedUpdateManyWithoutOwnerNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutCreatedByNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  requestsMade?: Prisma.MaterialRequestUncheckedUpdateManyWithoutRequestedByNestedInput
+  requestsDecided?: Prisma.MaterialRequestUncheckedUpdateManyWithoutDecidedByNestedInput
+  auditEntries?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  boqsCreated?: Prisma.BoqUncheckedUpdateManyWithoutCreatedByNestedInput
+  boqsUpdated?: Prisma.BoqUncheckedUpdateManyWithoutUpdatedByNestedInput
+  clientProjects?: Prisma.ProjectClientUncheckedUpdateManyWithoutUserNestedInput
+  proofsUploaded?: Prisma.PaymentProofUncheckedUpdateManyWithoutUploadedByNestedInput
+  proofsDecided?: Prisma.PaymentProofUncheckedUpdateManyWithoutDecidedByNestedInput
+  delaysRecorded?: Prisma.ProjectDelayUncheckedUpdateManyWithoutCreatedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutUserNestedInput
+  deliveriesReceived?: Prisma.DeliveryUncheckedUpdateManyWithoutReceivedByNestedInput
+  deliveriesDecided?: Prisma.DeliveryUncheckedUpdateManyWithoutDecidedByNestedInput
+  equipmentAdded?: Prisma.EquipmentUncheckedUpdateManyWithoutAddedByNestedInput
+  equipmentMoves?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutByNestedInput
+  expensesAdded?: Prisma.ExpenseUncheckedUpdateManyWithoutAddedByNestedInput
+  contractorPaymentsAdded?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutAddedByNestedInput
+  materialPaymentsAdded?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutAddedByNestedInput
+  materialPurchasesAdded?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutAddedByNestedInput
+  materialDeliveriesAdded?: Prisma.MaterialDeliveryUncheckedUpdateManyWithoutAddedByNestedInput
+  passwordResets?: Prisma.PasswordResetUncheckedUpdateManyWithoutUserNestedInput
+  siteReports?: Prisma.SiteReportUncheckedUpdateManyWithoutEngineerNestedInput
+}
+
 
 /**
  * Count Type UserCountOutputType
  */
 
 export type UserCountOutputType = {
+  projectPins: number
   projects: number
   attendance: number
   refreshTokens: number
@@ -7021,6 +7359,7 @@ export type UserCountOutputType = {
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  projectPins?: boolean | UserCountOutputTypeCountProjectPinsArgs
   projects?: boolean | UserCountOutputTypeCountProjectsArgs
   attendance?: boolean | UserCountOutputTypeCountAttendanceArgs
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
@@ -7063,6 +7402,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProjectPinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectPinWhereInput
 }
 
 /**
@@ -7299,6 +7645,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   permissions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  projectPins?: boolean | Prisma.User$projectPinsArgs<ExtArgs>
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   attendance?: boolean | Prisma.User$attendanceArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
@@ -7369,6 +7716,7 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "permissions" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  projectPins?: boolean | Prisma.User$projectPinsArgs<ExtArgs>
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   attendance?: boolean | Prisma.User$attendanceArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
@@ -7409,6 +7757,7 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    projectPins: Prisma.$ProjectPinPayload<ExtArgs>[]
     projects: Prisma.$ProjectPayload<ExtArgs>[]
     attendance: Prisma.$AttendancePayload<ExtArgs>[]
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
@@ -7845,6 +8194,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  projectPins<T extends Prisma.User$projectPinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectPinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projects<T extends Prisma.User$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendance<T extends Prisma.User$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8304,6 +8654,30 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.projectPins
+ */
+export type User$projectPinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectPin
+   */
+  select?: Prisma.ProjectPinSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectPin
+   */
+  omit?: Prisma.ProjectPinOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectPinInclude<ExtArgs> | null
+  where?: Prisma.ProjectPinWhereInput
+  orderBy?: Prisma.ProjectPinOrderByWithRelationInput | Prisma.ProjectPinOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectPinWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectPinScalarFieldEnum | Prisma.ProjectPinScalarFieldEnum[]
 }
 
 /**

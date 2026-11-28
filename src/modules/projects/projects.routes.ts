@@ -17,8 +17,8 @@ import { uploadSingleFile } from "../../middleware/uploadImage.js";
 import { uploadProjectDrawingSchema } from "../drawings/drawings.schema.js";
 import { listProjectDrawings, uploadProjectDrawing } from "../drawings/projectDrawings.service.js";
 import { projectEquipment } from "../equipment/equipment.service.js";
-import { addExpenseSchema } from "../expenses/expenses.schema.js";
-import { addExpense, listExpenses, removeExpense } from "../expenses/expenses.service.js";
+import { addExpenseSchema, updateExpenseSchema } from "../expenses/expenses.schema.js";
+import { addExpense, archiveExpense, listExpenses, removeExpense, updateExpense } from "../expenses/expenses.service.js";
 import { addPaymentSchema } from "../contractor-payments/contractor-payments.schema.js";
 import { addPayment, labourSummary, listPayments, removePayment } from "../contractor-payments/contractor-payments.service.js";
 import { measureSchema, monthQuery, searchQuery, settleSchema, weekQuery } from "../labour-weeks/labour-weeks.schema.js";
@@ -63,6 +63,15 @@ router.get("/:id/expenses", async (req: WithId, res) => {
 });
 router.post("/:id/expenses", drawingUploadLimiter, uploadSingleFile, validate(addExpenseSchema), async (req: WithId, res) => {
   res.status(201).json(await addExpense(req.user!.sub, req.params.id, req.body, req.file));
+});
+router.put("/:id/expenses/:expenseId", drawingUploadLimiter, uploadSingleFile, validate(updateExpenseSchema), async (req: Request<{ id: string; expenseId: string }>, res) => {
+  res.json(await updateExpense(req.user!.sub, req.params.id, req.params.expenseId, req.body, req.file));
+});
+router.post("/:id/expenses/:expenseId/archive", async (req: Request<{ id: string; expenseId: string }>, res) => {
+  res.json(await archiveExpense(req.user!.sub, req.params.id, req.params.expenseId, true));
+});
+router.post("/:id/expenses/:expenseId/restore", async (req: Request<{ id: string; expenseId: string }>, res) => {
+  res.json(await archiveExpense(req.user!.sub, req.params.id, req.params.expenseId, false));
 });
 router.delete("/:id/expenses/:expenseId", async (req: Request<{ id: string; expenseId: string }>, res) => {
   res.json(await removeExpense(req.user!.sub, req.params.id, req.params.expenseId));

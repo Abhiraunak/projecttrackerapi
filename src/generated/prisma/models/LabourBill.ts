@@ -28,10 +28,12 @@ export type AggregateLabourBill = {
 
 export type LabourBillAvgAggregateOutputType = {
   amount: runtime.Decimal | null
+  fileVersion: number | null
 }
 
 export type LabourBillSumAggregateOutputType = {
   amount: runtime.Decimal | null
+  fileVersion: number | null
 }
 
 export type LabourBillMinAggregateOutputType = {
@@ -43,6 +45,9 @@ export type LabourBillMinAggregateOutputType = {
   amount: runtime.Decimal | null
   note: string | null
   addedBy: string | null
+  fileId: string | null
+  fileVersion: number | null
+  fileFormat: string | null
   archivedAt: Date | null
   createdAt: Date | null
 }
@@ -56,6 +61,9 @@ export type LabourBillMaxAggregateOutputType = {
   amount: runtime.Decimal | null
   note: string | null
   addedBy: string | null
+  fileId: string | null
+  fileVersion: number | null
+  fileFormat: string | null
   archivedAt: Date | null
   createdAt: Date | null
 }
@@ -69,6 +77,9 @@ export type LabourBillCountAggregateOutputType = {
   amount: number
   note: number
   addedBy: number
+  fileId: number
+  fileVersion: number
+  fileFormat: number
   archivedAt: number
   createdAt: number
   _all: number
@@ -77,10 +88,12 @@ export type LabourBillCountAggregateOutputType = {
 
 export type LabourBillAvgAggregateInputType = {
   amount?: true
+  fileVersion?: true
 }
 
 export type LabourBillSumAggregateInputType = {
   amount?: true
+  fileVersion?: true
 }
 
 export type LabourBillMinAggregateInputType = {
@@ -92,6 +105,9 @@ export type LabourBillMinAggregateInputType = {
   amount?: true
   note?: true
   addedBy?: true
+  fileId?: true
+  fileVersion?: true
+  fileFormat?: true
   archivedAt?: true
   createdAt?: true
 }
@@ -105,6 +121,9 @@ export type LabourBillMaxAggregateInputType = {
   amount?: true
   note?: true
   addedBy?: true
+  fileId?: true
+  fileVersion?: true
+  fileFormat?: true
   archivedAt?: true
   createdAt?: true
 }
@@ -118,6 +137,9 @@ export type LabourBillCountAggregateInputType = {
   amount?: true
   note?: true
   addedBy?: true
+  fileId?: true
+  fileVersion?: true
+  fileFormat?: true
   archivedAt?: true
   createdAt?: true
   _all?: true
@@ -218,6 +240,9 @@ export type LabourBillGroupByOutputType = {
   amount: runtime.Decimal
   note: string
   addedBy: string
+  fileId: string | null
+  fileVersion: number | null
+  fileFormat: string | null
   archivedAt: Date | null
   createdAt: Date
   _count: LabourBillCountAggregateOutputType | null
@@ -254,6 +279,9 @@ export type LabourBillWhereInput = {
   amount?: Prisma.DecimalFilter<"LabourBill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFilter<"LabourBill"> | string
   addedBy?: Prisma.StringFilter<"LabourBill"> | string
+  fileId?: Prisma.StringNullableFilter<"LabourBill"> | string | null
+  fileVersion?: Prisma.IntNullableFilter<"LabourBill"> | number | null
+  fileFormat?: Prisma.StringNullableFilter<"LabourBill"> | string | null
   archivedAt?: Prisma.DateTimeNullableFilter<"LabourBill"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabourBill"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
@@ -269,6 +297,9 @@ export type LabourBillOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
+  fileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
@@ -287,6 +318,9 @@ export type LabourBillWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.DecimalFilter<"LabourBill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFilter<"LabourBill"> | string
   addedBy?: Prisma.StringFilter<"LabourBill"> | string
+  fileId?: Prisma.StringNullableFilter<"LabourBill"> | string | null
+  fileVersion?: Prisma.IntNullableFilter<"LabourBill"> | number | null
+  fileFormat?: Prisma.StringNullableFilter<"LabourBill"> | string | null
   archivedAt?: Prisma.DateTimeNullableFilter<"LabourBill"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabourBill"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
@@ -302,6 +336,9 @@ export type LabourBillOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
+  fileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileFormat?: Prisma.SortOrderInput | Prisma.SortOrder
   archivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.LabourBillCountOrderByAggregateInput
@@ -323,6 +360,9 @@ export type LabourBillScalarWhereWithAggregatesInput = {
   amount?: Prisma.DecimalWithAggregatesFilter<"LabourBill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringWithAggregatesFilter<"LabourBill"> | string
   addedBy?: Prisma.StringWithAggregatesFilter<"LabourBill"> | string
+  fileId?: Prisma.StringNullableWithAggregatesFilter<"LabourBill"> | string | null
+  fileVersion?: Prisma.IntNullableWithAggregatesFilter<"LabourBill"> | number | null
+  fileFormat?: Prisma.StringNullableWithAggregatesFilter<"LabourBill"> | string | null
   archivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"LabourBill"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LabourBill"> | Date | string
 }
@@ -335,6 +375,9 @@ export type LabourBillCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutLabourBillsInput
@@ -350,6 +393,9 @@ export type LabourBillUncheckedCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
   payments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutBillInput
@@ -363,6 +409,9 @@ export type LabourBillUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutLabourBillsNestedInput
@@ -378,6 +427,9 @@ export type LabourBillUncheckedUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutBillNestedInput
@@ -392,6 +444,9 @@ export type LabourBillCreateManyInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -404,6 +459,9 @@ export type LabourBillUpdateManyMutationInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -417,6 +475,9 @@ export type LabourBillUncheckedUpdateManyInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -445,12 +506,16 @@ export type LabourBillCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
+  fileVersion?: Prisma.SortOrder
+  fileFormat?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type LabourBillAvgOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  fileVersion?: Prisma.SortOrder
 }
 
 export type LabourBillMaxOrderByAggregateInput = {
@@ -462,6 +527,9 @@ export type LabourBillMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
+  fileVersion?: Prisma.SortOrder
+  fileFormat?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -475,12 +543,16 @@ export type LabourBillMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   addedBy?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
+  fileVersion?: Prisma.SortOrder
+  fileFormat?: Prisma.SortOrder
   archivedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type LabourBillSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  fileVersion?: Prisma.SortOrder
 }
 
 export type LabourBillCreateNestedManyWithoutProjectInput = {
@@ -549,6 +621,9 @@ export type LabourBillCreateWithoutProjectInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
   payments?: Prisma.ContractorPaymentCreateNestedManyWithoutBillInput
@@ -562,6 +637,9 @@ export type LabourBillUncheckedCreateWithoutProjectInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
   payments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutBillInput
@@ -605,6 +683,9 @@ export type LabourBillScalarWhereInput = {
   amount?: Prisma.DecimalFilter<"LabourBill"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFilter<"LabourBill"> | string
   addedBy?: Prisma.StringFilter<"LabourBill"> | string
+  fileId?: Prisma.StringNullableFilter<"LabourBill"> | string | null
+  fileVersion?: Prisma.IntNullableFilter<"LabourBill"> | number | null
+  fileFormat?: Prisma.StringNullableFilter<"LabourBill"> | string | null
   archivedAt?: Prisma.DateTimeNullableFilter<"LabourBill"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabourBill"> | Date | string
 }
@@ -617,6 +698,9 @@ export type LabourBillCreateWithoutPaymentsInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutLabourBillsInput
@@ -631,6 +715,9 @@ export type LabourBillUncheckedCreateWithoutPaymentsInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -659,6 +746,9 @@ export type LabourBillUpdateWithoutPaymentsInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutLabourBillsNestedInput
@@ -673,6 +763,9 @@ export type LabourBillUncheckedUpdateWithoutPaymentsInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -685,6 +778,9 @@ export type LabourBillCreateManyProjectInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string
   addedBy?: string
+  fileId?: string | null
+  fileVersion?: number | null
+  fileFormat?: string | null
   archivedAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -697,6 +793,9 @@ export type LabourBillUpdateWithoutProjectInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.ContractorPaymentUpdateManyWithoutBillNestedInput
@@ -710,6 +809,9 @@ export type LabourBillUncheckedUpdateWithoutProjectInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutBillNestedInput
@@ -723,6 +825,9 @@ export type LabourBillUncheckedUpdateManyWithoutProjectInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringFieldUpdateOperationsInput | string
   addedBy?: Prisma.StringFieldUpdateOperationsInput | string
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileVersion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fileFormat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -767,6 +872,9 @@ export type LabourBillSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   amount?: boolean
   note?: boolean
   addedBy?: boolean
+  fileId?: boolean
+  fileVersion?: boolean
+  fileFormat?: boolean
   archivedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -783,6 +891,9 @@ export type LabourBillSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   amount?: boolean
   note?: boolean
   addedBy?: boolean
+  fileId?: boolean
+  fileVersion?: boolean
+  fileFormat?: boolean
   archivedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -797,6 +908,9 @@ export type LabourBillSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   amount?: boolean
   note?: boolean
   addedBy?: boolean
+  fileId?: boolean
+  fileVersion?: boolean
+  fileFormat?: boolean
   archivedAt?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -811,11 +925,14 @@ export type LabourBillSelectScalar = {
   amount?: boolean
   note?: boolean
   addedBy?: boolean
+  fileId?: boolean
+  fileVersion?: boolean
+  fileFormat?: boolean
   archivedAt?: boolean
   createdAt?: boolean
 }
 
-export type LabourBillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "contractorName" | "periodFrom" | "periodTo" | "amount" | "note" | "addedBy" | "archivedAt" | "createdAt", ExtArgs["result"]["labourBill"]>
+export type LabourBillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "contractorName" | "periodFrom" | "periodTo" | "amount" | "note" | "addedBy" | "fileId" | "fileVersion" | "fileFormat" | "archivedAt" | "createdAt", ExtArgs["result"]["labourBill"]>
 export type LabourBillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   payments?: boolean | Prisma.LabourBill$paymentsArgs<ExtArgs>
@@ -846,6 +963,9 @@ export type $LabourBillPayload<ExtArgs extends runtime.Types.Extensions.Internal
     /**
      * Archived from the Labour tab (with its payments): hidden and not counted; deleted for good only from Archived
      */
+    fileId: string | null
+    fileVersion: number | null
+    fileFormat: string | null
     archivedAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["labourBill"]>
@@ -1281,6 +1401,9 @@ export interface LabourBillFieldRefs {
   readonly amount: Prisma.FieldRef<"LabourBill", 'Decimal'>
   readonly note: Prisma.FieldRef<"LabourBill", 'String'>
   readonly addedBy: Prisma.FieldRef<"LabourBill", 'String'>
+  readonly fileId: Prisma.FieldRef<"LabourBill", 'String'>
+  readonly fileVersion: Prisma.FieldRef<"LabourBill", 'Int'>
+  readonly fileFormat: Prisma.FieldRef<"LabourBill", 'String'>
   readonly archivedAt: Prisma.FieldRef<"LabourBill", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"LabourBill", 'DateTime'>
 }

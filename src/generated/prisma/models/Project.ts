@@ -27,6 +27,7 @@ export type AggregateProject = {
 }
 
 export type ProjectAvgAggregateOutputType = {
+  serialNo: number | null
   projectCost: runtime.Decimal | null
   siteLat: number | null
   siteLng: number | null
@@ -34,6 +35,7 @@ export type ProjectAvgAggregateOutputType = {
 }
 
 export type ProjectSumAggregateOutputType = {
+  serialNo: number | null
   projectCost: runtime.Decimal | null
   siteLat: number | null
   siteLng: number | null
@@ -42,6 +44,8 @@ export type ProjectSumAggregateOutputType = {
 
 export type ProjectMinAggregateOutputType = {
   id: string | null
+  serialNo: number | null
+  number: string | null
   title: string | null
   firmName: string | null
   status: $Enums.ProjectStatus | null
@@ -59,6 +63,8 @@ export type ProjectMinAggregateOutputType = {
 
 export type ProjectMaxAggregateOutputType = {
   id: string | null
+  serialNo: number | null
+  number: string | null
   title: string | null
   firmName: string | null
   status: $Enums.ProjectStatus | null
@@ -76,6 +82,8 @@ export type ProjectMaxAggregateOutputType = {
 
 export type ProjectCountAggregateOutputType = {
   id: number
+  serialNo: number
+  number: number
   title: number
   firmName: number
   status: number
@@ -94,6 +102,7 @@ export type ProjectCountAggregateOutputType = {
 
 
 export type ProjectAvgAggregateInputType = {
+  serialNo?: true
   projectCost?: true
   siteLat?: true
   siteLng?: true
@@ -101,6 +110,7 @@ export type ProjectAvgAggregateInputType = {
 }
 
 export type ProjectSumAggregateInputType = {
+  serialNo?: true
   projectCost?: true
   siteLat?: true
   siteLng?: true
@@ -109,6 +119,8 @@ export type ProjectSumAggregateInputType = {
 
 export type ProjectMinAggregateInputType = {
   id?: true
+  serialNo?: true
+  number?: true
   title?: true
   firmName?: true
   status?: true
@@ -126,6 +138,8 @@ export type ProjectMinAggregateInputType = {
 
 export type ProjectMaxAggregateInputType = {
   id?: true
+  serialNo?: true
+  number?: true
   title?: true
   firmName?: true
   status?: true
@@ -143,6 +157,8 @@ export type ProjectMaxAggregateInputType = {
 
 export type ProjectCountAggregateInputType = {
   id?: true
+  serialNo?: true
+  number?: true
   title?: true
   firmName?: true
   status?: true
@@ -247,6 +263,8 @@ export type ProjectGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type ProjectGroupByOutputType = {
   id: string
+  serialNo: number
+  number: string | null
   title: string
   firmName: string | null
   status: $Enums.ProjectStatus
@@ -287,6 +305,8 @@ export type ProjectWhereInput = {
   OR?: Prisma.ProjectWhereInput[]
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   id?: Prisma.StringFilter<"Project"> | string
+  serialNo?: Prisma.IntFilter<"Project"> | number
+  number?: Prisma.StringNullableFilter<"Project"> | string | null
   title?: Prisma.StringFilter<"Project"> | string
   firmName?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
@@ -300,6 +320,7 @@ export type ProjectWhereInput = {
   siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
   siteLng?: Prisma.FloatNullableFilter<"Project"> | number | null
   siteRadiusM?: Prisma.IntFilter<"Project"> | number
+  pins?: Prisma.ProjectPinListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
@@ -335,6 +356,8 @@ export type ProjectWhereInput = {
 
 export type ProjectOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  serialNo?: Prisma.SortOrder
+  number?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   firmName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -348,6 +371,7 @@ export type ProjectOrderByWithRelationInput = {
   siteLat?: Prisma.SortOrderInput | Prisma.SortOrder
   siteLng?: Prisma.SortOrderInput | Prisma.SortOrder
   siteRadiusM?: Prisma.SortOrder
+  pins?: Prisma.ProjectPinOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
   attendance?: Prisma.AttendanceOrderByRelationAggregateInput
@@ -383,6 +407,8 @@ export type ProjectOrderByWithRelationInput = {
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  serialNo?: number
+  number?: string
   AND?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   OR?: Prisma.ProjectWhereInput[]
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
@@ -399,6 +425,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   siteLat?: Prisma.FloatNullableFilter<"Project"> | number | null
   siteLng?: Prisma.FloatNullableFilter<"Project"> | number | null
   siteRadiusM?: Prisma.IntFilter<"Project"> | number
+  pins?: Prisma.ProjectPinListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   tasks?: Prisma.TaskListRelationFilter
   attendance?: Prisma.AttendanceListRelationFilter
@@ -430,10 +457,12 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   labourWeeks?: Prisma.LabourWeekListRelationFilter
   labourQuotes?: Prisma.LabourQuoteListRelationFilter
   siteReports?: Prisma.SiteReportListRelationFilter
-}, "id">
+}, "id" | "serialNo" | "number">
 
 export type ProjectOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  serialNo?: Prisma.SortOrder
+  number?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   firmName?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -459,6 +488,8 @@ export type ProjectScalarWhereWithAggregatesInput = {
   OR?: Prisma.ProjectScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProjectScalarWhereWithAggregatesInput | Prisma.ProjectScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  serialNo?: Prisma.IntWithAggregatesFilter<"Project"> | number
+  number?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   title?: Prisma.StringWithAggregatesFilter<"Project"> | string
   firmName?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
@@ -476,6 +507,8 @@ export type ProjectScalarWhereWithAggregatesInput = {
 
 export type ProjectCreateInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -488,6 +521,7 @@ export type ProjectCreateInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -523,6 +557,8 @@ export type ProjectCreateInput = {
 
 export type ProjectUncheckedCreateInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -536,6 +572,7 @@ export type ProjectUncheckedCreateInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -570,6 +607,7 @@ export type ProjectUncheckedCreateInput = {
 
 export type ProjectUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -582,6 +620,7 @@ export type ProjectUpdateInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -617,6 +656,8 @@ export type ProjectUpdateInput = {
 
 export type ProjectUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -630,6 +671,7 @@ export type ProjectUncheckedUpdateInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -664,6 +706,8 @@ export type ProjectUncheckedUpdateInput = {
 
 export type ProjectCreateManyInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -681,6 +725,7 @@ export type ProjectCreateManyInput = {
 
 export type ProjectUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -697,6 +742,8 @@ export type ProjectUpdateManyMutationInput = {
 
 export type ProjectUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -724,6 +771,8 @@ export type ProjectOrderByRelationAggregateInput = {
 
 export type ProjectCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  serialNo?: Prisma.SortOrder
+  number?: Prisma.SortOrder
   title?: Prisma.SortOrder
   firmName?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -740,6 +789,7 @@ export type ProjectCountOrderByAggregateInput = {
 }
 
 export type ProjectAvgOrderByAggregateInput = {
+  serialNo?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   siteLat?: Prisma.SortOrder
   siteLng?: Prisma.SortOrder
@@ -748,6 +798,8 @@ export type ProjectAvgOrderByAggregateInput = {
 
 export type ProjectMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  serialNo?: Prisma.SortOrder
+  number?: Prisma.SortOrder
   title?: Prisma.SortOrder
   firmName?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -765,6 +817,8 @@ export type ProjectMaxOrderByAggregateInput = {
 
 export type ProjectMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  serialNo?: Prisma.SortOrder
+  number?: Prisma.SortOrder
   title?: Prisma.SortOrder
   firmName?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -781,6 +835,7 @@ export type ProjectMinOrderByAggregateInput = {
 }
 
 export type ProjectSumOrderByAggregateInput = {
+  serialNo?: Prisma.SortOrder
   projectCost?: Prisma.SortOrder
   siteLat?: Prisma.SortOrder
   siteLng?: Prisma.SortOrder
@@ -1297,8 +1352,24 @@ export type ProjectUpdateOneRequiredWithoutLabourQuotesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutLabourQuotesInput, Prisma.ProjectUpdateWithoutLabourQuotesInput>, Prisma.ProjectUncheckedUpdateWithoutLabourQuotesInput>
 }
 
+export type ProjectCreateNestedOneWithoutPinsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutPinsInput, Prisma.ProjectUncheckedCreateWithoutPinsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutPinsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutPinsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutPinsInput, Prisma.ProjectUncheckedCreateWithoutPinsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutPinsInput
+  upsert?: Prisma.ProjectUpsertWithoutPinsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutPinsInput, Prisma.ProjectUpdateWithoutPinsInput>, Prisma.ProjectUncheckedUpdateWithoutPinsInput>
+}
+
 export type ProjectCreateWithoutOwnerInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1311,6 +1382,7 @@ export type ProjectCreateWithoutOwnerInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
@@ -1345,6 +1417,8 @@ export type ProjectCreateWithoutOwnerInput = {
 
 export type ProjectUncheckedCreateWithoutOwnerInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1357,6 +1431,7 @@ export type ProjectUncheckedCreateWithoutOwnerInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1420,6 +1495,8 @@ export type ProjectScalarWhereInput = {
   OR?: Prisma.ProjectScalarWhereInput[]
   NOT?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
   id?: Prisma.StringFilter<"Project"> | string
+  serialNo?: Prisma.IntFilter<"Project"> | number
+  number?: Prisma.StringNullableFilter<"Project"> | string | null
   title?: Prisma.StringFilter<"Project"> | string
   firmName?: Prisma.StringNullableFilter<"Project"> | string | null
   status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
@@ -1437,6 +1514,8 @@ export type ProjectScalarWhereInput = {
 
 export type ProjectCreateWithoutTasksInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1449,6 +1528,7 @@ export type ProjectCreateWithoutTasksInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
@@ -1483,6 +1563,8 @@ export type ProjectCreateWithoutTasksInput = {
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1496,6 +1578,7 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
   boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
@@ -1545,6 +1628,7 @@ export type ProjectUpdateToOneWithWhereWithoutTasksInput = {
 
 export type ProjectUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -1557,6 +1641,7 @@ export type ProjectUpdateWithoutTasksInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
@@ -1591,6 +1676,8 @@ export type ProjectUpdateWithoutTasksInput = {
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -1604,6 +1691,7 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
@@ -1637,6 +1725,8 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
 
 export type ProjectCreateWithoutAttendanceInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1649,6 +1739,7 @@ export type ProjectCreateWithoutAttendanceInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
@@ -1683,6 +1774,8 @@ export type ProjectCreateWithoutAttendanceInput = {
 
 export type ProjectUncheckedCreateWithoutAttendanceInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1696,6 +1789,7 @@ export type ProjectUncheckedCreateWithoutAttendanceInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
   boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
@@ -1745,6 +1839,7 @@ export type ProjectUpdateToOneWithWhereWithoutAttendanceInput = {
 
 export type ProjectUpdateWithoutAttendanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -1757,6 +1852,7 @@ export type ProjectUpdateWithoutAttendanceInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
@@ -1791,6 +1887,8 @@ export type ProjectUpdateWithoutAttendanceInput = {
 
 export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -1804,6 +1902,7 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
@@ -1837,6 +1936,8 @@ export type ProjectUncheckedUpdateWithoutAttendanceInput = {
 
 export type ProjectCreateWithoutLabourTeamInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1849,6 +1950,7 @@ export type ProjectCreateWithoutLabourTeamInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -1883,6 +1985,8 @@ export type ProjectCreateWithoutLabourTeamInput = {
 
 export type ProjectUncheckedCreateWithoutLabourTeamInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -1896,6 +2000,7 @@ export type ProjectUncheckedCreateWithoutLabourTeamInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -1945,6 +2050,7 @@ export type ProjectUpdateToOneWithWhereWithoutLabourTeamInput = {
 
 export type ProjectUpdateWithoutLabourTeamInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -1957,6 +2063,7 @@ export type ProjectUpdateWithoutLabourTeamInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -1991,6 +2098,8 @@ export type ProjectUpdateWithoutLabourTeamInput = {
 
 export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2004,6 +2113,7 @@ export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2037,6 +2147,8 @@ export type ProjectUncheckedUpdateWithoutLabourTeamInput = {
 
 export type ProjectCreateWithoutLabourMeasuresInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2049,6 +2161,7 @@ export type ProjectCreateWithoutLabourMeasuresInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2083,6 +2196,8 @@ export type ProjectCreateWithoutLabourMeasuresInput = {
 
 export type ProjectUncheckedCreateWithoutLabourMeasuresInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2096,6 +2211,7 @@ export type ProjectUncheckedCreateWithoutLabourMeasuresInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -2145,6 +2261,7 @@ export type ProjectUpdateToOneWithWhereWithoutLabourMeasuresInput = {
 
 export type ProjectUpdateWithoutLabourMeasuresInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2157,6 +2274,7 @@ export type ProjectUpdateWithoutLabourMeasuresInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2191,6 +2309,8 @@ export type ProjectUpdateWithoutLabourMeasuresInput = {
 
 export type ProjectUncheckedUpdateWithoutLabourMeasuresInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2204,6 +2324,7 @@ export type ProjectUncheckedUpdateWithoutLabourMeasuresInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2237,6 +2358,8 @@ export type ProjectUncheckedUpdateWithoutLabourMeasuresInput = {
 
 export type ProjectCreateWithoutLabourWeeksInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2249,6 +2372,7 @@ export type ProjectCreateWithoutLabourWeeksInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2283,6 +2407,8 @@ export type ProjectCreateWithoutLabourWeeksInput = {
 
 export type ProjectUncheckedCreateWithoutLabourWeeksInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2296,6 +2422,7 @@ export type ProjectUncheckedCreateWithoutLabourWeeksInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -2345,6 +2472,7 @@ export type ProjectUpdateToOneWithWhereWithoutLabourWeeksInput = {
 
 export type ProjectUpdateWithoutLabourWeeksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2357,6 +2485,7 @@ export type ProjectUpdateWithoutLabourWeeksInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2391,6 +2520,8 @@ export type ProjectUpdateWithoutLabourWeeksInput = {
 
 export type ProjectUncheckedUpdateWithoutLabourWeeksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2404,6 +2535,7 @@ export type ProjectUncheckedUpdateWithoutLabourWeeksInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2437,6 +2569,8 @@ export type ProjectUncheckedUpdateWithoutLabourWeeksInput = {
 
 export type ProjectCreateWithoutDrawingsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2449,6 +2583,7 @@ export type ProjectCreateWithoutDrawingsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2483,6 +2618,8 @@ export type ProjectCreateWithoutDrawingsInput = {
 
 export type ProjectUncheckedCreateWithoutDrawingsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2496,6 +2633,7 @@ export type ProjectUncheckedCreateWithoutDrawingsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -2545,6 +2683,7 @@ export type ProjectUpdateToOneWithWhereWithoutDrawingsInput = {
 
 export type ProjectUpdateWithoutDrawingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2557,6 +2696,7 @@ export type ProjectUpdateWithoutDrawingsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2591,6 +2731,8 @@ export type ProjectUpdateWithoutDrawingsInput = {
 
 export type ProjectUncheckedUpdateWithoutDrawingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2604,6 +2746,7 @@ export type ProjectUncheckedUpdateWithoutDrawingsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -2637,6 +2780,8 @@ export type ProjectUncheckedUpdateWithoutDrawingsInput = {
 
 export type ProjectCreateWithoutStockMovementsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2649,6 +2794,7 @@ export type ProjectCreateWithoutStockMovementsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2683,6 +2829,8 @@ export type ProjectCreateWithoutStockMovementsInput = {
 
 export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2696,6 +2844,7 @@ export type ProjectUncheckedCreateWithoutStockMovementsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
@@ -2745,6 +2894,7 @@ export type ProjectUpdateToOneWithWhereWithoutStockMovementsInput = {
 
 export type ProjectUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2757,6 +2907,7 @@ export type ProjectUpdateWithoutStockMovementsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2791,6 +2942,8 @@ export type ProjectUpdateWithoutStockMovementsInput = {
 
 export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2804,6 +2957,7 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
@@ -2837,6 +2991,8 @@ export type ProjectUncheckedUpdateWithoutStockMovementsInput = {
 
 export type ProjectCreateWithoutMaterialPurchasesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2849,6 +3005,7 @@ export type ProjectCreateWithoutMaterialPurchasesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -2883,6 +3040,8 @@ export type ProjectCreateWithoutMaterialPurchasesInput = {
 
 export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -2896,6 +3055,7 @@ export type ProjectUncheckedCreateWithoutMaterialPurchasesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -2945,6 +3105,7 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialPurchasesInput = {
 
 export type ProjectUpdateWithoutMaterialPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -2957,6 +3118,7 @@ export type ProjectUpdateWithoutMaterialPurchasesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -2991,6 +3153,8 @@ export type ProjectUpdateWithoutMaterialPurchasesInput = {
 
 export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3004,6 +3168,7 @@ export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -3037,6 +3202,8 @@ export type ProjectUncheckedUpdateWithoutMaterialPurchasesInput = {
 
 export type ProjectCreateWithoutMaterialEstimatesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3049,6 +3216,7 @@ export type ProjectCreateWithoutMaterialEstimatesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -3083,6 +3251,8 @@ export type ProjectCreateWithoutMaterialEstimatesInput = {
 
 export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3096,6 +3266,7 @@ export type ProjectUncheckedCreateWithoutMaterialEstimatesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -3145,6 +3316,7 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialEstimatesInput = {
 
 export type ProjectUpdateWithoutMaterialEstimatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3157,6 +3329,7 @@ export type ProjectUpdateWithoutMaterialEstimatesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -3191,6 +3364,8 @@ export type ProjectUpdateWithoutMaterialEstimatesInput = {
 
 export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3204,6 +3379,7 @@ export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -3237,6 +3413,8 @@ export type ProjectUncheckedUpdateWithoutMaterialEstimatesInput = {
 
 export type ProjectCreateWithoutBoqItemsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3249,6 +3427,7 @@ export type ProjectCreateWithoutBoqItemsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -3283,6 +3462,8 @@ export type ProjectCreateWithoutBoqItemsInput = {
 
 export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3296,6 +3477,7 @@ export type ProjectUncheckedCreateWithoutBoqItemsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -3345,6 +3527,7 @@ export type ProjectUpdateToOneWithWhereWithoutBoqItemsInput = {
 
 export type ProjectUpdateWithoutBoqItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3357,6 +3540,7 @@ export type ProjectUpdateWithoutBoqItemsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -3391,6 +3575,8 @@ export type ProjectUpdateWithoutBoqItemsInput = {
 
 export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3404,6 +3590,7 @@ export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -3437,6 +3624,8 @@ export type ProjectUncheckedUpdateWithoutBoqItemsInput = {
 
 export type ProjectCreateWithoutMaterialOrdersInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3449,6 +3638,7 @@ export type ProjectCreateWithoutMaterialOrdersInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -3483,6 +3673,8 @@ export type ProjectCreateWithoutMaterialOrdersInput = {
 
 export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3496,6 +3688,7 @@ export type ProjectUncheckedCreateWithoutMaterialOrdersInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -3545,6 +3738,7 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialOrdersInput = {
 
 export type ProjectUpdateWithoutMaterialOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3557,6 +3751,7 @@ export type ProjectUpdateWithoutMaterialOrdersInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -3591,6 +3786,8 @@ export type ProjectUpdateWithoutMaterialOrdersInput = {
 
 export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3604,6 +3801,7 @@ export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -3637,6 +3835,8 @@ export type ProjectUncheckedUpdateWithoutMaterialOrdersInput = {
 
 export type ProjectCreateWithoutStockAlertsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3649,6 +3849,7 @@ export type ProjectCreateWithoutStockAlertsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -3683,6 +3884,8 @@ export type ProjectCreateWithoutStockAlertsInput = {
 
 export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3696,6 +3899,7 @@ export type ProjectUncheckedCreateWithoutStockAlertsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -3745,6 +3949,7 @@ export type ProjectUpdateToOneWithWhereWithoutStockAlertsInput = {
 
 export type ProjectUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3757,6 +3962,7 @@ export type ProjectUpdateWithoutStockAlertsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -3791,6 +3997,8 @@ export type ProjectUpdateWithoutStockAlertsInput = {
 
 export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3804,6 +4012,7 @@ export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -3837,6 +4046,8 @@ export type ProjectUncheckedUpdateWithoutStockAlertsInput = {
 
 export type ProjectCreateWithoutMaterialRequestsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3849,6 +4060,7 @@ export type ProjectCreateWithoutMaterialRequestsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -3883,6 +4095,8 @@ export type ProjectCreateWithoutMaterialRequestsInput = {
 
 export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -3896,6 +4110,7 @@ export type ProjectUncheckedCreateWithoutMaterialRequestsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -3945,6 +4160,7 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialRequestsInput = {
 
 export type ProjectUpdateWithoutMaterialRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -3957,6 +4173,7 @@ export type ProjectUpdateWithoutMaterialRequestsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -3991,6 +4208,8 @@ export type ProjectUpdateWithoutMaterialRequestsInput = {
 
 export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4004,6 +4223,7 @@ export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -4037,6 +4257,8 @@ export type ProjectUncheckedUpdateWithoutMaterialRequestsInput = {
 
 export type ProjectCreateWithoutAuditLogInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4049,6 +4271,7 @@ export type ProjectCreateWithoutAuditLogInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -4083,6 +4306,8 @@ export type ProjectCreateWithoutAuditLogInput = {
 
 export type ProjectUncheckedCreateWithoutAuditLogInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4096,6 +4321,7 @@ export type ProjectUncheckedCreateWithoutAuditLogInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -4145,6 +4371,7 @@ export type ProjectUpdateToOneWithWhereWithoutAuditLogInput = {
 
 export type ProjectUpdateWithoutAuditLogInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4157,6 +4384,7 @@ export type ProjectUpdateWithoutAuditLogInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -4191,6 +4419,8 @@ export type ProjectUpdateWithoutAuditLogInput = {
 
 export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4204,6 +4434,7 @@ export type ProjectUncheckedUpdateWithoutAuditLogInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -4237,6 +4468,8 @@ export type ProjectUncheckedUpdateWithoutAuditLogInput = {
 
 export type ProjectCreateWithoutBoqsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4249,6 +4482,7 @@ export type ProjectCreateWithoutBoqsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -4283,6 +4517,8 @@ export type ProjectCreateWithoutBoqsInput = {
 
 export type ProjectUncheckedCreateWithoutBoqsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4296,6 +4532,7 @@ export type ProjectUncheckedCreateWithoutBoqsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -4345,6 +4582,7 @@ export type ProjectUpdateToOneWithWhereWithoutBoqsInput = {
 
 export type ProjectUpdateWithoutBoqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4357,6 +4595,7 @@ export type ProjectUpdateWithoutBoqsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -4391,6 +4630,8 @@ export type ProjectUpdateWithoutBoqsInput = {
 
 export type ProjectUncheckedUpdateWithoutBoqsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4404,6 +4645,7 @@ export type ProjectUncheckedUpdateWithoutBoqsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -4437,6 +4679,8 @@ export type ProjectUncheckedUpdateWithoutBoqsInput = {
 
 export type ProjectCreateWithoutClientsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4449,6 +4693,7 @@ export type ProjectCreateWithoutClientsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -4483,6 +4728,8 @@ export type ProjectCreateWithoutClientsInput = {
 
 export type ProjectUncheckedCreateWithoutClientsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4496,6 +4743,7 @@ export type ProjectUncheckedCreateWithoutClientsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -4545,6 +4793,7 @@ export type ProjectUpdateToOneWithWhereWithoutClientsInput = {
 
 export type ProjectUpdateWithoutClientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4557,6 +4806,7 @@ export type ProjectUpdateWithoutClientsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -4591,6 +4841,8 @@ export type ProjectUpdateWithoutClientsInput = {
 
 export type ProjectUncheckedUpdateWithoutClientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4604,6 +4856,7 @@ export type ProjectUncheckedUpdateWithoutClientsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -4637,6 +4890,8 @@ export type ProjectUncheckedUpdateWithoutClientsInput = {
 
 export type ProjectCreateWithoutInstalmentsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4649,6 +4904,7 @@ export type ProjectCreateWithoutInstalmentsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -4683,6 +4939,8 @@ export type ProjectCreateWithoutInstalmentsInput = {
 
 export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4696,6 +4954,7 @@ export type ProjectUncheckedCreateWithoutInstalmentsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -4745,6 +5004,7 @@ export type ProjectUpdateToOneWithWhereWithoutInstalmentsInput = {
 
 export type ProjectUpdateWithoutInstalmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4757,6 +5017,7 @@ export type ProjectUpdateWithoutInstalmentsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -4791,6 +5052,8 @@ export type ProjectUpdateWithoutInstalmentsInput = {
 
 export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4804,6 +5067,7 @@ export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -4837,6 +5101,8 @@ export type ProjectUncheckedUpdateWithoutInstalmentsInput = {
 
 export type ProjectCreateWithoutPaymentProofsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4849,6 +5115,7 @@ export type ProjectCreateWithoutPaymentProofsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -4883,6 +5150,8 @@ export type ProjectCreateWithoutPaymentProofsInput = {
 
 export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -4896,6 +5165,7 @@ export type ProjectUncheckedCreateWithoutPaymentProofsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -4945,6 +5215,7 @@ export type ProjectUpdateToOneWithWhereWithoutPaymentProofsInput = {
 
 export type ProjectUpdateWithoutPaymentProofsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -4957,6 +5228,7 @@ export type ProjectUpdateWithoutPaymentProofsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -4991,6 +5263,8 @@ export type ProjectUpdateWithoutPaymentProofsInput = {
 
 export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5004,6 +5278,7 @@ export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -5037,6 +5312,8 @@ export type ProjectUncheckedUpdateWithoutPaymentProofsInput = {
 
 export type ProjectCreateWithoutDelaysInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5049,6 +5326,7 @@ export type ProjectCreateWithoutDelaysInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -5083,6 +5361,8 @@ export type ProjectCreateWithoutDelaysInput = {
 
 export type ProjectUncheckedCreateWithoutDelaysInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5096,6 +5376,7 @@ export type ProjectUncheckedCreateWithoutDelaysInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -5145,6 +5426,7 @@ export type ProjectUpdateToOneWithWhereWithoutDelaysInput = {
 
 export type ProjectUpdateWithoutDelaysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5157,6 +5439,7 @@ export type ProjectUpdateWithoutDelaysInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -5191,6 +5474,8 @@ export type ProjectUpdateWithoutDelaysInput = {
 
 export type ProjectUncheckedUpdateWithoutDelaysInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5204,6 +5489,7 @@ export type ProjectUncheckedUpdateWithoutDelaysInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -5237,6 +5523,8 @@ export type ProjectUncheckedUpdateWithoutDelaysInput = {
 
 export type ProjectCreateWithoutPunchesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5249,6 +5537,7 @@ export type ProjectCreateWithoutPunchesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -5283,6 +5572,8 @@ export type ProjectCreateWithoutPunchesInput = {
 
 export type ProjectUncheckedCreateWithoutPunchesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5296,6 +5587,7 @@ export type ProjectUncheckedCreateWithoutPunchesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -5345,6 +5637,7 @@ export type ProjectUpdateToOneWithWhereWithoutPunchesInput = {
 
 export type ProjectUpdateWithoutPunchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5357,6 +5650,7 @@ export type ProjectUpdateWithoutPunchesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -5391,6 +5685,8 @@ export type ProjectUpdateWithoutPunchesInput = {
 
 export type ProjectUncheckedUpdateWithoutPunchesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5404,6 +5700,7 @@ export type ProjectUncheckedUpdateWithoutPunchesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -5437,6 +5734,8 @@ export type ProjectUncheckedUpdateWithoutPunchesInput = {
 
 export type ProjectCreateWithoutDeliveriesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5449,6 +5748,7 @@ export type ProjectCreateWithoutDeliveriesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -5483,6 +5783,8 @@ export type ProjectCreateWithoutDeliveriesInput = {
 
 export type ProjectUncheckedCreateWithoutDeliveriesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5496,6 +5798,7 @@ export type ProjectUncheckedCreateWithoutDeliveriesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -5545,6 +5848,7 @@ export type ProjectUpdateToOneWithWhereWithoutDeliveriesInput = {
 
 export type ProjectUpdateWithoutDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5557,6 +5861,7 @@ export type ProjectUpdateWithoutDeliveriesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -5591,6 +5896,8 @@ export type ProjectUpdateWithoutDeliveriesInput = {
 
 export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5604,6 +5911,7 @@ export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -5637,6 +5945,8 @@ export type ProjectUncheckedUpdateWithoutDeliveriesInput = {
 
 export type ProjectCreateWithoutEquipmentHireChangesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5649,6 +5959,7 @@ export type ProjectCreateWithoutEquipmentHireChangesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -5683,6 +5994,8 @@ export type ProjectCreateWithoutEquipmentHireChangesInput = {
 
 export type ProjectUncheckedCreateWithoutEquipmentHireChangesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5696,6 +6009,7 @@ export type ProjectUncheckedCreateWithoutEquipmentHireChangesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -5745,6 +6059,7 @@ export type ProjectUpdateToOneWithWhereWithoutEquipmentHireChangesInput = {
 
 export type ProjectUpdateWithoutEquipmentHireChangesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5757,6 +6072,7 @@ export type ProjectUpdateWithoutEquipmentHireChangesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -5791,6 +6107,8 @@ export type ProjectUpdateWithoutEquipmentHireChangesInput = {
 
 export type ProjectUncheckedUpdateWithoutEquipmentHireChangesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -5804,6 +6122,7 @@ export type ProjectUncheckedUpdateWithoutEquipmentHireChangesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -5837,6 +6156,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentHireChangesInput = {
 
 export type ProjectCreateWithoutEquipmentOutInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5849,6 +6170,7 @@ export type ProjectCreateWithoutEquipmentOutInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -5883,6 +6205,8 @@ export type ProjectCreateWithoutEquipmentOutInput = {
 
 export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5896,6 +6220,7 @@ export type ProjectUncheckedCreateWithoutEquipmentOutInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -5934,6 +6259,8 @@ export type ProjectCreateOrConnectWithoutEquipmentOutInput = {
 
 export type ProjectCreateWithoutEquipmentInInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5946,6 +6273,7 @@ export type ProjectCreateWithoutEquipmentInInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -5980,6 +6308,8 @@ export type ProjectCreateWithoutEquipmentInInput = {
 
 export type ProjectUncheckedCreateWithoutEquipmentInInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -5993,6 +6323,7 @@ export type ProjectUncheckedCreateWithoutEquipmentInInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -6042,6 +6373,7 @@ export type ProjectUpdateToOneWithWhereWithoutEquipmentOutInput = {
 
 export type ProjectUpdateWithoutEquipmentOutInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6054,6 +6386,7 @@ export type ProjectUpdateWithoutEquipmentOutInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -6088,6 +6421,8 @@ export type ProjectUpdateWithoutEquipmentOutInput = {
 
 export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6101,6 +6436,7 @@ export type ProjectUncheckedUpdateWithoutEquipmentOutInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -6145,6 +6481,7 @@ export type ProjectUpdateToOneWithWhereWithoutEquipmentInInput = {
 
 export type ProjectUpdateWithoutEquipmentInInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6157,6 +6494,7 @@ export type ProjectUpdateWithoutEquipmentInInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -6191,6 +6529,8 @@ export type ProjectUpdateWithoutEquipmentInInput = {
 
 export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6204,6 +6544,7 @@ export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -6237,6 +6578,8 @@ export type ProjectUncheckedUpdateWithoutEquipmentInInput = {
 
 export type ProjectCreateWithoutExpensesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6249,6 +6592,7 @@ export type ProjectCreateWithoutExpensesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -6283,6 +6627,8 @@ export type ProjectCreateWithoutExpensesInput = {
 
 export type ProjectUncheckedCreateWithoutExpensesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6296,6 +6642,7 @@ export type ProjectUncheckedCreateWithoutExpensesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -6345,6 +6692,7 @@ export type ProjectUpdateToOneWithWhereWithoutExpensesInput = {
 
 export type ProjectUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6357,6 +6705,7 @@ export type ProjectUpdateWithoutExpensesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -6391,6 +6740,8 @@ export type ProjectUpdateWithoutExpensesInput = {
 
 export type ProjectUncheckedUpdateWithoutExpensesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6404,6 +6755,7 @@ export type ProjectUncheckedUpdateWithoutExpensesInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -6437,6 +6789,8 @@ export type ProjectUncheckedUpdateWithoutExpensesInput = {
 
 export type ProjectCreateWithoutContractorPaymentsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6449,6 +6803,7 @@ export type ProjectCreateWithoutContractorPaymentsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -6483,6 +6838,8 @@ export type ProjectCreateWithoutContractorPaymentsInput = {
 
 export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6496,6 +6853,7 @@ export type ProjectUncheckedCreateWithoutContractorPaymentsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -6545,6 +6903,7 @@ export type ProjectUpdateToOneWithWhereWithoutContractorPaymentsInput = {
 
 export type ProjectUpdateWithoutContractorPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6557,6 +6916,7 @@ export type ProjectUpdateWithoutContractorPaymentsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -6591,6 +6951,8 @@ export type ProjectUpdateWithoutContractorPaymentsInput = {
 
 export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6604,6 +6966,7 @@ export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -6637,6 +7000,8 @@ export type ProjectUncheckedUpdateWithoutContractorPaymentsInput = {
 
 export type ProjectCreateWithoutLabourBillsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6649,6 +7014,7 @@ export type ProjectCreateWithoutLabourBillsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -6683,6 +7049,8 @@ export type ProjectCreateWithoutLabourBillsInput = {
 
 export type ProjectUncheckedCreateWithoutLabourBillsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6696,6 +7064,7 @@ export type ProjectUncheckedCreateWithoutLabourBillsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -6745,6 +7114,7 @@ export type ProjectUpdateToOneWithWhereWithoutLabourBillsInput = {
 
 export type ProjectUpdateWithoutLabourBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6757,6 +7127,7 @@ export type ProjectUpdateWithoutLabourBillsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -6791,6 +7162,8 @@ export type ProjectUpdateWithoutLabourBillsInput = {
 
 export type ProjectUncheckedUpdateWithoutLabourBillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6804,6 +7177,7 @@ export type ProjectUncheckedUpdateWithoutLabourBillsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -6837,6 +7211,8 @@ export type ProjectUncheckedUpdateWithoutLabourBillsInput = {
 
 export type ProjectCreateWithoutMaterialPaymentsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6849,6 +7225,7 @@ export type ProjectCreateWithoutMaterialPaymentsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -6883,6 +7260,8 @@ export type ProjectCreateWithoutMaterialPaymentsInput = {
 
 export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -6896,6 +7275,7 @@ export type ProjectUncheckedCreateWithoutMaterialPaymentsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -6945,6 +7325,7 @@ export type ProjectUpdateToOneWithWhereWithoutMaterialPaymentsInput = {
 
 export type ProjectUpdateWithoutMaterialPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -6957,6 +7338,7 @@ export type ProjectUpdateWithoutMaterialPaymentsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -6991,6 +7373,8 @@ export type ProjectUpdateWithoutMaterialPaymentsInput = {
 
 export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7004,6 +7388,7 @@ export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -7037,6 +7422,8 @@ export type ProjectUncheckedUpdateWithoutMaterialPaymentsInput = {
 
 export type ProjectCreateWithoutSiteReportsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -7049,6 +7436,7 @@ export type ProjectCreateWithoutSiteReportsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -7083,6 +7471,8 @@ export type ProjectCreateWithoutSiteReportsInput = {
 
 export type ProjectUncheckedCreateWithoutSiteReportsInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -7096,6 +7486,7 @@ export type ProjectUncheckedCreateWithoutSiteReportsInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -7145,6 +7536,7 @@ export type ProjectUpdateToOneWithWhereWithoutSiteReportsInput = {
 
 export type ProjectUpdateWithoutSiteReportsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7157,6 +7549,7 @@ export type ProjectUpdateWithoutSiteReportsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
@@ -7191,6 +7584,8 @@ export type ProjectUpdateWithoutSiteReportsInput = {
 
 export type ProjectUncheckedUpdateWithoutSiteReportsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7204,6 +7599,7 @@ export type ProjectUncheckedUpdateWithoutSiteReportsInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -7237,6 +7633,8 @@ export type ProjectUncheckedUpdateWithoutSiteReportsInput = {
 
 export type ProjectCreateWithoutLabourQuotesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -7249,6 +7647,7 @@ export type ProjectCreateWithoutLabourQuotesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinCreateNestedManyWithoutProjectInput
   owner: Prisma.UserCreateNestedOneWithoutProjectsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
@@ -7283,6 +7682,8 @@ export type ProjectCreateWithoutLabourQuotesInput = {
 
 export type ProjectUncheckedCreateWithoutLabourQuotesInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -7296,6 +7697,7 @@ export type ProjectUncheckedCreateWithoutLabourQuotesInput = {
   siteLat?: number | null
   siteLng?: number | null
   siteRadiusM?: number
+  pins?: Prisma.ProjectPinUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
@@ -7345,6 +7747,218 @@ export type ProjectUpdateToOneWithWhereWithoutLabourQuotesInput = {
 
 export type ProjectUpdateWithoutLabourQuotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUpdateManyWithoutFromProjectNestedInput
+  equipmentHireChanges?: Prisma.EquipmentHireChangeUpdateManyWithoutProjectNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUpdateManyWithoutProjectNestedInput
+  labourBills?: Prisma.LabourBillUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
+  siteReports?: Prisma.SiteReportUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutLabourQuotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  projectCost?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
+  boqs?: Prisma.BoqUncheckedUpdateManyWithoutProjectNestedInput
+  boqItems?: Prisma.BoqItemUncheckedUpdateManyWithoutProjectNestedInput
+  materialOrders?: Prisma.MaterialOrderUncheckedUpdateManyWithoutProjectNestedInput
+  stockAlerts?: Prisma.StockAlertUncheckedUpdateManyWithoutProjectNestedInput
+  materialRequests?: Prisma.MaterialRequestUncheckedUpdateManyWithoutProjectNestedInput
+  auditLog?: Prisma.AuditLogUncheckedUpdateManyWithoutProjectNestedInput
+  clients?: Prisma.ProjectClientUncheckedUpdateManyWithoutProjectNestedInput
+  instalments?: Prisma.PaymentInstalmentUncheckedUpdateManyWithoutProjectNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutProjectNestedInput
+  delays?: Prisma.ProjectDelayUncheckedUpdateManyWithoutProjectNestedInput
+  punches?: Prisma.StaffPunchUncheckedUpdateManyWithoutProjectNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutProjectNestedInput
+  drawings?: Prisma.DrawingUncheckedUpdateManyWithoutProjectNestedInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutToProjectNestedInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedUpdateManyWithoutFromProjectNestedInput
+  equipmentHireChanges?: Prisma.EquipmentHireChangeUncheckedUpdateManyWithoutProjectNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutProjectNestedInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  labourBills?: Prisma.LabourBillUncheckedUpdateManyWithoutProjectNestedInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedUpdateManyWithoutProjectNestedInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedUpdateManyWithoutProjectNestedInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedUpdateManyWithoutProjectNestedInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
+  labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
+  siteReports?: Prisma.SiteReportUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutPinsInput = {
+  id?: string
+  serialNo?: number
+  number?: string | null
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  owner: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveCreateNestedManyWithoutFromProjectInput
+  equipmentHireChanges?: Prisma.EquipmentHireChangeCreateNestedManyWithoutProjectInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentCreateNestedManyWithoutProjectInput
+  labourBills?: Prisma.LabourBillCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekCreateNestedManyWithoutProjectInput
+  labourQuotes?: Prisma.LabourQuoteCreateNestedManyWithoutProjectInput
+  siteReports?: Prisma.SiteReportCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutPinsInput = {
+  id?: string
+  serialNo?: number
+  number?: string | null
+  title: string
+  firmName?: string | null
+  status?: $Enums.ProjectStatus
+  ownerId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  projectCost?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  advanceOverride?: boolean
+  siteLat?: number | null
+  siteLng?: number | null
+  siteRadiusM?: number
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutProjectInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutProjectInput
+  boqs?: Prisma.BoqUncheckedCreateNestedManyWithoutProjectInput
+  boqItems?: Prisma.BoqItemUncheckedCreateNestedManyWithoutProjectInput
+  materialOrders?: Prisma.MaterialOrderUncheckedCreateNestedManyWithoutProjectInput
+  stockAlerts?: Prisma.StockAlertUncheckedCreateNestedManyWithoutProjectInput
+  materialRequests?: Prisma.MaterialRequestUncheckedCreateNestedManyWithoutProjectInput
+  auditLog?: Prisma.AuditLogUncheckedCreateNestedManyWithoutProjectInput
+  clients?: Prisma.ProjectClientUncheckedCreateNestedManyWithoutProjectInput
+  instalments?: Prisma.PaymentInstalmentUncheckedCreateNestedManyWithoutProjectInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutProjectInput
+  delays?: Prisma.ProjectDelayUncheckedCreateNestedManyWithoutProjectInput
+  punches?: Prisma.StaffPunchUncheckedCreateNestedManyWithoutProjectInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutProjectInput
+  drawings?: Prisma.DrawingUncheckedCreateNestedManyWithoutProjectInput
+  equipmentIn?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutToProjectInput
+  equipmentOut?: Prisma.EquipmentMoveUncheckedCreateNestedManyWithoutFromProjectInput
+  equipmentHireChanges?: Prisma.EquipmentHireChangeUncheckedCreateNestedManyWithoutProjectInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutProjectInput
+  contractorPayments?: Prisma.ContractorPaymentUncheckedCreateNestedManyWithoutProjectInput
+  labourBills?: Prisma.LabourBillUncheckedCreateNestedManyWithoutProjectInput
+  materialPayments?: Prisma.MaterialPaymentUncheckedCreateNestedManyWithoutProjectInput
+  materialEstimates?: Prisma.MaterialEstimateUncheckedCreateNestedManyWithoutProjectInput
+  materialPurchases?: Prisma.MaterialPurchaseUncheckedCreateNestedManyWithoutProjectInput
+  labourTeam?: Prisma.LabourTeamMemberUncheckedCreateNestedManyWithoutProjectInput
+  labourMeasures?: Prisma.LabourMeasureUncheckedCreateNestedManyWithoutProjectInput
+  labourWeeks?: Prisma.LabourWeekUncheckedCreateNestedManyWithoutProjectInput
+  labourQuotes?: Prisma.LabourQuoteUncheckedCreateNestedManyWithoutProjectInput
+  siteReports?: Prisma.SiteReportUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutPinsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPinsInput, Prisma.ProjectUncheckedCreateWithoutPinsInput>
+}
+
+export type ProjectUpsertWithoutPinsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPinsInput, Prisma.ProjectUncheckedUpdateWithoutPinsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPinsInput, Prisma.ProjectUncheckedCreateWithoutPinsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutPinsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPinsInput, Prisma.ProjectUncheckedUpdateWithoutPinsInput>
+}
+
+export type ProjectUpdateWithoutPinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7386,11 +8000,14 @@ export type ProjectUpdateWithoutLabourQuotesInput = {
   labourTeam?: Prisma.LabourTeamMemberUpdateManyWithoutProjectNestedInput
   labourMeasures?: Prisma.LabourMeasureUpdateManyWithoutProjectNestedInput
   labourWeeks?: Prisma.LabourWeekUpdateManyWithoutProjectNestedInput
+  labourQuotes?: Prisma.LabourQuoteUpdateManyWithoutProjectNestedInput
   siteReports?: Prisma.SiteReportUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateWithoutLabourQuotesInput = {
+export type ProjectUncheckedUpdateWithoutPinsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7432,11 +8049,14 @@ export type ProjectUncheckedUpdateWithoutLabourQuotesInput = {
   labourTeam?: Prisma.LabourTeamMemberUncheckedUpdateManyWithoutProjectNestedInput
   labourMeasures?: Prisma.LabourMeasureUncheckedUpdateManyWithoutProjectNestedInput
   labourWeeks?: Prisma.LabourWeekUncheckedUpdateManyWithoutProjectNestedInput
+  labourQuotes?: Prisma.LabourQuoteUncheckedUpdateManyWithoutProjectNestedInput
   siteReports?: Prisma.SiteReportUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyOwnerInput = {
   id?: string
+  serialNo?: number
+  number?: string | null
   title: string
   firmName?: string | null
   status?: $Enums.ProjectStatus
@@ -7453,6 +8073,7 @@ export type ProjectCreateManyOwnerInput = {
 
 export type ProjectUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7465,6 +8086,7 @@ export type ProjectUpdateWithoutOwnerInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutProjectNestedInput
@@ -7499,6 +8121,8 @@ export type ProjectUpdateWithoutOwnerInput = {
 
 export type ProjectUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7511,6 +8135,7 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
   siteLat?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteLng?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   siteRadiusM?: Prisma.IntFieldUpdateOperationsInput | number
+  pins?: Prisma.ProjectPinUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutProjectNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutProjectNestedInput
@@ -7545,6 +8170,8 @@ export type ProjectUncheckedUpdateWithoutOwnerInput = {
 
 export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNo?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   firmName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
@@ -7565,6 +8192,7 @@ export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
  */
 
 export type ProjectCountOutputType = {
+  pins: number
   tasks: number
   attendance: number
   stockMovements: number
@@ -7598,6 +8226,7 @@ export type ProjectCountOutputType = {
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  pins?: boolean | ProjectCountOutputTypeCountPinsArgs
   tasks?: boolean | ProjectCountOutputTypeCountTasksArgs
   attendance?: boolean | ProjectCountOutputTypeCountAttendanceArgs
   stockMovements?: boolean | ProjectCountOutputTypeCountStockMovementsArgs
@@ -7638,6 +8267,13 @@ export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
    * Select specific fields to fetch from the ProjectCountOutputType
    */
   select?: Prisma.ProjectCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountPinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectPinWhereInput
 }
 
 /**
@@ -7853,6 +8489,8 @@ export type ProjectCountOutputTypeCountSiteReportsArgs<ExtArgs extends runtime.T
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  serialNo?: boolean
+  number?: boolean
   title?: boolean
   firmName?: boolean
   status?: boolean
@@ -7866,6 +8504,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   siteLat?: boolean
   siteLng?: boolean
   siteRadiusM?: boolean
+  pins?: boolean | Prisma.Project$pinsArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
   attendance?: boolean | Prisma.Project$attendanceArgs<ExtArgs>
@@ -7902,6 +8541,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  serialNo?: boolean
+  number?: boolean
   title?: boolean
   firmName?: boolean
   status?: boolean
@@ -7920,6 +8561,8 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 
 export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  serialNo?: boolean
+  number?: boolean
   title?: boolean
   firmName?: boolean
   status?: boolean
@@ -7938,6 +8581,8 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 
 export type ProjectSelectScalar = {
   id?: boolean
+  serialNo?: boolean
+  number?: boolean
   title?: boolean
   firmName?: boolean
   status?: boolean
@@ -7953,8 +8598,9 @@ export type ProjectSelectScalar = {
   siteRadiusM?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "firmName" | "status" | "ownerId" | "createdAt" | "updatedAt" | "startDate" | "endDate" | "projectCost" | "advanceOverride" | "siteLat" | "siteLng" | "siteRadiusM", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "serialNo" | "number" | "title" | "firmName" | "status" | "ownerId" | "createdAt" | "updatedAt" | "startDate" | "endDate" | "projectCost" | "advanceOverride" | "siteLat" | "siteLng" | "siteRadiusM", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  pins?: boolean | Prisma.Project$pinsArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
   attendance?: boolean | Prisma.Project$attendanceArgs<ExtArgs>
@@ -7998,6 +8644,7 @@ export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Project"
   objects: {
+    pins: Prisma.$ProjectPinPayload<ExtArgs>[]
     owner: Prisma.$UserPayload<ExtArgs>
     tasks: Prisma.$TaskPayload<ExtArgs>[]
     attendance: Prisma.$AttendancePayload<ExtArgs>[]
@@ -8032,6 +8679,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    serialNo: number
+    number: string | null
     title: string
     firmName: string | null
     status: $Enums.ProjectStatus
@@ -8439,6 +9088,7 @@ readonly fields: ProjectFieldRefs;
  */
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  pins<T extends Prisma.Project$pinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$pinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tasks<T extends Prisma.Project$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendance<T extends Prisma.Project$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -8500,6 +9150,8 @@ export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface ProjectFieldRefs {
   readonly id: Prisma.FieldRef<"Project", 'String'>
+  readonly serialNo: Prisma.FieldRef<"Project", 'Int'>
+  readonly number: Prisma.FieldRef<"Project", 'String'>
   readonly title: Prisma.FieldRef<"Project", 'String'>
   readonly firmName: Prisma.FieldRef<"Project", 'String'>
   readonly status: Prisma.FieldRef<"Project", 'ProjectStatus'>
@@ -8911,6 +9563,30 @@ export type ProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Projects to delete.
    */
   limit?: number
+}
+
+/**
+ * Project.pins
+ */
+export type Project$pinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectPin
+   */
+  select?: Prisma.ProjectPinSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectPin
+   */
+  omit?: Prisma.ProjectPinOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectPinInclude<ExtArgs> | null
+  where?: Prisma.ProjectPinWhereInput
+  orderBy?: Prisma.ProjectPinOrderByWithRelationInput | Prisma.ProjectPinOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectPinWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectPinScalarFieldEnum | Prisma.ProjectPinScalarFieldEnum[]
 }
 
 /**

@@ -50,7 +50,7 @@ export async function spendByProject(projectIds: string[]): Promise<Map<string, 
         prisma.contractorPayment.groupBy({ by: ["projectId", "contractorName"], where: live, _sum: { amount: true } }),
         prisma.labourBill.groupBy({ by: ["projectId", "contractorName"], where: live, _sum: { amount: true }, _count: { _all: true } }),
         purchaseTotalsByProject(projectIds), // the Materials tab's own totals (archived materials and deliveries left out)
-        prisma.expense.groupBy({ by: ["projectId"], where: { ...where, category: "general" }, _sum: { amount: true } }),
+        prisma.expense.groupBy({ by: ["projectId"], where: { ...where, category: "general", archivedAt: null }, _sum: { amount: true } }),
         equipmentSpendByProject(projectIds),
     ]);
 

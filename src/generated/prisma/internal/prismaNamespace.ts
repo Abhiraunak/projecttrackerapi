@@ -448,7 +448,8 @@ export const ModelName = {
   SiteReportTeam: 'SiteReportTeam',
   SiteReportArrival: 'SiteReportArrival',
   SiteReportPhoto: 'SiteReportPhoto',
-  LabourQuote: 'LabourQuote'
+  LabourQuote: 'LabourQuote',
+  ProjectPin: 'ProjectPin'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -464,7 +465,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourProgress" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "labourBill" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote"
+    modelProps: "user" | "refreshToken" | "passwordReset" | "project" | "task" | "attendance" | "attendanceWorker" | "labourTeamMember" | "labourProgress" | "labourMeasure" | "labourWeek" | "drawing" | "drawingShare" | "pushSubscription" | "material" | "vendor" | "stockMovement" | "materialPurchase" | "materialTopUp" | "materialDelivery" | "materialEstimate" | "materialEstimateLine" | "boqItem" | "boqItemMaterial" | "materialRecipe" | "materialRecipeLine" | "materialOrder" | "stockAlert" | "materialRequest" | "auditLog" | "boq" | "projectClient" | "paymentInstalment" | "paymentProof" | "projectDelay" | "notification" | "staffPunch" | "delivery" | "deliveryLine" | "deliveryPhoto" | "equipment" | "equipmentHireChange" | "equipmentMove" | "expense" | "contractorPayment" | "labourBill" | "materialPayment" | "siteReport" | "siteReportTeam" | "siteReportArrival" | "siteReportPhoto" | "labourQuote" | "projectPin"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4316,6 +4317,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProjectPin: {
+      payload: Prisma.$ProjectPinPayload<ExtArgs>
+      fields: Prisma.ProjectPinFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProjectPinFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProjectPinFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>
+        }
+        findFirst: {
+          args: Prisma.ProjectPinFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProjectPinFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>
+        }
+        findMany: {
+          args: Prisma.ProjectPinFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>[]
+        }
+        create: {
+          args: Prisma.ProjectPinCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>
+        }
+        createMany: {
+          args: Prisma.ProjectPinCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProjectPinCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>[]
+        }
+        delete: {
+          args: Prisma.ProjectPinDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>
+        }
+        update: {
+          args: Prisma.ProjectPinUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProjectPinDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProjectPinUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProjectPinUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProjectPinUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProjectPinPayload>
+        }
+        aggregate: {
+          args: Prisma.ProjectPinAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProjectPin>
+        }
+        groupBy: {
+          args: Prisma.ProjectPinGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectPinGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProjectPinCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProjectPinCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -4404,6 +4479,8 @@ export type PasswordResetScalarFieldEnum = (typeof PasswordResetScalarFieldEnum)
 
 export const ProjectScalarFieldEnum = {
   id: 'id',
+  serialNo: 'serialNo',
+  number: 'number',
   title: 'title',
   firmName: 'firmName',
   status: 'status',
@@ -5116,6 +5193,7 @@ export const ExpenseScalarFieldEnum = {
   billVersion: 'billVersion',
   billFormat: 'billFormat',
   addedById: 'addedById',
+  archivedAt: 'archivedAt',
   createdAt: 'createdAt'
 } as const
 
@@ -5154,6 +5232,9 @@ export const LabourBillScalarFieldEnum = {
   amount: 'amount',
   note: 'note',
   addedBy: 'addedBy',
+  fileId: 'fileId',
+  fileVersion: 'fileVersion',
+  fileFormat: 'fileFormat',
   archivedAt: 'archivedAt',
   createdAt: 'createdAt'
 } as const
@@ -5264,6 +5345,15 @@ export const LabourQuoteScalarFieldEnum = {
 } as const
 
 export type LabourQuoteScalarFieldEnum = (typeof LabourQuoteScalarFieldEnum)[keyof typeof LabourQuoteScalarFieldEnum]
+
+
+export const ProjectPinScalarFieldEnum = {
+  userId: 'userId',
+  projectId: 'projectId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectPinScalarFieldEnum = (typeof ProjectPinScalarFieldEnum)[keyof typeof ProjectPinScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -5809,6 +5899,7 @@ export type GlobalOmitConfig = {
   siteReportArrival?: Prisma.SiteReportArrivalOmit
   siteReportPhoto?: Prisma.SiteReportPhotoOmit
   labourQuote?: Prisma.LabourQuoteOmit
+  projectPin?: Prisma.ProjectPinOmit
 }
 
 /* Types for Logging */

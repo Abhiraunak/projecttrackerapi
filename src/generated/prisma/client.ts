@@ -318,3 +318,8 @@ export type SiteReportPhoto = Prisma.SiteReportPhotoModel
  * A subcontractor's quote for a work item, in the Labour tab's Rate comparison (quote only until they are paid)
  */
 export type LabourQuote = Prisma.LabourQuoteModel
+/**
+ * Model ProjectPin
+ * A project pinned to the top of one person's dashboard (each person has their own pins)
+ */
+export type ProjectPin = Prisma.ProjectPinModel

@@ -102,7 +102,8 @@ export const ModelName = {
   SiteReportTeam: 'SiteReportTeam',
   SiteReportArrival: 'SiteReportArrival',
   SiteReportPhoto: 'SiteReportPhoto',
-  LabourQuote: 'LabourQuote'
+  LabourQuote: 'LabourQuote',
+  ProjectPin: 'ProjectPin'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -170,6 +171,8 @@ export type PasswordResetScalarFieldEnum = (typeof PasswordResetScalarFieldEnum)
 
 export const ProjectScalarFieldEnum = {
   id: 'id',
+  serialNo: 'serialNo',
+  number: 'number',
   title: 'title',
   firmName: 'firmName',
   status: 'status',
@@ -882,6 +885,7 @@ export const ExpenseScalarFieldEnum = {
   billVersion: 'billVersion',
   billFormat: 'billFormat',
   addedById: 'addedById',
+  archivedAt: 'archivedAt',
   createdAt: 'createdAt'
 } as const
 
@@ -920,6 +924,9 @@ export const LabourBillScalarFieldEnum = {
   amount: 'amount',
   note: 'note',
   addedBy: 'addedBy',
+  fileId: 'fileId',
+  fileVersion: 'fileVersion',
+  fileFormat: 'fileFormat',
   archivedAt: 'archivedAt',
   createdAt: 'createdAt'
 } as const
@@ -1030,6 +1037,15 @@ export const LabourQuoteScalarFieldEnum = {
 } as const
 
 export type LabourQuoteScalarFieldEnum = (typeof LabourQuoteScalarFieldEnum)[keyof typeof LabourQuoteScalarFieldEnum]
+
+
+export const ProjectPinScalarFieldEnum = {
+  userId: 'userId',
+  projectId: 'projectId',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectPinScalarFieldEnum = (typeof ProjectPinScalarFieldEnum)[keyof typeof ProjectPinScalarFieldEnum]
 
 
 export const SortOrder = {
