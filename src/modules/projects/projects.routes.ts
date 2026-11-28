@@ -36,6 +36,9 @@ router.use(requireAuth);
 router.use(announceAfter((req) => req.path.split("/")[1] || null));
 
 router.get("/", c.list);
+// Pin a project to the top of your own dashboard, or take the pin off
+router.post("/:id/pin", c.pin);
+router.delete("/:id/pin", c.unpin);
 router.post("/", validate(createProjectSchema), c.create);
 // What the project has spent: labour, materials, general (the Overview and the Expenditure tab)
 router.get("/:id/spend", async (req: WithId, res) => {

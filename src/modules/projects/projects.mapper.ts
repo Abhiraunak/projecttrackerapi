@@ -35,8 +35,13 @@ export const taskDto = (t: Task) => ({
   endDate: day(t.endDate),
 });
 
+/** The project number as people see it: the admin's own number, or PT-001 from the running serial */
+export const numberOf = (p: { serialNo: number; number: string | null }) => p.number ?? `PT-${String(p.serialNo).padStart(3, "0")}`;
+
 export const projectDto = (p: ProjectWithTasks) => ({
   id: p.id,
+  number: numberOf(p),
+  customNumber: p.number !== null, // true when an admin set it
   title: p.title,
   firmName: p.firmName,
   projectCost: p.projectCost?.toNumber() ?? null,
@@ -51,7 +56,7 @@ export const projectDto = (p: ProjectWithTasks) => ({
 /** Lightweight shape for the project cards; `spend` from spendByProject (none yet means zero) */
 const own = (d: Date | null | undefined) => (d ? d.toISOString().slice(0, 10) : null);
 
-export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, spend?: ProjectSpend) {
+export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number } }, spend?: ProjectSpend, pinned = false) {
   const tasks = p.tasks.map(taskDto);
   const budget = tasks.reduce((s, t) => s + t.stipulated, 0);
   const progress =
@@ -66,6 +71,9 @@ export function summaryDto(p: ProjectWithTasks & { _count?: { attendance: number
 
   return {
     id: p.id,
+    number: numberOf(p), // PT-001, or the admin's own number
+    pinned, // pinned to the top of this person's dashboard
+    customNumber: p.number !== null, // an admin set it
     title: p.title,
     firmName: p.firmName,
     projectCost: p.projectCost?.toNumber() ?? null,

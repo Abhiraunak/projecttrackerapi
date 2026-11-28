@@ -4,7 +4,7 @@ import { HttpError } from "../../lib/error.js";
 import { toDate } from "../../lib/dates.js";
 import { recordAudit } from "../audit/audit.service.js";
 import { getUserAccess, requireCan, requirePermission } from "../../lib/projectAccess.js";
-import { projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
+import { numberOf, projectDto, summaryDto, taskDto, taskData } from "./projects.mapper.js";
 import { spendByProject } from "./spend.service.js";
 import {
   statusEnum,
@@ -28,9 +28,29 @@ export async function list(req: Request, res: Response) {
     take: 100,
   });
   const ids = projects.map((p) => p.id);
-  // Total spend for each tile: the same sum as the project's Overview
-  const spend = await spendByProject(ids);
-  res.json({ projects: projects.map((p) => summaryDto(p, spend.get(p.id))) });
+  // Total spend for each tile: the same sum as the project's Overview; and this person's pins
+  const [spend, pins] = await Promise.all([
+    spendByProject(ids),
+    prisma.projectPin.findMany({ where: { userId: uid(req), projectId: { in: ids } }, select: { projectId: true } }),
+  ]);
+  const pinned = new Set(pins.map((x) => x.projectId));
+  // Pinned projects first; otherwise the order stays (latest change first)
+  const sorted = [...projects].sort((a, b) => Number(pinned.has(b.id)) - Number(pinned.has(a.id)));
+  res.json({ projects: sorted.map((p) => summaryDto(p, spend.get(p.id), pinned.has(p.id))) });
+}
+
+/** POST /projects/:id/pin and DELETE …/pin: pin a project to the top of this person's own dashboard */
+export async function pin(req: Request<{ id: string }>, res: Response) {
+  await requireCan(uid(req), "project.view");
+  const { id } = req.params;
+  if (!(await prisma.project.findUnique({ where: { id }, select: { id: true } }))) throw new HttpError(404, "That project is no longer there.");
+  await prisma.projectPin.upsert({ where: { userId_projectId: { userId: uid(req), projectId: id } }, create: { userId: uid(req), projectId: id }, update: {} });
+  res.json({ ok: true, pinned: true });
+}
+export async function unpin(req: Request<{ id: string }>, res: Response) {
+  await requireCan(uid(req), "project.view");
+  await prisma.projectPin.deleteMany({ where: { userId: uid(req), projectId: req.params.id } });
+  res.json({ ok: true, pinned: false });
 }
 
 export async function create(req: Request<unknown, unknown, CreateBody>, res: Response) {
@@ -84,13 +104,36 @@ export async function patchProject(req: Request<{ id: string }, unknown, PatchPr
   await requirePermission(uid(req), id, "project.manage");
 
   // The dates come as "2026-11-05"; the database needs real dates (null clears them, left out keeps them)
-  const { startDate, endDate, ...rest } = req.body;
+  const { startDate, endDate, number, ...rest } = req.body;
+
+  // The project number: only an admin may change it, and two projects can't share one
+  let numberData: { number: string | null } | Record<string, never> = {};
+  if (number !== undefined) {
+    const access = await getUserAccess(uid(req));
+    if (!access.isAdmin) throw new HttpError(403, "Only an admin can change the project number.");
+    const current = await prisma.project.findUnique({ where: { id }, select: { serialNo: true, number: true } });
+    if (!current) throw new HttpError(404, "That project is no longer there.");
+    const wanted = (number ?? "").trim().toUpperCase();
+    const automatic = `PT-${String(current.serialNo).padStart(3, "0")}`;
+    const value = wanted === "" || wanted === automatic ? null : wanted; // empty or its own PT-00N: back to automatic
+    if (value) {
+      // Taken by another project's own number, or matches another project's automatic PT-00N
+      const auto = /^PT-0*(\d+)$/.exec(value);
+      const clash = await prisma.project.findFirst({
+        where: { id: { not: id }, OR: [{ number: value }, ...(auto ? [{ number: null, serialNo: Number(auto[1]) }] : [])] },
+        select: { title: true },
+      });
+      if (clash) throw new HttpError(409, `${value} is already used by ${clash.title}.`);
+    }
+    numberData = { number: value };
+  }
   const data = {
     ...rest,
+    ...numberData,
     ...(startDate !== undefined && { startDate: startDate ? toDate(startDate) : null }),
     ...(endDate !== undefined && { endDate: endDate ? toDate(endDate) : null }),
   };
-  const before = await prisma.project.findUnique({ where: { id }, select: { title: true, firmName: true, projectCost: true, status: true } });
+  const before = await prisma.project.findUnique({ where: { id }, select: { title: true, firmName: true, projectCost: true, status: true, serialNo: true, number: true } });
   const project = await prisma.project.update({ where: { id }, data, include: withTasks });
 
   // Into the activity log (Recent activity for admins): what changed, in words
@@ -102,6 +145,7 @@ export async function patchProject(req: Request<{ id: string }, unknown, PatchPr
     said.push(`cost ${inr(before?.projectCost)} → ${inr(rest.projectCost)}`);
   if (rest.status !== undefined && rest.status !== before?.status) said.push(`status to ${rest.status.toLowerCase()}`);
   if (startDate !== undefined || endDate !== undefined) said.push("dates");
+  if ("number" in numberData && before && numberData.number !== before.number) said.push(`project number to ${numberOf(project)}`);
   if (said.length > 0) {
     await recordAudit(prisma, { projectId: id, actorId: uid(req), action: "project.updated", entityType: "project", entityId: id, summary: `Changed ${said.join(", ")}` }).catch(() => { });
   }

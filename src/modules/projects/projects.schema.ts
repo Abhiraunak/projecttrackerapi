@@ -46,6 +46,14 @@ export const patchProjectSchema = z.object({
     .object({
       title: title.optional(),
       firmName: firmName.optional(),
+      // The project number (admins only): letters, numbers, - / and spaces; empty goes back to the automatic PT-00N
+      number: z
+        .string()
+        .trim()
+        .max(30, "Keep the project number under 30 letters.")
+        .regex(/^[A-Za-z0-9\-/ ]*$/, "Use only letters, numbers, - and /.")
+        .nullable()
+        .optional(),
       projectCost: z.coerce.number().pipe(amount).nullable().optional(), // a number sent as text ("5000000") is fine too
       status: statusEnum.optional(),
       // The project's own dates; null clears them (then the work items' dates are used)

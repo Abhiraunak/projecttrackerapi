@@ -6,7 +6,7 @@ import { logger } from "../../config/logger.js";
 import { spendByProject } from "./spend.service.js";
 import { equipmentHeadline } from "../equipment/equipment.service.js";
 import { dayKeyIn, dayRange } from "../punches/punch.calc.js";
-import { taskDto } from "./projects.mapper.js";
+import { numberOf, taskDto } from "./projects.mapper.js";
 import { labourFigures, moneyFigures, overallProgress, rateFigures, scheduleFigures } from "./hub.calc.js";
 
 const num = (v: { toNumber(): number } | null | undefined) => v?.toNumber() ?? 0;
@@ -33,7 +33,7 @@ export async function projectHub(userId: string, projectId: string) {
 
   const project = await prisma.project.findUnique({
     where: { id: projectId },
-    select: { id: true, title: true, firmName: true, status: true, projectCost: true, startDate: true, endDate: true, updatedAt: true, tasks: { orderBy: { position: "asc" } } },
+    select: { id: true, serialNo: true, number: true, title: true, firmName: true, status: true, projectCost: true, startDate: true, endDate: true, updatedAt: true, tasks: { orderBy: { position: "asc" } } },
   });
   if (!project) throw new HttpError(404, "Project not found");
 
@@ -82,6 +82,8 @@ export async function projectHub(userId: string, projectId: string) {
       id: project.id,
       title: project.title,
       firmName: project.firmName,
+      number: numberOf(project), // PT-001, or the admin's own number
+      customNumber: project.number !== null,
       status: project.status,
       updatedAt: project.updatedAt,
       startDate: own.start, // set on Edit project; null = from the work items
